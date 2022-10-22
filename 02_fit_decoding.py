@@ -168,6 +168,7 @@ def fit_decoding(
     r['seed'].append(args.seed)
     df = pd.DataFrame.from_dict(r).set_index('feats')
     df.to_pickle(fname_save)
+    pkl.dump(m, open('coef_' + fname_save, 'wb'))
     return df
 
 
