@@ -8,8 +8,8 @@ repo_dir = dirname(dirname(os.path.abspath(__file__)))
 
 PARAMS_COUPLED_DICT = {
     ('save_dir', 'subsample_frac'): [
-        ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct20', -1),
-        # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/subsamp_oct20', 0.1),
+        ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct21', -1),
+        # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/subsamp_oct21', 0.1),
     ],
 }
 
@@ -22,25 +22,40 @@ PARAMS_SHARED_DICT = {
 
     # things to vary
     'dset': [
-        'rotten_tomatoes', 'sst2',
+        'rotten_tomatoes', 'moral_stories', 'sst2',
         'tweet_eval', 'emotion',
-        'trec', 'go_emotions', 'moral_stories',
+        'go_emotions', 'trec', 
     ],
     'model': [
-        'roberta-large', 'roberta-10__ndel=4fmri',
-        'bert-base-uncased', 'bert-10__ndel=4fmri',
-        'glove__ndel=4fmri', 'glovevecs',
+        'roberta-10__ndel=4fmri',
+        'bert-10__ndel=4fmri',
+        'glove__ndel=4fmri',
+
+        'roberta-large', 
+        'bert-base-uncased',
+        'glovevecs',
         # 'eng1000__ndel=4fmri',
         # 'eng1000vecs', 'bowvecs',
     ],
+    'perc_threshold_fmri': [0.98, 0.99, 0.95],
 }
 
 ks_final, param_combos_final = submit_utils.combine_param_dicts(
     PARAMS_SHARED_DICT, PARAMS_COUPLED_DICT)
+
+idx_model = ks_final.index('model')
+idx_perc_threshold_fmri = ks_final.index('perc_threshold_fmri')
+
+# force idx_perc_threshold to 0.98 (default) unless it is an fmri model
+param_combos_final = [
+    p for p in param_combos_final
+    if p[idx_model].endswith('fmri') or p[idx_perc_threshold_fmri] == 0.98
+]
+
 submit_utils.run_dicts(
     ks_final, param_combos_final,
     script_name='02_fit_decoding.py',
-    actually_run=True,
+    actually_run=False,
     shuffle=True,
     reverse=False,
 )

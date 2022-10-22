@@ -210,31 +210,31 @@ def fit_decoding(
 
     # fit model
     logging.info('Fitting logistic...')
-
-    m = LogisticRegressionCV(random_state=args.seed, cv=3)
+    
     if args.subsample_frac is None or args.subsample_frac < 0:
         feats_train, feats_drop, y_train, y_drop = train_test_split(
             feats_train, y_train, test_size=frac_train_to_drop, random_state=args.seed)
-    m.fit(feats_train, y_train)
 
-    # cv = StratifiedKFold(n_splits=3, shuffle=True, random_state=args.seed)
+    # m = LogisticRegressionCV(random_state=args.seed, cv=3)
     # m = LogisticRegressionCV(random_state=args.seed, refit=True, cv=cv) # with refit, should get better performance but no variance
-    # param_grid = {'C': np.logspace(-4, 4, 10)}
-    # logistic = LogisticRegression(random_state=args.seed)
-
-    # we should do this eventually to get the best performance
-    # m = GridSearchCV(logistic, param_grid, refit=False, cv=cv)
     # m.fit(feats_train, y_train)
+
+    cv = StratifiedKFold(n_splits=3, shuffle=True, random_state=args.seed)    
+    param_grid = {'C': np.logspace(-4, 4, 10)}
+    logistic = LogisticRegression(random_state=args.seed)
+    m = GridSearchCV(logistic, param_grid, refit=True, cv=cv)
+    m.fit(feats_train, y_train)
 
     # save stuff
     acc = m.score(feats_test, y_test)
     logging.info(f'acc {acc:0.2f}')
     r['dset'].append(args.dset)
     r['feats'].append(model)
+    r['acc_cv'].append(m.best_score_)
     r['acc'].append(acc)
     # r['roc_auc'].append(metrics.roc_auc_score(y_test, m.predict(feats_test)))
     r['feats_dim'].append(feats_train.shape[1])
-    r['coef_'].append(deepcopy(m))
+    # r['coef_'].append(deepcopy(m))
     r['seed'].append(args.seed)
     df = pd.DataFrame.from_dict(r).set_index('feats')
     df.to_pickle(fname_save)
