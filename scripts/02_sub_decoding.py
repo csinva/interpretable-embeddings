@@ -27,6 +27,7 @@ PARAMS_SHARED_DICT = {
         'trec', 'go_emotions', 'moral_stories',
     ],
     'model': [
+        'roberta-large', 'roberta-10__ndel=4fmri',
         'bert-base-uncased', 'bert-10__ndel=4fmri',
         'glove__ndel=4fmri', 'glovevecs',
         # 'eng1000__ndel=4fmri',

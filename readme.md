@@ -8,6 +8,7 @@ Code accompanying data release of natural language listening data from 5 fMRI se
 - need to set appropriate paths in encoding/feature_space.py
 - download data with `python 00_load_dataset.py`
     - This function will create a `data` dir if it does not exist and will use [datalad](https://github.com/datalad/datalad) to download the preprocessed data as well as feature spaces needed for fitting [semantic encoding models](https://www.nature.com/articles/nature17637). It will download ~20gb of data. 
+- for fitting glove need to download glove embeddings with `00_glove_prepare.py`
 
 # model fitting
 - `python 01_fit_encoding.py --subject UTS03 --feature eng1000`

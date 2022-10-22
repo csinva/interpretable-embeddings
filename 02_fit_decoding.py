@@ -109,17 +109,20 @@ def get_word_vecs(X: List[str], model='eng1000') -> np.ndarray:
 
 def get_ngram_vecs(X: List[str], model='bert-3') -> np.ndarray:
     if model.lower().startswith('bert-'):
-        pipe = pipeline("feature-extraction",
-                        model='bert-base-uncased',
-                        truncation=True,
-                        device=0)
-        ngram_size = int(model.split('-')[1].split('__')[0])
+        checkpoint = 'bert-base-uncased'
+    elif model.lower().startswith('roberta'):
+        checkpoint = 'roberta-large'
+    pipe = pipeline("feature-extraction",
+                    model=checkpoint,
+                    truncation=True,
+                    device=0)
+    ngram_size = int(model.split('-')[1].split('__')[0])
     return feature_spaces.get_embs_from_text(
         X, embedding_function=pipe, ngram_size=ngram_size)
 
 
 def get_embs_fmri(X: List[str], model, save_dir_fmri, perc_threshold=98) -> np.ndarray:
-    if model.lower().startswith('bert-'):
+    if model.lower().startswith('bert-') or model.lower().startswith('roberta'):
         feats = get_ngram_vecs(X, model=model)
     else:
         feats = get_word_vecs(X, model=model)
