@@ -19,78 +19,8 @@ import pickle as pkl
 from sklearn import metrics
 from copy import deepcopy
 import sys
-
+import data
 from tqdm import tqdm
-
-
-def get_dsets(dataset: str, seed: int = 1, subsample_frac: float = None):
-
-    # select subsets
-    def get_dset():
-        return datasets.load_dataset(dataset)
-    if dataset == 'tweet_eval':
-        def get_dset():
-            return datasets.load_dataset('tweet_eval', 'hate')
-    elif dataset == 'moral_stories':
-        def get_dset():
-            return datasets.load_dataset(
-                'demelin/moral_stories', 'cls-action+norm-minimal_pairs')
-
-    # default keys
-    dataset_key_text = 'text'
-    dataset_key_label = 'label'
-    val_dset_key = 'validation'
-
-    # changes
-    if dataset == 'sst2':
-        dataset_key_text = 'sentence'
-    elif dataset == 'poem_sentiment':
-        dataset_key_text = 'verse_text'
-    elif dataset == 'trec':
-        dataset_key_label = 'coarse_label'  # 'label-coarse'
-        val_dset_key = 'test'
-    elif dataset == 'go_emotions':
-        dataset_key_label = 'labels'
-
-    dset = get_dset()['train']
-    if subsample_frac is not None and subsample_frac > 0:
-        rng = np.random.default_rng(seed=seed)
-        dset = dset.select(
-            rng.choice(len(dset),
-                       size=int(len(dset) * subsample_frac),
-                       replace=False)
-        )
-
-    def remove_multilabel(X: List[str], y: List[List]):
-        idxs = np.array(pd.Series(y).apply(len) == 1)
-        X = np.array(X)[idxs].tolist()
-        y = np.array([yy[0] for yy in y])[idxs].tolist()
-        return X, y
-
-    def get_X(d, dataset_key_text, dataset):
-        if not dataset == 'moral_stories':
-            return d[dataset_key_text]
-        if dataset == 'moral_stories':
-            text = np.vstack((d['immoral_action'], d['moral_action'])).T
-            texts = []
-            idxs = np.array(d['label']).astype(int)
-            for i, idx in enumerate(tqdm(idxs)):
-                texts.append(d['norm'][i] + ' ' + text[i, idx])
-        return texts
-
-    X = get_X(dset, dataset_key_text, dataset)
-    y = dset[dataset_key_label]
-
-    dset_test = get_dset()[val_dset_key]
-    # dset_test = dset_test.select(np.random.choice(len(dset_test), size=300, replace=False))
-    X_test = get_X(dset_test, dataset_key_text, dataset)
-    y_test = dset_test[dataset_key_label]
-
-    if dataset == 'go_emotions':
-        X, y = remove_multilabel(X, y)
-        X_test, y_test = remove_multilabel(X_test, y_test)
-
-    return X, y, X_test, y_test
 
 
 def get_word_vecs(X: List[str], model='eng1000') -> np.ndarray:
@@ -210,7 +140,7 @@ def fit_decoding(
 
     # fit model
     logging.info('Fitting logistic...')
-    
+
     if args.subsample_frac is None or args.subsample_frac < 0:
         feats_train, feats_drop, y_train, y_drop = train_test_split(
             feats_train, y_train, test_size=frac_train_to_drop, random_state=args.seed)
@@ -219,7 +149,7 @@ def fit_decoding(
     # m = LogisticRegressionCV(random_state=args.seed, refit=True, cv=cv) # with refit, should get better performance but no variance
     # m.fit(feats_train, y_train)
 
-    cv = StratifiedKFold(n_splits=3, shuffle=True, random_state=args.seed)    
+    cv = StratifiedKFold(n_splits=3, shuffle=True, random_state=args.seed)
     param_grid = {'C': np.logspace(-4, 4, 10)}
     logistic = LogisticRegression(random_state=args.seed)
     m = GridSearchCV(logistic, param_grid, refit=True, cv=cv)
@@ -241,7 +171,7 @@ def fit_decoding(
     return df
 
 
-if __name__ == '__main__':
+def get_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("--subject", type=str, default='UTS03')
     parser.add_argument('--seed', type=int, default=1)
@@ -249,9 +179,9 @@ if __name__ == '__main__':
     parser.add_argument("--save_dir", type=str, default='/home/chansingh/.tmp')
     parser.add_argument('--model', type=str, default='glovevecs',
                         help='Which model to extract features with. \
-                            Ending in fmri uses model finetuned on fMRI. \
-                            Ending in vecs uses a word-vector model. \
-                            Otherwise uses HF checkpoint.')  # glovevecs, bert-10__ndel=4fmri, bert-base-uncased
+                                Ending in fmri uses model finetuned on fMRI. \
+                                Ending in vecs uses a word-vector model. \
+                                Otherwise uses HF checkpoint.')  # glovevecs, bert-10__ndel=4fmri, bert-base-uncased
     parser.add_argument('--dset', type=str, default='rotten_tomatoes',
                         choices=['trec', 'emotion', 'rotten_tomatoes', 'tweet_eval',
                                  'sst2', 'go_emotions', 'poem_sentiment', 'moral_stories'])
@@ -260,6 +190,11 @@ if __name__ == '__main__':
                         default=None, help='fraction of data to use for training. If none or negative, use all the data')
     parser.add_argument('--use_cache', type=int,
                         default=True, help='whether to use cache')
+    return parser
+
+
+if __name__ == '__main__':
+    parser = get_parser()
     args = parser.parse_args()
 
     # set up logging
@@ -278,7 +213,7 @@ if __name__ == '__main__':
         sys.exit(0)
 
     # get data
-    X_train, y_train, X_test, y_test = get_dsets(
+    X_train, y_train, X_test, y_test = data.get_dsets(
         args.dset, seed=args.seed, subsample_frac=args.subsample_frac)
 
     # fit decoding
