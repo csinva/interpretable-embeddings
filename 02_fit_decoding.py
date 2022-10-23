@@ -158,17 +158,26 @@ def fit_decoding(
     # save stuff
     acc = m.score(feats_test, y_test)
     logging.info(f'acc {acc:0.2f}')
-    r['dset'].append(args.dset)
-    r['feats'].append(model)
+    args_dict = vars(args)
+    for arg in args_dict:
+        r[arg].append(args_dict[arg])
+
+    # r['dset'].append(args.dset)
+    # r['feats'].append(model)
+    # r['seed'].append(args.seed)
+    # r['perc_threshold_fmri'].append(args.perc_threshold_fmri)
+    # r['subject'].append(args.subject)
+    # r['subsample_frac'].append(args.subsample_frac)
     r['acc_cv'].append(m.best_score_)
     r['acc'].append(acc)
     # r['roc_auc'].append(metrics.roc_auc_score(y_test, m.predict(feats_test)))
     r['feats_dim'].append(feats_train.shape[1])
     # r['coef_'].append(deepcopy(m))
-    r['seed'].append(args.seed)
-    df = pd.DataFrame.from_dict(r).set_index('feats')
+
+    df = pd.DataFrame.from_dict(r).set_index('model')
     df.to_pickle(fname_save)
-    pkl.dump(m, open('coef_' + fname_save, 'wb'))
+    fname_head_tail = os.path.split(fname_save)
+    pkl.dump(m, open(join(fname_head_tail[0], 'coef_' + fname_head_tail[1]), 'wb'))
     return df
 
 
