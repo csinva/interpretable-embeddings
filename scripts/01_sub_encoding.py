@@ -21,6 +21,7 @@ PARAMS_SHARED_DICT = {
     # things to vary
     'ndelays': [4],
     'feature': [
+        'bert-sst2-10',
         'roberta-10', 'bert-10',
         'eng1000', 'glove',
         'bert-3', 'bert-5', 'bert-20'

@@ -66,9 +66,9 @@ def get_embs_from_text(text_list: List[str], embedding_function, ngram_size: int
     embedding_function
         ngram -> fixed size vector
 
-	Returns
-	-------
-	embs: np.ndarray (len(text_list), embedding_size)
+        Returns
+        -------
+        embs: np.ndarray (len(text_list), embedding_size)
     """
     # get list of inputs
     ngrams_list = []
@@ -239,6 +239,7 @@ def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5):
             embs, ds.split_inds, ds.data_times, ds.tr_times).data
     return downsample_word_vectors(allstories, vectors, wordseqs)
 
+
 ############################################
 ########## Feature Space Creation ##########
 ############################################
@@ -248,15 +249,16 @@ _FEATURE_CONFIG = {
     "wordrate": get_wordrate_vectors,
     "eng1000": get_eng1000_vectors,
     'glove': get_glove_vectors,
-    'bert-3': partial(get_llm_vectors, ngram_size=3),
-    'bert-5': partial(get_llm_vectors, ngram_size=5),
-    'bert-10': partial(get_llm_vectors, ngram_size=10),
-    'bert-20': partial(get_llm_vectors, ngram_size=20),
-    'roberta-3': partial(get_llm_vectors, ngram_size=3, model='roberta-large'),
-    'roberta-5': partial(get_llm_vectors, ngram_size=5, model='roberta-large'),
-    'roberta-10': partial(get_llm_vectors, ngram_size=10, model='roberta-large'),
-    'roberta-20': partial(get_llm_vectors, ngram_size=20, model='roberta-large'),
 }
+_FEATURE_CHECKPOINTS = {
+    'bert': 'bert-base-uncased',
+    'roberta': 'roberta-large',
+    'bert-sst2': 'textattack/bert-base-uncased-SST-2',
+}
+for ngram_size in [3, 5, 10, 20]:
+    for k in _FEATURE_CHECKPOINTS:
+        _FEATURE_CONFIG[f'{k}-{ngram_size}'] = partial(get_llm_vectors,
+                                              ngram_size=ngram_size, model=_FEATURE_CHECKPOINTS[k])
 
 
 def get_feature_space(feature, *args):
