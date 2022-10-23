@@ -38,6 +38,8 @@ def get_word_vecs(X: List[str], model='eng1000') -> np.ndarray:
 
 
 def get_ngram_vecs(X: List[str], model='bert-3') -> np.ndarray:
+    if model.lower().startswith('bert-sst2'):
+        checkpoint = feature_spaces._FEATURE_CHECKPOINTS['bert-sst2']
     if model.lower().startswith('bert-'):
         checkpoint = 'bert-base-uncased'
     elif model.lower().startswith('roberta'):
@@ -46,7 +48,7 @@ def get_ngram_vecs(X: List[str], model='bert-3') -> np.ndarray:
                     model=checkpoint,
                     truncation=True,
                     device=0)
-    ngram_size = int(model.split('-')[1].split('__')[0])
+    ngram_size = int(model.split('-')[-1].split('__')[0])
     return feature_spaces.get_embs_from_text(
         X, embedding_function=pipe, ngram_size=ngram_size)
 
