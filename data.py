@@ -35,6 +35,10 @@ def get_dsets(dataset: str, seed: int = 1, subsample_frac: float = None):
         def get_dset():
             return datasets.load_dataset(
                 'demelin/moral_stories', 'cls-action+norm-minimal_pairs')
+    elif dataset.startswith('ethics-'):
+        # ['commonsense', 'deontology', 'justice', 'utilitarianism', 'virtue']:
+        def get_dset():
+            return datasets.load_dataset('metaeval/ethics', dataset.replace('ethics-', ''))
 
     # default keys
     dataset_key_text = 'text'

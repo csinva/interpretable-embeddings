@@ -179,7 +179,8 @@ def fit_decoding(
     df = pd.DataFrame.from_dict(r).set_index('model')
     df.to_pickle(fname_save)
     fname_head_tail = os.path.split(fname_save)
-    pkl.dump(m, open(join(fname_head_tail[0], 'coef_' + fname_head_tail[1]), 'wb'))
+    pkl.dump(
+        m, open(join(fname_head_tail[0], 'coef_' + fname_head_tail[1]), 'wb'))
     return df
 
 
@@ -195,8 +196,11 @@ def get_parser():
                                 Ending in vecs uses a word-vector model. \
                                 Otherwise uses HF checkpoint.')  # glovevecs, bert-10__ndel=4fmri, bert-base-uncased
     parser.add_argument('--dset', type=str, default='rotten_tomatoes',
-                        choices=['trec', 'emotion', 'rotten_tomatoes', 'tweet_eval',
-                                 'sst2', 'go_emotions', 'poem_sentiment', 'moral_stories'])
+                        choices=[
+                            'trec', 'emotion', 'rotten_tomatoes', 'tweet_eval',
+                            'sst2', 'go_emotions', 'poem_sentiment', 'moral_stories',
+                            'ethics-commonsense', 'ethics-deontology', 'ethics-justice', 'ethics-utilitarianism', 'ethics-virtue',
+                        ])
     # could also support more tweet dsets (currently only hate), imdb, ...
     parser.add_argument('--subsample_frac', type=float,
                         default=None, help='fraction of data to use for training. If none or negative, use all the data')
@@ -218,7 +222,7 @@ if __name__ == '__main__':
 
     # check for caching
     fname_save = join(
-        args.save_dir, f'{args.dset}_{args.model}_perc={args.perc_threshold_fmri}_seed={args.seed}.pkl')
+        args.save_dir, f'{args.dset.replace("/", "-")}_{args.model}_perc={args.perc_threshold_fmri}_seed={args.seed}.pkl')
     if os.path.exists(fname_save) and args.use_cache:
         logging.info('\nAlready ran ' + fname_save + '!')
         logging.info('Skipping :)!\n')
