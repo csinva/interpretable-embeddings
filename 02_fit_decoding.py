@@ -187,7 +187,7 @@ def get_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("--subject", type=str, default='UTS03')
     parser.add_argument('--seed', type=int, default=1)
-    parser.add_argument('--perc_threshold_fmri', type=float, default=98)
+    parser.add_argument('--perc_threshold_fmri', type=int, default=0)
     parser.add_argument("--save_dir", type=str, default='/home/chansingh/.tmp')
     parser.add_argument('--model', type=str, default='glovevecs',
                         help='Which model to extract features with. \
@@ -218,7 +218,7 @@ if __name__ == '__main__':
 
     # check for caching
     fname_save = join(
-        args.save_dir, f'{args.dset}_{args.model}_seed={args.seed}.pkl')
+        args.save_dir, f'{args.dset}_{args.model}_perc={args.perc_threshold_fmri}_seed={args.seed}.pkl')
     if os.path.exists(fname_save) and args.use_cache:
         logging.info('\nAlready ran ' + fname_save + '!')
         logging.info('Skipping :)!\n')

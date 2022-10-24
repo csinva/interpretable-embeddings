@@ -8,7 +8,7 @@ repo_dir = dirname(dirname(os.path.abspath(__file__)))
 
 PARAMS_COUPLED_DICT = {
     ('save_dir', 'subsample_frac'): [
-        ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct24', -1),
+        ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct25', -1),
         # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/subsamp_oct22', 0.1),
     ],
 }
@@ -18,8 +18,8 @@ PARAMS_COUPLED_DICT = {
 ##########################################
 PARAMS_SHARED_DICT = {
     # things to average over
-    'seed': [1, 2, 3],
-    'perc_threshold_fmri': [0, 50, 75, 90, 95, 98, 99], # [0, 100]
+    'seed': [1], #, 2, 3],
+    'perc_threshold_fmri': [99, 0, 50, 98, 75, 95, 90], # [0, 100]
 
     # things to vary
     'dset': [
@@ -28,13 +28,15 @@ PARAMS_SHARED_DICT = {
         'go_emotions', 'trec', 
     ],
     'model': [
-        'bert-sst2-10__ndel=4fmri',
-        # 'roberta-10__ndel=4fmri',
         'bert-10__ndel=4fmri',
-        'glove__ndel=4fmri',
-
-        # 'roberta-large', 
         'bert-base-uncased',
+        
+
+        'bert-sst2-10__ndel=4fmri',
+
+        # 'roberta-10__ndel=4fmri',
+        # 'roberta-large',         
+        'glove__ndel=4fmri',
         'glovevecs',
         # 'eng1000__ndel=4fmri',
         # 'eng1000vecs', 'bowvecs',
@@ -47,10 +49,10 @@ ks_final, param_combos_final = submit_utils.combine_param_dicts(
 idx_model = ks_final.index('model')
 idx_perc_threshold_fmri = ks_final.index('perc_threshold_fmri')
 
-# force idx_perc_threshold to 0.98 (default) unless it is an fmri model
+# force idx_perc_threshold to 0 (default) unless it is an fmri model
 param_combos_final = [
     p for p in param_combos_final
-    if p[idx_model].endswith('fmri') or p[idx_perc_threshold_fmri] == 0.98
+    if p[idx_model].endswith('fmri') or p[idx_perc_threshold_fmri] == 0
 ]
 
 submit_utils.run_dicts(
