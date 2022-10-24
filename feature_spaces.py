@@ -10,6 +10,7 @@ from typing import Dict, List
 from tqdm import tqdm
 from ridge_utils.interpdata import lanczosinterp2D
 from ridge_utils.SemanticModel import SemanticModel
+from transformers.pipelines.pt_utils import KeyDataset
 from ridge_utils.dsutils import apply_model_to_words, make_word_ds, make_phoneme_ds
 from ridge_utils.stimulus_utils import load_textgrids, load_simulated_trfiles
 from transformers import pipeline
@@ -76,17 +77,24 @@ def get_embs_from_text(text_list: List[str], embedding_function, ngram_size: int
         l = max(0, i - ngram_size)
         ngram = ' '.join(text_list[l: i + 1])
         ngrams_list.append(ngram)
+    # ngrams_list = ngrams_list[:100]
+    text = datasets.Dataset.from_dict({'text': ngrams_list})
 
     # get embeddings
+    """
     def get_emb(x):
         return {'emb': embedding_function(x['text'])}
-    text = datasets.Dataset.from_dict({'text': ngrams_list})
     out_list = text.map(get_emb)['emb']  # embedding_function(text)
-    # out_list = embedding_function(KeyDataset(text, "text"))
-    # out_list is (batch_size, 1, (seq_len + 2), 768) -- BERT adds initial / final tokens
+    """
+    
+    out_list = []
+    for out in tqdm(embedding_function(KeyDataset(text, "text")),
+                    total=len(text)):  # , truncation="only_first"):
+        out_list.append(out)
 
     # convert to np array by averaging over len (can't just convert this since seq lens vary)
     # embs = np.array(out).squeeze().mean(axis=1)
+    # out_list is (batch_size, 1, (seq_len + 2), 768) -- BERT adds initial / final tokens    
     num_ngrams = len(out_list)
     dim_size = len(out_list[0][0][0])
     embs = np.zeros((num_ngrams, dim_size))
@@ -258,7 +266,7 @@ _FEATURE_CHECKPOINTS = {
 for ngram_size in [3, 5, 10, 20]:
     for k in _FEATURE_CHECKPOINTS:
         _FEATURE_CONFIG[f'{k}-{ngram_size}'] = partial(get_llm_vectors,
-                                              ngram_size=ngram_size, model=_FEATURE_CHECKPOINTS[k])
+                                                       ngram_size=ngram_size, model=_FEATURE_CHECKPOINTS[k])
 
 
 def get_feature_space(feature, *args):

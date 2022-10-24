@@ -86,7 +86,10 @@ def get_bow_vecs(X: List[str], X_test: List[str]):
 
 
 def get_hf_embs(X: List[str], X_test: List[str], model: str):
-    pipe = pipeline("feature-extraction", model=model, device=0)
+    pipe = pipeline("feature-extraction",
+                    model=model,
+                    truncation=True,
+                    device=0)
 
     def get_llm_embs(examples: List[str]):
         def get_emb(x):
@@ -200,6 +203,10 @@ def get_parser():
                             'trec', 'emotion', 'rotten_tomatoes', 'tweet_eval',
                             'sst2', 'go_emotions', 'poem_sentiment', 'moral_stories',
                             'ethics-commonsense', 'ethics-deontology', 'ethics-justice', 'ethics-utilitarianism', 'ethics-virtue',
+                            'probing-subj_number', 'probing-word_content', 'probing-obj_number',
+                            'probing-past_present', 'probing-sentence_length', 'probing-top_constituents',
+                            'probing-tree_depth', 'probing-coordination_inversion', 'probing-odd_man_out',
+                            'probing-bigram_shift',
                         ])
     # could also support more tweet dsets (currently only hate), imdb, ...
     parser.add_argument('--subsample_frac', type=float,

@@ -39,6 +39,12 @@ def get_dsets(dataset: str, seed: int = 1, subsample_frac: float = None):
         # ['commonsense', 'deontology', 'justice', 'utilitarianism', 'virtue']:
         def get_dset():
             return datasets.load_dataset('metaeval/ethics', dataset.replace('ethics-', ''))
+        
+    elif dataset.startswith('probing-'):
+        # ['subj_number', 'word_content', 'obj_number', 'past_present', 'sentence_length',
+        # 'top_constituents', 'tree_depth', 'coordination_inversion', 'odd_man_out', 'bigram_shift']
+        def get_dset():
+            return datasets.load_dataset('metaeval/linguisticprobing', dataset.replace('probing-', '')) 
 
     # default keys
     dataset_key_text = 'text'
@@ -55,6 +61,8 @@ def get_dsets(dataset: str, seed: int = 1, subsample_frac: float = None):
         val_dset_key = 'test'
     elif dataset == 'go_emotions':
         dataset_key_label = 'labels'
+    elif dataset.startswith('probing-'):
+        dataset_key_text = 'sentence'
 
     dset = get_dset()['train']
     if subsample_frac is not None and subsample_frac > 0:

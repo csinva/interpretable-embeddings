@@ -17,14 +17,15 @@ PARAMS_COUPLED_DICT = {
 ##########################################
 PARAMS_SHARED_DICT = {
     # things to average over
-    'seed': [1], #, 2, 3],
+    'seed': [1],  # , 2, 3],
     'perc_threshold_fmri': [0],
 
     # things to vary
     'dset': [
-        'rotten_tomatoes', 'moral_stories', 'sst2',
-        'tweet_eval', 'emotion',
-        'go_emotions', # 'trec', 
+        'probing-subj_number', 'probing-word_content', 'probing-obj_number',
+        'probing-past_present', 'probing-sentence_length', 'probing-top_constituents',
+        'probing-tree_depth', 'probing-coordination_inversion', 'probing-odd_man_out',
+        'probing-bigram_shift',
     ],
     'model': [
         'bert-10__ndel=4fmri',
@@ -48,6 +49,6 @@ submit_utils.run_dicts(
     ks_final, param_combos_final,
     script_name='02_fit_decoding.py',
     actually_run=True,
-    shuffle=True,
+    shuffle=False,
     reverse=False,
 )
