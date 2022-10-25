@@ -1,5 +1,16 @@
-datalad # note: pip-installing didn't work, had to do sudo apt-get install datalad
+# for download data initially
+# datalad # note: pip-installing didn't work, had to do sudo apt-get install datalad
+
+# actual reqs
 pathlib
 h5py
 tables
 numpy
+pandas
+torch
+transformers[torch]
+datasets
+scikit-learn
+
+# basic
+tqdm

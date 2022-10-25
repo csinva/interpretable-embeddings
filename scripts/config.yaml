@@ -1,0 +1,43 @@
+description: fmri
+environment:
+  image: pytorch/pytorch:1.7.1-cuda11.0-cudnn8-devel
+  setup:
+    - pip install -r requirements.txt --user
+
+code:
+  local_dir: $CONFIG_DIR/..
+
+# use amlt ti to view these
+target:
+  service: amlk8s
+  name: itplabrr1cl1
+  vc: resrchvc
+  # vc: hai2
+
+storage:
+  output:
+    storage_account_name: chansingh
+    container_name: cs1
+    mount_dir: /mnt/output # dir on the local machine
+
+jobs:
+- name: probing
+  sku: G1
+  command:
+  - python scripts/03_sub_probing.py --start 0 --end 10
+- name: probing2
+  sku: G1
+  command:
+  - python scripts/03_sub_probing.py --start 10 --end 20
+# - name: suffix_anli
+  # sku: G16
+  # command:
+  # - python scripts/suffix_anli.py --dummy
+# - name: single_query_math
+#   sku: G16
+#   command:
+#   - python scripts/single_query_math.py --dummy
+# - name: suffix_math
+#   sku: G16
+#   command:
+#   - python scripts/suffix_math.py --dummy

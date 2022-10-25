@@ -6,6 +6,7 @@ from os.path import dirname
 from os.path import join as oj
 import sys
 import random
+import argparse
 
 repo_dir = dirname(dirname(os.path.abspath(__file__)))
 
@@ -46,6 +47,21 @@ def run_dicts(
         shuffle: bool=False,
         reverse: bool=False,
     ):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--start', type=int, default=None)
+    parser.add_argument('--end', type=int, default=None)
+    args = parser.parse_args()
+    if args.start is not None or args.end is not None:
+        print(vars(args))
+        if args.start is not None:
+            start = args.start
+        else:
+            start = 0
+        if args.end is not None:
+            end = args.end
+        else:
+            end = len(param_combos_final)
+        param_combos_final = param_combos_final[start:end]
     if shuffle:
         random.shuffle(param_combos_final)
     if reverse:

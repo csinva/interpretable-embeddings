@@ -6,6 +6,7 @@ import submit_utils
 repo_dir = dirname(dirname(os.path.abspath(__file__)))
 # python /home/chansingh/emb-gam/experimental/fmri/02_fit_decoding.py
 
+
 PARAMS_COUPLED_DICT = {
     ('save_dir', 'subsample_frac'): [
         ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/probing_oct25', -1),
@@ -48,7 +49,8 @@ param_combos_final = [
 submit_utils.run_dicts(
     ks_final, param_combos_final,
     script_name='02_fit_decoding.py',
-    actually_run=True,
+    actually_run=False,
     shuffle=False,
     reverse=False,
 )
+print('num combos', len(param_combos_final))
