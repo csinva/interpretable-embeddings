@@ -85,20 +85,23 @@ def get_bow_vecs(X: List[str], X_test: List[str]):
     return trans(X).todense(), trans(X_test).todense()
 
 
-def get_hf_embs(X: List[str], X_test: List[str], model: str):
+def get_hf_embs(X: List[str], X_test: List[str], checkpoint: str):
     pipe = pipeline("feature-extraction",
-                    model=model,
+                    model=checkpoint,
                     truncation=True,
                     device=0)
 
-    def get_llm_embs(examples: List[str]):
+    def get_llm_embs(examples: List[str]) -> np.ndarray:
+        """Get LLM embeddings for each example
+        (Fixed-size embedding by averagin over seq_len)
+        """
         def get_emb(x):
             return {'emb': pipe(x['text'])}
         text = datasets.Dataset.from_dict({'text': examples})
         out_list = text.map(get_emb)['emb']
         # out_list is (batch_size, 1, (seq_len + 2), 768)
 
-        # convert to np array by averaging over len (can't just convert this since seq lens vary)
+        # convert to np array by averaging over len (can't just convert the since seq lens vary)
         num_examples = len(out_list)
         dim_size = len(out_list[0][0][0])
         embs = np.zeros((num_examples, dim_size))
@@ -106,23 +109,26 @@ def get_hf_embs(X: List[str], X_test: List[str], model: str):
             embs[i] = np.mean(out_list[i], axis=1)  # avg over seq_len dim
         return embs
 
-    logging.info('Training embs...')
+    logging.info('Training embs HF...')
     feats_train = get_llm_embs(X)
-    logging.info('Testing embs...')
+    logging.info('Testing embs HF...')
     feats_test = get_llm_embs(X_test)
     return feats_train, feats_test
 
 
-def get_feats(model: str, X: List[str], X_test: List[str], args):
+def get_feats(model: str, X: List[str], X_test: List[str],
+              subject_fmri: str = 'UTS03', perc_threshold_fmri: int = 0, args=None):
     logging.info('Extracting features for ' + model)
     mod = model.replace('fmri', '').replace('vecs', '')
     if model.endswith('fmri'):
         save_dir_fmri = join(
-            results_dir, 'encoding', mod, args.subject)
+            results_dir, 'encoding', mod, subject_fmri)
+        logging.info('Training embs fmri...')
         feats_train = get_embs_fmri(
-            X, mod, save_dir_fmri, perc_threshold=args.perc_threshold_fmri)
+            X, mod, save_dir_fmri, perc_threshold=perc_threshold_fmri)
+        logging.info('Testing embs fmri...')
         feats_test = get_embs_fmri(
-            X_test, mod, save_dir_fmri, perc_threshold=args.perc_threshold_fmri)
+            X_test, mod, save_dir_fmri, perc_threshold=perc_threshold_fmri)
     elif model.endswith('vecs'):
         assert mod in ['bow', 'eng1000', 'glove']
         if mod == 'bow':
@@ -131,7 +137,7 @@ def get_feats(model: str, X: List[str], X_test: List[str], args):
             feats_train = get_word_vecs(X, model=mod)
             feats_test = get_word_vecs(X_test, model=mod)
     else:  # HF checkpoint
-        feats_train, feats_test = get_hf_embs(X, X_test, model=mod)
+        feats_train, feats_test = get_hf_embs(X, X_test, checkpoint=mod)
     return feats_train, feats_test
 
 
@@ -242,7 +248,9 @@ if __name__ == '__main__':
 
     # fit decoding
     os.makedirs(args.save_dir, exist_ok=True)
-    feats_train, feats_test = get_feats(args.model, X_train, X_test, args)
+    feats_train, feats_test = get_feats(
+        args.model, X_train, X_test,
+        subject_fmri=args.subject, perc_threshold_fmri=args.perc_threshold_fmri, args=args)
     fit_decoding(feats_train, y_train,
                  feats_test, y_test, fname_save, args)
     logging.info('Succesfully completed!')

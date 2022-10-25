@@ -14,6 +14,8 @@ from transformers.pipelines.pt_utils import KeyDataset
 from ridge_utils.dsutils import apply_model_to_words, make_word_ds, make_phoneme_ds
 from ridge_utils.stimulus_utils import load_textgrids, load_simulated_trfiles
 from transformers import pipeline
+import logging
+
 
 # join(dirname(dirname(os.path.abspath(__file__))))
 repo_dir = '/home/chansingh/mntv1/deep-fMRI'
@@ -81,24 +83,26 @@ def get_embs_from_text(text_list: List[str], embedding_function, ngram_size: int
     text = datasets.Dataset.from_dict({'text': ngrams_list})
 
     # get embeddings
+    """
     def get_emb(x):
         return {'emb': embedding_function(x['text'])}
     out_list = text.map(get_emb)['emb']  # embedding_function(text)
+    """
     
-    """ # This allows for parallelization when passing batch_size, but sometimes throws "Killed" error
+    # This allows for parallelization when passing batch_size, but sometimes throws "Killed" error
     out_list = []
     for out in tqdm(embedding_function(KeyDataset(text, "text")),
                     total=len(text)):  # , truncation="only_first"):
         out_list.append(out)
-    """
 
     # convert to np array by averaging over len (can't just convert this since seq lens vary)
     # embs = np.array(out).squeeze().mean(axis=1)
     # out_list is (batch_size, 1, (seq_len + 2), 768) -- BERT adds initial / final tokens    
+    logging.info('\tPostprocessing embs...')
     num_ngrams = len(out_list)
     dim_size = len(out_list[0][0][0])
     embs = np.zeros((num_ngrams, dim_size))
-    for i in range(num_ngrams):
+    for i in tqdm(range(num_ngrams)):
         embs[i] = np.mean(out_list[i], axis=1)  # avg over seq_len dim
     return embs
 
