@@ -21,6 +21,7 @@ from copy import deepcopy
 import sys
 import data
 from tqdm import tqdm
+from sklearn import preprocessing
 
 
 def get_word_vecs(X: List[str], model='eng1000') -> np.ndarray:
@@ -216,12 +217,26 @@ def get_parser():
                             'probing-tree_depth', 'probing-coordination_inversion', 'probing-odd_man_out',
                             'probing-bigram_shift',
                         ])
+    parser.add_argument('--use_normalization', type=int, default=0,
+                        help='whether to normalize embeddings before fitting')
+    parser.add_argument('--nonlinearity', type=str, default=None,
+                        help='pointwise nonlinearity for features')
     # could also support more tweet dsets (currently only hate), imdb, ...
     parser.add_argument('--subsample_frac', type=float,
                         default=None, help='fraction of data to use for training. If none or negative, use all the data')
     parser.add_argument('--use_cache', type=int,
                         default=True, help='whether to use cache')
     return parser
+
+
+def apply_pointwise_nonlinearity(feats_train, feats_test, nonlinearity='sigmoid'):
+    if nonlinearity is None:
+        return feats_train, feats_test
+    elif nonlinearity == 'sigmoid':
+        def f(x): return 1 / (1 + np.exp(-x))
+        return f(feats_train), f(feats_test)
+    elif nonlinearity == 'relu':
+        return np.clip(feats_train, a_min=0, a_max=None), np.clip(feats_test, a_min=0, a_max=None)
 
 
 if __name__ == '__main__':
@@ -252,6 +267,13 @@ if __name__ == '__main__':
     feats_train, feats_test = get_feats(
         args.model, X_train, X_test,
         subject_fmri=args.subject, perc_threshold_fmri=args.perc_threshold_fmri, args=args)
+    if args.nonlinearity:
+        feats_train, feats_test = apply_pointwise_nonlinearity(
+            feats_train, feats_test, nonlinearity=args.nonlinearity)
+    if args.use_normalization:
+        scaler = preprocessing.StandardScaler().fit(feats_train)
+        feats_train = scaler.transform(feats_train)
+        feats_test = scaler.transform(feats_test)
     fit_decoding(feats_train, y_train,
                  feats_test, y_test, fname_save, args)
-    logging.info('Succesfully completed!')
+    logging.info('Succesfully completed! saved to', fname_save)
