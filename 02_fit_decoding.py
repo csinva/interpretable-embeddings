@@ -72,10 +72,11 @@ def get_embs_fmri(X: List[str], model, save_dir_fmri, perc_threshold=98) -> np.n
     embs = feats @ weights.T
 
     # subselect repr
-    perc = np.percentile(corrs_val, perc_threshold)
-    idxs = (corrs_val > perc)
-    # print('emb dim', idxs.sum(), 'val corr cutoff', perc)
-    embs = embs[:, idxs]
+    if perc_threshold >= 0:
+        perc = np.percentile(corrs_val, perc_threshold)
+        idxs = (corrs_val > perc)
+        # print('emb dim', idxs.sum(), 'val corr cutoff', perc)
+        embs = embs[:, idxs]
 
     return embs
 

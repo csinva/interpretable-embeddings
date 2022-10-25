@@ -88,7 +88,7 @@ def get_embs_from_text(text_list: List[str], embedding_function, ngram_size: int
         return {'emb': embedding_function(x['text'])}
     out_list = text.map(get_emb)['emb']  # embedding_function(text)
     """
-    
+
     # This allows for parallelization when passing batch_size, but sometimes throws "Killed" error
     out_list = []
     for out in tqdm(embedding_function(KeyDataset(text, "text")),
@@ -97,7 +97,7 @@ def get_embs_from_text(text_list: List[str], embedding_function, ngram_size: int
 
     # convert to np array by averaging over len (can't just convert this since seq lens vary)
     # embs = np.array(out).squeeze().mean(axis=1)
-    # out_list is (batch_size, 1, (seq_len + 2), 768) -- BERT adds initial / final tokens    
+    # out_list is (batch_size, 1, (seq_len + 2), 768) -- BERT adds initial / final tokens
     logging.info('\tPostprocessing embs...')
     num_ngrams = len(out_list)
     dim_size = len(out_list[0][0][0])
@@ -120,10 +120,12 @@ def ph_to_articulate(ds, ph_2_art):
     return articulate_ds
 
 
-articulates = ["bilabial", "postalveolar", "alveolar", "dental", "labiodental",
-                           "velar", "glottal", "palatal", "plosive", "affricative", "fricative",
-                           "nasal", "lateral", "approximant", "voiced", "unvoiced", "low", "mid",
-                           "high", "front", "central", "back"]
+articulates = [
+    "bilabial", "postalveolar", "alveolar", "dental", "labiodental",
+    "velar", "glottal", "palatal", "plosive", "affricative", "fricative",
+    "nasal", "lateral", "approximant", "voiced", "unvoiced", "low", "mid",
+    "high", "front", "central", "back"
+]
 
 
 def histogram_articulates(ds, data, articulateset=articulates):
