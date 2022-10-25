@@ -81,16 +81,16 @@ def get_embs_from_text(text_list: List[str], embedding_function, ngram_size: int
     text = datasets.Dataset.from_dict({'text': ngrams_list})
 
     # get embeddings
-    """
     def get_emb(x):
         return {'emb': embedding_function(x['text'])}
     out_list = text.map(get_emb)['emb']  # embedding_function(text)
-    """
     
+    """ # This allows for parallelization when passing batch_size, but sometimes throws "Killed" error
     out_list = []
     for out in tqdm(embedding_function(KeyDataset(text, "text")),
                     total=len(text)):  # , truncation="only_first"):
         out_list.append(out)
+    """
 
     # convert to np array by averaging over len (can't just convert this since seq lens vary)
     # embs = np.array(out).squeeze().mean(axis=1)
