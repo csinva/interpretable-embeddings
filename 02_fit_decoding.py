@@ -136,8 +136,9 @@ def get_feats(model: str, X: List[str], X_test: List[str], args):
 
 
 def fit_decoding(
-        model, feats_train, y_train, feats_test, y_test,
-        fname_save, args, frac_train_to_drop=0.1):
+        feats_train, y_train, feats_test, y_test,
+        fname_save, args, frac_train_to_drop=0.1
+):
     """Randomly fits to only 90% of training data
     """
     np.random.seed(args.seed)
@@ -242,6 +243,6 @@ if __name__ == '__main__':
     # fit decoding
     os.makedirs(args.save_dir, exist_ok=True)
     feats_train, feats_test = get_feats(args.model, X_train, X_test, args)
-    fit_decoding(args.model, feats_train, y_train,
+    fit_decoding(feats_train, y_train,
                  feats_test, y_test, fname_save, args)
     logging.info('Succesfully completed!')
