@@ -23,10 +23,12 @@ PARAMS_SHARED_DICT = {
 
     # things to vary
     'dset': [
-        'probing-subj_number', 'probing-word_content', 'probing-obj_number',
+        'probing-subj_number',
+        'probing-obj_number',
         'probing-past_present', 'probing-sentence_length', 'probing-top_constituents',
         'probing-tree_depth', 'probing-coordination_inversion', 'probing-odd_man_out',
         'probing-bigram_shift',
+        # 'probing-word_content', # this one has no positive examples
     ],
     'model': [
         'bert-10__ndel=4fmri',
