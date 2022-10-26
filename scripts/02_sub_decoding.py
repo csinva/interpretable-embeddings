@@ -8,7 +8,7 @@ repo_dir = dirname(dirname(os.path.abspath(__file__)))
 
 PARAMS_COUPLED_DICT = {
     ('save_dir', 'subsample_frac'): [
-        ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct25', -1),
+        ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct26_relu_and_normalization', -1),
         # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/subsamp_oct22', 0.1),
     ],
 }
@@ -23,10 +23,9 @@ PARAMS_SHARED_DICT = {
 
     # things to vary
     'dset': [
-        'rotten_tomatoes', 'moral_stories', 'sst2',
-        'tweet_eval', 'emotion',
-        'go_emotions',  # 'trec',
-        'ethics-commonsense', 'ethics-deontology', 'ethics-justice', 'ethics-utilitarianism', 'ethics-virtue'
+        'rotten_tomatoes', 'moral_stories', 'sst2', 'tweet_eval',
+        # 'emotion', 'go_emotions',  'trec',
+        # 'ethics-commonsense', 'ethics-deontology', 'ethics-justice', 'ethics-utilitarianism', 'ethics-virtue'
     ],
     'model': [
         'bert-10__ndel=4fmri',
@@ -35,11 +34,15 @@ PARAMS_SHARED_DICT = {
 
         # 'roberta-10__ndel=4fmri',
         # 'roberta-large',
-        'glove__ndel=4fmri',
-        'glovevecs',
+        # 'glove__ndel=4fmri',
+        # 'glovevecs'   ,
         # 'eng1000__ndel=4fmri',
         # 'eng1000vecs', 'bowvecs',
     ],
+    'nonlinearity': [
+        'relu',
+    ],
+    'use_normalization': [0, 1],
 }
 
 ks_final, param_combos_final = submit_utils.combine_param_dicts(

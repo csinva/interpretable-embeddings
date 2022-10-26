@@ -267,7 +267,7 @@ if __name__ == '__main__':
     feats_train, feats_test = get_feats(
         args.model, X_train, X_test,
         subject_fmri=args.subject, perc_threshold_fmri=args.perc_threshold_fmri, args=args)
-    if args.nonlinearity:
+    if args.nonlinearity in ['sigmoid', 'relu']:
         feats_train, feats_test = apply_pointwise_nonlinearity(
             feats_train, feats_test, nonlinearity=args.nonlinearity)
     if args.use_normalization:
@@ -276,4 +276,4 @@ if __name__ == '__main__':
         feats_test = scaler.transform(feats_test)
     fit_decoding(feats_train, y_train,
                  feats_test, y_test, fname_save, args)
-    logging.info('Succesfully completed! saved to', fname_save)
+    logging.info('Succesfully completed! saved to ' + fname_save)
