@@ -19,7 +19,7 @@ PARAMS_COUPLED_DICT = {
 PARAMS_SHARED_DICT = {
     # things to average over
     'seed': [1],  # , 2, 3],
-    'perc_threshold_fmri': [99, 0, 50, 90],  # [0, 100]
+    'perc_threshold_fmri': [0], #[99, 0, 50, 90],  # [0, 100]
 
     # things to vary
     'dset': [
