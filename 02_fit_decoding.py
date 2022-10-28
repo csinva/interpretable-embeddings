@@ -224,6 +224,7 @@ def get_parser():
     # could also support more tweet dsets (currently only hate), imdb, ...
     parser.add_argument('--subsample_frac', type=float,
                         default=None, help='fraction of data to use for training. If none or negative, use all the data')
+
     parser.add_argument('--use_cache', type=int,
                         default=True, help='whether to use cache')
     return parser
@@ -245,8 +246,8 @@ if __name__ == '__main__':
 
     # set up logging
     logger = logging.getLogger()
-    logging.basicConfig(level=logging.INFO)
-    # logging.basicConfig(level=logging.DEBUG)
+    # logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.DEBUG)
     for k in sorted(vars(args)):
         logger.info('\t' + k + ' ' + str(vars(args)[k]))
 
@@ -261,6 +262,7 @@ if __name__ == '__main__':
     # get data
     X_train, y_train, X_test, y_test = data.get_dsets(
         args.dset, seed=args.seed, subsample_frac=args.subsample_frac)
+    logging.debug(f'\data shape: {len(X_train)} {len(X_train[0])} {len(y_train)}')
 
     # fit decoding
     os.makedirs(args.save_dir, exist_ok=True)
