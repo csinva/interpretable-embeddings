@@ -37,8 +37,11 @@ def get_word_vecs(X: List[str], model='eng1000') -> np.ndarray:
     feats = sm.project_stims(X)
     return feats
 
-
+"""
 def get_ngram_vecs(X: List[str], model='bert-3') -> np.ndarray:
+    '''Note: this function has an error where it will concatenate
+    different *examples* instead of making them into ngrams
+    '''
     if model.lower().startswith('bert-sst2'):
         checkpoint = feature_spaces._FEATURE_CHECKPOINTS['bert-sst2']
     if model.lower().startswith('bert-'):
@@ -52,11 +55,14 @@ def get_ngram_vecs(X: List[str], model='bert-3') -> np.ndarray:
     ngram_size = int(model.split('-')[-1].split('__')[0])
     return feature_spaces.get_embs_from_text(
         X, embedding_function=pipe, ngram_size=ngram_size)
+"""
 
 
 def get_embs_fmri(X: List[str], model, save_dir_fmri, perc_threshold=98) -> np.ndarray:
     if model.lower().startswith('bert-') or model.lower().startswith('roberta'):
-        feats = get_ngram_vecs(X, model=model)
+        checkpoint = feature_spaces._FEATURE_CHECKPOINTS[model[:model.index('__')]]
+        feats = get_hf_embs(X, checkpoint)
+        # feats = get_ngram_vecs(X, model=model)
     else:
         feats = get_word_vecs(X, model=model)
     weights_npz = np.load(join(save_dir_fmri, 'weights.npz'))
@@ -87,7 +93,9 @@ def get_bow_vecs(X: List[str], X_test: List[str]):
     return trans(X).todense(), trans(X_test).todense()
 
 
-def get_hf_embs(X: List[str], X_test: List[str], checkpoint: str):
+def get_hf_embs(X: List[str], checkpoint: str): # X_test: List[str], 
+    """Return embeddings from HF model given checkpoint name
+    """
     pipe = pipeline("feature-extraction",
                     model=checkpoint,
                     truncation=True,
@@ -111,11 +119,14 @@ def get_hf_embs(X: List[str], X_test: List[str], checkpoint: str):
             embs[i] = np.mean(out_list[i], axis=1)  # avg over seq_len dim
         return embs
 
-    logging.info('Training embs HF...')
+    logging.info('extract embs HF...')
+    return get_llm_embs(X)
+    """
     feats_train = get_llm_embs(X)
     logging.info('Testing embs HF...')
     feats_test = get_llm_embs(X_test)
     return feats_train, feats_test
+    """
 
 
 def get_feats(model: str, X: List[str], X_test: List[str],
@@ -139,7 +150,8 @@ def get_feats(model: str, X: List[str], X_test: List[str],
             feats_train = get_word_vecs(X, model=mod)
             feats_test = get_word_vecs(X_test, model=mod)
     else:  # HF checkpoint
-        feats_train, feats_test = get_hf_embs(X, X_test, checkpoint=mod)
+        feats_train = get_hf_embs(X, X_test, checkpoint=mod)
+        feats_test = get_hf_embs(X_test, checkpoint=mod)
     return feats_train, feats_test
 
 

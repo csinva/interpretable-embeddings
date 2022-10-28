@@ -8,7 +8,8 @@ repo_dir = dirname(dirname(os.path.abspath(__file__)))
 
 PARAMS_COUPLED_DICT = {
     ('save_dir', 'subsample_frac'): [
-        ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct28_relu_dset_shuffled', -1),
+        ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct28_relu_fix_concat', -1),
+        # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct28_relu_dset_shuffled', -1),
         # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct26_relu_and_normalization', -1),
         # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/subsamp_oct22', 0.1),
     ],
