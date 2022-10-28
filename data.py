@@ -65,13 +65,9 @@ def get_dsets(dataset: str, seed: int = 1, subsample_frac: float = None):
         dataset_key_text = 'sentence'
 
     dset = get_dset()['train']
+    dset = dset.shuffle(seed=seed)
     if subsample_frac is not None and subsample_frac > 0:
-        rng = np.random.default_rng(seed=seed)
-        dset = dset.select(
-            rng.choice(len(dset),
-                       size=int(len(dset) * subsample_frac),
-                       replace=False)
-        )
+        dset = dset[:int(len(dset) * subsample_frac)]
 
     def remove_multilabel(X: List[str], y: List[List]):
         idxs = np.array(pd.Series(y).apply(len) == 1)

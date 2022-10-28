@@ -69,9 +69,9 @@ def get_embs_from_text(text_list: List[str], embedding_function, ngram_size: int
     embedding_function
         ngram -> fixed size vector
 
-        Returns
-        -------
-        embs: np.ndarray (len(text_list), embedding_size)
+    Returns
+    -------
+    embs: np.ndarray (len(text_list), embedding_size)
     """
     # get list of inputs
     ngrams_list = []

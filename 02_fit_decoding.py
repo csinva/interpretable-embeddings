@@ -212,10 +212,10 @@ def get_parser():
                             'trec', 'emotion', 'rotten_tomatoes', 'tweet_eval',
                             'sst2', 'go_emotions', 'poem_sentiment', 'moral_stories',
                             'ethics-commonsense', 'ethics-deontology', 'ethics-justice', 'ethics-utilitarianism', 'ethics-virtue',
-                            'probing-subj_number', 'probing-word_content', 'probing-obj_number',
+                            'probing-subj_number', 'probing-obj_number',
                             'probing-past_present', 'probing-sentence_length', 'probing-top_constituents',
                             'probing-tree_depth', 'probing-coordination_inversion', 'probing-odd_man_out',
-                            'probing-bigram_shift',
+                            'probing-bigram_shift', # 'probing-word_content', 
                         ])
     parser.add_argument('--use_normalization', type=int, default=0,
                         help='whether to normalize embeddings before fitting')
