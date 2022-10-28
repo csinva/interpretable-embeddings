@@ -46,7 +46,7 @@ submit_utils.run_dicts(
     ks_final, param_combos_final,
     script_name='02_fit_decoding.py',
     actually_run=True,
-    shuffle=False,
+    shuffle=True,
     reverse=False,
 )
 print('num combos', len(param_combos_final))

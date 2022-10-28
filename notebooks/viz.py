@@ -9,3 +9,10 @@ DSETS_RENAME = {
     'rotten_tomatoes': 'Rotten tomatoes',
     'moral_stories': 'Moral stories',
 }
+def dset_rename(x):
+    if x in DSETS_RENAME:
+        return DSETS_RENAME[x]
+    else:
+        x = x.replace('probing-', '')
+        x = x.replace('_', ' ')
+        return x.capitalize()

@@ -16,6 +16,7 @@ def load_flatmap_data(
     encoding_result_dir='/home/chansingh/mntv1/deep-fMRI/results/encoding/bert-10__ndel=4/UTS03/',
     decoding_result_dir='/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct25',
     decoding_result_fname='coef_rotten_tomatoes_bert-10__ndel=4fmri_perc=0_seed=1.pkl',
+    calc_norms=True,
 ):
     # decoding_fname = 'coef_rotten_tomatoes_bert-10__ndel=4fmri_perc=0_seed=1.pkl',
 
@@ -52,6 +53,14 @@ def load_flatmap_data(
     coefs[idxs] = coefs_learned
     coefs[~idxs] = np.nan
 
+    if not calc_norms:
+        return {
+            'encoding_weight_norms': weights,
+            'corrs_thresh': corrs_thresh,
+            'coefs': coefs,
+            'reg_params': reg_params,
+        }
+
     # load feature norms (recalculate if they don't exist)
     args = pkl.load(open(decoding_result.replace(
         'coef_', ''), 'rb')).reset_index()
@@ -61,6 +70,7 @@ def load_flatmap_data(
     norms_file = join(encoding_result_dir,
                       decoding_result_fname.replace('coef_', 'norms_'))
     print('loading', norms_file)
+
     if os.path.exists(norms_file):
         norms = pkl.load(open(norms_file, 'rb'))
     else:
@@ -108,17 +118,25 @@ def quickshow(X: np.ndarray, subject='UTS03', fname_save=None):
 
 if __name__ == '__main__':
     # decoding_result_dir = '/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct25',
-    decoding_result_dir = '/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct26_relu_and_normalization'
+    # decoding_result_dir = '/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct26_relu_and_normalization'
+    # flatmaps = load_flatmap_data(
+    #     decoding_result_dir=decoding_result_dir,
+    #     # decoding_result_fname='coef_rotten_tomatoes_bert-10__ndel=4fmri_perc=0_seed=1.pkl',
+    #     decoding_result_fname='coef_moral_stories_bert-10__ndel=4fmri_perc=0_seed=1.pkl',
+    # )
+
+    decoding_result_dir = '/home/chansingh/mntv1/deep-fMRI/results/linear_models/probing_oct25_sub_0.05'
     flatmaps = load_flatmap_data(
         decoding_result_dir=decoding_result_dir,
         # decoding_result_fname='coef_rotten_tomatoes_bert-10__ndel=4fmri_perc=0_seed=1.pkl',
-        decoding_result_fname='coef_moral_stories_bert-10__ndel=4fmri_perc=0_seed=1.pkl',
+        decoding_result_fname='coef_probing-past_present_bert-10__ndel=4fmri_perc=0_seed=1.pkl',
+        calc_norms=False,
     )
 
     dict_to_save = {
         # decoding stuff
-        '../figs/flatmaps/contributions_test.pdf': 'contributions_test',
         '../figs/flatmaps/coefs.pdf': 'coefs',
+        '../figs/flatmaps/contributions_test.pdf': 'contributions_test',
         # '../figs/flatmaps/contributions_train.pdf': 'contributions_train',
 
         # # encoding stuff
