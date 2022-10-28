@@ -8,7 +8,7 @@ from sklearn.model_selection import StratifiedKFold, GridSearchCV, train_test_sp
 from transformers import pipeline
 from ridge_utils.SemanticModel import SemanticModel
 from matplotlib import pyplot as plt
-from typing import List
+from typing import List, Tuple
 from sklearn.linear_model import RidgeCV, LogisticRegressionCV, LogisticRegression
 from sklearn.feature_extraction.text import CountVectorizer
 from feature_spaces import em_data_dir, data_dir, results_dir, nlp_utils_dir
@@ -37,31 +37,43 @@ def get_word_vecs(X: List[str], model='eng1000') -> np.ndarray:
     feats = sm.project_stims(X)
     return feats
 
-"""
-def get_ngram_vecs(X: List[str], model='bert-3') -> np.ndarray:
-    '''Note: this function has an error where it will concatenate
-    different *examples* instead of making them into ngrams
-    '''
-    if model.lower().startswith('bert-sst2'):
-        checkpoint = feature_spaces._FEATURE_CHECKPOINTS['bert-sst2']
-    if model.lower().startswith('bert-'):
-        checkpoint = 'bert-base-uncased'
-    elif model.lower().startswith('roberta'):
-        checkpoint = 'roberta-large'
+def get_bow_vecs(X: List[str], X_test: List[str]):
+    trans = CountVectorizer().fit(X).transform
+    return trans(X).todense(), trans(X_test).todense()
+
+
+def get_hf_embs(X: List[str], checkpoint: str): # X_test: List[str], 
+    """Return embeddings from HF model given checkpoint name
+    (Fixed-size embedding by averaging over seq_len)
+    """
     pipe = pipeline("feature-extraction",
                     model=checkpoint,
                     truncation=True,
                     device=0)
-    ngram_size = int(model.split('-')[-1].split('__')[0])
-    return feature_spaces.get_embs_from_text(
-        X, embedding_function=pipe, ngram_size=ngram_size)
-"""
+
+    def get_emb(x):
+        return {'emb': pipe(x['text'])}
+    text = datasets.Dataset.from_dict({'text': X})
+    out_list = text.map(get_emb)['emb']
+    # out_list is (batch_size, 1, (seq_len + 2), 768)
+
+    # convert to np array by averaging over len (can't just convert the since seq lens vary)
+    num_examples = len(out_list)
+    dim_size = len(out_list[0][0][0])
+    embs = np.zeros((num_examples, dim_size))
+    logging.info('extract embs HF...')
+    for i in tqdm(range(num_examples)):
+        embs[i] = np.mean(out_list[i], axis=1)  # avg over seq_len dim
+    return embs
 
 
 def get_embs_fmri(X: List[str], model, save_dir_fmri, perc_threshold=98) -> np.ndarray:
+    """Get initial embeddings then apply learned fMRI transform
+    """
     if model.lower().startswith('bert-') or model.lower().startswith('roberta'):
         checkpoint = feature_spaces._FEATURE_CHECKPOINTS[model[:model.index('__')]]
         feats = get_hf_embs(X, checkpoint)
+        # ngram_size = int(model.split('-')[-1].split('__')[0])
         # feats = get_ngram_vecs(X, model=model)
     else:
         feats = get_word_vecs(X, model=model)
@@ -88,49 +100,11 @@ def get_embs_fmri(X: List[str], model, save_dir_fmri, perc_threshold=98) -> np.n
     return embs
 
 
-def get_bow_vecs(X: List[str], X_test: List[str]):
-    trans = CountVectorizer().fit(X).transform
-    return trans(X).todense(), trans(X_test).todense()
-
-
-def get_hf_embs(X: List[str], checkpoint: str): # X_test: List[str], 
-    """Return embeddings from HF model given checkpoint name
-    """
-    pipe = pipeline("feature-extraction",
-                    model=checkpoint,
-                    truncation=True,
-                    device=0)
-
-    def get_llm_embs(examples: List[str]) -> np.ndarray:
-        """Get LLM embeddings for each example
-        (Fixed-size embedding by averagin over seq_len)
-        """
-        def get_emb(x):
-            return {'emb': pipe(x['text'])}
-        text = datasets.Dataset.from_dict({'text': examples})
-        out_list = text.map(get_emb)['emb']
-        # out_list is (batch_size, 1, (seq_len + 2), 768)
-
-        # convert to np array by averaging over len (can't just convert the since seq lens vary)
-        num_examples = len(out_list)
-        dim_size = len(out_list[0][0][0])
-        embs = np.zeros((num_examples, dim_size))
-        for i in tqdm(range(num_examples)):
-            embs[i] = np.mean(out_list[i], axis=1)  # avg over seq_len dim
-        return embs
-
-    logging.info('extract embs HF...')
-    return get_llm_embs(X)
-    """
-    feats_train = get_llm_embs(X)
-    logging.info('Testing embs HF...')
-    feats_test = get_llm_embs(X_test)
-    return feats_train, feats_test
-    """
-
-
 def get_feats(model: str, X: List[str], X_test: List[str],
-              subject_fmri: str = 'UTS03', perc_threshold_fmri: int = 0, args=None):
+              subject_fmri: str = 'UTS03', perc_threshold_fmri: int = 0,
+              args=None) -> Tuple[np.ndarray, np.ndarray]:
+    """Return both training and testing features
+    """
     logging.info('Extracting features for ' + model)
     mod = model.replace('fmri', '').replace('vecs', '')
     if model.endswith('fmri'):
@@ -188,17 +162,10 @@ def fit_decoding(
     for arg in args_dict:
         r[arg].append(args_dict[arg])
 
-    # r['dset'].append(args.dset)
-    # r['feats'].append(model)
-    # r['seed'].append(args.seed)
-    # r['perc_threshold_fmri'].append(args.perc_threshold_fmri)
-    # r['subject'].append(args.subject)
-    # r['subsample_frac'].append(args.subsample_frac)
     r['acc_cv'].append(m.best_score_)
     r['acc'].append(acc)
     # r['roc_auc'].append(metrics.roc_auc_score(y_test, m.predict(feats_test)))
     r['feats_dim'].append(feats_train.shape[1])
-    # r['coef_'].append(deepcopy(m))
 
     df = pd.DataFrame.from_dict(r).set_index('model')
     df.to_pickle(fname_save)

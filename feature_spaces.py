@@ -257,7 +257,7 @@ def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5):
 ############################################
 ########## Feature Space Creation ##########
 ############################################
-_FEATURE_CONFIG = {
+_FEATURE_VECTOR_FUNCTIONS = {
     "articulation": get_articulation_vectors,
     "phonemerate": get_phonemerate_vectors,
     "wordrate": get_wordrate_vectors,
@@ -269,15 +269,18 @@ _FEATURE_CHECKPOINTS = {
     'roberta': 'roberta-large',
     'bert-sst2': 'textattack/bert-base-uncased-SST-2',
 }
+BASE_KEYS = list(_FEATURE_CHECKPOINTS.keys())
 for ngram_size in [3, 5, 10, 20]:
-    for k in _FEATURE_CHECKPOINTS:
-        _FEATURE_CONFIG[f'{k}-{ngram_size}'] = partial(get_llm_vectors,
-                                                       ngram_size=ngram_size, model=_FEATURE_CHECKPOINTS[k])
+    for k in BASE_KEYS:
+        _FEATURE_VECTOR_FUNCTIONS[f'{k}-{ngram_size}'] = partial(get_llm_vectors,
+                                                                 ngram_size=ngram_size, model=_FEATURE_CHECKPOINTS[k])
+        _FEATURE_CHECKPOINTS[f'{k}-{ngram_size}'] = _FEATURE_CHECKPOINTS[k]
 
 
 def get_feature_space(feature, *args):
-    return _FEATURE_CONFIG[feature](*args)
+    return _FEATURE_VECTOR_FUNCTIONS[feature](*args)
 
 
 if __name__ == '__main__':
-    feats = get_feature_space('bert-5', ['sloth'])
+    # feats = get_feature_space('bert-5', ['sloth'])
+    print('configs', _FEATURE_VECTOR_FUNCTIONS.keys())

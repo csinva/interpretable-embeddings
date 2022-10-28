@@ -12,14 +12,14 @@ import torch
 
 # from .encoding_utils import *
 import encoding_utils
-from feature_spaces import _FEATURE_CONFIG, get_feature_space, repo_dir, em_data_dir, data_dir, results_dir
+from feature_spaces import _FEATURE_VECTOR_FUNCTIONS, get_feature_space, repo_dir, em_data_dir, data_dir, results_dir
 from ridge_utils.ridge import bootstrap_ridge
 
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--subject", type=str, default='UTS03')
-	parser.add_argument("--feature", type=str, default='bert-10', choices=list(_FEATURE_CONFIG.keys()))
+	parser.add_argument("--feature", type=str, default='bert-10', choices=list(_FEATURE_VECTOR_FUNCTIONS.keys()))
 	parser.add_argument("--sessions", nargs='+', type=int, default=[1, 2, 3, 4, 5])
 	parser.add_argument("--trim", type=int, default=5)
 	parser.add_argument("--ndelays", type=int, default=4)
