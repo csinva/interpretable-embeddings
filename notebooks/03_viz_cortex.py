@@ -90,40 +90,45 @@ def load_flatmap_data(
         **norms,
     }
 
+
 def quickshow(X: np.ndarray, subject='UTS03', fname_save=None):
-        """
-        Actual visualizations
-        Note: for this to work, need to point the cortex config filestore to the `ds003020/derivative/pycortex-db` directory.
-        This might look something like `/home/chansingh/mntv1/deep-fMRI/data/ds003020/derivative/pycortex-db/UTS03/anatomicals/`
-        """
-        vol = cortex.Volume(X, 'UTS03', xfmname='UTS03_auto')
-        # , with_curvature=True, with_sulci=True)
-        cortex.quickshow(vol, with_rois=True, cmap='PuBu')
-        if fname_save is not None:
-            plt.savefig(fname_save)
-            plt.savefig(fname_save.replace('.pdf', '.png'))
-            plt.close()
+    """
+    Actual visualizations
+    Note: for this to work, need to point the cortex config filestore to the `ds003020/derivative/pycortex-db` directory.
+    This might look something like `/home/chansingh/mntv1/deep-fMRI/data/ds003020/derivative/pycortex-db/UTS03/anatomicals/`
+    """
+    vol = cortex.Volume(X, 'UTS03', xfmname='UTS03_auto')
+    # , with_curvature=True, with_sulci=True)
+    cortex.quickshow(vol, with_rois=True, cmap='PuBu')
+    if fname_save is not None:
+        plt.savefig(fname_save)
+        plt.savefig(fname_save.replace('.pdf', '.png'))
+        plt.close()
 
 
 if __name__ == '__main__':
     # decoding_result_dir = '/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct25',
     decoding_result_dir = '/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct26_relu_and_normalization'
-    flatmaps = load_flatmap_data(decoding_result_dir=decoding_result_dir)
-    
+    flatmaps = load_flatmap_data(
+        decoding_result_dir=decoding_result_dir,
+        # decoding_result_fname='coef_rotten_tomatoes_bert-10__ndel=4fmri_perc=0_seed=1.pkl',
+        decoding_result_fname='coef_moral_stories_bert-10__ndel=4fmri_perc=0_seed=1.pkl',
+    )
+
     dict_to_save = {
         # decoding stuff
         '../figs/flatmaps/contributions_test.pdf': 'contributions_test',
         '../figs/flatmaps/coefs.pdf': 'coefs',
         # '../figs/flatmaps/contributions_train.pdf': 'contributions_train',
 
-        # encoding stuff
-        '../figs/flatmaps/reg_params.pdf': 'reg_params',
-        '../figs/flatmaps/encoding_weight_norms.pdf': 'encoding_weight_norms',
-        '../figs/flatmaps/corrs.pdf': 'corrs_thresh',
+        # # encoding stuff
+        # '../figs/flatmaps/reg_params.pdf': 'reg_params',
+        # '../figs/flatmaps/encoding_weight_norms.pdf': 'encoding_weight_norms',
+        # '../figs/flatmaps/corrs.pdf': 'corrs_thresh',
 
-        # data stuff
-        '../figs/flatmaps/means_test.pdf': 'feats_test_mean',
-        '../figs/flatmaps/stds_test.pdf': 'feats_test_std',
+        # # data stuff
+        # '../figs/flatmaps/means_test.pdf': 'feats_test_mean',
+        # '../figs/flatmaps/stds_test.pdf': 'feats_test_std',
     }
 
     for k in dict_to_save:
