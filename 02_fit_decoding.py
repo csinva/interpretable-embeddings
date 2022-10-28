@@ -42,7 +42,7 @@ def get_bow_vecs(X: List[str], X_test: List[str]):
     return trans(X).todense(), trans(X_test).todense()
 
 
-def get_hf_embs(X: List[str], checkpoint: str): # X_test: List[str], 
+def get_embs_llm(X: List[str], checkpoint: str): # X_test: List[str], 
     """Return embeddings from HF model given checkpoint name
     (Fixed-size embedding by averaging over seq_len)
     """
@@ -72,7 +72,7 @@ def get_embs_fmri(X: List[str], model, save_dir_fmri, perc_threshold=98) -> np.n
     """
     if model.lower().startswith('bert-') or model.lower().startswith('roberta'):
         checkpoint = feature_spaces._FEATURE_CHECKPOINTS[model[:model.index('__')]]
-        feats = get_hf_embs(X, checkpoint)
+        feats = get_embs_llm(X, checkpoint)
         # ngram_size = int(model.split('-')[-1].split('__')[0])
         # feats = get_ngram_vecs(X, model=model)
     else:
@@ -106,26 +106,31 @@ def get_feats(model: str, X: List[str], X_test: List[str],
     """Return both training and testing features
     """
     logging.info('Extracting features for ' + model)
-    mod = model.replace('fmri', '').replace('vecs', '')
-    if model.endswith('fmri'):
-        save_dir_fmri = join(
-            results_dir, 'encoding', mod, subject_fmri)
-        logging.info('Training embs fmri...')
+    mod = model
+    for k in ['_fmri', '_vecs', '_joint', '_embs']:
+        mod = mod.replace(k, '')
+    if model.endswith('_fmri') or model.endswith('_joint'):
+        save_dir_fmri = join(results_dir, 'encoding', mod, subject_fmri)
         feats_train = get_embs_fmri(
             X, mod, save_dir_fmri, perc_threshold=perc_threshold_fmri)
-        logging.info('Testing embs fmri...')
         feats_test = get_embs_fmri(
             X_test, mod, save_dir_fmri, perc_threshold=perc_threshold_fmri)
-    elif model.endswith('vecs'):
+    elif model.endswith('_vecs'):
         assert mod in ['bow', 'eng1000', 'glove']
         if mod == 'bow':
             feats_train, feats_test = get_bow_vecs(X, X_test)
         elif mod in ['eng1000', 'glove']:
             feats_train = get_word_vecs(X, model=mod)
             feats_test = get_word_vecs(X_test, model=mod)
-    else:  # HF checkpoint
-        feats_train = get_hf_embs(X, X_test, checkpoint=mod)
-        feats_test = get_hf_embs(X_test, checkpoint=mod)
+    elif model.endswith('_embs'):  # HF checkpoint
+        feats_train = get_embs_llm(X, checkpoint=mod)
+        feats_test = get_embs_llm(X_test, checkpoint=mod)
+
+    # also append llm embs to fmri embs from above
+    if model.endswith('_joint'):
+        checkpoint = feature_spaces._FEATURE_CHECKPOINTS[mod[:mod.index('__')]]
+        feats_train = np.hstack((feats_train, get_embs_llm(X, checkpoint=checkpoint)))
+        feats_test = np.hstack((feats_test, get_embs_llm(X_test, checkpoint=checkpoint)))
     return feats_train, feats_test
 
 
@@ -183,9 +188,10 @@ def get_parser():
     parser.add_argument("--save_dir", type=str, default='/home/chansingh/.tmp')
     parser.add_argument('--model', type=str, default='glovevecs',
                         help='Which model to extract features with. \
-                                Ending in fmri uses model finetuned on fMRI. \
-                                Ending in vecs uses a word-vector model. \
-                                Otherwise uses HF checkpoint.')  # glovevecs, bert-10__ndel=4fmri, bert-base-uncased
+                                *_vecs uses a word-vector model. \
+                                *_embs uses LLM embeddings. \
+                                *_fmri uses model finetuned on fMRI. \
+                                *_joint uses fmri + hf model.')  # glovevecs, bert-10__ndel=4fmri, bert-base-uncased
     parser.add_argument('--dset', type=str, default='rotten_tomatoes',
                         choices=[
                             'trec', 'emotion', 'rotten_tomatoes', 'tweet_eval',
@@ -209,7 +215,7 @@ def get_parser():
     return parser
 
 
-def apply_pointwise_nonlinearity(feats_train, feats_test, nonlinearity='sigmoid'):
+def apply_pointwise_nonlinearity(feats_train, feats_test, nonlinearity='relu'):
     if nonlinearity is None:
         return feats_train, feats_test
     elif nonlinearity == 'sigmoid':
@@ -225,10 +231,12 @@ if __name__ == '__main__':
 
     # set up logging
     logger = logging.getLogger()
-    # logging.basicConfig(level=logging.INFO)
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
+    # logging.basicConfig(level=logging.DEBUG)
     for k in sorted(vars(args)):
         logger.info('\t' + k + ' ' + str(vars(args)[k]))
+    mod = args.model
+    assert mod.endswith('_embs') or mod.endswith('_fmri') or mod.endswith('_vecs') or mod.endswith('_joint')
 
     # check for caching
     fname_save = join(

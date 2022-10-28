@@ -8,7 +8,7 @@ repo_dir = dirname(dirname(os.path.abspath(__file__)))
 
 PARAMS_COUPLED_DICT = {
     ('save_dir', 'subsample_frac'): [
-        ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct28_relu_fix_concat', -1),
+        ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct28_compare_joint', 0.1),
         # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct28_relu_dset_shuffled', -1),
         # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct26_relu_and_normalization', -1),
         # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/subsamp_oct22', 0.1),
@@ -30,16 +30,16 @@ PARAMS_SHARED_DICT = {
         # 'ethics-commonsense', 'ethics-deontology', 'ethics-justice', 'ethics-utilitarianism', 'ethics-virtue'
     ],
     'model': [
-        'bert-10__ndel=4fmri',
-        'bert-base-uncased',
-        # 'bert-sst2-10__ndel=4fmri',
-
-        # 'roberta-10__ndel=4fmri',
-        # 'roberta-large',
-        # 'glove__ndel=4fmri',
-        # 'glovevecs'   ,
-        # 'eng1000__ndel=4fmri',
-        # 'eng1000vecs', 'bowvecs',
+        'bert-10__ndel=4_fmri',
+        'bert-base-uncased_embs',
+        'bert-10__ndel=4_joint',
+        # 'bert-sst2-10__ndel=4_fmri',
+        # 'roberta-10__ndel=4_fmri',
+        # 'roberta-large_embs',
+        # 'glove__ndel=4_fmri',
+        # 'glove_vecs'   ,
+        # 'eng1000__ndel=4_fmri',
+        # 'eng1000_vecs', 'bow_vecs',
     ],
     'nonlinearity': [
         'relu',
