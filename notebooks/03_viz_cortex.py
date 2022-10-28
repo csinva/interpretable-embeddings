@@ -31,7 +31,7 @@ def load_flatmap_data(
     weights = np.load(join(encoding_result_dir, 'weights.npz'))['arr_0']
     # pretty sure this is right, but might be switched...
     s = decoding_result_fname
-    ndelays = int(s[s.index('ndel=') + len('ndel='): s.index('fmri')])
+    ndelays = int(s[s.index('ndel=') + len('ndel='): s.index('_fmri')])
     weights = weights.reshape(ndelays, -1, corrs.size)
     weights = weights.mean(axis=0).squeeze()  # mean over delays dimension...
     weights = np.linalg.norm(weights, axis=0)
@@ -125,12 +125,13 @@ if __name__ == '__main__':
     #     decoding_result_fname='coef_moral_stories_bert-10__ndel=4fmri_perc=0_seed=1.pkl',
     # )
 
-    decoding_result_dir = '/home/chansingh/mntv1/deep-fMRI/results/linear_models/probing_oct25_sub_0.05'
+    # decoding_result_dir = '/home/chansingh/mntv1/deep-fMRI/results/linear_models/probing_oct25_sub_0.05'
+    decoding_result_dir = '/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct28_compare_joint'
     flatmaps = load_flatmap_data(
         decoding_result_dir=decoding_result_dir,
         # decoding_result_fname='coef_rotten_tomatoes_bert-10__ndel=4fmri_perc=0_seed=1.pkl',
-        decoding_result_fname='coef_probing-past_present_bert-10__ndel=4fmri_perc=0_seed=1.pkl',
-        calc_norms=False,
+        decoding_result_fname='coef_sst2_bert-10__ndel=4_fmri_perc=0_seed=1.pkl',
+        calc_norms=True,
     )
 
     dict_to_save = {

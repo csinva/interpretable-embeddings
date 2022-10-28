@@ -21,7 +21,7 @@ PARAMS_COUPLED_DICT = {
 PARAMS_SHARED_DICT = {
     # things to average over
     'seed': [1],  # , 2, 3],
-    'perc_threshold_fmri': [0], #[99, 0, 50, 90],  # [0, 100]
+    'perc_threshold_fmri': [0, 99], #[99, 0, 50, 90],  # [0, 100]
 
     # things to vary
     'dset': [
@@ -53,10 +53,12 @@ ks_final, param_combos_final = submit_utils.combine_param_dicts(
 idx_model = ks_final.index('model')
 idx_perc_threshold_fmri = ks_final.index('perc_threshold_fmri')
 
-# force idx_perc_threshold to 0 (default) unless it is an fmri model
+# force idx_perc_threshold to 0 (default) unless it is a joint model
 param_combos_final = [
     p for p in param_combos_final
-    if p[idx_model].endswith('fmri') or p[idx_perc_threshold_fmri] == 0
+    if p[idx_model].endswith('_fmri') \
+        or p[idx_model].endswith('_joint') \
+            or p[idx_perc_threshold_fmri] == 0
 ]
 
 submit_utils.run_dicts(
