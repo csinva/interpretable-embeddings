@@ -38,7 +38,10 @@ def load_flatmap_data(
 
     # find test corrs above a certain percentile
     # this is what was used to train the decoding model
-    perc_threshold = 0
+    perc_threshold = int(
+        decoding_result_fname[decoding_result_fname.index(
+            'perc=') + len('perc='):]
+        .split('_')[0])
     perc = np.percentile(corrs, perc_threshold)
     idxs = (corrs > perc)
     corrs_thresh = deepcopy(corrs)
@@ -65,10 +68,12 @@ def load_flatmap_data(
     args = pkl.load(open(decoding_result.replace(
         'coef_', ''), 'rb')).reset_index()
     args = args.iloc[0]
-    assert args.perc_threshold_fmri == 0, 'Should run this script with perc=0!'
     assert args.subject == 'UTS03', 'If changing the subject, need to change the encoding_result_dir'
     norms_file = join(encoding_result_dir,
-                      decoding_result_fname.replace('coef_', 'norms_'))
+                      decoding_result_fname
+                      .replace('coef_', 'norms_')
+                      .replace(f'perc={perc_threshold}', 'perc=0') # just save norms for everything
+                      )
     print('loading', norms_file)
 
     if os.path.exists(norms_file):
@@ -107,7 +112,7 @@ def quickshow(X: np.ndarray, subject='UTS03', fname_save=None):
     Note: for this to work, need to point the cortex config filestore to the `ds003020/derivative/pycortex-db` directory.
     This might look something like `/home/chansingh/mntv1/deep-fMRI/data/ds003020/derivative/pycortex-db/UTS03/anatomicals/`
     """
-    vol = cortex.Volume(X, 'UTS03', xfmname='UTS03_auto')
+    vol = cortex.Volume(X, subject, xfmname=f'{subject}_auto')
     # , with_curvature=True, with_sulci=True)
     cortex.quickshow(vol, with_rois=True, cmap='PuBu')
     if fname_save is not None:
@@ -130,7 +135,8 @@ if __name__ == '__main__':
     flatmaps = load_flatmap_data(
         decoding_result_dir=decoding_result_dir,
         # decoding_result_fname='coef_rotten_tomatoes_bert-10__ndel=4fmri_perc=0_seed=1.pkl',
-        decoding_result_fname='coef_sst2_bert-10__ndel=4_fmri_perc=0_seed=1.pkl',
+        # decoding_result_fname='coef_sst2_bert-10__ndel=4_fmri_perc=0_seed=1.pkl',
+        decoding_result_fname='coef_sst2_bert-10__ndel=4_fmri_perc=99_seed=1.pkl',
         calc_norms=True,
     )
 
@@ -146,7 +152,7 @@ if __name__ == '__main__':
         # '../figs/flatmaps/corrs.pdf': 'corrs_thresh',
 
         # # data stuff
-        # '../figs/flatmaps/means_test.pdf': 'feats_test_mean',
+        '../figs/flatmaps/means_test.pdf': 'feats_test_mean',
         # '../figs/flatmaps/stds_test.pdf': 'feats_test_std',
     }
 
