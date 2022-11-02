@@ -11,6 +11,7 @@ torch
 transformers[torch]
 datasets
 scikit-learn
+openai
 
 # basic
 tqdm

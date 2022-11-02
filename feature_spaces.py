@@ -61,52 +61,6 @@ def downsample_word_vectors(stories, word_vectors, wordseqs):
     return downsampled_semanticseqs
 
 
-def get_embs_from_text(text_list: List[str], embedding_function, ngram_size: int = 5) -> np.ndarray:
-    """
-
-    Params
-    ------
-    embedding_function
-        ngram -> fixed size vector
-
-    Returns
-    -------
-    embs: np.ndarray (len(text_list), embedding_size)
-    """
-    # get list of inputs
-    ngrams_list = []
-    for i in range(len(text_list)):
-        l = max(0, i - ngram_size)
-        ngram = ' '.join(text_list[l: i + 1])
-        ngrams_list.append(ngram)
-    # ngrams_list = ngrams_list[:100]
-    text = datasets.Dataset.from_dict({'text': ngrams_list})
-
-    # get embeddings
-    """
-    def get_emb(x):
-        return {'emb': embedding_function(x['text'])}
-    out_list = text.map(get_emb)['emb']  # embedding_function(text)
-    """
-
-    # This allows for parallelization when passing batch_size, but sometimes throws "Killed" error
-    out_list = []
-    for out in tqdm(embedding_function(KeyDataset(text, "text")),
-                    total=len(text)):  # , truncation="only_first"):
-        out_list.append(out)
-
-    # convert to np array by averaging over len (can't just convert this since seq lens vary)
-    # embs = np.array(out).squeeze().mean(axis=1)
-    # out_list is (batch_size, 1, (seq_len + 2), 768) -- BERT adds initial / final tokens
-    logging.info('\tPostprocessing embs...')
-    num_ngrams = len(out_list)
-    dim_size = len(out_list[0][0][0])
-    embs = np.zeros((num_ngrams, dim_size))
-    for i in tqdm(range(num_ngrams)):
-        embs[i] = np.mean(out_list[i], axis=1)  # avg over seq_len dim
-    return embs
-
-
 def ph_to_articulate(ds, ph_2_art):
     """ Following make_phoneme_ds converts the phoneme DataSequence object to an 
     articulate Datasequence for each grid.
@@ -237,18 +191,99 @@ def get_glove_vectors(allstories):
     return downsample_word_vectors(allstories, vectors, wordseqs)
 
 
-def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5):
-    """Get bert vectors
+def get_ngrams_list_from_words_list(words_list: List[str], ngram_size: int = 5) -> List[str]:
+    """Concatenate running list of words into grams
     """
-    pipe = pipeline("feature-extraction", model=model, device=0)
+    ngrams_list = []
+    for i in range(len(words_list)):
+        l = max(0, i - ngram_size)
+        ngram = ' '.join(words_list[l: i + 1])
+        ngrams_list.append(ngram)
+    return ngrams_list
+
+
+def get_embs_list_from_text_list(text_list: List[str], embedding_function) -> List[np.ndarray]:
+    """
+
+    Params
+    ------
+    embedding_function
+        ngram -> fixed size vector
+
+    Returns
+    -------
+    embs: np.ndarray (len(text_list), embedding_size)
+    """
+
+    # ngrams_list = ngrams_list[:100]
+    text = datasets.Dataset.from_dict({'text': text_list})
+
+    # get embeddings
+    def get_emb(x):
+        return {'emb': embedding_function(x['text'])}
+    embs_list = text.map(get_emb)['emb']  # embedding_function(text)
+
+
+    # This allows for parallelization when passing batch_size, but sometimes throws "Killed" error
+    """
+    embs_list = []
+    for out in tqdm(embedding_function(KeyDataset(text, "text")),
+                    total=len(text)):  # , truncation="only_first"):
+        embs_list.append(out)
+    """
+    return embs_list
+
+
+def convert_embs_list_to_np_arr(embs_list: List[np.ndarray], avg_over_seq_len=True) -> np.ndarray:
+    """Convert to np array by averaging over len
+    """
+    # Embeddings are already the same size
+    if not avg_over_seq_len:
+        embs = np.array(embs_list).squeeze().mean(axis=1)
+
+    # Can't just convert this since seq lens vary
+    # Need to avg over seq_len dim
+    else:
+        logging.info('\tPostprocessing embs...')
+        embs = np.zeros((len(embs_list), embs_list[0].shape[0]))
+        num_ngrams = len(embs_list)
+        dim_size = len(embs_list[0][0][0])
+        embs = np.zeros((num_ngrams, dim_size))
+        for i in tqdm(range(num_ngrams)):
+            # embs_list is (batch_size, 1, (seq_len + 2), 768) -- BERT adds initial / final tokens
+            embs[i] = np.mean(embs_list[i], axis=1)  # avg over seq_len dim
+    return embs
+
+
+def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5):
+    """Get llm embedding vectors
+    """
+    if model.startswith('gpt3'):
+        import openai
+        from tenacity import retry, wait_random_exponential, stop_after_attempt
+
+        @retry(wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(3))
+        def get_embedding(text: str, engine="text-similarity-davinci-001") -> List[float]:
+            text = text.replace("\n", " ")  # replace newlines
+            emb = openai.Embedding.create(input=[text], engine=engine)[
+                "data"][0]["embedding"]
+            return np.array(emb)
+        avg_over_seq_len = False
+    else:
+        get_embedding = pipeline("feature-extraction", model=model, device=0)
+        avg_over_seq_len = True
     wordseqs = get_story_wordseqs(allstories)
     vectors = {}
 
     print(f'extracting {model} embs...')
     for story in tqdm(allstories):
         ds = wordseqs[story]
-        embs = get_embs_from_text(
-            ds.data, embedding_function=pipe, ngram_size=ngram_size)
+        ngrams_list = get_ngrams_list_from_words_list(
+            ds.data, ngram_size=ngram_size)
+        embs = get_embs_list_from_text_list(
+            ngrams_list, embedding_function=get_embedding)
+        embs = convert_embs_list_to_np_arr(
+            embs, avg_over_seq_len=avg_over_seq_len)
         vectors[story] = DataSequence(
             embs, ds.split_inds, ds.data_times, ds.tr_times).data
     return downsample_word_vectors(allstories, vectors, wordseqs)
@@ -268,6 +303,7 @@ _FEATURE_CHECKPOINTS = {
     'bert': 'bert-base-uncased',
     'roberta': 'roberta-large',
     'bert-sst2': 'textattack/bert-base-uncased-SST-2',
+    'gpt3': 'gpt3',
 }
 BASE_KEYS = list(_FEATURE_CHECKPOINTS.keys())
 for ngram_size in [3, 5, 10, 20]:

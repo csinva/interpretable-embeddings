@@ -133,12 +133,14 @@ if __name__ == '__main__':
     # )
 
     # decoding_result_dir = '/home/chansingh/mntv1/deep-fMRI/results/linear_models/probing_oct25_sub_0.05'
-    decoding_result_dir = '/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct28_compare_joint'
+    # decoding_result_dir = '/home/chansingh/mntv1/deep-fMRI/results/linear_model/oct28_compare_joint'
+    decoding_result_dir = '/home/chansingh/mntv1/deep-fMRI/results/linear_models/nov1_compare_joint'
+
     flatmaps = load_flatmap_data(
         decoding_result_dir=decoding_result_dir,
         # decoding_result_fname='coef_rotten_tomatoes_bert-10__ndel=4fmri_perc=0_seed=1.pkl',
-        # decoding_result_fname='coef_sst2_bert-10__ndel=4_fmri_perc=0_seed=1.pkl',
-        decoding_result_fname='coef_sst2_bert-10__ndel=4_fmri_perc=99_seed=1.pkl',
+        decoding_result_fname='coef_sst2_bert-10__ndel=4_fmri_perc=0_seed=1.pkl',
+        # decoding_result_fname='coef_sst2_bert-10__ndel=4_fmri_perc=99_seed=1.pkl',
         calc_norms=True,
     )
 

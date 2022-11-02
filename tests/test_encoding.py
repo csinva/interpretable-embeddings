@@ -9,3 +9,4 @@ def test_encoding():
 
 if __name__ == '__main__':
     test_encoding()
+    # python 01_fit_encoding.py --save_dir ~/.tmp --ndelays 1 --feature gpt3-10 --nboots 1 --sessions 1 -story_override
