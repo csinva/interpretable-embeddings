@@ -21,6 +21,7 @@ PARAMS_SHARED_DICT = {
     # things to vary
     'ndelays': [4],
     'feature': [
+        'gpt3-10', 'gpt3-20',
         'bert-sst2-10',
         'roberta-10', 'bert-10',
         'eng1000', 'glove',
@@ -32,7 +33,7 @@ PARAMS_SHARED_DICT = {
 
     # fixed params
     # 'UTS03', 'UTS01', 'UTS02'],
-    'subject': ['UTS03', 'UTS02', 'UTS01'], #, 'UTS04', 'UTS05', 'UTS06'],
+    'subject': ['UTS03'], #, 'UTS04', 'UTS05', 'UTS06'],
 }
 
 ks_final, param_combos_final = submit_utils.combine_param_dicts(

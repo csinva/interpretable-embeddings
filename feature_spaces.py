@@ -192,7 +192,7 @@ def get_glove_vectors(allstories):
 
 
 def get_ngrams_list_from_words_list(words_list: List[str], ngram_size: int = 5) -> List[str]:
-    """Concatenate running list of words into grams
+    """Concatenate running list of words into grams with spaces in between
     """
     ngrams_list = []
     for i in range(len(words_list)):
@@ -239,7 +239,7 @@ def convert_embs_list_to_np_arr(embs_list: List[np.ndarray], avg_over_seq_len=Tr
     """
     # Embeddings are already the same size
     if not avg_over_seq_len:
-        embs = np.array(embs_list).squeeze().mean(axis=1)
+        embs = np.array(embs_list).squeeze() #.mean(axis=1)
 
     # Can't just convert this since seq lens vary
     # Need to avg over seq_len dim
