@@ -72,7 +72,8 @@ def load_flatmap_data(
     norms_file = join(encoding_result_dir,
                       decoding_result_fname
                       .replace('coef_', 'norms_')
-                      .replace(f'perc={perc_threshold}', 'perc=0') # just save norms for everything
+                      # just save norms for everything
+                      .replace(f'perc={perc_threshold}', 'perc=0')
                       )
     print('loading', norms_file)
 
@@ -85,7 +86,8 @@ def load_flatmap_data(
         feats_train, feats_test = fit_decoding.get_feats(
             args.model, X_train, X_test,
             subject_fmri=args.subject,
-            perc_threshold_fmri=-1, args=args)
+            perc_threshold_fmri=-1, args=args
+        )
 
         norms = {
             'feats_train_mean': feats_train.mean(axis=0),

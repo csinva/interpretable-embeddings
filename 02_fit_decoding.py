@@ -37,12 +37,13 @@ def get_word_vecs(X: List[str], model='eng1000') -> np.ndarray:
     feats = sm.project_stims(X)
     return feats
 
+
 def get_bow_vecs(X: List[str], X_test: List[str]):
     trans = CountVectorizer().fit(X).transform
     return trans(X).todense(), trans(X_test).todense()
 
 
-def get_embs_llm(X: List[str], checkpoint: str): # X_test: List[str], 
+def get_embs_llm(X: List[str], checkpoint: str):  # X_test: List[str],
     """Return embeddings from HF model given checkpoint name
     (Fixed-size embedding by averaging over seq_len)
     """
@@ -71,12 +72,16 @@ def get_embs_fmri(X: List[str], model, save_dir_fmri, perc_threshold=98) -> np.n
     """Get initial embeddings then apply learned fMRI transform
     """
     if model.lower().startswith('bert-') or model.lower().startswith('roberta'):
-        checkpoint = feature_spaces._FEATURE_CHECKPOINTS[model[:model.index('__')]]
+        checkpoint = feature_spaces._FEATURE_CHECKPOINTS[model[:model.index(
+            '__')]]
         feats = get_embs_llm(X, checkpoint)
         # ngram_size = int(model.split('-')[-1].split('__')[0])
         # feats = get_ngram_vecs(X, model=model)
     else:
         feats = get_word_vecs(X, model=model)
+    feats = preprocessing.StandardScaler().fit_transform(feats) 
+
+    # load fMRI transform
     weights_npz = np.load(join(save_dir_fmri, 'weights.npz'))
     corrs_val = np.load(join(save_dir_fmri, 'corrs.npz'))['arr_0']
 
@@ -129,8 +134,10 @@ def get_feats(model: str, X: List[str], X_test: List[str],
     # also append llm embs to fmri embs from above
     if model.endswith('_joint'):
         checkpoint = feature_spaces._FEATURE_CHECKPOINTS[mod[:mod.index('__')]]
-        feats_train = np.hstack((feats_train, get_embs_llm(X, checkpoint=checkpoint)))
-        feats_test = np.hstack((feats_test, get_embs_llm(X_test, checkpoint=checkpoint)))
+        feats_train = np.hstack(
+            (feats_train, get_embs_llm(X, checkpoint=checkpoint)))
+        feats_test = np.hstack(
+            (feats_test, get_embs_llm(X_test, checkpoint=checkpoint)))
     return feats_train, feats_test
 
 
@@ -200,10 +207,12 @@ def get_parser():
                             'probing-subj_number', 'probing-obj_number',
                             'probing-past_present', 'probing-sentence_length', 'probing-top_constituents',
                             'probing-tree_depth', 'probing-coordination_inversion', 'probing-odd_man_out',
-                            'probing-bigram_shift', # 'probing-word_content', 
+                            'probing-bigram_shift',  # 'probing-word_content',
                         ])
-    parser.add_argument('--use_normalization', type=int, default=0,
-                        help='whether to normalize embeddings before fitting')
+    # parser.add_argument('--use_normalized_embs_fmri', type=int, default=1,
+                        # help='whether to normalize embeddings before projecting to fmri space')
+    parser.add_argument('--use_normalized_feats', type=int, default=0,
+                        help='whether to normalize features before fitting')
     parser.add_argument('--nonlinearity', type=str, default=None,
                         help='pointwise nonlinearity for features')
     # could also support more tweet dsets (currently only hate), imdb, ...
@@ -236,11 +245,13 @@ if __name__ == '__main__':
     for k in sorted(vars(args)):
         logger.info('\t' + k + ' ' + str(vars(args)[k]))
     mod = args.model
-    assert mod.endswith('_embs') or mod.endswith('_fmri') or mod.endswith('_vecs') or mod.endswith('_joint')
+    assert mod.endswith('_embs') or mod.endswith(
+        '_fmri') or mod.endswith('_vecs') or mod.endswith('_joint')
 
     # check for caching
     fname_save = join(
-        args.save_dir, f'{args.dset.replace("/", "-")}_{args.model}_perc={args.perc_threshold_fmri}_seed={args.seed}.pkl')
+        args.save_dir,
+        f'{args.dset.replace("/", "-")}_{args.model}_perc={args.perc_threshold_fmri}_seed={args.seed}.pkl')
     if os.path.exists(fname_save) and args.use_cache:
         logging.info('\nAlready ran ' + fname_save + '!')
         logging.info('Skipping :)!\n')
@@ -249,7 +260,8 @@ if __name__ == '__main__':
     # get data
     X_train, y_train, X_test, y_test = data.get_dsets(
         args.dset, seed=args.seed, subsample_frac=args.subsample_frac)
-    logging.debug(f'\data shape: {len(X_train)} {len(X_train[0])} {len(y_train)}')
+    logging.debug(
+        f'\data shape: {len(X_train)} {len(X_train[0])} {len(y_train)}')
 
     # fit decoding
     os.makedirs(args.save_dir, exist_ok=True)
@@ -259,7 +271,7 @@ if __name__ == '__main__':
     if args.nonlinearity in ['sigmoid', 'relu']:
         feats_train, feats_test = apply_pointwise_nonlinearity(
             feats_train, feats_test, nonlinearity=args.nonlinearity)
-    if args.use_normalization:
+    if args.use_normalized_feats:
         scaler = preprocessing.StandardScaler().fit(feats_train)
         feats_train = scaler.transform(feats_train)
         feats_test = scaler.transform(feats_test)

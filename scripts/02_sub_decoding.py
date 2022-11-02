@@ -8,7 +8,9 @@ repo_dir = dirname(dirname(os.path.abspath(__file__)))
 
 PARAMS_COUPLED_DICT = {
     ('save_dir', 'subsample_frac'): [
-        ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct28_compare_joint', 0.1),
+        ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/nov1_compare_joint', 1),
+        # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/nov1_compare_joint', 0.1),
+        # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct28_compare_joint', 0.1),
         # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct28_relu_dset_shuffled', -1),
         # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct26_relu_and_normalization', -1),
         # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/subsamp_oct22', 0.1),
@@ -41,10 +43,10 @@ PARAMS_SHARED_DICT = {
         # 'eng1000__ndel=4_fmri',
         # 'eng1000_vecs', 'bow_vecs',
     ],
-    'nonlinearity': [
-        'relu',
-    ],
-    'use_normalization': [0, 1],
+    # 'nonlinearity': [
+        # 'relu',
+    # ],
+    # 'use_normalized_feats': [0, 1],
 }
 
 ks_final, param_combos_final = submit_utils.combine_param_dicts(
