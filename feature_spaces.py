@@ -56,8 +56,11 @@ def downsample_word_vectors(stories, word_vectors, wordseqs):
     downsampled_semanticseqs = dict()
     for story in stories:
         downsampled_semanticseqs[story] = lanczosinterp2D(
-            word_vectors[story], wordseqs[story].data_times,
-            wordseqs[story].tr_times, window=3)
+            word_vectors[story],
+            oldtime=wordseqs[story].data_times,  # timing of the old data
+            newtime=wordseqs[story].tr_times,  # timing of the new data
+            window=3
+        )
     return downsampled_semanticseqs
 
 
