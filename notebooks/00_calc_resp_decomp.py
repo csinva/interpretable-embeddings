@@ -16,8 +16,8 @@ subject = 'UTS03'
 out_dir = join(feature_spaces.data_dir, 'fmri_resp_norms', subject)
 
 def calc_PCs(out_dir):
-    train_stories, test_stories, allstories = encoding_utils.get_allstories([
-                                                                            1, 2, 3, 4, 5])
+    train_stories, test_stories, allstories = \
+        encoding_utils.get_allstories([1, 2, 3, 4, 5])
 
     print('loading responses...')
     zRresp = encoding_utils.get_response(

@@ -248,7 +248,7 @@ def convert_embs_list_to_np_arr(embs_list: List[np.ndarray], avg_over_seq_len=Tr
     # Need to avg over seq_len dim
     else:
         logging.info('\tPostprocessing embs...')
-        embs = np.zeros((len(embs_list), embs_list[0].shape[0]))
+        embs = np.zeros((len(embs_list), len(embs_list[0])))
         num_ngrams = len(embs_list)
         dim_size = len(embs_list[0][0][0])
         embs = np.zeros((num_ngrams, dim_size))

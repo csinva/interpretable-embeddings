@@ -7,12 +7,6 @@ repo_dir = dirname(dirname(os.path.abspath(__file__)))
 # python /home/chansingh/emb-gam/experimental/fmri/01_fit_encoding.py --feature bert-10 --ndelays 2 --seed 1 --subject UTS03
 
 PARAMS_COUPLED_DICT = {}
-# {
-#     ('checkpoint', 'batch_size'): [
-#         ('gpt2-xl', 32),
-#         ('EleutherAI/gpt-neo-2.7B', 16),
-#     ],
-# }
 
 ##########################################
 # params shared across everything (higher up things are looped over first)
@@ -21,12 +15,14 @@ PARAMS_SHARED_DICT = {
     # things to vary
     'ndelays': [4],
     'feature': [
-        'gpt3-10', 'gpt3-20',
-        'bert-sst2-10',
-        'roberta-10', 'bert-10',
+        # 'gpt3-10', 'gpt3-20',
+        # 'bert-10', 'bert-20',
         'eng1000', 'glove',
-        'bert-3', 'bert-5', 'bert-20'
+        # 'bert-3', 'bert-5',
+        # 'roberta-10', 
+        # 'bert-sst2-10',
     ],
+    'pc_components' : [50000], # default -1 predicts each voxel independently
 
     # things to average over
     'seed': [1],

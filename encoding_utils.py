@@ -26,7 +26,7 @@ def get_allstories(sessions=[1, 2, 3, 4, 5]) -> List[str]:
 	allstories = list(set(train_stories) | set(test_stories))
 	return train_stories, test_stories, allstories
 
-def add_delays(stories, downsampled_feat, trim, ndelays, zscore=True):
+def add_delays(stories, downsampled_feat, trim, ndelays, normalize=True):
 	"""Get (z-scored and delayed) stimulus for train and test stories.
 	The stimulus matrix is delayed (typically by 2, 4, 6, 8 secs) to estimate the
 	hemodynamic response function with a Finite Impulse Response model.
@@ -45,7 +45,7 @@ def add_delays(stories, downsampled_feat, trim, ndelays, zscore=True):
 	delstim: <float32>[TRs, features * ndelays]
 	"""
 	stim = [downsampled_feat[s][5+trim:-trim] for s in stories]
-	if zscore:
+	if normalize:
 		stim = [zscore(s) for s in stim]
 	stim = np.vstack(stim)
 	delays = range(1, ndelays+1) # List of delays for Finite Impulse Response (FIR) model.
