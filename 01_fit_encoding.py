@@ -9,6 +9,7 @@ from os.path import join, dirname
 import logging
 import random
 import torch
+import pickle as pkl
 
 # from .encoding_utils import *
 import encoding_utils
@@ -28,8 +29,10 @@ if __name__ == "__main__":
 	parser.add_argument("--nchunks", type=int, default=125)
 	parser.add_argument("--singcutoff", type=float, default=1e-10)
 	parser.add_argument('--seed', type=int, default=1)
+	parser.add_argument('--pc_components', type=int, default=-1)
 	parser.add_argument("-use_corr", action="store_true")
 	parser.add_argument("-single_alpha", action="store_true")
+	parser.add_argument("--use_cache", type=int, default=1)
 
 	# for faster testing
 	parser.add_argument('--save_dir', type=str, default=None)
@@ -42,16 +45,19 @@ if __name__ == "__main__":
 	print('args', vars(args))
 
 	# set up saving....
-	def get_save_dir(results_dir, feature, subject, ndelays):
-		save_dir = join(results_dir, 'encoding', feature + f'__ndel={ndelays}', subject)
+	def get_save_dir(results_dir, feature, subject, ndelays, pc_components):
+		if pc_components > 0:
+			save_dir = join(results_dir, 'encoding', feature + f'__ndel={ndelays}__pc={pc_components}', subject)
+		else:
+			save_dir = join(results_dir, 'encoding', feature + f'__ndel={ndelays}', subject)
 		return save_dir
 	if args.save_dir is not None:
 		save_dir = args.save_dir
 	else:
-		save_dir = get_save_dir(results_dir, args.feature, args.subject, args.ndelays)
+		save_dir = get_save_dir(results_dir, args.feature, args.subject, args.ndelays, args.pc_components)
 
 	print("Saving encoding model & results to:", save_dir)
-	if os.path.exists(join(save_dir, 'valinds.npz')):
+	if os.path.exists(join(save_dir, 'valinds.npz')) and args.use_cache:
 		print('Already ran! Skipping....')
 		exit(0)
 	os.makedirs(save_dir, exist_ok=True)
@@ -69,16 +75,25 @@ if __name__ == "__main__":
 	print("trim: %d, ndelays: %d" % (args.trim, args.ndelays))
 
 	# Delayed stimulus
-	delRstim = encoding_utils.apply_zscore_and_hrf(train_stories, downsampled_feat, args.trim, args.ndelays)
+	zscore = True if args.pc_components <= 0 else False
+	delRstim = encoding_utils.add_delays(train_stories, downsampled_feat, args.trim, args.ndelays, zscore=zscore)
 	print("delRstim: ", delRstim.shape)
-	delPstim = encoding_utils.apply_zscore_and_hrf(test_stories, downsampled_feat, args.trim, args.ndelays)
+	delPstim = encoding_utils.add_delays(test_stories, downsampled_feat, args.trim, args.ndelays, zscore=zscore)
 	print("delPstim: ", delPstim.shape)
 
 	# Response
 	zRresp = encoding_utils.get_response(train_stories, args.subject)
-	print("zRresp: ", zRresp.shape)
+	print("zRresp: ", zRresp.shape) # (n_time_points x n_voxels), e.g. (9461, 95556)
 	zPresp = encoding_utils.get_response(test_stories, args.subject)
-	print("zPresp: ", zPresp.shape)
+	print("zPresp: ", zPresp.shape) # (n_time_points x n_voxels), e.g. (291, 95556)
+
+	# convert to pc components for predicting
+	if args.pc_components > 0:
+		pca_dir = join(data_dir, 'fmri_resp_norms', args.subject)
+		pca = pkl.load(open(join(pca_dir, 'resps_pca.pkl'), 'rb'))['pca']
+		comps = pca.components_[:args.pc_components]
+		zRresp = zRresp @ comps.T
+		zPresp = zPresp @ comps.T
 
 	# Ridge
 	alphas = np.logspace(1, 3, 10)

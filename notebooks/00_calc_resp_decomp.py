@@ -55,7 +55,7 @@ def viz_PCs(out_dir):
         decomp = pkl.load(open(join(out_dir, 'resps_pca.pkl'), 'rb'))
         pc_dir = 'pcs_train'
         for i in tqdm(range(10)):
-            viz_cortex.quickshow(decomp[k].components_[i])
+            viz_cortex.quickshow(decomp[k].components_[i]) # (n_components, n_features)
             plt.savefig(join(pc_dir, f'{k}_component_{i}.pdf'))
             plt.savefig(join(pc_dir, f'{k}_component_{i}.png'))
             plt.close()
