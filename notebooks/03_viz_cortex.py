@@ -157,7 +157,7 @@ if __name__ == '__main__':
 
         # # data stuff
         '../figs/flatmaps/means_test.pdf': 'feats_test_mean',
-        # '../figs/flatmaps/stds_test.pdf': 'feats_test_std',
+        '../figs/flatmaps/stds_test.pdf': 'feats_test_std',
     }
 
     for k in dict_to_save:

@@ -265,6 +265,8 @@ def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5):
         @retry(wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(3))
         def get_embedding(text: str, engine="text-similarity-davinci-001") -> List[float]:
             text = text.replace("\n", " ")  # replace newlines
+            if len(text) == 0:
+                text = '  '
             emb = openai.Embedding.create(input=[text], engine=engine)[
                 "data"][0]["embedding"]
             return np.array(emb)
