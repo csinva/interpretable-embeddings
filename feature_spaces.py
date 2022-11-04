@@ -5,14 +5,14 @@ import numpy as np
 import json
 from os.path import join, dirname
 from functools import partial
-from ridge_utils.DataSequence import DataSequence
+from ridge_utils.data_sequence import DataSequence
 from typing import Dict, List
 from tqdm import tqdm
-from ridge_utils.interpdata import lanczosinterp2D
-from ridge_utils.SemanticModel import SemanticModel
+from ridge_utils.interp_data import lanczosinterp2D
+from ridge_utils.semantic_model import SemanticModel
 from transformers.pipelines.pt_utils import KeyDataset
-from ridge_utils.dsutils import apply_model_to_words, make_word_ds, make_phoneme_ds
-from ridge_utils.stimulus_utils import load_textgrids, load_simulated_trfiles
+from ridge_utils.utils_ds import apply_model_to_words, make_word_ds, make_phoneme_ds
+from ridge_utils.utils_stim import load_textgrids, load_simulated_trfiles
 from transformers import pipeline
 import logging
 

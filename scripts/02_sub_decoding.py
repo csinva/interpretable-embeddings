@@ -9,6 +9,7 @@ repo_dir = dirname(dirname(os.path.abspath(__file__)))
 PARAMS_COUPLED_DICT = {
     ('save_dir', 'subsample_frac'): [
         ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/nov2_compare_joint', 1),
+        # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/nov2_compare_joint', 1),
         # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/nov1_compare_joint', 0.1),
         # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct28_compare_joint', 0.1),
         # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/oct28_relu_dset_shuffled', -1),
@@ -32,9 +33,10 @@ PARAMS_SHARED_DICT = {
         # 'ethics-commonsense', 'ethics-deontology', 'ethics-justice', 'ethics-utilitarianism', 'ethics-virtue'
     ],
     'model': [
-        'bert-10__ndel=4_fmri',
-        'bert-base-uncased_embs',
-        'bert-10__ndel=4_joint',
+        'bert-10__ndel=4__pc=50000_fmri',
+        # 'bert-10__ndel=4_fmri',
+        # 'bert-base-uncased_embs',
+        # 'bert-10__ndel=4_joint',
         # 'bert-sst2-10__ndel=4_fmri',
         # 'roberta-10__ndel=4_fmri',
         # 'roberta-large_embs',

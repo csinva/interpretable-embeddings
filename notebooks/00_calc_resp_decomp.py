@@ -1,19 +1,24 @@
+import sys
 from os.path import join
 import os
+
+path_to_file = os.path.dirname(os.path.abspath(__file__))
+
+sys.path.append(join(path_to_file, '..'))
+
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+import encoding_utils
+import feature_spaces
 import pickle as pkl
 import numpy as np
-import sys
+
 from sklearn.decomposition import PCA, NMF, FastICA
-path_to_file = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(join(path_to_file, '..'))
-import feature_spaces
-import encoding_utils
 viz_cortex = __import__('03_viz_cortex')
-from tqdm import tqdm
-import matplotlib.pyplot as plt
 
 subject = 'UTS03'
 out_dir = join(feature_spaces.data_dir, 'fmri_resp_norms', subject)
+
 
 def calc_PCs(out_dir):
     train_stories, test_stories, allstories = \
@@ -39,7 +44,7 @@ def calc_PCs(out_dir):
     print('fitting ICA...')
     ica = FastICA().fit(zRresp)
     pkl.dump({'ica': ica}, open(
-        join(out_dir, 'resps_ica.pkl'), 'wb')) 
+        join(out_dir, 'resps_ica.pkl'), 'wb'))
 
     print('fitting NMF...')
     try:
@@ -49,18 +54,20 @@ def calc_PCs(out_dir):
     except:
         print('failed nmf!')
 
+
 def viz_PCs(out_dir):
+    pc_dir = 'pcs_train'
     os.makedirs(pc_dir, exist_ok=True)
-    for k in ['pca', 'ica', 'nmf']:
-        decomp = pkl.load(open(join(out_dir, 'resps_pca.pkl'), 'rb'))
-        pc_dir = 'pcs_train'
+    for k in ['ica', 'pca', 'nmf']:
+        decomp = pkl.load(open(join(out_dir, f'resps_{k}.pkl'), 'rb'))
         for i in tqdm(range(10)):
-            viz_cortex.quickshow(decomp[k].components_[i]) # (n_components, n_features)
+            # (n_components, n_features)
+            viz_cortex.quickshow(decomp[k].components_[i])
             plt.savefig(join(pc_dir, f'{k}_component_{i}.pdf'))
             plt.savefig(join(pc_dir, f'{k}_component_{i}.png'))
             plt.close()
 
+
 if __name__ == '__main__':
     calc_PCs(out_dir)
     viz_PCs(out_dir)
-

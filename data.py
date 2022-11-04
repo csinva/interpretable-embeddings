@@ -6,7 +6,7 @@ from os.path import join
 import logging
 from sklearn.model_selection import StratifiedKFold, GridSearchCV, train_test_split
 from transformers import pipeline
-from ridge_utils.SemanticModel import SemanticModel
+from ridge_utils.semantic_model import SemanticModel
 from matplotlib import pyplot as plt
 from typing import List
 from sklearn.linear_model import RidgeCV, LogisticRegressionCV, LogisticRegression

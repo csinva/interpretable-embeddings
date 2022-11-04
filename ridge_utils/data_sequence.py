@@ -1,6 +1,6 @@
 import numpy as np
 import itertools as itools
-from .interpdata import sincinterp2D, gabor_xfm2D, lanczosinterp2D
+from .interp_data import sincinterp2D, gabor_xfm2D, lanczosinterp2D
 
 
 class DataSequence(object):

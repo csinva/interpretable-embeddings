@@ -6,7 +6,7 @@ from os.path import join
 import logging
 from sklearn.model_selection import StratifiedKFold, GridSearchCV, train_test_split
 from transformers import pipeline
-from ridge_utils.SemanticModel import SemanticModel
+from ridge_utils.semantic_model import SemanticModel
 from matplotlib import pyplot as plt
 from typing import List, Tuple
 from sklearn.linear_model import RidgeCV, LogisticRegressionCV, LogisticRegression
@@ -79,28 +79,29 @@ def get_embs_fmri(X: List[str], model, save_dir_fmri, perc_threshold=98) -> np.n
         # feats = get_ngram_vecs(X, model=model)
     else:
         feats = get_word_vecs(X, model=model)
-    feats = preprocessing.StandardScaler().fit_transform(feats) 
+    feats = preprocessing.StandardScaler().fit_transform(feats)
 
     # load fMRI transform
     weights_npz = np.load(join(save_dir_fmri, 'weights.npz'))
-    corrs_val = np.load(join(save_dir_fmri, 'corrs.npz'))['arr_0']
-
     weights = weights_npz['arr_0']
-    # pretty sure this is right, but might be switched...
     ndelays = int(model[model.index('ndel=') + len('ndel='):])
     weights = weights.reshape(ndelays, -1, feats.shape[-1])
-    # delays for coefs are not stored next to each other!!
-    # (see cell 25 file:///Users/chandan/Downloads/speechmodeltutorial-master/SpeechModelTutorial%20-%20Pre-run.html)
-    # weights = weights.reshape(-1, N_DELAYS, feats.shape[-1])
     weights = weights.mean(axis=0).squeeze()  # mean over delays dimension...
+
+    # apply fMRI transform
     embs = feats @ weights.T
 
     # subselect repr
     if perc_threshold >= 0:
-        perc = np.percentile(corrs_val, perc_threshold)
-        idxs = (corrs_val > perc)
-        # print('emb dim', idxs.sum(), 'val corr cutoff', perc)
-        embs = embs[:, idxs]
+        if 'pc=' in model:
+            NUM_PCS = 50000
+            embs = embs[:, :int(NUM_PCS * perc_threshold / 100)]
+        elif not 'pc=' in model:
+            corrs_val = np.load(join(save_dir_fmri, 'corrs.npz'))['arr_0']
+            perc = np.percentile(corrs_val, perc_threshold)
+            idxs = (corrs_val > perc)
+            # print('emb dim', idxs.sum(), 'val corr cutoff', perc)
+            embs = embs[:, idxs]
 
     return embs
 
@@ -191,7 +192,9 @@ def get_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("--subject", type=str, default='UTS03')
     parser.add_argument('--seed', type=int, default=1)
-    parser.add_argument('--perc_threshold_fmri', type=int, default=0)
+    parser.add_argument('--perc_threshold_fmri', type=int, default=0,
+                        help='[0, 100] - percentile threshold for fMRI features \
+                            if using PCs, this is the percentage of PCs to use')
     parser.add_argument("--save_dir", type=str, default='/home/chansingh/.tmp')
     parser.add_argument('--model', type=str, default='glovevecs',
                         help='Which model to extract features with. \
@@ -210,15 +213,14 @@ def get_parser():
                             'probing-bigram_shift',  # 'probing-word_content',
                         ])
     # parser.add_argument('--use_normalized_embs_fmri', type=int, default=1,
-                        # help='whether to normalize embeddings before projecting to fmri space')
+    # help='whether to normalize embeddings before projecting to fmri space')
     parser.add_argument('--use_normalized_feats', type=int, default=0,
                         help='whether to normalize features before fitting')
     parser.add_argument('--nonlinearity', type=str, default=None,
                         help='pointwise nonlinearity for features')
-    # could also support more tweet dsets (currently only hate), imdb, ...
     parser.add_argument('--subsample_frac', type=float,
                         default=None, help='fraction of data to use for training. If none or negative, use all the data')
-
+    parser.add_argument('--pc_components', type=int, default=-1)
     parser.add_argument('--use_cache', type=int,
                         default=True, help='whether to use cache')
     return parser

@@ -1,7 +1,7 @@
 from typing import List
 import numpy as np
 import itertools as itools
-from .DataSequence import DataSequence
+from .data_sequence import DataSequence
 import datasets
 from transformers.pipelines.pt_utils import KeyDataset
 
