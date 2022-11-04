@@ -64,7 +64,9 @@ if __name__ == "__main__":
                                 args.subject, args.ndelays, args.pc_components)
 
     print("Saving encoding model & results to:", save_dir)
-    if os.path.exists(join(save_dir, 'valinds.npz')) and args.use_cache:
+    if args.use_cache and \
+            os.path.exists(join(save_dir, 'valinds.npz')) and \
+            (args.pc_components <= 0 or os.path.exists(join(save_dir, 'pc_results.pkl'))):
         print('Already ran! Skipping....')
         exit(0)
     os.makedirs(save_dir, exist_ok=True)
@@ -87,20 +89,20 @@ if __name__ == "__main__":
 
     # Delayed stimulus
     normalize = True if args.pc_components <= 0 else False
-    delRstim = encoding_utils.add_delays(
+    stim_train_delayed = encoding_utils.add_delays(
         train_stories, downsampled_feat, args.trim, args.ndelays, normalize=normalize)
-    print("delRstim: ", delRstim.shape)
-    delPstim = encoding_utils.add_delays(
+    print("delRstim: ", stim_train_delayed.shape)
+    stim_test_delayed = encoding_utils.add_delays(
         test_stories, downsampled_feat, args.trim, args.ndelays, normalize=normalize)
-    print("delPstim: ", delPstim.shape)
+    print("delPstim: ", stim_test_delayed.shape)
 
     # Response
-    zRresp = encoding_utils.get_response(train_stories, args.subject)
+    resp_train = encoding_utils.get_response(train_stories, args.subject)
     # (n_time_points x n_voxels), e.g. (9461, 95556)
-    print("zRresp: ", zRresp.shape)
-    zPresp = encoding_utils.get_response(test_stories, args.subject)
+    print("resp_train.shape", resp_train.shape)
+    resp_test = encoding_utils.get_response(test_stories, args.subject)
     # (n_time_points x n_voxels), e.g. (291, 95556)
-    print("zPresp: ", zPresp.shape)
+    print("resp_test.shape: ", resp_test.shape)
 
     # convert to pc components for predicting
     if args.pc_components > 0:
@@ -109,15 +111,15 @@ if __name__ == "__main__":
         pca.components_ = pca.components_[
             :args.pc_components]  # (n_components, n_voxels)
         # zRresp = zRresp @ comps.T
-        zRresp = pca.transform(zRresp)  # [:, :args.pc_components]
-        zPresp_orig = deepcopy(zPresp)
+        resp_train = pca.transform(resp_train)  # [:, :args.pc_components]
+        resp_test_orig = deepcopy(resp_test)
         # zPresp = zPresp @ comps.T
-        zPresp = pca.transform(zPresp)  # [:, :args.pc_components]
-        print('ZRresp (after pca)', zRresp.shape)
-        scaler_train = StandardScaler().fit(zRresp)
-        scaler_test = StandardScaler().fit(zPresp)
-        zRresp = scaler_train.transform(zRresp)
-        zPresp = scaler_test.transform(zPresp)
+        resp_test = pca.transform(resp_test)  # [:, :args.pc_components]
+        print('reps_train.shape (after pca)', resp_train.shape)
+        scaler_train = StandardScaler().fit(resp_train)
+        scaler_test = StandardScaler().fit(resp_test)
+        resp_train = scaler_train.transform(resp_train)
+        resp_test = scaler_test.transform(resp_test)
 
     # Ridge
     if args.pc_components > 0:
@@ -135,7 +137,7 @@ if __name__ == "__main__":
         args.nboots, args.chunklen, args.nchunks, args.single_alpha, args.use_corr))
 
     wt, corrs, valphas, bscorrs, valinds = bootstrap_ridge(
-        delRstim, zRresp, delPstim, zPresp, alphas, args.nboots, args.chunklen,
+        stim_train_delayed, resp_train, stim_test_delayed, resp_test, alphas, args.nboots, args.chunklen,
         args.nchunks, singcutoff=args.singcutoff, single_alpha=args.single_alpha,
         use_corr=args.use_corr)
 
@@ -148,9 +150,10 @@ if __name__ == "__main__":
     print("Total r2: %d" % sum(corrs * np.abs(corrs)))
 
     if args.pc_components > 0:
+        np.savez("%s/corrs_pcs" % save_dir, corrs)
         preds_voxels_test = pca.inverse_transform(
             scaler_test.inverse_transform(
-                delRstim @ wt
+                stim_test_delayed @ wt
             )
         )  # (n_trs x n_voxels)
         # zPresp_orig (n_trs x n_voxels)
@@ -159,7 +162,7 @@ if __name__ == "__main__":
         corrs = []
         for i in range(preds_voxels_test.shape[1]):
             corrs.append(
-                np.corrcoef(preds_voxels_test[:, i], zPresp_orig[:, i])[0, 1])
+                np.corrcoef(preds_voxels_test[:, i], resp_test_orig[:, i])[0, 1])
         corrs = np.array(corrs)
         # preds_normed = (preds_voxels_test - preds_voxels_test.mean(axis=0)) / reds_voxels_test
         # resps_normed = zPresp_orig - zPresp_orig.mean(axis=0)
@@ -170,5 +173,7 @@ if __name__ == "__main__":
             'corrs': corrs, 'scaler': scaler_train},
             open(join(pca_dir, 'pc_results.pkl'), 'wb')
         )
+        np.savez("%s/corrs" % save_dir, corrs)
+
         # print('shapes', preds_voxels_test.shape, 'corrs', corrs.shape)
         # pca = pkl.load(open(join(pca_dir, 'resps_pca.pkl'), 'rb'))['pca']
