@@ -46,9 +46,11 @@ PARAMS_SHARED_DICT = {
         # 'eng1000__ndel=4_fmri',
         # 'eng1000_vecs', 'bow_vecs',
     ],
-    # 'nonlinearity': [
+    'nonlinearity': [
         # 'relu',
-    # ],
+        'tanh',
+        # 'none',
+    ],
     # 'use_normalized_feats': [0, 1],
 }
 

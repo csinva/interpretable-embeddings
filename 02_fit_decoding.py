@@ -258,9 +258,14 @@ if __name__ == '__main__':
         '_fmri') or mod.endswith('_vecs') or mod.endswith('_joint')
 
     # check for caching
-    fname_save = join(
-        args.save_dir,
-        f'{args.dset.replace("/", "-")}_{args.model}_perc={args.perc_threshold_fmri}_seed={args.seed}.pkl')
+    def get_fname_save(args):
+        fname_save = join(
+            args.save_dir,
+            f'{args.dset.replace("/", "-")}_{args.model}_perc={args.perc_threshold_fmri}_seed={args.seed}')
+        if args.nonlinearity is not None:
+            fname_save += f'_nonlin={args.nonlinearity}'
+        return fname_save + '.pkl'
+    fname_save = get_fname_save(args)
     if os.path.exists(fname_save) and args.use_cache:
         logging.info('\nAlready ran ' + fname_save + '!')
         logging.info('Skipping :)!\n')
@@ -277,7 +282,7 @@ if __name__ == '__main__':
     feats_train, feats_test = get_feats(
         args.model, X_train, X_test,
         subject_fmri=args.subject, perc_threshold_fmri=args.perc_threshold_fmri, args=args)
-    if args.nonlinearity in ['sigmoid', 'relu']:
+    if args.nonlinearity in ['sigmoid', 'relu', 'tanh']:
         feats_train, feats_test = apply_pointwise_nonlinearity(
             feats_train, feats_test, nonlinearity=args.nonlinearity)
     if args.use_normalized_feats:
