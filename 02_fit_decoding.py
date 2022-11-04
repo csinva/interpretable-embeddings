@@ -98,7 +98,7 @@ def get_embs_fmri(X: List[str], model, save_dir_fmri, perc_threshold=98) -> np.n
     if perc_threshold > 0:
         if 'pc=' in model:
             NUM_PCS = 50000
-            embs = embs[:, :int(NUM_PCS * perc_threshold / 100)]
+            embs = embs[:, :int(NUM_PCS * (100 - perc_threshold) / 100)]
         elif not 'pc=' in model:
             corrs_val = np.load(join(save_dir_fmri, 'corrs.npz'))['arr_0']
             perc = np.percentile(corrs_val, perc_threshold)
@@ -197,7 +197,8 @@ def get_parser():
     parser.add_argument('--seed', type=int, default=1)
     parser.add_argument('--perc_threshold_fmri', type=int, default=0,
                         help='[0, 100] - percentile threshold for fMRI features \
-                            if using PCs, this is the percentage of PCs to use')
+                            if using PCs, this is the percentage of PCs to use. \
+                            higher uses less features')
     parser.add_argument("--save_dir", type=str, default='/home/chansingh/.tmp')
     parser.add_argument('--model', type=str, default='glovevecs',
                         help='Which model to extract features with. \
