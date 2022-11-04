@@ -9,7 +9,8 @@ repo_dir = dirname(dirname(os.path.abspath(__file__)))
 
 PARAMS_COUPLED_DICT = {
     ('save_dir', 'subsample_frac'): [
-        ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/probing_oct28_sub_0.05', 0.05),
+        ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/probing_nov2_sub_0.05', 0.05),
+        # ('/home/chansingh/mntv1/deep-fMRI/results/linear_models/probing_oct28_sub_0.05', 0.05),
     ],
 }
 
@@ -19,7 +20,7 @@ PARAMS_COUPLED_DICT = {
 PARAMS_SHARED_DICT = {
     # things to average over
     'seed': [1],  # , 2, 3],
-    'perc_threshold_fmri': [0],
+    'perc_threshold_fmri': [0, 99],
 
     # things to vary
     'dset': [
@@ -31,6 +32,7 @@ PARAMS_SHARED_DICT = {
         # 'probing-word_content', # this one has no positive examples
     ],
     'model': [
+        'bert-10__ndel=4__pc=50000_fmri',
         'bert-10__ndel=4_fmri',
         'bert-base-uncased_embs',
     ],
