@@ -20,7 +20,7 @@ subject = 'UTS03'
 out_dir = join(feature_spaces.data_dir, 'fmri_resp_norms', subject)
 
 
-def calc_PCs(out_dir):
+def calc_decomp(out_dir):
     train_stories, test_stories, allstories = \
         encoding_utils.get_allstories([1, 2, 3, 4, 5])
 
@@ -67,19 +67,20 @@ def calc_PCs(out_dir):
         print('failed sc!')
 
 
-def viz_PCs(out_dir):
-    pc_dir = 'pcs_train'
-    os.makedirs(pc_dir, exist_ok=True)
-    for k in ['ica', 'pca', 'nmf', 'sc']:
+def viz_decomp(out_dir):
+    decomp_dir = join(path_to_file, 'decomps')
+    os.makedirs(decomp_dir, exist_ok=True)
+    for k in ['nmf', 'ica', 'pca', 'nmf', 'sc']:
+        print('visualizing', k)
         decomp = pkl.load(open(join(out_dir, f'resps_{k}.pkl'), 'rb'))
         for i in tqdm(range(10)):
             # (n_components, n_features)
             viz_cortex.quickshow(decomp[k].components_[i])
-            plt.savefig(join(pc_dir, f'{k}_component_{i}.pdf'))
-            plt.savefig(join(pc_dir, f'{k}_component_{i}.png'))
+            plt.savefig(join(decomp_dir, f'{k}_component_{i}.pdf'))
+            plt.savefig(join(decomp_dir, f'{k}_component_{i}.png'))
             plt.close()
 
 
 if __name__ == '__main__':
-    calc_PCs(out_dir)
-    viz_PCs(out_dir)
+    # calc_decomp(out_dir)
+    viz_decomp(out_dir)
