@@ -13,7 +13,7 @@ import feature_spaces
 import pickle as pkl
 import numpy as np
 
-from sklearn.decomposition import PCA, NMF, FastICA
+from sklearn.decomposition import PCA, NMF, FastICA, DictionaryLearning
 viz_cortex = __import__('03_viz_cortex')
 
 subject = 'UTS03'
@@ -33,32 +33,44 @@ def calc_PCs(out_dir):
     stds = np.std(zRresp, axis=0)
 
     os.makedirs(out_dir, exist_ok=True)
-    pkl.dump({'means': means, 'stds': stds}, open(
-        join(out_dir, 'resps_means_stds.pkl'), 'wb'))
+    out_file = join(out_dir, 'resps_means_stds.pkl')
+    pkl.dump({'means': means, 'stds': stds}, open(out_file, 'wb'))
 
     print('fitting PCA...')
-    pca = PCA().fit(zRresp)
-    pkl.dump({'pca': pca}, open(
-        join(out_dir, 'resps_pca.pkl'), 'wb'))
+    out_file = join(out_dir, 'resps_pca.pkl')
+    if not os.path.exists(out_file):
+        pca = PCA().fit(zRresp)
+        pkl.dump({'pca': pca}, open(out_file, 'wb'))
 
     print('fitting ICA...')
-    ica = FastICA().fit(zRresp)
-    pkl.dump({'ica': ica}, open(
-        join(out_dir, 'resps_ica.pkl'), 'wb'))
+    out_file = join(out_dir, 'resps_ica.pkl')
+    if not os.path.exists(out_file):
+        ica = FastICA().fit(zRresp)
+        pkl.dump({'ica': ica}, open(out_file, 'wb'))
 
     print('fitting NMF...')
     try:
-        nmf = NMF().fit(zRresp - zRresp.min())
-        pkl.dump({'nmf': nmf}, open(
-            join(out_dir, 'resps_nmf.pkl'), 'wb'))
+        out_file  = join(out_dir, 'resps_nmf.pkl')
+        if not os.path.exists(out_file):
+            nmf = NMF(n_components=1000).fit(zRresp - zRresp.min())
+            pkl.dump({'nmf': nmf}, open(out_file, 'wb'))
     except:
         print('failed nmf!')
+
+    print('fitting SC...')
+    try:
+        out_file = join(out_dir, 'resps_sc.pkl')
+        if not os.path.exists(out_file):
+            sc = DictionaryLearning(n_components=1000).fit(zRresp - zRresp.min())
+            pkl.dump({'sc': sc}, open(out_file, 'wb'))
+    except:
+        print('failed sc!')
 
 
 def viz_PCs(out_dir):
     pc_dir = 'pcs_train'
     os.makedirs(pc_dir, exist_ok=True)
-    for k in ['ica', 'pca', 'nmf']:
+    for k in ['ica', 'pca', 'nmf', 'sc']:
         decomp = pkl.load(open(join(out_dir, f'resps_{k}.pkl'), 'rb'))
         for i in tqdm(range(10)):
             # (n_components, n_features)

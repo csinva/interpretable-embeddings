@@ -34,6 +34,7 @@ PARAMS_SHARED_DICT = {
     ],
     'model': [
         'bert-10__ndel=4__pc=50000_fmri',
+        'bert-10__ndel=4__pc=50000_joint',
         # 'bert-10__ndel=4_fmri',
         # 'bert-base-uncased_embs',
         # 'bert-10__ndel=4_joint',

@@ -84,7 +84,10 @@ def get_embs_fmri(X: List[str], model, save_dir_fmri, perc_threshold=98) -> np.n
     # load fMRI transform
     weights_npz = np.load(join(save_dir_fmri, 'weights.npz'))
     weights = weights_npz['arr_0']
-    ndelays = int(model[model.index('ndel=') + len('ndel='):])
+    ndelays_str = model[model.index('ndel=') + len('ndel='):]
+    if '__' in ndelays_str:
+        ndelays_str = ndelays_str[:ndelays_str.index('__')]
+    ndelays = int(ndelays_str)
     weights = weights.reshape(ndelays, -1, feats.shape[-1])
     weights = weights.mean(axis=0).squeeze()  # mean over delays dimension...
 
@@ -92,7 +95,7 @@ def get_embs_fmri(X: List[str], model, save_dir_fmri, perc_threshold=98) -> np.n
     embs = feats @ weights.T
 
     # subselect repr
-    if perc_threshold >= 0:
+    if perc_threshold > 0:
         if 'pc=' in model:
             NUM_PCS = 50000
             embs = embs[:, :int(NUM_PCS * perc_threshold / 100)]
@@ -234,6 +237,9 @@ def apply_pointwise_nonlinearity(feats_train, feats_test, nonlinearity='relu'):
         return f(feats_train), f(feats_test)
     elif nonlinearity == 'relu':
         return np.clip(feats_train, a_min=0, a_max=None), np.clip(feats_test, a_min=0, a_max=None)
+    elif nonlinearity == 'tanh':
+        return np.tanh(feats_train), np.tanh(feats_test)
+
 
 
 if __name__ == '__main__':
