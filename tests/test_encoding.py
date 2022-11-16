@@ -9,5 +9,6 @@ def test_encoding():
 
 if __name__ == '__main__':
     test_encoding()
+    # python 01_fit_encoding.py --save_dir ~/.tmp --ndelays 1 --feature glove --nboots 1 --sessions 1 -story_override --use_cache 0 --encoding_model mlp
     # python 01_fit_encoding.py --save_dir ~/.tmp --ndelays 1 --feature glove --nboots 1 --sessions 1 -story_override --pc_components 2 --use_cache 0
-    # python 01_fit_encoding.py --save_dir ~/.tmp --ndelays 1 --feature gpt3-10 --nboots 1 --sessions 1 -story_override
+    # python 01_fit_encoding.py --save_dir ~/.tmp --ndelays 1 --feature gpt3-10 --nboots 1 --sessions 1 -story_override --use_cache 0

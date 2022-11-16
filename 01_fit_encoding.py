@@ -12,9 +12,13 @@ from sklearn.preprocessing import StandardScaler
 import torch
 import pickle as pkl
 from copy import deepcopy
+from skorch.callbacks import EarlyStopping
+
+from skorch import NeuralNetRegressor
 
 # from .encoding_utils import *
 import encoding_utils
+import encoding_models
 from feature_spaces import _FEATURE_VECTOR_FUNCTIONS, get_feature_space, repo_dir, em_data_dir, data_dir, results_dir
 from ridge_utils.ridge import bootstrap_ridge
 
@@ -24,6 +28,7 @@ if __name__ == "__main__":
     parser.add_argument("--subject", type=str, default='UTS03')
     parser.add_argument("--feature", type=str, default='bert-10',
                         choices=list(_FEATURE_VECTOR_FUNCTIONS.keys()))
+    parser.add_argument("--encoding_model", type=str, default='ridge')
     parser.add_argument("--sessions", nargs='+',
                         type=int, default=[1, 2, 3, 4, 5])
     parser.add_argument("--trim", type=int, default=5)
@@ -49,23 +54,23 @@ if __name__ == "__main__":
     print('args', vars(args))
 
     # set up saving....
-    def get_save_dir(results_dir, feature, subject, ndelays, pc_components):
+    def get_save_dir(results_dir, feature, subject, ndelays, pc_components, encoding_model):
+        save_dir = join(results_dir, 'encoding', feature + f'__ndel={ndelays}')
         if pc_components > 0:
-            save_dir = join(results_dir, 'encoding', feature +
-                            f'__ndel={ndelays}__pc={pc_components}', subject)
-        else:
-            save_dir = join(results_dir, 'encoding', feature +
-                            f'__ndel={ndelays}', subject)
+            save_dir += f'__pc={pc_components}'
+        if not encoding_model == 'ridge':
+            save_dir += f'__enc={encoding_model}'
+        save_dir = join(save_dir, subject)
         return save_dir
     if args.save_dir is not None:
         save_dir = args.save_dir
     else:
         save_dir = get_save_dir(results_dir, args.feature,
-                                args.subject, args.ndelays, args.pc_components)
+                                args.subject, args.ndelays, args.pc_components, args.encoding_model)
 
     print("Saving encoding model & results to:", save_dir)
     if args.use_cache and \
-            os.path.exists(join(save_dir, 'valinds.npz')) and \
+            os.path.exists(join(save_dir, 'corrs.npz')) and \
             (args.pc_components <= 0 or os.path.exists(join(save_dir, 'pc_results.pkl'))):
         print('Already ran! Skipping....')
         exit(0)
@@ -132,23 +137,52 @@ if __name__ == "__main__":
     torch.manual_seed(args.seed)
     random.seed(args.seed)
 
-    print("Ridge parameters:")
-    print("nboots: %d, chunklen: %d, nchunks: %d, single_alpha: %s, use_corr: %s" % (
-        args.nboots, args.chunklen, args.nchunks, args.single_alpha, args.use_corr))
+    if args.encoding_model == 'ridge':
+        print("Ridge parameters:")
+        print("nboots: %d, chunklen: %d, nchunks: %d, single_alpha: %s, use_corr: %s" % (
+            args.nboots, args.chunklen, args.nchunks, args.single_alpha, args.use_corr))
 
-    wt, corrs, valphas, bscorrs, valinds = bootstrap_ridge(
-        stim_train_delayed, resp_train, stim_test_delayed, resp_test, alphas, args.nboots, args.chunklen,
-        args.nchunks, singcutoff=args.singcutoff, single_alpha=args.single_alpha,
-        use_corr=args.use_corr)
+        wt, corrs, valphas, bscorrs, valinds = bootstrap_ridge(
+            stim_train_delayed, resp_train, stim_test_delayed, resp_test, alphas, args.nboots, args.chunklen,
+            args.nchunks, singcutoff=args.singcutoff, single_alpha=args.single_alpha,
+            use_corr=args.use_corr)
 
-    # Save regression results.
-    np.savez("%s/weights" % save_dir, wt)
-    np.savez("%s/corrs" % save_dir, corrs)
-    np.savez("%s/valphas" % save_dir, valphas)
-    np.savez("%s/bscorrs" % save_dir, bscorrs)
-    np.savez("%s/valinds" % save_dir, np.array(valinds))
-    print("Total r2: %d" % sum(corrs * np.abs(corrs)))
+        # Save regression results.
+        np.savez("%s/weights" % save_dir, wt)
+        np.savez("%s/corrs" % save_dir, corrs)
+        np.savez("%s/valphas" % save_dir, valphas)
+        np.savez("%s/bscorrs" % save_dir, bscorrs)
+        np.savez("%s/valinds" % save_dir, np.array(valinds))
+        print("Total r2: %d" % sum(corrs * np.abs(corrs)))
+    elif args.encoding_model == 'mlp':
+        stim_train_delayed = stim_train_delayed.astype(np.float32)
+        resp_train = resp_train.astype(np.float32)
+        stim_test_delayed = stim_test_delayed.astype(np.float32)
+        net = NeuralNetRegressor(
+            encoding_models.MLP(
+                dim_inputs=stim_train_delayed.shape[1],
+                dim_hidden=300,
+                dim_outputs=resp_train.shape[1]
+            ),
+            max_epochs=1000,
+            lr=5e-2,
+            callbacks=[EarlyStopping(patience=4)],
+            # Shuffle training data on each epoch
+            iterator_train__shuffle=True,
+            device='cuda',
+        )
+        net.fit(stim_train_delayed, resp_train)
+        preds = net.predict(stim_test_delayed)
+        corrs = []
+        for i in range(preds.shape[1]):
+            corrs.append(np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
+        corrs = np.array(corrs)
+        print('mean mlp corr', np.mean(corrs).round(3), 'max mlp corr',
+              np.max(corrs).round(3), 'min mlp corr', np.min(corrs).round(3))
+        np.savez("%s/corrs" % save_dir, corrs)
+        torch.save(net.module_.state_dict(), join(save_dir, 'weights.pt'))
 
+    # save corrs for each voxel
     if args.pc_components > 0:
         np.savez("%s/corrs_pcs" % save_dir, corrs)
         preds_voxels_test = pca.inverse_transform(

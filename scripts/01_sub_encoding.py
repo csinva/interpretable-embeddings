@@ -16,13 +16,14 @@ PARAMS_SHARED_DICT = {
     'ndelays': [4],
     'feature': [
         # 'gpt3-10', 'gpt3-20',
-        # 'bert-10', 'bert-20',
+        'bert-10', 'bert-20',
         # 'eng1000', 'glove',
-        'bert-3', 'bert-5',
-        'roberta-10', 
+        # 'bert-3', 'bert-5',
+        # 'roberta-10', 
         # 'bert-sst2-10',
     ],
     'pc_components' : [50000], # default -1 predicts each voxel independently
+    'encoding_model': ['mlp'], # 'ridge'
 
     # things to average over
     'seed': [1],
