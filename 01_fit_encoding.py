@@ -164,12 +164,12 @@ if __name__ == "__main__":
                 dim_hidden=300,
                 dim_outputs=resp_train.shape[1]
             ),
-            max_epochs=1000,
-            lr=5e-2,
-            callbacks=[EarlyStopping(patience=4)],
-            # Shuffle training data on each epoch
+            max_epochs=3000,
+            lr=1e-2,
+            optimizer=torch.optim.Adam,
+            callbacks=[EarlyStopping(patience=50)],
             iterator_train__shuffle=True,
-            device='cuda',
+            # device='cuda',
         )
         net.fit(stim_train_delayed, resp_train)
         preds = net.predict(stim_test_delayed)
@@ -177,18 +177,22 @@ if __name__ == "__main__":
         for i in range(preds.shape[1]):
             corrs.append(np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
         corrs = np.array(corrs)
-        print('mean mlp corr', np.mean(corrs).round(3), 'max mlp corr',
-              np.max(corrs).round(3), 'min mlp corr', np.min(corrs).round(3))
+        print(corrs[:20])
+        c = corrs[~np.isnan(corrs)]
+        print('mean mlp corr', np.mean(c).round(3), 'max mlp corr',
+              np.max(c).round(3), 'min mlp corr', np.min(c).round(3))
         np.savez("%s/corrs" % save_dir, corrs)
         torch.save(net.module_.state_dict(), join(save_dir, 'weights.pt'))
 
     # save corrs for each voxel
     if args.pc_components > 0:
         np.savez("%s/corrs_pcs" % save_dir, corrs)
+        if args.encoding_model == 'ridge':
+            preds_pc_test = stim_test_delayed @ wt
+        elif args.encoding_model == 'mlp':
+            preds_pc_test = net.predict(stim_test_delayed)
         preds_voxels_test = pca.inverse_transform(
-            scaler_test.inverse_transform(
-                stim_test_delayed @ wt
-            )
+            scaler_test.inverse_transform(preds_pc_test)
         )  # (n_trs x n_voxels)
         # zPresp_orig (n_trs x n_voxels)
         # corrs: correlation list (n_voxels)

@@ -16,8 +16,8 @@ PARAMS_SHARED_DICT = {
     'ndelays': [4],
     'feature': [
         # 'gpt3-10', 'gpt3-20',
-        'bert-10', 'bert-20',
-        # 'eng1000', 'glove',
+        # 'bert-10', 'bert-20',
+        'eng1000', 'glove',
         # 'bert-3', 'bert-5',
         # 'roberta-10', 
         # 'bert-sst2-10',
@@ -27,6 +27,7 @@ PARAMS_SHARED_DICT = {
 
     # things to average over
     'seed': [1],
+    'use_cache': [0],
 
     # fixed params
     # 'UTS03', 'UTS01', 'UTS02'],
