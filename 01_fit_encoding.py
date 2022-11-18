@@ -40,8 +40,9 @@ if __name__ == "__main__":
     parser.add_argument('--seed', type=int, default=1)
     parser.add_argument('--pc_components', type=int, default=-1)
     parser.add_argument("-use_corr", action="store_true")
-    parser.add_argument("-single_alpha", action="store_true")
     parser.add_argument("--use_cache", type=int, default=1)
+    parser.add_argument("-single_alpha", action="store_true")
+    parser.add_argument("--mlp_dim_hidden", type=int, help="hidden dim for MLP", default=512)
 
     # for faster testing
     parser.add_argument('--save_dir', type=str, default=None)
@@ -161,13 +162,13 @@ if __name__ == "__main__":
         net = NeuralNetRegressor(
             encoding_models.MLP(
                 dim_inputs=stim_train_delayed.shape[1],
-                dim_hidden=300,
+                dim_hidden=args.mlp_dim_hidden,
                 dim_outputs=resp_train.shape[1]
             ),
             max_epochs=3000,
-            lr=1e-2,
+            lr=1e-5,
             optimizer=torch.optim.Adam,
-            callbacks=[EarlyStopping(patience=50)],
+            callbacks=[EarlyStopping(patience=30)],
             iterator_train__shuffle=True,
             # device='cuda',
         )
