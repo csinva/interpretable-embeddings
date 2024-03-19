@@ -11,22 +11,23 @@ required_pypi = [
     'scikit-learn',
     'pandas',
     'tqdm',
-    'dict_hash', # required for caching
+    'dict_hash',  # required for caching
     'transformers',
     'torch',
     'imodelsx',
     'langchain',
     'openai',
     'accelerate',
-    'InstructorEmbedding', # embeddings for emb_diff_module
-    'sentence-transformers', # embeddings for emb_diff_module
+    'InstructorEmbedding',  # embeddings for emb_diff_module
+    'sentence-transformers',  # embeddings for emb_diff_module
 
-    'datasets', # optional, required for getting NLP datasets
-    'pytest', # optional, required for running tests
+    'datasets',  # optional, required for getting NLP datasets
+    'pytest',  # optional, required for running tests
 ]
 
 setuptools.setup(
-    name="ridge_utils",
+    name="huth",
+    # name="ridge_utils",
     version="0.01",
     author="Huth Lab",
     author_email="",
