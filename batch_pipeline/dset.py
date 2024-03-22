@@ -1,6 +1,6 @@
 import os
 import joblib
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
 import h5py
 import numpy as np
 from huth.utils_ds import make_word_ds
