@@ -426,7 +426,8 @@ def get_questions():
     qs_story = [q.strip('- ') for q in ANS_STORY.split('\n')]
     qs_story_followup = [q.strip('- ') for q in ANS_STORY_FOLLOWUP.split('\n')]
     qs_words = [q.strip('- ') for q in ANS_WORDS.split('\n')]
-    return list(set(qs_semantic + qs_story + qs_story_followup + qs_words))
+    qs = qs_semantic + qs_story + qs_story_followup + qs_words
+    return sorted(list(set(qs)))
 
 
 if __name__ == "__main__":

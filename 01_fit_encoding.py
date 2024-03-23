@@ -22,19 +22,22 @@ from feature_spaces import _FEATURE_VECTOR_FUNCTIONS, get_feature_space, repo_di
 from ridge_utils.ridge import bootstrap_ridge
 import imodelsx.cache_save_utils
 import story_names
+import random
 
 # get path to current file
 path_to_file = os.path.dirname(os.path.abspath(__file__))
 
 
-# from .encoding_utils import *
+# python 01_fit_encoding.py --use_test_setup 1 --feature_space bert-10
+# python 01_fit_encoding.py --use_test_setup 1 --feature_space qa_embedder-10
+# python 01_fit_encoding.py --use_test_setup 1 --feature_space qa_embedder-5
 
 def add_main_args(parser):
     """Caching uses the non-default values from argparse to name the saving directory.
     Changing the default arg an argument will break cache compatibility with previous runs.
     """
     parser.add_argument("--subject", type=str, default='UTS03')
-    parser.add_argument("--feature", type=str, default='bert-10',
+    parser.add_argument("--feature_space", type=str, default='distil-bert-10',  # qa_embedder-10
                         choices=list(_FEATURE_VECTOR_FUNCTIONS.keys()))
     parser.add_argument("--encoding_model", type=str, default='ridge')
     parser.add_argument("--trim", type=int, default=5)
@@ -50,7 +53,7 @@ def add_main_args(parser):
                         help="hidden dim for MLP", default=512)
     parser.add_argument('--save_dir', type=str,
                         default=os.path.join(path_to_file, 'results'))
-    parser.add_argument('--use_test_setup', type=int, default=0,
+    parser.add_argument('--use_test_setup', type=int, default=1,
                         help='For fast testing - train/test on single story with 2 nboots.')
     return parser
 
@@ -64,6 +67,13 @@ def add_computational_args(parser):
         choices=[0, 1],
         help="whether to check for cache",
     )
+    parser.add_argument(
+        "--use_save_features",
+        type=int,
+        default=1,
+        choices=[0, 1],
+        help="whether to save the constructed features",
+    )
     return parser
 
 
@@ -71,25 +81,32 @@ def get_data(args):
     # Story names
     if args.use_test_setup:
         # train_stories = ['sloth']
-        train_stories = ['sloth', 'itsabox',
-                         'odetostepfather', 'inamoment', 'hangtime']
-        test_stories = ['fromboyhoodtofatherhood']
-        args.nboots = 2
+        args.nboots = 5
+        # train_stories = ['sloth', 'itsabox',
+        #  'odetostepfather', 'inamoment', 'hangtime']
+        train_stories = [
+            'adollshouse', 'adventuresinsayingyes', 'afatherscover', 'againstthewind', 'alternateithicatom', 'avatar',
+            # 'backsideofthestorm', 'becomingindian', 'beneaththemushroomcloud',
+        ]
+        random.shuffle(train_stories)
+        test_stories = [
+            'sloth', 'fromboyhoodtofatherhood']  # , 'onapproachtopluto']
+
     else:
         train_stories = story_names.get_story_names(args.subject, 'train')
         test_stories = story_names.get_story_names(args.subject, 'test')
 
     # Features
-    get_features_downsampled_function = get_feature_space(
-        args.feature, train_stories + test_stories)
+    features_downsampled = get_feature_space(
+        args.feature_space, train_stories + test_stories)
     print("Stimulus & Response parameters:")
     normalize = True if args.pc_components <= 0 else False
-    stim_test_delayed = encoding_utils.add_delays(
-        test_stories, get_features_downsampled_function, args.trim, args.ndelays, normalize=normalize)
-    print("stim_test_delayed.shape: ", stim_test_delayed.shape)
     stim_train_delayed = encoding_utils.add_delays(
-        train_stories, get_features_downsampled_function, args.trim, args.ndelays, normalize=normalize)
+        train_stories, features_downsampled, args.trim, args.ndelays, normalize=normalize)
     print("stim_train_delayed.shape: ", stim_train_delayed.shape)
+    stim_test_delayed = encoding_utils.add_delays(
+        test_stories, features_downsampled, args.trim, args.ndelays, normalize=normalize)
+    print("stim_test_delayed.shape: ", stim_test_delayed.shape)
 
     # Response
     resp_train = encoding_utils.get_response(train_stories, args.subject)
@@ -181,6 +198,7 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
     if args.pc_components > 0:
         r['corrs_pc'] = corrs
 
+        """
         def _evaluate_pc_model_on_each_voxel(args, r, model_params_to_save):
             '''Todo: properly pass args here
             '''
@@ -205,8 +223,10 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
             # corrs = np.diagonal(preds_normed.T @ resps_normed)
 
             return corrs
+        
         r['corrs'] = _evaluate_pc_model_on_each_voxel(
             args, r, model_params_to_save)
+        """
     return r, model_params_to_save
 
 
@@ -256,9 +276,17 @@ if __name__ == "__main__":
     r['corr_mean'] = np.mean(r['corrs'])
     r['corr_median'] = np.median(r['corrs'])
     r['r2_mean'] = np.mean(r['corrs'] * np.abs(r['corrs']))
+    r['corr_frac>0'] = np.mean(r['corrs'] > 0)
+    r['corr_mean_top1_percentile'] = np.mean(
+        np.sort(r['corrs'])[-len(r['corrs']) // 100:])
+
     os.makedirs(save_dir_unique, exist_ok=True)
     joblib.dump(r, join(save_dir_unique, "results.pkl"))
     joblib.dump(model_params_to_save, join(
         save_dir_unique, "model_params.pkl"))
     logging.info(
-        f"Succesfully completed with corr_mean {r['corr_mean']:0.2f} corr_median {r['corr_median']:0.2f} :)\n\n")
+        f"Succesfully completed :)")
+    metrics = ['corr_mean', 'corr_median', 'r2_mean',
+               'corr_frac>0', 'corr_mean_top1_percentile']
+    for metric in metrics:
+        logging.info(f"{metric}: {r[metric]:.4f}")

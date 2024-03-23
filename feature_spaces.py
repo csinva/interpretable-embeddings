@@ -15,6 +15,7 @@ from ridge_utils.utils_ds import apply_model_to_words, make_word_ds, make_phonem
 from ridge_utils.utils_stim import load_textgrids, load_simulated_trfiles
 from transformers import pipeline
 import logging
+from qa_embedder import QuestionEmbedder
 
 
 # join(dirname(dirname(os.path.abspath(__file__))))
@@ -142,7 +143,7 @@ def get_ngrams_list_from_words_list(words_list: List[str], ngram_size: int = 5) 
     return ngrams_list
 
 
-def get_embs_list_from_text_list(text_list: List[str], embedding_function) -> List[np.ndarray]:
+def get_embs_from_text_list(text_list: List[str], embedding_function) -> List[np.ndarray]:
     """
 
     Params
@@ -170,67 +171,62 @@ def get_embs_list_from_text_list(text_list: List[str], embedding_function) -> Li
                     total=len(text)):  # , truncation="only_first"):
         embs_list.append(out)
     """
-    return embs_list
 
-
-def convert_embs_list_to_np_arr(embs_list: List[np.ndarray], avg_over_seq_len=True) -> np.ndarray:
-    """Convert to np array by averaging over len
-    """
+    # Convert to np array by averaging over len
     # Embeddings are already the same size
-    if not avg_over_seq_len:
-        embs = np.array(embs_list).squeeze()  # .mean(axis=1)
-
     # Can't just convert this since seq lens vary
     # Need to avg over seq_len dim
-    else:
-        logging.info('\tPostprocessing embs...')
-        embs = np.zeros((len(embs_list), len(embs_list[0])))
-        num_ngrams = len(embs_list)
-        dim_size = len(embs_list[0][0][0])
-        embs = np.zeros((num_ngrams, dim_size))
-        for i in tqdm(range(num_ngrams)):
-            # embs_list is (batch_size, 1, (seq_len + 2), 768) -- BERT adds initial / final tokens
-            embs[i] = np.mean(embs_list[i], axis=1)  # avg over seq_len dim
+    logging.info('\tPostprocessing embs...')
+    embs = np.zeros((len(embs_list), len(embs_list[0])))
+    num_ngrams = len(embs_list)
+    dim_size = len(embs_list[0][0][0])
+    embs = np.zeros((num_ngrams, dim_size))
+    for i in tqdm(range(num_ngrams)):
+        # embs_list is (batch_size, 1, (seq_len + 2), 768) -- BERT adds initial / final tokens
+        embs[i] = np.mean(embs_list[i], axis=1)  # avg over seq_len dim
     return embs
 
 
-def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5):
+def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5, num_trs=4):
     """Get llm embedding vectors
     """
-    if model.startswith('gpt3'):
-        import openai
-        from tenacity import retry, wait_random_exponential, stop_after_attempt
 
-        @retry(wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(3))
-        def get_embedding(text: str, engine="text-similarity-davinci-001") -> np.array[float]:
-            text = text.replace("\n", " ")  # replace newlines
-            if len(text) == 0:
-                text = '  '
-            emb = openai.Embedding.create(input=[text], engine=engine)[
-                "data"][0]["embedding"]
-            return np.array(emb)
-        avg_over_seq_len = False
-    # elif model.startswith('qa'):
-        # def get_embedding(text: str) -> np.array[float]:
-
-    else:
-        get_embedding = pipeline("feature-extraction", model=model, device=0)
-        avg_over_seq_len = True
     wordseqs = get_story_wordseqs(allstories)
-    vectors = {}
-
     print(f'extracting {model} embs...')
-    for story in tqdm(allstories):
-        ds = wordseqs[story]
-        ngrams_list = get_ngrams_list_from_words_list(
-            ds.data, ngram_size=ngram_size)
-        embs = get_embs_list_from_text_list(
-            ngrams_list, embedding_function=get_embedding)
-        embs = convert_embs_list_to_np_arr(
-            embs, avg_over_seq_len=avg_over_seq_len)
-        vectors[story] = DataSequence(
-            embs, ds.split_inds, ds.data_times, ds.tr_times).data
-    return downsample_word_vectors(allstories, vectors, wordseqs)
+    if 'qa_embedder' in model:
+        embedding_model = QuestionEmbedder()
+    if not 'qa_embedder' in model:
+        embedding_model = pipeline("feature-extraction", model=model, device=0)
+
+    def _llm_vectors_ngram_based(allstories, wordseqs, embedding_model, ngram_size):
+        '''This function works at the level of individual words, embeds the ngram leading up to each word, and then interpolates them.
+        Alternatively, we could have used wordseqs[story].chunks() to combine each TR.
+        '''
+        vectors = {}
+        for story in tqdm(allstories):
+            ds = wordseqs[story]
+            # get list of every word (each has its own timing info, many words are in a single TR)
+            words_list = ds.data
+
+            # replace each word with an ngram leading up to that word
+            ngrams_list = get_ngrams_list_from_words_list(
+                words_list, ngram_size=ngram_size)
+
+            # embed the ngrams
+            if 'qa_embedder' in model:
+                embs = embedding_model(ngrams_list, verbose=False)
+            else:
+                embs = get_embs_from_text_list(
+                    ngrams_list, embedding_function=embedding_model)
+
+            # put in each embedding at the appropriate time
+            vectors[story] = DataSequence(
+                embs, ds.split_inds, ds.data_times, ds.tr_times).data
+
+        # downsample combined embeddings
+        return downsample_word_vectors(allstories, vectors, wordseqs)
+
+    return _llm_vectors_ngram_based(allstories, wordseqs, embedding_model, ngram_size)
 
 
 ############################################
@@ -243,9 +239,10 @@ _FEATURE_VECTOR_FUNCTIONS = {
 }
 _FEATURE_CHECKPOINTS = {
     'bert': 'bert-base-uncased',
+    'distil-bert': 'distilbert-base-uncased',
     'roberta': 'roberta-large',
     'bert-sst2': 'textattack/bert-base-uncased-SST-2',
-    'gpt3': 'gpt3',
+    'qa_embedder': 'qa_embedder',
 }
 BASE_KEYS = list(_FEATURE_CHECKPOINTS.keys())
 for ngram_size in [3, 5, 10, 20]:
