@@ -21,8 +21,8 @@ import logging
 repo_dir = '/home/chansingh/mntv1/deep-fMRI'
 nlp_utils_dir = '/home/chansingh/nlp_utils'
 em_data_dir = join(repo_dir, 'em_data')
-data_dir = join(repo_dir, 'data')
-results_dir = join(repo_dir, 'results')
+data_dir = repo_dir  # join(repo_dir, 'data')
+results_dir = join(repo_dir, 'results_new')
 
 
 def get_story_wordseqs(stories) -> Dict[str, DataSequence]:
@@ -75,69 +75,6 @@ def ph_to_articulate(ds, ph_2_art):
         except:
             articulate_ds.append([""])
     return articulate_ds
-
-
-articulates = [
-    "bilabial", "postalveolar", "alveolar", "dental", "labiodental",
-    "velar", "glottal", "palatal", "plosive", "affricative", "fricative",
-    "nasal", "lateral", "approximant", "voiced", "unvoiced", "low", "mid",
-    "high", "front", "central", "back"
-]
-
-
-def histogram_articulates(ds, data, articulateset=articulates):
-    """Histograms the articulates in the DataSequence [ds]."""
-    final_data = []
-    for art in ds:
-        final_data.append(np.isin(articulateset, art))
-    final_data = np.array(final_data)
-    return (final_data, data.split_inds, data.data_times, data.tr_times)
-
-
-def get_articulation_vectors(allstories):
-    """Get downsampled articulation vectors for specified stories.
-    Args:
-            allstories: List of stories to obtain vectors for.
-    Returns:
-            Dictionary of {story: downsampled vectors}
-    """
-    with open(join(em_data_dir, "articulationdict.json"), "r") as f:
-        artdict = json.load(f)
-    # (phonemes, phoneme_times, tr_times)
-    phonseqs = get_story_phonseqs(allstories)
-    downsampled_arthistseqs = {}
-    for story in allstories:
-        olddata = np.array(
-            [ph.upper().strip("0123456789") for ph in phonseqs[story].data])
-        ph_2_art = ph_to_articulate(olddata, artdict)
-        arthistseq = histogram_articulates(ph_2_art, phonseqs[story])
-        downsampled_arthistseqs[story] = lanczosinterp2D(
-            arthistseq[0], arthistseq[2], arthistseq[3])
-    return downsampled_arthistseqs
-
-
-def get_phonemerate_vectors(allstories):
-    """Get downsampled phonemerate vectors for specified stories.
-    Args:
-            allstories: List of stories to obtain vectors for.
-    Returns:
-            Dictionary of {story: downsampled vectors}
-    """
-    with open(join(em_data_dir, "articulationdict.json"), "r") as f:
-        artdict = json.load(f)
-    # (phonemes, phoneme_times, tr_times)
-    phonseqs = get_story_phonseqs(allstories)
-    downsampled_arthistseqs = {}
-    for story in allstories:
-        olddata = np.array(
-            [ph.upper().strip("0123456789") for ph in phonseqs[story].data])
-        ph_2_art = ph_to_articulate(olddata, artdict)
-        arthistseq = histogram_articulates(ph_2_art, phonseqs[story])
-        nphonemes = arthistseq[0].shape[0]
-        phonemerate = np.ones([nphonemes, 1])
-        downsampled_arthistseqs[story] = lanczosinterp2D(
-            phonemerate, arthistseq[2], arthistseq[3])
-    return downsampled_arthistseqs
 
 
 def get_wordrate_vectors(allstories):
@@ -226,7 +163,6 @@ def get_embs_list_from_text_list(text_list: List[str], embedding_function) -> Li
         return {'emb': embedding_function(x['text'])}
     embs_list = text.map(get_emb)['emb']  # embedding_function(text)
 
-
     # This allows for parallelization when passing batch_size, but sometimes throws "Killed" error
     """
     embs_list = []
@@ -242,7 +178,7 @@ def convert_embs_list_to_np_arr(embs_list: List[np.ndarray], avg_over_seq_len=Tr
     """
     # Embeddings are already the same size
     if not avg_over_seq_len:
-        embs = np.array(embs_list).squeeze() #.mean(axis=1)
+        embs = np.array(embs_list).squeeze()  # .mean(axis=1)
 
     # Can't just convert this since seq lens vary
     # Need to avg over seq_len dim
@@ -266,7 +202,7 @@ def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5):
         from tenacity import retry, wait_random_exponential, stop_after_attempt
 
         @retry(wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(3))
-        def get_embedding(text: str, engine="text-similarity-davinci-001") -> List[float]:
+        def get_embedding(text: str, engine="text-similarity-davinci-001") -> np.array[float]:
             text = text.replace("\n", " ")  # replace newlines
             if len(text) == 0:
                 text = '  '
@@ -274,6 +210,9 @@ def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5):
                 "data"][0]["embedding"]
             return np.array(emb)
         avg_over_seq_len = False
+    # elif model.startswith('qa'):
+        # def get_embedding(text: str) -> np.array[float]:
+
     else:
         get_embedding = pipeline("feature-extraction", model=model, device=0)
         avg_over_seq_len = True
@@ -298,8 +237,6 @@ def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5):
 ########## Feature Space Creation ##########
 ############################################
 _FEATURE_VECTOR_FUNCTIONS = {
-    "articulation": get_articulation_vectors,
-    "phonemerate": get_phonemerate_vectors,
     "wordrate": get_wordrate_vectors,
     "eng1000": get_eng1000_vectors,
     'glove': get_glove_vectors,
