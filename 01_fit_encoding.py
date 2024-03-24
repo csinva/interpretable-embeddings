@@ -37,7 +37,7 @@ def add_main_args(parser):
     Changing the default arg an argument will break cache compatibility with previous runs.
     """
     parser.add_argument("--subject", type=str, default='UTS03')
-    parser.add_argument("--feature_space", type=str, default='distil-bert-10',  # qa_embedder-10
+    parser.add_argument("--feature_space", type=str, default='distil-bert-10',  # qa_embedder-5
                         choices=list(_FEATURE_VECTOR_FUNCTIONS.keys()))
     parser.add_argument("--encoding_model", type=str, default='ridge')
     parser.add_argument("--trim", type=int, default=5)
@@ -84,13 +84,20 @@ def get_data(args):
         args.nboots = 5
         # train_stories = ['sloth', 'itsabox',
         #  'odetostepfather', 'inamoment', 'hangtime']
-        train_stories = [
-            'adollshouse', 'adventuresinsayingyes', 'afatherscover', 'againstthewind', 'alternateithicatom', 'avatar',
-            # 'backsideofthestorm', 'becomingindian', 'beneaththemushroomcloud',
-        ]
+        train_stories = story_names.get_story_names(args.subject, 'train')
+        # train_stories = [
+        # 'adollshouse', 'adventuresinsayingyes', 'afatherscover', 'againstthewind', 'alternateithicatom', 'avatar',
+        # 'backsideofthestorm', 'becomingindian', 'beneaththemushroomcloud',
+        # ]
+        train_stories = [x for x in train_stories if x in [
+            'adollshouse', 'listo', 'adventuresinsayingyes', 'mayorofthefreaks', 'afatherscover', 'metsmagic', 'againstthewind', 'mybackseatviewofagreatromance', 'alternateithicatom', 'myfathershands', 'avatar', 'myfirstdaywiththeyankees', 'backsideofthestorm', 'naked', 'becomingindian', 'notontheusualtour', 'beneaththemushroomcloud', 'odetostepfather', 'birthofanation', 'onlyonewaytofindout', 'bluehope', 'penpal', 'breakingupintheageofgoogle', 'quietfire', 'buck', 'reachingoutbetweenthebars', 'catfishingstrangerstofindmyself', 'shoppinginchina', 'cautioneating', 'singlewomanseekingmanwich', 'christmas1940', 'sloth', 'cocoonoflove', 'souls', 'comingofageondeathrow', 'stagefright', 'exorcism', 'stumblinginthedark', 'eyespy', 'superheroesjustforeachother', 'firetestforlove', 'sweetaspie', 'food',
+            'swimmingwithastronauts', 'forgettingfear', 'thatthingonmyarm', 'fromboyhoodtofatherhood', 'theadvancedbeginner', 'gangstersandcookies', 'theclosetthatateeverything', 'goingthelibertyway', 'thecurse', 'goldiethegoldfish', 'thefreedomridersandme', 'golfclubbing', 'theinterview', 'gpsformylostidentity', 'thepostmanalwayscalls', 'hangtime', 'theshower', 'haveyoumethimyet', 'thetiniestbouquet', 'howtodraw', 'thetriangleshirtwaistconnection', 'ifthishaircouldtalk', 'threemonths', 'inamoment', 'thumbsup', 'itsabox', 'tildeath', 'jugglingandjesus', 'treasureisland', 'kiksuya', 'undertheinfluence', 'leavingbaghdad', 'vixenandtheussr', 'legacy', 'waitingtogo', 'lifeanddeathontheoregontrail', 'whenmothersbullyback', 'lifereimagined', 'wheretheressmoke', 'life', 'wildwomenanddancingqueens'
+        ]]
         random.shuffle(train_stories)
+        # train_stories = train_stories
         test_stories = [
-            'sloth', 'fromboyhoodtofatherhood']  # , 'onapproachtopluto']
+            'sloth', 'fromboyhoodtofatherhood']
+        # 'onapproachtopluto']  # , 'onapproachtopluto']
 
     else:
         train_stories = story_names.get_story_names(args.subject, 'train')
@@ -99,7 +106,6 @@ def get_data(args):
     # Features
     features_downsampled = get_feature_space(
         args.feature_space, train_stories + test_stories)
-    print("Stimulus & Response parameters:")
     normalize = True if args.pc_components <= 0 else False
     stim_train_delayed = encoding_utils.add_delays(
         train_stories, features_downsampled, args.trim, args.ndelays, normalize=normalize)
@@ -144,18 +150,19 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         alphas = np.logspace(1, 3, 10)
 
     if args.encoding_model == 'ridge':
-        wt, corrs, valphas, bscorrs, valinds = bootstrap_ridge(
+        wt, corrs_test, alphas_best, corrs_tune, valinds = bootstrap_ridge(
             stim_train_delayed, resp_train, stim_test_delayed, resp_test, alphas, args.nboots, args.chunklen,
             args.nchunks, singcutoff=args.singcutoff, single_alpha=args.single_alpha)
 
         # Save regression results.
         model_params_to_save = {
             'weights': wt,
-            'valphas': valphas,
-            'bscorrs': bscorrs,
-            'valinds': valinds
+            'alphas_best': alphas_best,
+            # 'valinds': valinds
         }
-        r['corrs'] = corrs
+        # corrs_tune is (alphas, voxels, and bootstrap samples), so we average over the bootstrap samples and take the max over the alphas
+        r['corrs_tune'] = corrs_tune.mean(axis=-1).max(axis=0)
+        r['corrs_test'] = corrs_test
     elif args.encoding_model == 'mlp':
         stim_train_delayed = stim_train_delayed.astype(np.float32)
         resp_train = resp_train.astype(np.float32)
@@ -179,11 +186,11 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         for i in range(preds.shape[1]):
             corrs.append(np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
         corrs = np.array(corrs)
-        print(corrs[:20])
-        c = corrs[~np.isnan(corrs)]
+        # print(corrs[:20])
+        # c = corrs[~np.isnan(corrs)]
         # print('mean mlp corr', np.mean(c).round(3), 'max mlp corr',
         #       np.max(c).round(3), 'min mlp corr', np.min(c).round(3))
-        r['corrs'] = corrs
+        r['corrs_test'] = corrs
         model_params_to_save = {
             'weights': net.module_.state_dict(),
         }
@@ -196,7 +203,7 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
 
     # save corrs for each voxel
     if args.pc_components > 0:
-        r['corrs_pc'] = corrs
+        r['corrs_test_pc'] = corrs
 
         """
         def _evaluate_pc_model_on_each_voxel(args, r, model_params_to_save):
@@ -228,6 +235,27 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
             args, r, model_params_to_save)
         """
     return r, model_params_to_save
+
+
+def add_summary_stats(r, verbose=True):
+    for key in ['corrs_test', 'corrs_tune']:
+        if key in r:
+            r[key + '_mean'] = np.mean(r[key])
+            r[key + '_median'] = np.median(r[key])
+            r[key + '_frac>0'] = np.mean(r[key] > 0)
+            r[key + '_mean_top1_percentile'] = np.mean(
+                np.sort(r[key])[-len(r[key]) // 100:])
+            r[key + '_mean_top5_percentile'] = np.mean(
+                np.sort(r[key])[-len(r[key]) // 20:])
+
+            if key == 'corrs_test' and verbose:
+                logging.info(f"mean {key}: {r[key + '_mean']:.4f}")
+                logging.info(f"median {key}: {r[key + '_median']:.4f}")
+                logging.info(f"frac>0 {key}: {r[key + '_frac>0']:.4f}")
+                logging.info(
+                    f"mean top1 percentile {key}: {r[key + '_mean_top1_percentile']:.4f}")
+                logging.info(
+                    f"mean top5 percentile {key}: {r[key + '_mean_top5_percentile']:.4f}")
 
 
 if __name__ == "__main__":
@@ -272,21 +300,10 @@ if __name__ == "__main__":
     r, model_params_to_save = fit_regression(args, r, stim_train_delayed,
                                              resp_train, stim_test_delayed, resp_test)
 
-    # save
-    r['corr_mean'] = np.mean(r['corrs'])
-    r['corr_median'] = np.median(r['corrs'])
-    r['r2_mean'] = np.mean(r['corrs'] * np.abs(r['corrs']))
-    r['corr_frac>0'] = np.mean(r['corrs'] > 0)
-    r['corr_mean_top1_percentile'] = np.mean(
-        np.sort(r['corrs'])[-len(r['corrs']) // 100:])
-
     os.makedirs(save_dir_unique, exist_ok=True)
+    r = add_summary_stats(r, verbose=True)
     joblib.dump(r, join(save_dir_unique, "results.pkl"))
     joblib.dump(model_params_to_save, join(
         save_dir_unique, "model_params.pkl"))
     logging.info(
         f"Succesfully completed :)")
-    metrics = ['corr_mean', 'corr_median', 'r2_mean',
-               'corr_frac>0', 'corr_mean_top1_percentile']
-    for metric in metrics:
-        logging.info(f"{metric}: {r[metric]:.4f}")
