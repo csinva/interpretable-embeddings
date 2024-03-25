@@ -5,7 +5,7 @@ import sys
 from imodelsx import submit_utils
 path_to_file = os.path.dirname(os.path.abspath(__file__))
 repo_dir = dirname(dirname(os.path.abspath(__file__)))
-# python /home/chansingh/emb-gam/experimental/fmri/01_fit_encoding.py --feature bert-10 --ndelays 2 --seed 1 --subject UTS03
+# python /home/chansingh/fmri/01_fit_encoding.py
 
 params_shared_dict = {
     # things to vary
@@ -33,8 +33,9 @@ params_shared_dict = {
 
     # fixed params
     # 'UTS03', 'UTS01', 'UTS02'],
-    'subject': ['UTS03'],  # , 'UTS04', 'UTS05', 'UTS06'],
+    'subject': ['UTS03', 'UTS02', 'UTS01'],  # , 'UTS04', 'UTS05', 'UTS06'],
     # 'mlp_dim_hidden': [768],
+    'use_test_setup': [0],
 }
 params_coupled_dict = {
     ('feature_space', 'seed', 'ndelays'): [

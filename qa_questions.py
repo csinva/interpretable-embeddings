@@ -328,6 +328,7 @@ ANS_WORDS = '''- Does the input contain emotional words?
 - Does the sentence describe a physical action?
 - Is the input expressing a wish or desire?
 - Does the sentence mention a specific location?
+- Does the input contain repetition?
 - Is there a reference to a past event?
 - Does the sentence include dialogue?
 - Is there a mention of a future plan or intention?

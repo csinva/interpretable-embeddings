@@ -81,7 +81,7 @@ def get_data(args):
     # Story names
     if args.use_test_setup:
         # train_stories = ['sloth']
-        args.nboots = 5
+        args.nboots = 20
         # train_stories = ['sloth', 'itsabox',
         #  'odetostepfather', 'inamoment', 'hangtime']
         train_stories = story_names.get_story_names(args.subject, 'train')
@@ -89,14 +89,9 @@ def get_data(args):
         # 'adollshouse', 'adventuresinsayingyes', 'afatherscover', 'againstthewind', 'alternateithicatom', 'avatar',
         # 'backsideofthestorm', 'becomingindian', 'beneaththemushroomcloud',
         # ]
-        train_stories = [x for x in train_stories if x in [
-            'adollshouse', 'listo', 'adventuresinsayingyes', 'mayorofthefreaks', 'afatherscover', 'metsmagic', 'againstthewind', 'mybackseatviewofagreatromance', 'alternateithicatom', 'myfathershands', 'avatar', 'myfirstdaywiththeyankees', 'backsideofthestorm', 'naked', 'becomingindian', 'notontheusualtour', 'beneaththemushroomcloud', 'odetostepfather', 'birthofanation', 'onlyonewaytofindout', 'bluehope', 'penpal', 'breakingupintheageofgoogle', 'quietfire', 'buck', 'reachingoutbetweenthebars', 'catfishingstrangerstofindmyself', 'shoppinginchina', 'cautioneating', 'singlewomanseekingmanwich', 'christmas1940', 'sloth', 'cocoonoflove', 'souls', 'comingofageondeathrow', 'stagefright', 'exorcism', 'stumblinginthedark', 'eyespy', 'superheroesjustforeachother', 'firetestforlove', 'sweetaspie', 'food',
-            'swimmingwithastronauts', 'forgettingfear', 'thatthingonmyarm', 'fromboyhoodtofatherhood', 'theadvancedbeginner', 'gangstersandcookies', 'theclosetthatateeverything', 'goingthelibertyway', 'thecurse', 'goldiethegoldfish', 'thefreedomridersandme', 'golfclubbing', 'theinterview', 'gpsformylostidentity', 'thepostmanalwayscalls', 'hangtime', 'theshower', 'haveyoumethimyet', 'thetiniestbouquet', 'howtodraw', 'thetriangleshirtwaistconnection', 'ifthishaircouldtalk', 'threemonths', 'inamoment', 'thumbsup', 'itsabox', 'tildeath', 'jugglingandjesus', 'treasureisland', 'kiksuya', 'undertheinfluence', 'leavingbaghdad', 'vixenandtheussr', 'legacy', 'waitingtogo', 'lifeanddeathontheoregontrail', 'whenmothersbullyback', 'lifereimagined', 'wheretheressmoke', 'life', 'wildwomenanddancingqueens'
-        ]]
         random.shuffle(train_stories)
         # train_stories = train_stories
-        test_stories = [
-            'sloth', 'fromboyhoodtofatherhood']
+        test_stories = ['sloth', 'fromboyhoodtofatherhood']
         # 'onapproachtopluto']  # , 'onapproachtopluto']
 
     else:
@@ -256,6 +251,7 @@ def add_summary_stats(r, verbose=True):
                     f"mean top1 percentile {key}: {r[key + '_mean_top1_percentile']:.4f}")
                 logging.info(
                     f"mean top5 percentile {key}: {r[key + '_mean_top5_percentile']:.4f}")
+    return r
 
 
 if __name__ == "__main__":
@@ -306,4 +302,4 @@ if __name__ == "__main__":
     joblib.dump(model_params_to_save, join(
         save_dir_unique, "model_params.pkl"))
     logging.info(
-        f"Succesfully completed :)")
+        f"Succesfully completed, saved to {save_dir_unique}")
