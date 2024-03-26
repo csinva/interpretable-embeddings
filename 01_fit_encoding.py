@@ -82,8 +82,7 @@ def get_data(args):
     if args.use_test_setup:
         # train_stories = ['sloth']
         args.nboots = 3
-        story_names_train = ['sloth', 'itsabox',
-                             'odetostepfather', 'inamoment', 'hangtime']
+        story_names_train = ['sloth', 'adollshouse']
         # story_names_train = story_names.get_story_names(args.subject, 'train')
         # story_names_train = [
         # 'adollshouse', 'adventuresinsayingyes', 'afatherscover', 'againstthewind', 'alternateithicatom', 'avatar',
@@ -110,21 +109,30 @@ def get_data(args):
     stim_test_delayed = encoding_utils.add_delays(
         story_names_test, features_downsampled_dict, args.trim, args.ndelays, normalize=normalize)
     print("stim_test_delayed.shape: ", stim_test_delayed.shape)
+    torch.cuda.empty_cache()
 
     # Response
-    resp_train = encoding_utils.get_response(story_names_train, args.subject)
+    # use cached responses
+    if set(story_names_train) == set(story_names.get_story_names(args.subject, 'train')):
+        resp_train = joblib.load(
+            join('/home/chansingh/cache_fmri_resps', f'{args.subject}.pkl'))
+    else:
+        resp_train = encoding_utils.get_response(
+            story_names_train, args.subject)
     # (n_time_points x n_voxels), e.g. (27449, 95556)
     print("resp_train.shape", resp_train.shape)
     resp_test = encoding_utils.get_response(story_names_test, args.subject)
     # (n_time_points x n_voxels), e.g. (550, 95556)
     print("resp_test.shape: ", resp_test.shape)
+    assert resp_train.shape[0] == stim_train_delayed.shape[0], 'Resps loading for all stories, make sure to align with stim'
 
     return stim_train_delayed, resp_train, stim_test_delayed, resp_test
 
 
 def transform_resps(args, resp_train, resp_test):
-    pca_dir = join(data_dir, 'fmri_resp_norms', args.subject)
-    pca = pkl.load(open(join(pca_dir, 'resps_pca.pkl'), 'rb'))['pca']
+    pca_filename = join(data_dir, 'fmri_resp_norms',
+                        args.subject, 'resps_pca.pkl')
+    pca = joblib.load(pca_filename)
     pca.components_ = pca.components_[
         :args.pc_components]  # (n_components, n_voxels)
     # zRresp = zRresp @ comps.T
@@ -202,8 +210,23 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
             'alphas_best': alphas_best,
             # 'valinds': valinds
         }
-        # corrs_tune is (alphas, voxels, and bootstrap samples), so we average over the bootstrap samples and take the max over the alphas
-        r['corrs_tune'] = corrs_tune.mean(axis=-1).max(axis=0)
+
+        # corrs_tune is (alphas, voxels, and bootstrap samples)
+
+        # reorder be (voxels, alphas, bootstrap samples)
+        corrs_tune = np.swapaxes(corrs_tune, 0, 1)
+        # mean over bootstrap samples
+        corrs_tune = corrs_tune.mean(axis=-1)
+
+        # replace each element of alphas_best with its index in alphas
+        alphas_idx = np.array([np.where(alphas == a)[0][0]
+                              for a in alphas_best])
+
+        # apply best alpha to each voxel
+        corrs_tune = corrs_tune[np.arange(corrs_tune.shape[0]), alphas_idx]
+
+        # so we average over the bootstrap samples and take the max over the alphas
+        r['corrs_tune'] = corrs_tune
         r['corrs_test'] = corrs_test
     elif args.encoding_model == 'mlp':
         stim_train_delayed = stim_train_delayed.astype(np.float32)

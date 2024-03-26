@@ -24,29 +24,28 @@ params_shared_dict = {
     # ],
     # -1, 50000
     # default -1 predicts each voxel independently
-    # 'pc_components': [50000, 5000, 100, -1],
+    'pc_components': [5000, 100, -1],
     # 'encoding_model': ['mlp'],  # 'ridge'
 
     # things to average over
     # 'seed': [1],
     'use_cache': [1],
     'save_dir': [join(repo_dir, 'results')],
+    'nboots': [50],
 
     # fixed params
     # 'UTS03', 'UTS01', 'UTS02'],
-    # , 'UTS02', 'UTS01'],  # , 'UTS04', 'UTS05', 'UTS06'],
-    'subject': ['UTS03'],
+    'subject': ['UTS03'],  # 'UTS01', 'UTS02'],
+    # 'subject': ['UTS03'],
     # 'mlp_dim_hidden': [768],
     'use_test_setup': [0],
 }
 params_coupled_dict = {
     ('feature_space', 'seed', 'ndelays'): [
-        # ('bert-10', 1, 4),
-        # ('eng1000', 1, 4),
+        ('bert-10', 1, 4),
+        ('eng1000', 1, 4),
         ('qa_embedder-5', 1, 4),
-        ('qa_embedder-5', 2, 4),
-        ('qa_embedder-5', 3, 8),
-        # ('qa_embedder-5', 4, 8),
+        ('qa_embedder-5', 1, 8),
     ],
 }
 # Args list is a list of dictionaries
@@ -59,8 +58,8 @@ submit_utils.run_args_list(
     args_list,
     script_name=join(repo_dir, '01_fit_encoding.py'),
     actually_run=True,
-    gpu_ids=[1, 2, 3],
-    # n_cpus=1,
+    # gpu_ids=[0, 1],
+    n_cpus=12,
     # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1], [2, 3]],
     shuffle=True,

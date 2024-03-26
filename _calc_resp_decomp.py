@@ -41,24 +41,24 @@ def calc_decomp(out_dir, subject, subsample_input=None):
 
     print('fitting PCA...')
     out_file = join(out_dir, 'resps_pca.pkl')
-    if not os.path.exists(out_file):
-        pca = PCA().fit(zRresp)
-        pkl.dump({'pca': pca}, open(out_file, 'wb'))
+    # if not os.path.exists(out_file):
+    pca = PCA().fit(zRresp)
+    joblib.dump(pca, out_file)
 
-    print('fitting ICA...')
-    out_file = join(out_dir, 'resps_ica.pkl')
-    if not os.path.exists(out_file):
-        ica = FastICA().fit(zRresp)
-        pkl.dump({'ica': ica}, open(out_file, 'wb'))
+    # print('fitting ICA...')
+    # out_file = join(out_dir, 'resps_ica.pkl')
+    # if not os.path.exists(out_file):
+    #     ica = FastICA().fit(zRresp)
+    #     pkl.dump({'ica': ica}, open(out_file, 'wb'))
 
-    print('fitting NMF...')
-    try:
-        out_file = join(out_dir, 'resps_nmf.pkl')
-        if not os.path.exists(out_file):
-            nmf = NMF(n_components=1000).fit(zRresp - zRresp.min())
-            pkl.dump({'nmf': nmf}, open(out_file, 'wb'))
-    except:
-        print('failed nmf!')
+    # print('fitting NMF...')
+    # try:
+    #     out_file = join(out_dir, 'resps_nmf.pkl')
+    #     if not os.path.exists(out_file):
+    #         nmf = NMF(n_components=1000).fit(zRresp - zRresp.min())
+    #         pkl.dump({'nmf': nmf}, open(out_file, 'wb'))
+    # except:
+    #     print('failed nmf!')
 
     # print('fitting SC...')
     # try:
@@ -89,8 +89,9 @@ def viz_decomp(out_dir):
 
 if __name__ == '__main__':
     # cache_resps()
-    for subject in ['UTS03', 'UTS02', 'UTS01']:
+    for subject in ['UTS03', 'UTS01', 'UTS02']:
+        print(subject)
         out_dir = join(feature_spaces.data_dir, 'fmri_resp_norms', subject)
         os.makedirs(out_dir, exist_ok=True)
-        calc_decomp(out_dir, subject, subsample_input=None)
+        calc_decomp(out_dir, subject, subsample_input=2)
         # viz_decomp(out_dir)
