@@ -9,7 +9,6 @@ repo_dir = dirname(dirname(os.path.abspath(__file__)))
 
 params_shared_dict = {
     # things to vary
-    # 'ndelays': [4],
     # 'feature_space': [
     #     # 'gpt3-10', 'gpt3-20',
     #     'bert-10',
@@ -22,16 +21,14 @@ params_shared_dict = {
     #     # 'roberta-10',
     #     # 'bert-sst2-10',
     # ],
-    # -1, 50000
     # default -1 predicts each voxel independently
     'pc_components': [5000, 100, -1],
     # 'encoding_model': ['mlp'],  # 'ridge'
 
     # things to average over
-    # 'seed': [1],
     'use_cache': [1],
     'save_dir': [join(repo_dir, 'results')],
-    'nboots': [50],
+    'nboots': [75],
 
     # fixed params
     # 'UTS03', 'UTS01', 'UTS02'],

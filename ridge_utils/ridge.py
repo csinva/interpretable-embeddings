@@ -66,7 +66,7 @@ def ridge(stim, resp, alpha, singcutoff=1e-10, normalpha=False, logger=ridge_log
     return wt
 
 
-def ridge_corr_pred(Rstim, Pstim, Rresp, Presp, valphas, normalpha=False,
+def ridge_corr_pred(stim_train, stim_test, resp_train, resp_test, valphas, normalpha=False,
                     singcutoff=1e-10, use_corr=True, logger=ridge_logger):
     """Uses ridge regression to find a linear transformation of [Rstim] that approximates [Rresp],
     then tests by comparing the transformation of [Pstim] to [Presp]. Returns the correlation 
@@ -75,14 +75,14 @@ def ridge_corr_pred(Rstim, Pstim, Rresp, Presp, valphas, normalpha=False,
 
     Parameters
     ----------
-    Rstim : array_like, shape (TR, N)
+    stim_train : array_like, shape (TR, N)
         Training stimuli with TR time points and N features. Each feature should be Z-scored across time.
-    Pstim : array_like, shape (TP, N)
+    stim_test : array_like, shape (TP, N)
         Test stimuli with TP time points and N features. Each feature should be Z-scored across time.
-    Rresp : array_like, shape (TR, M)
+    resp_train : array_like, shape (TR, M)
         Training responses with TR time points and M responses (voxels, neurons, what-have-you).
         Each response should be Z-scored across time.
-    Presp : array_like, shape (TP, M)
+    resp_test : array_like, shape (TP, M)
         Test responses with TP time points and M responses.
     valphas : list or array_like, shape (M,)
         Ridge parameter for each voxel.
@@ -116,11 +116,11 @@ def ridge_corr_pred(Rstim, Pstim, Rresp, Presp, valphas, normalpha=False,
     # Calculate SVD of stimulus matrix
     logger.info("Doing SVD...")
     try:
-        U, S, Vh = np.linalg.svd(Rstim, full_matrices=False)
+        U, S, Vh = np.linalg.svd(stim_train, full_matrices=False)
     except np.linalg.LinAlgError:
         logger.info("NORMAL SVD FAILED, trying more robust dgesvd..")
         from text.regression.svd_dgesvd import svd_dgesvd
-        U, S, Vh = svd_dgesvd(Rstim, full_matrices=False)
+        U, S, Vh = svd_dgesvd(stim_train, full_matrices=False)
 
     # Truncate tiny singular values for speed
     origsize = S.shape[0]
@@ -141,19 +141,19 @@ def ridge_corr_pred(Rstim, Pstim, Rresp, Presp, valphas, normalpha=False,
         nalphas = valphas
 
     # Precompute some products for speed
-    UR = np.dot(U.T, Rresp)  # Precompute this matrix product for speed
-    PVh = np.dot(Pstim, Vh.T)  # Precompute this matrix product for speed
+    UR = np.dot(U.T, resp_train)  # Precompute this matrix product for speed
+    PVh = np.dot(stim_test, Vh.T)  # Precompute this matrix product for speed
 
     # Prespnorms = np.apply_along_axis(np.linalg.norm, 0, Presp) ## Precompute test response norms
-    zPresp = zs(Presp)
+    zPresp = zs(resp_test)
     # Prespvar = Presp.var(0)
-    Prespvar_actual = Presp.var(0)
+    Prespvar_actual = resp_test.var(0)
     Prespvar = (np.ones_like(Prespvar_actual) + Prespvar_actual) / 2.0
     logger.info("Average difference between actual & assumed Prespvar: %0.3f" % (
         Prespvar_actual - Prespvar).mean())
 
     ualphas = np.unique(nalphas)
-    corr = np.zeros((Rresp.shape[1],))
+    corr = np.zeros((resp_train.shape[1],))
     for ua in ualphas:
         selvox = np.nonzero(nalphas == ua)[0]
         alpha_pred = PVh.dot(np.diag(S/(S**2+ua**2))).dot(UR[:, selvox])
@@ -161,15 +161,16 @@ def ridge_corr_pred(Rstim, Pstim, Rresp, Presp, valphas, normalpha=False,
         if use_corr:
             corr[selvox] = (zPresp[:, selvox] * zs(alpha_pred)).mean(0)
         else:
-            resvar = (Presp[:, selvox] - alpha_pred).var(0)
+            resvar = (resp_test[:, selvox] - alpha_pred).var(0)
             Rsq = 1 - (resvar / Prespvar)
             corr[selvox] = np.sqrt(np.abs(Rsq)) * np.sign(Rsq)
 
     return corr
 
 
-def ridge_corr(Rstim, Pstim, Rresp, Presp, alphas, normalpha=False, corrmin=0.2,
-               singcutoff=1e-10, use_corr=True, logger=ridge_logger):
+def ridge_corr(
+    stim_train, stim_test, resp_train, resp_test, alphas, normalpha=False, corrmin=0.2,
+        singcutoff=1e-10, use_corr=True, logger=ridge_logger):
     """Uses ridge regression to find a linear transformation of [Rstim] that approximates [Rresp],
     then tests by comparing the transformation of [Pstim] to [Presp]. This procedure is repeated
     for each regularization parameter alpha in [alphas]. The correlation between each prediction and
@@ -178,14 +179,14 @@ def ridge_corr(Rstim, Pstim, Rresp, Presp, alphas, normalpha=False, corrmin=0.2,
 
     Parameters
     ----------
-    Rstim : array_like, shape (TR, N)
+    stim_train : array_like, shape (TR, N)
         Training stimuli with TR time points and N features. Each feature should be Z-scored across time.
-    Pstim : array_like, shape (TP, N)
+    stim_test : array_like, shape (TP, N)
         Test stimuli with TP time points and N features. Each feature should be Z-scored across time.
-    Rresp : array_like, shape (TR, M)
+    resp_train : array_like, shape (TR, M)
         Training responses with TR time points and M responses (voxels, neurons, what-have-you).
         Each response should be Z-scored across time.
-    Presp : array_like, shape (TP, M)
+    resp_test : array_like, shape (TP, M)
         Test responses with TP time points and M responses.
     alphas : list or array_like, shape (A,)
         Ridge parameters to be tested. Should probably be log-spaced. np.logspace(0, 3, 20) works well.
@@ -219,11 +220,11 @@ def ridge_corr(Rstim, Pstim, Rresp, Presp, alphas, normalpha=False, corrmin=0.2,
     # Calculate SVD of stimulus matrix
     logger.debug("Doing SVD...")
     try:
-        U, S, Vh = np.linalg.svd(Rstim, full_matrices=False)
+        U, S, Vh = np.linalg.svd(stim_train, full_matrices=False)
     except np.linalg.LinAlgError:
         logger.debug("NORMAL SVD FAILED, trying more robust dgesvd..")
         from text.regression.svd_dgesvd import svd_dgesvd
-        U, S, Vh = svd_dgesvd(Rstim, full_matrices=False)
+        U, S, Vh = svd_dgesvd(stim_train, full_matrices=False)
 
     # Truncate tiny singular values for speed
     origsize = S.shape[0]
@@ -244,13 +245,13 @@ def ridge_corr(Rstim, Pstim, Rresp, Presp, alphas, normalpha=False, corrmin=0.2,
         nalphas = alphas
 
     # Precompute some products for speed
-    UR = np.dot(U.T, Rresp)  # Precompute this matrix product for speed
-    PVh = np.dot(Pstim, Vh.T)  # Precompute this matrix product for speed
+    UR = np.dot(U.T, resp_train)  # Precompute this matrix product for speed
+    PVh = np.dot(stim_test, Vh.T)  # Precompute this matrix product for speed
 
     # Prespnorms = np.apply_along_axis(np.linalg.norm, 0, Presp) ## Precompute test response norms
-    zPresp = zs(Presp)
+    zPresp = zs(resp_test)
     # Prespvar = Presp.var(0)
-    Prespvar_actual = Presp.var(0)
+    Prespvar_actual = resp_test.var(0)
     Prespvar = (np.ones_like(Prespvar_actual) + Prespvar_actual) / 2.0
     logger.debug("Average difference between actual & assumed Prespvar: %0.3f" % (
         Prespvar_actual - Prespvar).mean())
@@ -278,7 +279,7 @@ def ridge_corr(Rstim, Pstim, Rresp, Presp, alphas, normalpha=False, corrmin=0.2,
             Rcorr = (zPresp * zs(pred)).mean(0)
         else:
             # Compute variance explained
-            resvar = (Presp - pred).var(0)
+            resvar = (resp_test - pred).var(0)
             Rsq = 1 - (resvar / Prespvar)
             Rcorr = np.sqrt(np.abs(Rsq)) * np.sign(Rsq)
 
@@ -296,9 +297,10 @@ def ridge_corr(Rstim, Pstim, Rresp, Presp, alphas, normalpha=False, corrmin=0.2,
     return Rcorrs
 
 
-def bootstrap_ridge(Rstim, Rresp, Pstim, Presp, alphas, nboots, chunklen, nchunks,
-                    corrmin=0.2, joined=None, singcutoff=1e-10, normalpha=False, single_alpha=False,
-                    use_corr=True, return_wt=True, logger=ridge_logger):
+def bootstrap_ridge(
+        stim_train, resp_train, stim_test, resp_test, alphas, nboots, chunklen, nchunks,
+        corrmin=0.2, joined=None, singcutoff=1e-10, normalpha=False, single_alpha=False,
+        use_corr=True, return_wt=True, logger=ridge_logger):
     """Uses ridge regression with a bootstrapped held-out set to get optimal alpha values for each response.
     [nchunks] random chunks of length [chunklen] will be taken from [Rstim] and [Rresp] for each regression
     run.  [nboots] total regression runs will be performed.  The best alpha value for each response will be
@@ -309,14 +311,14 @@ def bootstrap_ridge(Rstim, Rresp, Pstim, Presp, alphas, nboots, chunklen, nchunk
 
     Parameters
     ----------
-    Rstim : array_like, shape (TR, N)
+    stim_train : array_like, shape (TR, N)
         Training stimuli with TR time points and N features. Each feature should be Z-scored across time.
-    Rresp : array_like, shape (TR, M)
+    resp_train : array_like, shape (TR, M)
         Training responses with TR time points and M different responses (voxels, neurons, what-have-you).
         Each response should be Z-scored across time.
-    Pstim : array_like, shape (TP, N)
+    stim_test : array_like, shape (TP, N)
         Test stimuli with TP time points and N features. Each feature should be Z-scored across time.
-    Presp : array_like, shape (TP, M)
+    resp_test : array_like, shape (TP, M)
         Test responses with TP time points and M different responses. Each response should be Z-scored across
         time.
     alphas : list or array_like, shape (A,)
@@ -379,37 +381,41 @@ def bootstrap_ridge(Rstim, Rresp, Pstim, Presp, alphas, nboots, chunklen, nchunk
     valinds : array_like, shape (TH, B)
         The indices of the training data that were used as "validation" for each bootstrap sample.
     """
-    nresp, nvox = Rresp.shape
+    nresp, nvox = resp_train.shape
     valinds = []  # Will hold the indices into the validation data for each bootstrap
 
-    Rcmats = []
+    correlation_matrices = []
     for bi in counter(range(nboots), countevery=1, total=nboots):
         logger.debug("Selecting held-out test set..")
-        allinds = range(nresp)
-        indchunks = list(zip(*[iter(allinds)]*chunklen))
-        random.shuffle(indchunks)
-        heldinds = list(itools.chain(*indchunks[:nchunks]))
-        notheldinds = list(set(allinds)-set(heldinds))
-        valinds.append(heldinds)
 
-        RRstim = Rstim[notheldinds, :]
-        PRstim = Rstim[heldinds, :]
-        RRresp = Rresp[notheldinds, :]
-        PRresp = Rresp[heldinds, :]
+        # get indices for training / testing
+        allinds = range(nresp)
+        index_chunks = list(zip(*[iter(allinds)]*chunklen))
+        random.shuffle(index_chunks)
+        tune_indexes_ = list(itools.chain(*index_chunks[:nchunks]))
+        train_indexes_ = list(set(allinds)-set(tune_indexes_))
+        valinds.append(tune_indexes_)
+
+        # Select data
+        stim_train_ = stim_train[train_indexes_, :]
+        stim_test_ = stim_train[tune_indexes_, :]
+        resp_train_ = resp_train[train_indexes_, :]
+        resp_test_ = resp_test[tune_indexes_, :]
 
         # Run ridge regression using this test set
-        Rcmat = ridge_corr(RRstim, PRstim, RRresp, PRresp, alphas,
-                           corrmin=corrmin, singcutoff=singcutoff,
-                           normalpha=normalpha, use_corr=use_corr,
-                           logger=logger)
+        correlation_matrix_ = ridge_corr(
+            stim_train_, stim_test_, resp_train_, resp_test_, alphas,
+            corrmin=corrmin, singcutoff=singcutoff,
+            normalpha=normalpha, use_corr=use_corr,
+            logger=logger)
 
-        Rcmats.append(Rcmat)
+        correlation_matrices.append(correlation_matrix_)
 
     # Find best alphas
     if nboots > 0:
-        allRcorrs = np.dstack(Rcmats)
+        all_correlation_matrices = np.dstack(correlation_matrices)
     else:
-        allRcorrs = None
+        all_correlation_matrices = None
 
     if not single_alpha:
         if nboots == 0:
@@ -419,7 +425,7 @@ def bootstrap_ridge(Rstim, Rresp, Pstim, Presp, alphas, nboots, chunklen, nchunk
         logger.info("Finding best alpha for each voxel..")
         if joined is None:
             # Find best alpha for each voxel
-            meanbootcorrs = allRcorrs.mean(2)
+            meanbootcorrs = all_correlation_matrices.mean(2)
             bestalphainds = np.argmax(meanbootcorrs, 0)
             valphas = alphas[bestalphainds]
         else:
@@ -427,7 +433,7 @@ def bootstrap_ridge(Rstim, Rresp, Pstim, Presp, alphas, nboots, chunklen, nchunk
             valphas = np.zeros((nvox,))
             for jl in joined:
                 # Mean across voxels in the set, then mean across bootstraps
-                jcorrs = allRcorrs[:, jl, :].mean(1).mean(1)
+                jcorrs = all_correlation_matrices[:, jl, :].mean(1).mean(1)
                 bestalpha = np.argmax(jcorrs)
                 valphas[jl] = alphas[bestalpha]
     else:
@@ -441,7 +447,7 @@ def bootstrap_ridge(Rstim, Rresp, Pstim, Presp, alphas, nboots, chunklen, nchunk
                                  "to choose best overall alpha, or only supply one"
                                  "possible alpha value.")
         else:
-            meanbootcorr = allRcorrs.mean(2).mean(1)
+            meanbootcorr = all_correlation_matrices.mean(2).mean(1)
             bestalphaind = np.argmax(meanbootcorr)
             bestalpha = alphas[bestalphaind]
 
@@ -452,28 +458,28 @@ def bootstrap_ridge(Rstim, Rresp, Pstim, Presp, alphas, nboots, chunklen, nchunk
         # Find weights
         logger.debug(
             "Computing weights for each response using entire training set..")
-        wt = ridge(Rstim, Rresp, valphas,
+        wt = ridge(stim_train, resp_train, valphas,
                    singcutoff=singcutoff, normalpha=normalpha)
 
         # Predict responses on prediction set
         logger.debug("Predicting responses for predictions set..")
-        pred = np.dot(Pstim, wt)
+        pred = np.dot(stim_test, wt)
 
         # Find prediction correlations
         nnpred = np.nan_to_num(pred)
         if use_corr:
-            corrs = np.nan_to_num(np.array([np.corrcoef(Presp[:, ii], nnpred[:, ii].ravel())[0, 1]
-                                            for ii in range(Presp.shape[1])]))
+            corrs = np.nan_to_num(np.array([np.corrcoef(stim_test[:, ii], nnpred[:, ii].ravel())[0, 1]
+                                            for ii in range(stim_test.shape[1])]))
         else:
-            resvar = (Presp-pred).var(0)
-            Rsqs = 1 - (resvar / Presp.var(0))
+            resvar = (stim_test-pred).var(0)
+            Rsqs = 1 - (resvar / stim_test.var(0))
             corrs = np.sqrt(np.abs(Rsqs)) * np.sign(Rsqs)
 
-        return wt, corrs, valphas, allRcorrs, valinds
+        return wt, corrs, valphas, all_correlation_matrices, valinds
     else:
         # get correlations for prediction dataset directly
-        corrs = ridge_corr_pred(Rstim, Pstim, Rresp, Presp, valphas,
+        corrs = ridge_corr_pred(stim_train, stim_test, resp_train, stim_test, valphas,
                                 normalpha=normalpha, use_corr=use_corr,
                                 logger=logger, singcutoff=singcutoff)
 
-        return [], corrs, valphas, allRcorrs, valinds
+        return [], corrs, valphas, all_correlation_matrices, valinds

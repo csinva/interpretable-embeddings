@@ -256,7 +256,8 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
 
     # save corrs for each voxel
     if args.pc_components > 0:
-        r['corrs_test_pc'] = corrs
+        r['corrs_test_pc'] = corrs_test
+        r['corrs_tune_pc'] = corrs_tune
     return r, model_params_to_save
 
 
