@@ -187,7 +187,7 @@ def get_embs_from_text_list(text_list: List[str], embedding_function) -> List[np
     return embs
 
 
-def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5, num_trs=4):
+def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5, num_trs=4) -> Dict[str, np.ndarray]:
     """Get llm embedding vectors
     """
 
@@ -203,7 +203,7 @@ def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5, num_trs
         Alternatively, we could have used wordseqs[story].chunks() to combine each TR.
         '''
         vectors = {}
-        for story in tqdm(allstories):
+        for story_num, story in enumerate(allstories):
             ds = wordseqs[story]
             # get list of every word (each has its own timing info, many words are in a single TR)
             words_list = ds.data
@@ -214,6 +214,7 @@ def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5, num_trs
 
             # embed the ngrams
             if 'qa_embedder' in model:
+                print(f'Extracting {story_num}/{len(allstories)}: {story}')
                 embs = embedding_model(ngrams_list, verbose=False)
             else:
                 embs = get_embs_from_text_list(

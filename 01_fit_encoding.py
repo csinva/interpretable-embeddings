@@ -81,61 +81,108 @@ def get_data(args):
     # Story names
     if args.use_test_setup:
         # train_stories = ['sloth']
-        args.nboots = 20
-        # train_stories = ['sloth', 'itsabox',
-        #  'odetostepfather', 'inamoment', 'hangtime']
-        train_stories = story_names.get_story_names(args.subject, 'train')
-        # train_stories = [
+        args.nboots = 3
+        story_names_train = ['sloth', 'itsabox',
+                             'odetostepfather', 'inamoment', 'hangtime']
+        # story_names_train = story_names.get_story_names(args.subject, 'train')
+        # story_names_train = [
         # 'adollshouse', 'adventuresinsayingyes', 'afatherscover', 'againstthewind', 'alternateithicatom', 'avatar',
         # 'backsideofthestorm', 'becomingindian', 'beneaththemushroomcloud',
         # ]
-        random.shuffle(train_stories)
-        # train_stories = train_stories
-        test_stories = ['sloth', 'fromboyhoodtofatherhood']
+        random.shuffle(story_names_train)
+        # test_stories = ['sloth', 'fromboyhoodtofatherhood']
+        story_names_test = ['fromboyhoodtofatherhood']
         # 'onapproachtopluto']  # , 'onapproachtopluto']
 
     else:
-        train_stories = story_names.get_story_names(args.subject, 'train')
-        test_stories = story_names.get_story_names(args.subject, 'test')
+        story_names_train = story_names.get_story_names(args.subject, 'train')
+        random.shuffle(story_names_train)
+        story_names_test = story_names.get_story_names(args.subject, 'test')
+        random.shuffle(story_names_test)
 
     # Features
-    features_downsampled = get_feature_space(
-        args.feature_space, train_stories + test_stories)
+    features_downsampled_dict = get_feature_space(
+        args.feature_space, story_names_train + story_names_test)
     normalize = True if args.pc_components <= 0 else False
     stim_train_delayed = encoding_utils.add_delays(
-        train_stories, features_downsampled, args.trim, args.ndelays, normalize=normalize)
+        story_names_train, features_downsampled_dict, args.trim, args.ndelays, normalize=normalize)
     print("stim_train_delayed.shape: ", stim_train_delayed.shape)
     stim_test_delayed = encoding_utils.add_delays(
-        test_stories, features_downsampled, args.trim, args.ndelays, normalize=normalize)
+        story_names_test, features_downsampled_dict, args.trim, args.ndelays, normalize=normalize)
     print("stim_test_delayed.shape: ", stim_test_delayed.shape)
 
     # Response
-    resp_train = encoding_utils.get_response(train_stories, args.subject)
-    # (n_time_points x n_voxels), e.g. (9461, 95556)
+    resp_train = encoding_utils.get_response(story_names_train, args.subject)
+    # (n_time_points x n_voxels), e.g. (27449, 95556)
     print("resp_train.shape", resp_train.shape)
-    resp_test = encoding_utils.get_response(test_stories, args.subject)
-    # (n_time_points x n_voxels), e.g. (291, 95556)
+    resp_test = encoding_utils.get_response(story_names_test, args.subject)
+    # (n_time_points x n_voxels), e.g. (550, 95556)
     print("resp_test.shape: ", resp_test.shape)
 
-    # convert to pc components for predicting
-    if args.pc_components > 0:
-        pca_dir = join(data_dir, 'fmri_resp_norms', args.subject)
-        pca = pkl.load(open(join(pca_dir, 'resps_pca.pkl'), 'rb'))['pca']
-        pca.components_ = pca.components_[
-            :args.pc_components]  # (n_components, n_voxels)
-        # zRresp = zRresp @ comps.T
-        resp_train = pca.transform(resp_train)  # [:, :args.pc_components]
-        # resp_test_orig = deepcopy(resp_test)
-        # zPresp = zPresp @ comps.T
-        resp_test = pca.transform(resp_test)  # [:, :args.pc_components]
-        print('reps_train.shape (after pca)', resp_train.shape)
-        scaler_train = StandardScaler().fit(resp_train)
-        scaler_test = StandardScaler().fit(resp_test)
-        resp_train = scaler_train.transform(resp_train)
-        resp_test = scaler_test.transform(resp_test)
-        return stim_train_delayed, resp_train, stim_test_delayed, resp_test
-    else:
-        return stim_train_delayed, resp_train, stim_test_delayed, resp_test
+    return stim_train_delayed, resp_train, stim_test_delayed, resp_test
+
+
+def transform_resps(args, resp_train, resp_test):
+    pca_dir = join(data_dir, 'fmri_resp_norms', args.subject)
+    pca = pkl.load(open(join(pca_dir, 'resps_pca.pkl'), 'rb'))['pca']
+    pca.components_ = pca.components_[
+        :args.pc_components]  # (n_components, n_voxels)
+    # zRresp = zRresp @ comps.T
+    resp_train = pca.transform(resp_train)  # [:, :args.pc_components]
+    # resp_test_orig = deepcopy(resp_test)
+    # zPresp = zPresp @ comps.T
+    resp_test = pca.transform(resp_test)  # [:, :args.pc_components]
+    print('reps_train.shape (after pca)', resp_train.shape)
+    scaler_train = StandardScaler().fit(resp_train)
+    scaler_test = StandardScaler().fit(resp_test)
+    resp_train = scaler_train.transform(resp_train)
+    resp_test = scaler_test.transform(resp_test)
+    return resp_train, resp_test, pca, scaler_train, scaler_test
+
+
+def get_model(args):
+    if args.encoding_model == 'mlp':
+        return NeuralNetRegressor(
+            encoding_models.MLP(
+                dim_inputs=stim_train_delayed.shape[1],
+                dim_hidden=args.mlp_dim_hidden,
+                dim_outputs=resp_train.shape[1]
+            ),
+            max_epochs=3000,
+            lr=1e-5,
+            optimizer=torch.optim.Adam,
+            callbacks=[EarlyStopping(patience=30)],
+            iterator_train__shuffle=True,
+            # device='cuda',
+        )
+
+
+def evaluate_pc_model_on_each_voxel(
+        args, stim, resp,
+        model_params_to_save, pca, scaler):
+    '''Todo: properly pass args here
+    '''
+    # np.savez("%s/corrs_pcs" % save_dir, corrs)
+    if args.encoding_model == 'ridge':
+        preds_pc = stim @ model_params_to_save['weights']
+    # elif args.encoding_model == 'mlp':
+        # preds_pc_test = net.predict(stim_test_delayed)
+    preds_voxels = pca.inverse_transform(
+        scaler.inverse_transform(preds_pc)
+    )  # (n_trs x n_voxels)
+    # zPresp_orig (n_trs x n_voxels)
+    # corrs: correlation list (n_voxels)
+    # subtract mean over time points
+    corrs = []
+    for i in range(preds_voxels.shape[1]):
+        corrs.append(
+            np.corrcoef(preds_voxels[:, i], resp[:, i])[0, 1])
+    corrs = np.array(corrs)
+    # preds_normed = (preds_voxels_test - preds_voxels_test.mean(axis=0)) / reds_voxels_test
+    # resps_normed = zPresp_orig - zPresp_orig.mean(axis=0)
+    # corrs = np.diagonal(preds_normed.T @ resps_normed)
+
+    return corrs
 
 
 def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, resp_test):
@@ -162,19 +209,7 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         stim_train_delayed = stim_train_delayed.astype(np.float32)
         resp_train = resp_train.astype(np.float32)
         stim_test_delayed = stim_test_delayed.astype(np.float32)
-        net = NeuralNetRegressor(
-            encoding_models.MLP(
-                dim_inputs=stim_train_delayed.shape[1],
-                dim_hidden=args.mlp_dim_hidden,
-                dim_outputs=resp_train.shape[1]
-            ),
-            max_epochs=3000,
-            lr=1e-5,
-            optimizer=torch.optim.Adam,
-            callbacks=[EarlyStopping(patience=30)],
-            iterator_train__shuffle=True,
-            # device='cuda',
-        )
+        net = get_model(args)
         net.fit(stim_train_delayed, resp_train)
         preds = net.predict(stim_test_delayed)
         corrs = []
@@ -199,36 +234,6 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
     # save corrs for each voxel
     if args.pc_components > 0:
         r['corrs_test_pc'] = corrs
-
-        """
-        def _evaluate_pc_model_on_each_voxel(args, r, model_params_to_save):
-            '''Todo: properly pass args here
-            '''
-            # np.savez("%s/corrs_pcs" % save_dir, corrs)
-            if args.encoding_model == 'ridge':
-                preds_pc_test = stim_test_delayed @ wt
-            elif args.encoding_model == 'mlp':
-                preds_pc_test = net.predict(stim_test_delayed)
-            preds_voxels_test = pca.inverse_transform(
-                scaler_test.inverse_transform(preds_pc_test)
-            )  # (n_trs x n_voxels)
-            # zPresp_orig (n_trs x n_voxels)
-            # corrs: correlation list (n_voxels)
-            # subtract mean over time points
-            corrs = []
-            for i in range(preds_voxels_test.shape[1]):
-                corrs.append(
-                    np.corrcoef(preds_voxels_test[:, i], resp_test_orig[:, i])[0, 1])
-            corrs = np.array(corrs)
-            # preds_normed = (preds_voxels_test - preds_voxels_test.mean(axis=0)) / reds_voxels_test
-            # resps_normed = zPresp_orig - zPresp_orig.mean(axis=0)
-            # corrs = np.diagonal(preds_normed.T @ resps_normed)
-
-            return corrs
-        
-        r['corrs'] = _evaluate_pc_model_on_each_voxel(
-            args, r, model_params_to_save)
-        """
     return r, model_params_to_save
 
 
@@ -266,10 +271,6 @@ if __name__ == "__main__":
     logger = logging.getLogger()
     logging.basicConfig(level=logging.INFO)
 
-    # parser = argparse.ArgumentParser()
-    # args = parser.parse_args()
-    # globals().update(args.__dict__)
-
     # set up saving directory + check for cache
     already_cached, save_dir_unique = imodelsx.cache_save_utils.get_save_dir_unique(
         parser, parser_without_computational_args, args, args.save_dir
@@ -291,10 +292,27 @@ if __name__ == "__main__":
     r.update(vars(args))
     r["save_dir_unique"] = save_dir_unique
 
+    # get data
     stim_train_delayed, resp_train, stim_test_delayed, resp_test = get_data(
         args)
-    r, model_params_to_save = fit_regression(args, r, stim_train_delayed,
-                                             resp_train, stim_test_delayed, resp_test)
+    if args.pc_components > 0:
+        resp_train, resp_test, pca, scaler_train, scaler_test = transform_resps(
+            args, resp_train, resp_test)
+
+    # fit model
+    r, model_params_to_save = fit_regression(
+        args, r, stim_train_delayed, resp_train, stim_test_delayed, resp_test)
+
+    # evaluate per voxel
+    if args.pc_components > 0:
+        stim_train_delayed, resp_train, stim_test_delayed, resp_test = get_data(
+            args)
+        r['corrs_test'] = evaluate_pc_model_on_each_voxel(
+            args, stim_test_delayed, resp_test,
+            model_params_to_save, pca, scaler_test)
+        model_params_to_save['pca'] = pca
+        model_params_to_save['scaler_test'] = scaler_test
+        model_params_to_save['scaler_train'] = scaler_train
 
     os.makedirs(save_dir_unique, exist_ok=True)
     r = add_summary_stats(r, verbose=True)

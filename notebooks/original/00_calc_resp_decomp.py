@@ -1,3 +1,10 @@
+from sklearn.decomposition import PCA, NMF, FastICA, DictionaryLearning
+import numpy as np
+import pickle as pkl
+import feature_spaces
+import encoding_utils
+from tqdm import tqdm
+import matplotlib.pyplot as plt
 import sys
 from os.path import join
 import os
@@ -6,14 +13,7 @@ path_to_file = os.path.dirname(os.path.abspath(__file__))
 
 sys.path.append(join(path_to_file, '..'))
 
-import matplotlib.pyplot as plt
-from tqdm import tqdm
-import encoding_utils
-import feature_spaces
-import pickle as pkl
-import numpy as np
 
-from sklearn.decomposition import PCA, NMF, FastICA, DictionaryLearning
 viz_cortex = __import__('03_viz_cortex')
 
 subject = 'UTS03'
@@ -50,7 +50,7 @@ def calc_decomp(out_dir):
 
     print('fitting NMF...')
     try:
-        out_file  = join(out_dir, 'resps_nmf.pkl')
+        out_file = join(out_dir, 'resps_nmf.pkl')
         if not os.path.exists(out_file):
             nmf = NMF(n_components=1000).fit(zRresp - zRresp.min())
             pkl.dump({'nmf': nmf}, open(out_file, 'wb'))
@@ -61,7 +61,8 @@ def calc_decomp(out_dir):
     try:
         out_file = join(out_dir, 'resps_sc.pkl')
         if not os.path.exists(out_file):
-            sc = DictionaryLearning(n_components=1000).fit(zRresp - zRresp.min())
+            sc = DictionaryLearning(n_components=1000).fit(
+                zRresp - zRresp.min())
             pkl.dump({'sc': sc}, open(out_file, 'wb'))
     except:
         print('failed sc!')
@@ -82,5 +83,5 @@ def viz_decomp(out_dir):
 
 
 if __name__ == '__main__':
-    # calc_decomp(out_dir)
-    viz_decomp(out_dir)
+    calc_decomp(out_dir)
+    # viz_decomp(out_dir)
