@@ -78,7 +78,7 @@ def ph_to_articulate(ds, ph_2_art):
     return articulate_ds
 
 
-def get_wordrate_vectors(allstories):
+def get_wordrate_vectors(allstories, **kwargs):
     """Get wordrate vectors for specified stories.
 
     Args:
@@ -96,7 +96,7 @@ def get_wordrate_vectors(allstories):
     return downsample_word_vectors(allstories, vectors, wordseqs)
 
 
-def get_eng1000_vectors(allstories):
+def get_eng1000_vectors(allstories, **kwargs):
     """Get Eng1000 vectors (985-d) for specified stories.
 
     Args:
@@ -114,7 +114,7 @@ def get_eng1000_vectors(allstories):
     return downsample_word_vectors(allstories, vectors, wordseqs)
 
 
-def get_glove_vectors(allstories):
+def get_glove_vectors(allstories, **kwargs):
     """Get glove vectors (300-d) for specified stories.
 
     Args:
@@ -187,14 +187,16 @@ def get_embs_from_text_list(text_list: List[str], embedding_function) -> List[np
     return embs
 
 
-def get_llm_vectors(allstories, model='bert-base-uncased', ngram_size=5, num_trs=4) -> Dict[str, np.ndarray]:
+def get_llm_vectors(
+        allstories, model='bert-base-uncased', ngram_size=5,
+        qa_embedding_model='mistralai/Mistral-7B-v0.1') -> Dict[str, np.ndarray]:
     """Get llm embedding vectors
     """
 
     wordseqs = get_story_wordseqs(allstories)
     print(f'extracting {model} embs...')
     if 'qa_embedder' in model:
-        embedding_model = QuestionEmbedder()
+        embedding_model = QuestionEmbedder(checkpoint=qa_embedding_model)
     if not 'qa_embedder' in model:
         embedding_model = pipeline("feature-extraction", model=model, device=0)
 
@@ -248,13 +250,15 @@ _FEATURE_CHECKPOINTS = {
 BASE_KEYS = list(_FEATURE_CHECKPOINTS.keys())
 for ngram_size in [3, 5, 10, 20]:
     for k in BASE_KEYS:
-        _FEATURE_VECTOR_FUNCTIONS[f'{k}-{ngram_size}'] = partial(get_llm_vectors,
-                                                                 ngram_size=ngram_size, model=_FEATURE_CHECKPOINTS[k])
+        _FEATURE_VECTOR_FUNCTIONS[f'{k}-{ngram_size}'] = partial(
+            get_llm_vectors,
+            ngram_size=ngram_size,
+            model=_FEATURE_CHECKPOINTS[k])
         _FEATURE_CHECKPOINTS[f'{k}-{ngram_size}'] = _FEATURE_CHECKPOINTS[k]
 
 
-def get_feature_space(feature, *args):
-    return _FEATURE_VECTOR_FUNCTIONS[feature](*args)
+def get_features(feature, **kwargs):
+    return _FEATURE_VECTOR_FUNCTIONS[feature](**kwargs)
 
 
 if __name__ == '__main__':

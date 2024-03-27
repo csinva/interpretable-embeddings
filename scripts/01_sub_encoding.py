@@ -31,7 +31,7 @@ params_shared_dict = {
     # 'save_dir': [join(repo_dir, 'results_mar27')],
     # 'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_mar27'],
     'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_mar28'],
-    'nboots': [5, 10],
+    'nboots': [5],
     # 'nboots': [50, 75],
 
 
@@ -45,10 +45,14 @@ params_shared_dict = {
 params_coupled_dict = {
     ('feature_space', 'seed', 'ndelays'): [
         # ('bert-10', 1, 4),
-        # ('eng1000', 1, 4),
-        ('qa_embedder-5', 1, 4),
-        ('qa_embedder-5', 1, 8),
-        ('qa_embedder-5', 1, 12),
+        # ('bert-10', 1, 8),
+        # ('bert-10', 1, 12),
+        ('eng1000', 1, 4),
+        ('eng1000', 1, 8),
+        ('eng1000', 1, 12),
+        # ('qa_embedder-5', 1, 4),
+        # ('qa_embedder-5', 1, 8),
+        # ('qa_embedder-5', 1, 12),
     ],
 }
 # Args list is a list of dictionaries
@@ -62,8 +66,8 @@ submit_utils.run_args_list(
     script_name=join(repo_dir, '01_fit_encoding.py'),
     actually_run=True,
     # gpu_ids=[0, 1],
-    # n_cpus=30,
-    gpu_ids=[1, 2, 3],
+    n_cpus=9,
+    # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,

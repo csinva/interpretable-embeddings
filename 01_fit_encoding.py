@@ -18,7 +18,7 @@ import joblib
 import os
 import encoding_utils
 import encoding_models
-from feature_spaces import _FEATURE_VECTOR_FUNCTIONS, get_feature_space, repo_dir, em_data_dir, data_dir, results_dir
+from feature_spaces import _FEATURE_VECTOR_FUNCTIONS, get_features, repo_dir, em_data_dir, data_dir, results_dir
 from ridge_utils.ridge import bootstrap_ridge
 import imodelsx.cache_save_utils
 import story_names
@@ -31,6 +31,7 @@ path_to_file = os.path.dirname(os.path.abspath(__file__))
 # python 01_fit_encoding.py --use_test_setup 1 --feature_space bert-10
 # python 01_fit_encoding.py --use_test_setup 1 --feature_space qa_embedder-10
 # python 01_fit_encoding.py --use_test_setup 1 --feature_space qa_embedder-5
+# python 01_fit_encoding.py --use_test_setup 1 --feature_space qa_embedder-5 --qa_embedding_model mistralai/Mixtral-8x7B-v0.1
 
 def add_main_args(parser):
     """Caching uses the non-default values from argparse to name the saving directory.
@@ -40,6 +41,12 @@ def add_main_args(parser):
     parser.add_argument("--feature_space", type=str, default='distil-bert-10',  # qa_embedder-5
                         choices=list(_FEATURE_VECTOR_FUNCTIONS.keys()))
     parser.add_argument("--encoding_model", type=str, default='ridge')
+    parser.add_argument("--qa_embedding_model", type=str,
+                        default='mistralai/Mistral-7B-v0.1',
+                        help='Model to use for QA embedding, if feature_space is qa_embedder',
+                        choices=['mistralai/Mistral-7B-v0.1',
+                                 "mistralai/Mixtral-8x7B-v0.1"],
+                        )
     parser.add_argument("--trim", type=int, default=5)
     parser.add_argument("--ndelays", type=int, default=4)
     parser.add_argument("--nboots", type=int, default=50)
@@ -110,8 +117,8 @@ def get_data(args, story_names):
         n_time_points x n_voxels (e.g. (27449, 95556) or (550, 95556))
     '''
     # Features
-    features_downsampled_dict = get_feature_space(
-        args.feature_space, story_names)
+    features_downsampled_dict = get_features(
+        args.feature_space, allstories=story_names, qa_embedding_model=args.qa_embedding_model)
     normalize = True if args.pc_components <= 0 else False
     stim_delayed = encoding_utils.add_delays(
         story_names, features_downsampled_dict, args.trim, args.ndelays, normalize=normalize)
