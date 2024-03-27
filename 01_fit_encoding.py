@@ -95,9 +95,7 @@ def get_data(args):
 
     else:
         story_names_train = story_names.get_story_names(args.subject, 'train')
-        random.shuffle(story_names_train)
         story_names_test = story_names.get_story_names(args.subject, 'test')
-        random.shuffle(story_names_test)
 
     # Features
     features_downsampled_dict = get_feature_space(
