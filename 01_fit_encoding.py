@@ -44,6 +44,7 @@ def add_main_args(parser):
     parser.add_argument("--ndelays", type=int, default=4)
     parser.add_argument("--nboots", type=int, default=50)
     parser.add_argument("--chunklen", type=int, default=40)
+    # try to get nchunks * chunklen to ~20% of training data
     parser.add_argument("--nchunks", type=int, default=125)
     parser.add_argument("--singcutoff", type=float, default=1e-10)
     parser.add_argument('--seed', type=int, default=1)
@@ -77,7 +78,7 @@ def add_computational_args(parser):
     return parser
 
 
-def get_data(args):
+def get_story_names(args):
     # Story names
     if args.use_test_setup:
         # train_stories = ['sloth']
@@ -96,35 +97,43 @@ def get_data(args):
     else:
         story_names_train = story_names.get_story_names(args.subject, 'train')
         story_names_test = story_names.get_story_names(args.subject, 'test')
+    return story_names_train, story_names_test
 
+
+def get_data(args, story_names):
+    '''
+    Returns
+    -------
+    stim_delayed: np.ndarray
+        n_time_points x (n_delays * n_features)
+    resp: np.ndarray
+        n_time_points x n_voxels (e.g. (27449, 95556) or (550, 95556))
+    '''
     # Features
     features_downsampled_dict = get_feature_space(
-        args.feature_space, story_names_train + story_names_test)
+        args.feature_space, story_names)
     normalize = True if args.pc_components <= 0 else False
-    stim_train_delayed = encoding_utils.add_delays(
-        story_names_train, features_downsampled_dict, args.trim, args.ndelays, normalize=normalize)
-    print("stim_train_delayed.shape: ", stim_train_delayed.shape)
-    stim_test_delayed = encoding_utils.add_delays(
-        story_names_test, features_downsampled_dict, args.trim, args.ndelays, normalize=normalize)
-    print("stim_test_delayed.shape: ", stim_test_delayed.shape)
+    stim_delayed = encoding_utils.add_delays(
+        story_names, features_downsampled_dict, args.trim, args.ndelays, normalize=normalize)
     torch.cuda.empty_cache()
 
     # Response
     # use cached responses
-    if set(story_names_train) == set(story_names.get_story_names(args.subject, 'train')):
-        resp_train = joblib.load(
-            join('/home/chansingh/cache_fmri_resps', f'{args.subject}.pkl'))
-    else:
-        resp_train = encoding_utils.get_response(
-            story_names_train, args.subject)
+    # if story_names_train == story_names.get_story_names(args.subject, 'train'):
+    # resp_train = joblib.load(
+    # join('/home/chansingh/cache_fmri_resps', f'{args.subject}.pkl'))
+    # else:
+    resp = encoding_utils.get_response(
+        story_names, args.subject)
     # (n_time_points x n_voxels), e.g. (27449, 95556)
-    print("resp_train.shape", resp_train.shape)
-    resp_test = encoding_utils.get_response(story_names_test, args.subject)
-    # (n_time_points x n_voxels), e.g. (550, 95556)
-    print("resp_test.shape: ", resp_test.shape)
-    assert resp_train.shape[0] == stim_train_delayed.shape[0], 'Resps loading for all stories, make sure to align with stim'
+    # print("resp_train.shape", resp_train.shape)
+    # resp_test = encoding_utils.get_response(story_names_test, args.subject)
+    # (n_time_points x n_voxels), e.g.
+    # print("resp_test.shape: ", resp_test.shape)
+    assert resp.shape[0] == stim_delayed.shape[0], 'Resps loading for all stories, make sure to align with stim'
 
-    return stim_train_delayed, resp_train, stim_test_delayed, resp_test
+    # stim_train_delayed, resp_train, stim_test_delayed, resp_test
+    return stim_delayed, resp
 
 
 def transform_resps(args, resp_train, resp_test):
@@ -170,7 +179,12 @@ def evaluate_pc_model_on_each_voxel(
     '''
     # np.savez("%s/corrs_pcs" % save_dir, corrs)
     if args.encoding_model == 'ridge':
-        preds_pc = stim @ model_params_to_save['weights']
+        weights_pc = model_params_to_save['weights_pc']
+        preds_pc = stim @ weights_pc
+        model_params_to_save['weights'] = weights_pc * \
+            scaler.scale_ @ pca.components_
+        model_params_to_save['bias'] = scaler.mean_ @ pca.components_ + pca.mean_
+        # note: prediction = stim @ weights + bias
     # elif args.encoding_model == 'mlp':
         # preds_pc_test = net.predict(stim_test_delayed)
     preds_voxels = pca.inverse_transform(
@@ -193,18 +207,20 @@ def evaluate_pc_model_on_each_voxel(
 
 def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, resp_test):
     if args.pc_components > 0:
-        alphas = np.logspace(1, 4, 10)
+        alphas = np.logspace(1, 4, 12)
+        weight_key = 'weights_pc'
     else:
-        alphas = np.logspace(1, 3, 10)
+        alphas = np.logspace(1, 4, 12)
+        weight_key = 'weights'
 
     if args.encoding_model == 'ridge':
         wt, corrs_test, alphas_best, corrs_tune, valinds = bootstrap_ridge(
             stim_train_delayed, resp_train, stim_test_delayed, resp_test, alphas, args.nboots, args.chunklen,
             args.nchunks, singcutoff=args.singcutoff, single_alpha=args.single_alpha)
 
-        # Save regression results.
+        # Save regression results
         model_params_to_save = {
-            'weights': wt,
+            weight_key: wt,
             'alphas_best': alphas_best,
             # 'valinds': valinds
         }
@@ -315,8 +331,16 @@ if __name__ == "__main__":
     r["save_dir_unique"] = save_dir_unique
 
     # get data
-    stim_train_delayed, resp_train, stim_test_delayed, resp_test = get_data(
-        args)
+    story_names_train, story_names_test = get_story_names(args)
+    stim_test_delayed, resp_test = get_data(args, story_names_test)
+    print('stim_test.shape', stim_test_delayed.shape,
+          'resp_test.shape', resp_test.shape)
+    stim_train_delayed, resp_train = get_data(args, story_names_train)
+    print('stim_train.shape', stim_train_delayed.shape,
+          'resp_train.shape', resp_train.shape)
+
+    # stim_train_delayed, resp_train, stim_test_delayed, resp_test = get_data(
+    # args, story_names_train, story_names_test)
     if args.pc_components > 0:
         resp_train, resp_test, pca, scaler_train, scaler_test = transform_resps(
             args, resp_train, resp_test)
@@ -327,8 +351,7 @@ if __name__ == "__main__":
 
     # evaluate per voxel
     if args.pc_components > 0:
-        stim_train_delayed, resp_train, stim_test_delayed, resp_test = get_data(
-            args)
+        stim_test_delayed, resp_test = get_data(args, story_names_test)
         r['corrs_test'] = evaluate_pc_model_on_each_voxel(
             args, stim_test_delayed, resp_test,
             model_params_to_save, pca, scaler_test)
