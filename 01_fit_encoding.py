@@ -125,14 +125,8 @@ def get_data(args, story_names):
     # else:
     resp = encoding_utils.get_response(
         story_names, args.subject)
-    # (n_time_points x n_voxels), e.g. (27449, 95556)
-    # print("resp_train.shape", resp_train.shape)
-    # resp_test = encoding_utils.get_response(story_names_test, args.subject)
-    # (n_time_points x n_voxels), e.g.
-    # print("resp_test.shape: ", resp_test.shape)
     assert resp.shape[0] == stim_delayed.shape[0], 'Resps loading for all stories, make sure to align with stim'
 
-    # stim_train_delayed, resp_train, stim_test_delayed, resp_test
     return stim_delayed, resp
 
 
@@ -142,11 +136,8 @@ def transform_resps(args, resp_train, resp_test):
     pca = joblib.load(pca_filename)
     pca.components_ = pca.components_[
         :args.pc_components]  # (n_components, n_voxels)
-    # zRresp = zRresp @ comps.T
-    resp_train = pca.transform(resp_train)  # [:, :args.pc_components]
-    # resp_test_orig = deepcopy(resp_test)
-    # zPresp = zPresp @ comps.T
-    resp_test = pca.transform(resp_test)  # [:, :args.pc_components]
+    resp_train = pca.transform(resp_train)
+    resp_test = pca.transform(resp_test)
     print('reps_train.shape (after pca)', resp_train.shape)
     scaler_train = StandardScaler().fit(resp_train)
     scaler_test = StandardScaler().fit(resp_test)
@@ -170,39 +161,6 @@ def get_model(args):
             iterator_train__shuffle=True,
             # device='cuda',
         )
-
-
-def evaluate_pc_model_on_each_voxel(
-        args, stim, resp,
-        model_params_to_save, pca, scaler):
-    '''Todo: properly pass args here
-    '''
-    # np.savez("%s/corrs_pcs" % save_dir, corrs)
-    if args.encoding_model == 'ridge':
-        weights_pc = model_params_to_save['weights_pc']
-        preds_pc = stim @ weights_pc
-        model_params_to_save['weights'] = weights_pc * \
-            scaler.scale_ @ pca.components_
-        model_params_to_save['bias'] = scaler.mean_ @ pca.components_ + pca.mean_
-        # note: prediction = stim @ weights + bias
-    # elif args.encoding_model == 'mlp':
-        # preds_pc_test = net.predict(stim_test_delayed)
-    preds_voxels = pca.inverse_transform(
-        scaler.inverse_transform(preds_pc)
-    )  # (n_trs x n_voxels)
-    # zPresp_orig (n_trs x n_voxels)
-    # corrs: correlation list (n_voxels)
-    # subtract mean over time points
-    corrs = []
-    for i in range(preds_voxels.shape[1]):
-        corrs.append(
-            np.corrcoef(preds_voxels[:, i], resp[:, i])[0, 1])
-    corrs = np.array(corrs)
-    # preds_normed = (preds_voxels_test - preds_voxels_test.mean(axis=0)) / reds_voxels_test
-    # resps_normed = zPresp_orig - zPresp_orig.mean(axis=0)
-    # corrs = np.diagonal(preds_normed.T @ resps_normed)
-
-    return corrs
 
 
 def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, resp_test):
@@ -253,19 +211,11 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         for i in range(preds.shape[1]):
             corrs.append(np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
         corrs = np.array(corrs)
-        # print(corrs[:20])
-        # c = corrs[~np.isnan(corrs)]
-        # print('mean mlp corr', np.mean(c).round(3), 'max mlp corr',
-        #       np.max(c).round(3), 'min mlp corr', np.min(c).round(3))
         r['corrs_test'] = corrs
         model_params_to_save = {
             'weights': net.module_.state_dict(),
         }
 
-    # print('shapes', preds_voxels_test.shape, 'corrs', corrs.shape)
-    # pca = pkl.load(open(join(pca_dir, 'resps_pca.pkl'), 'rb'))['pca']
-
-        # np.savez("%s/corrs" % save_dir, corrs)
         # torch.save(net.module_.state_dict(), join(save_dir, 'weights.pt'))
 
     # save corrs for each voxel
@@ -273,6 +223,29 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         r['corrs_test_pc'] = corrs_test
         r['corrs_tune_pc'] = corrs_tune
     return r, model_params_to_save
+
+
+def evaluate_pc_model_on_each_voxel(
+        args, stim, resp,
+        model_params_to_save, pca, scaler):
+    if args.encoding_model == 'ridge':
+        weights_pc = model_params_to_save['weights_pc']
+        preds_pc = stim @ weights_pc
+        model_params_to_save['weights'] = weights_pc * \
+            scaler.scale_ @ pca.components_
+        model_params_to_save['bias'] = scaler.mean_ @ pca.components_ + pca.mean_
+        # note: prediction = stim @ weights + bias
+    # elif args.encoding_model == 'mlp':
+        # preds_pc_test = net.predict(stim_test_delayed)
+    preds_voxels = pca.inverse_transform(
+        scaler.inverse_transform(preds_pc)
+    )  # (n_trs x n_voxels)
+    corrs = []
+    for i in range(preds_voxels.shape[1]):
+        corrs.append(
+            np.corrcoef(preds_voxels[:, i], resp[:, i])[0, 1])
+    corrs = np.array(corrs)
+    return corrs
 
 
 def add_summary_stats(r, verbose=True):
@@ -338,9 +311,6 @@ if __name__ == "__main__":
     stim_train_delayed, resp_train = get_data(args, story_names_train)
     print('stim_train.shape', stim_train_delayed.shape,
           'resp_train.shape', resp_train.shape)
-
-    # stim_train_delayed, resp_train, stim_test_delayed, resp_test = get_data(
-    # args, story_names_train, story_names_test)
     if args.pc_components > 0:
         resp_train, resp_test, pca, scaler_train, scaler_test = transform_resps(
             args, resp_train, resp_test)

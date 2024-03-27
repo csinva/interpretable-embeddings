@@ -44,8 +44,8 @@ params_shared_dict = {
 }
 params_coupled_dict = {
     ('feature_space', 'seed', 'ndelays'): [
-        ('bert-10', 1, 4),
-        ('eng1000', 1, 4),
+        # ('bert-10', 1, 4),
+        # ('eng1000', 1, 4),
         ('qa_embedder-5', 1, 4),
         ('qa_embedder-5', 1, 8),
         ('qa_embedder-5', 1, 12),
@@ -62,7 +62,8 @@ submit_utils.run_args_list(
     script_name=join(repo_dir, '01_fit_encoding.py'),
     actually_run=True,
     # gpu_ids=[0, 1],
-    n_cpus=30,
+    # n_cpus=30,
+    gpu_ids=[1, 2, 3],
     # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,
