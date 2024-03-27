@@ -389,18 +389,18 @@ def bootstrap_ridge(
         logger.debug("Selecting held-out test set..")
 
         # get indices for training / testing
-        allinds = range(nresp)
-        index_chunks = list(zip(*[iter(allinds)]*chunklen))
+        all_indexes = range(nresp)
+        index_chunks = list(zip(*[iter(all_indexes)]*chunklen))
         random.shuffle(index_chunks)
         tune_indexes_ = list(itools.chain(*index_chunks[:nchunks]))
-        train_indexes_ = list(set(allinds)-set(tune_indexes_))
+        train_indexes_ = list(set(all_indexes)-set(tune_indexes_))
         valinds.append(tune_indexes_)
 
         # Select data
         stim_train_ = stim_train[train_indexes_, :]
         stim_test_ = stim_train[tune_indexes_, :]
         resp_train_ = resp_train[train_indexes_, :]
-        resp_test_ = resp_test[tune_indexes_, :]
+        resp_test_ = resp_train[tune_indexes_, :]
 
         # Run ridge regression using this test set
         correlation_matrix_ = ridge_corr(
@@ -408,7 +408,6 @@ def bootstrap_ridge(
             corrmin=corrmin, singcutoff=singcutoff,
             normalpha=normalpha, use_corr=use_corr,
             logger=logger)
-
         correlation_matrices.append(correlation_matrix_)
 
     # Find best alphas
@@ -468,18 +467,20 @@ def bootstrap_ridge(
         # Find prediction correlations
         nnpred = np.nan_to_num(pred)
         if use_corr:
-            corrs = np.nan_to_num(np.array([np.corrcoef(stim_test[:, ii], nnpred[:, ii].ravel())[0, 1]
-                                            for ii in range(stim_test.shape[1])]))
+            corrs = np.nan_to_num(np.array([np.corrcoef(resp_test[:, ii], nnpred[:, ii].ravel())[0, 1]
+                                            for ii in range(resp_test.shape[1])]))
         else:
-            resvar = (stim_test-pred).var(0)
-            Rsqs = 1 - (resvar / stim_test.var(0))
-            corrs = np.sqrt(np.abs(Rsqs)) * np.sign(Rsqs)
+            residual_variance = (resp_test-pred).var(0)
+            residual_sum_of_squares = 1 - \
+                (residual_variance / resp_test.var(0))
+            corrs = np.sqrt(np.abs(residual_sum_of_squares)) * \
+                np.sign(residual_sum_of_squares)
 
         return wt, corrs, valphas, all_correlation_matrices, valinds
     else:
         # get correlations for prediction dataset directly
-        corrs = ridge_corr_pred(stim_train, stim_test, resp_train, stim_test, valphas,
-                                normalpha=normalpha, use_corr=use_corr,
-                                logger=logger, singcutoff=singcutoff)
+        corrs = ridge_corr_pred(
+            stim_train, stim_test, resp_train, stim_test, valphas,
+            normalpha=normalpha, use_corr=use_corr, logger=logger, singcutoff=singcutoff)
 
         return [], corrs, valphas, all_correlation_matrices, valinds

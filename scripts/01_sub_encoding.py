@@ -28,7 +28,8 @@ params_shared_dict = {
     # things to average over
     'use_cache': [1],
     'save_dir': [join(repo_dir, 'results')],
-    'nboots': [75],
+    # 'nboots': [75],
+    'nboots': [50],
 
     # fixed params
     # 'UTS03', 'UTS01', 'UTS02'],
