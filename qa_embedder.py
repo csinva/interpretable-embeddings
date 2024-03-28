@@ -33,8 +33,11 @@ class QuestionEmbedder:
                 self.prompt.format(example=examples[ex_num], question=question)
                 for question in self.questions
             ]
-            answers = self.llm(programs, max_new_tokens=3, verbose=verbose)
-            answers = list(map(lambda x: 'yes' in x.lower(), answers))
+            # answers = self.llm(programs, max_new_tokens=3, verbose=verbose)
+            # answers = list(map(lambda x: 'yes' in x.lower(), answers))
+            answers = self.llm(programs, target_token_strs=[
+                               ' yes', ' no'], return_top_target_token_str=True)
+            answers = list(map(lambda x: ' yes' == x, answers))
 
             for i, answer in enumerate(answers):
                 if answer:
@@ -48,11 +51,11 @@ if __name__ == "__main__":
         'Does the input mention laughter?',
     ]
     examples = ['I sliced some cucumbers', 'The kids were laughing']
-    # checkpoint = 'gpt2'
+    checkpoint = 'gpt2'
     # checkpoint = "meta-llama/Llama-2-7b-hf"
     # checkpoint = "meta-llama/Llama-2-7b-hf"
     # checkpoint = "mistralai/Mixtral-8x7B-v0.1"
-    checkpoint = 'mistralai/Mistral-7B-v0.1'
+    # checkpoint = 'mistralai/Mistral-7B-v0.1'
 
     # test
     llm = imodelsx.llm.get_llm(checkpoint)
