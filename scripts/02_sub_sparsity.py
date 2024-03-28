@@ -2,7 +2,9 @@ import itertools
 import os
 from os.path import dirname, join
 import sys
+import numpy as np
 from imodelsx import submit_utils
+
 path_to_file = os.path.dirname(os.path.abspath(__file__))
 repo_dir = dirname(dirname(os.path.abspath(__file__)))
 # python /home/chansingh/fmri/01_fit_encoding.py
@@ -10,7 +12,9 @@ repo_dir = dirname(dirname(os.path.abspath(__file__)))
 params_shared_dict = {
     # 'pc_components': [1000, 100, -1],  # [5000, 100, -1], # default -1 predicts each voxel independently
     'pc_components': [100],
-    'encoding_model': ['ridge'],
+    'encoding_model': ['elasticnet'],  # 'ridge'
+    'l1_ratio': [.1, .5, .7, .9, .95, .99, 1],
+    'min_alpha': np.logspace(1, 3, 4).tolist(),
 
 
     # things to average over
@@ -27,17 +31,17 @@ params_shared_dict = {
 params_coupled_dict = {
     ('feature_space', 'seed', 'ndelays'): [
         # ('bert-10', 1, 4),
-        # ('bert-10', 1, 8),
+        ('bert-10', 1, 8),
         # ('bert-10', 1, 12),
         # ('eng1000', 1, 4),
-        # ('eng1000', 1, 8),
+        ('eng1000', 1, 8),
         # ('eng1000', 1, 12),
         # ('qa_embedder-5', 1, 4),
-        # ('qa_embedder-5', 1, 8),
+        ('qa_embedder-5', 1, 8),
         # ('qa_embedder-5', 1, 12),
-        ('qa_embedder-10', 1, 4),
-        ('qa_embedder-10', 2, 8),
-        ('qa_embedder-10', 3, 12),
+        # ('qa_embedder-10', 1, 4),
+        # ('qa_embedder-10', 2, 8),
+        # ('qa_embedder-10', 3, 12),
     ],
 }
 # Args list is a list of dictionaries
@@ -52,8 +56,8 @@ submit_utils.run_args_list(
     actually_run=True,
     # gpu_ids=[0, 1],
     # n_cpus=9,
-    # n_cpus=2,
-    gpu_ids=[1, 2, 3],
+    n_cpus=8,
+    # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,

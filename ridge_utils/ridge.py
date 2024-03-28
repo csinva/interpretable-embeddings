@@ -12,6 +12,18 @@ def zs(v): return (v-v.mean(0))/v.std(0)  # z-score function
 ridge_logger = logging.getLogger("ridge_corr")
 
 
+def gen_temporal_chunk_splits(num_splits: int, num_examples: int, chunk_len: int, num_chunks: int):
+    all_indexes = range(num_examples)
+    index_chunks = list(zip(*[iter(all_indexes)] * chunk_len))
+    splits_list = []
+    for _ in range(num_splits):
+        random.shuffle(index_chunks)
+        tune_indexes_ = list(itools.chain(*index_chunks[:num_chunks]))
+        train_indexes_ = list(set(all_indexes)-set(tune_indexes_))
+        splits_list.append((train_indexes_, tune_indexes_))
+    return splits_list
+
+
 def ridge(stim, resp, alpha, singcutoff=1e-10, normalpha=False, logger=ridge_logger):
     """Uses ridge regression to find a linear transformation of [stim] that approximates
     [resp]. The regularization parameter is [alpha].
@@ -382,19 +394,22 @@ def bootstrap_ridge(
         The indices of the training data that were used as "validation" for each bootstrap sample.
     """
     nresp, nvox = resp_train.shape
-    valinds = []  # Will hold the indices into the validation data for each bootstrap
+    splits = gen_temporal_chunk_splits(
+        nboots, nresp, chunklen, nchunks)
+    valinds = [splits[1] for splits in splits]
 
     correlation_matrices = []
     for bi in counter(range(nboots), countevery=1, total=nboots):
         logger.debug("Selecting held-out test set..")
 
         # get indices for training / testing
-        all_indexes = range(nresp)
-        index_chunks = list(zip(*[iter(all_indexes)]*chunklen))
-        random.shuffle(index_chunks)
-        tune_indexes_ = list(itools.chain(*index_chunks[:nchunks]))
-        train_indexes_ = list(set(all_indexes)-set(tune_indexes_))
-        valinds.append(tune_indexes_)
+        # all_indexes = range(nresp)
+        # index_chunks = list(zip(*[iter(all_indexes)]*chunklen))
+        # random.shuffle(index_chunks)
+        # tune_indexes_ = list(itools.chain(*index_chunks[:nchunks]))
+        # train_indexes_ = list(set(all_indexes)-set(tune_indexes_))
+        # valinds.append(tune_indexes_)
+        train_indexes_, tune_indexes_ = splits[bi]
 
         # Select data
         stim_train_ = stim_train[train_indexes_, :]

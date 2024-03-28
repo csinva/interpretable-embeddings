@@ -1,5 +1,6 @@
 from collections import defaultdict
 import os.path
+from sklearn.linear_model import MultiTaskElasticNetCV
 from skorch import NeuralNetRegressor
 from skorch.callbacks import EarlyStopping
 from copy import deepcopy
@@ -19,7 +20,7 @@ import os
 import encoding_utils
 import encoding_models
 from feature_spaces import _FEATURE_VECTOR_FUNCTIONS, get_features, repo_dir, em_data_dir, data_dir, results_dir
-from ridge_utils.ridge import bootstrap_ridge
+from ridge_utils.ridge import bootstrap_ridge, gen_temporal_chunk_splits
 import imodelsx.cache_save_utils
 import story_names
 import random
@@ -47,6 +48,16 @@ def add_main_args(parser):
                         choices=['mistralai/Mistral-7B-v0.1',
                                  "mistralai/Mixtral-8x7B-v0.1"],
                         )
+    parser.add_argument("--l1_ratio", type=float,
+                        default=0.5, help='l1 ratio for elasticnet (ignored if encoding_model is not elasticnet)')
+    parser.add_argument("--min_alpha", type=float,
+                        default=-1, help='min alpha, useful for forcing sparse coefs in elasticnet. Note: if too large, we arent really doing CV at all.')
+    parser.add_argument('--pc_components', type=int, default=-1,
+                        help='number of principal components to use (-1 doesnt use PCA at all)')
+    parser.add_argument("--mlp_dim_hidden", type=int,
+                        help="hidden dim for MLP", default=512)
+
+    # linear modeling splits
     parser.add_argument("--trim", type=int, default=5)
     parser.add_argument("--ndelays", type=int, default=4)
     parser.add_argument("--nboots", type=int, default=50)
@@ -54,11 +65,10 @@ def add_main_args(parser):
     # try to get nchunks * chunklen to ~20% of training data
     parser.add_argument("--nchunks", type=int, default=125)
     parser.add_argument("--singcutoff", type=float, default=1e-10)
-    parser.add_argument('--seed', type=int, default=1)
-    parser.add_argument('--pc_components', type=int, default=-1)
     parser.add_argument("-single_alpha", action="store_true")
-    parser.add_argument("--mlp_dim_hidden", type=int,
-                        help="hidden dim for MLP", default=512)
+
+    # basic params
+    parser.add_argument('--seed', type=int, default=1)
     parser.add_argument('--save_dir', type=str,
                         default=os.path.join(path_to_file, 'results'))
     parser.add_argument('--use_test_setup', type=int, default=1,
@@ -103,6 +113,7 @@ def get_story_names(args):
 
     else:
         story_names_train = story_names.get_story_names(args.subject, 'train')
+        random.shuffle(story_names_train)
         story_names_test = story_names.get_story_names(args.subject, 'test')
     return story_names_train, story_names_test
 
@@ -172,10 +183,16 @@ def get_model(args):
 
 def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, resp_test):
     if args.pc_components > 0:
-        alphas = np.logspace(1, 4, 12)
+        if args.min_alpha > 0:
+            alphas = np.logspace(np.log10(args.min_alpha), 4, 12)
+        else:
+            alphas = np.logspace(1, 4, 12)
         weight_key = 'weights_pc'
     else:
-        alphas = np.logspace(1, 4, 12)
+        if args.min_alpha > 0:
+            alphas = np.logspace(np.log10(args.min_alpha), 4, 12)
+        else:
+            alphas = np.logspace(1, 4, 12)
         weight_key = 'weights'
 
     if args.encoding_model == 'ridge':
@@ -207,6 +224,26 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         # so we average over the bootstrap samples and take the max over the alphas
         r['corrs_tune'] = corrs_tune
         r['corrs_test'] = corrs_test
+    elif args.encoding_model == 'elasticnet':
+        splits = gen_temporal_chunk_splits(
+            num_splits=args.nboots, num_examples=stim_train_delayed.shape[0],
+            chunk_len=args.chunklen, num_chunks=args.nchunks)
+        lin = MultiTaskElasticNetCV(
+            alphas=alphas, cv=splits, n_jobs=1, l1_ratio=args.l1_ratio)
+        lin.fit(stim_train_delayed, resp_train)
+        preds = lin.predict(stim_test_delayed)
+        corrs_test = []
+        for i in range(preds.shape[1]):
+            corrs_test.append(np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
+        corrs_test = np.array(corrs_test)
+        r['corrs_test'] = corrs_test
+        # r['mse_tune'] =
+        model_params_to_save = {
+            'weights': lin.coef_,
+            'alpha_best': lin.alpha_,
+            'num_nonzero-coefs': np.sum(np.abs(lin.coef_) > 1e-8),
+        }
+
     elif args.encoding_model == 'mlp':
         stim_train_delayed = stim_train_delayed.astype(np.float32)
         resp_train = resp_train.astype(np.float32)
@@ -214,11 +251,11 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         net = get_model(args)
         net.fit(stim_train_delayed, resp_train)
         preds = net.predict(stim_test_delayed)
-        corrs = []
+        corrs_test = []
         for i in range(preds.shape[1]):
-            corrs.append(np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
-        corrs = np.array(corrs)
-        r['corrs_test'] = corrs
+            corrs_test.append(np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
+        corrs_test = np.array(corrs_test)
+        r['corrs_test'] = corrs_test
         model_params_to_save = {
             'weights': net.module_.state_dict(),
         }
