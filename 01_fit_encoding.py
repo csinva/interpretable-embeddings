@@ -187,7 +187,7 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
             alphas = np.logspace(np.log10(args.min_alpha), 4, 12)
         else:
             alphas = np.logspace(1, 4, 12)
-        weight_key = 'weights_pc'
+        weights_key = 'weights_pc'
         corrs_key_test = 'corrs_test_pc'
         corrs_key_tune = 'corrs_tune_pc'
     else:
@@ -195,7 +195,7 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
             alphas = np.logspace(np.log10(args.min_alpha), 4, 12)
         else:
             alphas = np.logspace(1, 4, 12)
-        weight_key = 'weights'
+        weights_key = 'weights'
         corrs_key_test = 'corrs_test'
         corrs_key_tune = 'corrs_tune'
 
@@ -206,7 +206,7 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
 
         # Save regression results
         model_params_to_save = {
-            weight_key: wt,
+            weights_key: wt,
             'alphas_best': alphas_best,
             # 'valinds': valinds
         }
@@ -244,7 +244,8 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         r[corrs_key_test] = corrs_test
         # r['mse_tune'] =
         model_params_to_save = {
-            'weights': lin.coef_,
+            # want weights that are (n_features, n_targets)
+            weights_key: lin.coef_.T,
             'alpha_best': lin.alpha_,
             'num_nonzero-coefs': np.sum(np.abs(lin.coef_) > 1e-8),
         }

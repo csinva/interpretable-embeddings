@@ -112,6 +112,7 @@ def quickshow(X: np.ndarray, subject='UTS03', fname_save=None):
     """
     Actual visualizations
     Note: for this to work, need to point the cortex config filestore to the `ds003020/derivative/pycortex-db` directory.
+    Read the docs to find the config filestore file (smth like /home/chansingh/.config/pycortex/options.cfg)
     This might look something like `/home/chansingh/mntv1/deep-fMRI/data/ds003020/derivative/pycortex-db/UTS03/anatomicals/`
     """
     vol = cortex.Volume(X, subject, xfmname=f'{subject}_auto')
