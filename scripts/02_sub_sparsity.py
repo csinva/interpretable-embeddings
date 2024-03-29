@@ -31,7 +31,7 @@ params_shared_dict = {
 params_coupled_dict = {
     ('feature_space', 'seed', 'ndelays'): [
         # ('bert-10', 1, 4),
-        ('bert-10', 1, 8),
+        # ('bert-10', 1, 8),
         # ('bert-10', 1, 12),
         # ('eng1000', 1, 4),
         ('eng1000', 1, 8),

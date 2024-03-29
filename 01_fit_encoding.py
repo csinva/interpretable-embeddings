@@ -232,8 +232,9 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         splits = gen_temporal_chunk_splits(
             num_splits=args.nboots, num_examples=stim_train_delayed.shape[0],
             chunk_len=args.chunklen, num_chunks=args.nchunks)
+        print('Running elasticnet...')
         lin = MultiTaskElasticNetCV(
-            alphas=alphas, cv=splits, n_jobs=1, l1_ratio=args.l1_ratio)
+            alphas=alphas, cv=splits, n_jobs=10, l1_ratio=args.l1_ratio)
         lin.fit(stim_train_delayed, resp_train)
         preds = lin.predict(stim_test_delayed)
         corrs_test = []
@@ -271,7 +272,7 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
 def evaluate_pc_model_on_each_voxel(
         args, stim, resp,
         model_params_to_save, pca, scaler):
-    if args.encoding_model == 'ridge':
+    if args.encoding_model in ['ridge', 'elasticnet']:
         weights_pc = model_params_to_save['weights_pc']
         preds_pc = stim @ weights_pc
         model_params_to_save['weights'] = weights_pc * \
