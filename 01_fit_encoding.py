@@ -188,12 +188,16 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         else:
             alphas = np.logspace(1, 4, 12)
         weight_key = 'weights_pc'
+        corrs_key_test = 'corrs_test_pc'
+        corrs_key_tune = 'corrs_tune_pc'
     else:
         if args.min_alpha > 0:
             alphas = np.logspace(np.log10(args.min_alpha), 4, 12)
         else:
             alphas = np.logspace(1, 4, 12)
         weight_key = 'weights'
+        corrs_key_test = 'corrs_test'
+        corrs_key_tune = 'corrs_tune'
 
     if args.encoding_model == 'ridge':
         wt, corrs_test, alphas_best, corrs_tune, valinds = bootstrap_ridge(
@@ -222,8 +226,8 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         corrs_tune = corrs_tune[np.arange(corrs_tune.shape[0]), alphas_idx]
 
         # so we average over the bootstrap samples and take the max over the alphas
-        r['corrs_tune'] = corrs_tune
-        r['corrs_test'] = corrs_test
+        r[corrs_key_tune] = corrs_tune
+        r[corrs_key_test] = corrs_test
     elif args.encoding_model == 'elasticnet':
         splits = gen_temporal_chunk_splits(
             num_splits=args.nboots, num_examples=stim_train_delayed.shape[0],
@@ -236,7 +240,7 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         for i in range(preds.shape[1]):
             corrs_test.append(np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
         corrs_test = np.array(corrs_test)
-        r['corrs_test'] = corrs_test
+        r[corrs_key_test] = corrs_test
         # r['mse_tune'] =
         model_params_to_save = {
             'weights': lin.coef_,
@@ -255,17 +259,12 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         for i in range(preds.shape[1]):
             corrs_test.append(np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
         corrs_test = np.array(corrs_test)
-        r['corrs_test'] = corrs_test
+        r[corrs_key_test] = corrs_test
         model_params_to_save = {
             'weights': net.module_.state_dict(),
         }
 
         # torch.save(net.module_.state_dict(), join(save_dir, 'weights.pt'))
-
-    # save corrs for each voxel
-    if args.pc_components > 0:
-        r['corrs_test_pc'] = corrs_test
-        r['corrs_tune_pc'] = corrs_tune
     return r, model_params_to_save
 
 
