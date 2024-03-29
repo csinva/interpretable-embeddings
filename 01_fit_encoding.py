@@ -241,6 +241,7 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         for i in range(preds.shape[1]):
             corrs_test.append(np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
         corrs_test = np.array(corrs_test)
+        corrs_test[np.isnan(corrs_test)] = 0
         r[corrs_key_test] = corrs_test
         # r['mse_tune'] =
         model_params_to_save = {
@@ -250,22 +251,21 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
             'num_nonzero-coefs': np.sum(np.abs(lin.coef_) > 1e-8),
         }
 
-    elif args.encoding_model == 'mlp':
-        stim_train_delayed = stim_train_delayed.astype(np.float32)
-        resp_train = resp_train.astype(np.float32)
-        stim_test_delayed = stim_test_delayed.astype(np.float32)
-        net = get_model(args)
-        net.fit(stim_train_delayed, resp_train)
-        preds = net.predict(stim_test_delayed)
-        corrs_test = []
-        for i in range(preds.shape[1]):
-            corrs_test.append(np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
-        corrs_test = np.array(corrs_test)
-        r[corrs_key_test] = corrs_test
-        model_params_to_save = {
-            'weights': net.module_.state_dict(),
-        }
-
+    # elif args.encoding_model == 'mlp':
+    #     stim_train_delayed = stim_train_delayed.astype(np.float32)
+    #     resp_train = resp_train.astype(np.float32)
+    #     stim_test_delayed = stim_test_delayed.astype(np.float32)
+    #     net = get_model(args)
+    #     net.fit(stim_train_delayed, resp_train)
+    #     preds = net.predict(stim_test_delayed)
+    #     corrs_test = []
+    #     for i in range(preds.shape[1]):
+    #         corrs_test.append(np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
+    #     corrs_test = np.array(corrs_test)
+    #     r[corrs_key_test] = corrs_test
+    #     model_params_to_save = {
+    #         'weights': net.module_.state_dict(),
+    #     }
         # torch.save(net.module_.state_dict(), join(save_dir, 'weights.pt'))
     return r, model_params_to_save
 
@@ -290,6 +290,7 @@ def evaluate_pc_model_on_each_voxel(
         corrs.append(
             np.corrcoef(preds_voxels[:, i], resp[:, i])[0, 1])
     corrs = np.array(corrs)
+    corrs[np.isnan(corrs)] = 0
     return corrs
 
 
