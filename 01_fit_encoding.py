@@ -145,10 +145,9 @@ def get_data(args, story_names):
         # Features
         features_downsampled_dict = get_features(
             args.feature_space, allstories=story_names, qa_embedding_model=args.qa_embedding_model, **kwargs)
-        normalize = True if args.pc_components <= 0 else False
         # n_time_points x n_features
         features_downsampled = encoding_utils.trim_and_normalize_features(
-            features_downsampled_dict, args.trim, normalize=normalize
+            features_downsampled_dict, args.trim, normalize=True
         )
         features_downsampled_list.append(deepcopy(features_downsampled))
     features_downsampled_full = np.hstack(features_downsampled_list)

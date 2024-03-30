@@ -15,13 +15,13 @@ params_shared_dict = {
 
     # things to average over
     'use_cache': [1],
-    'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_mar28'],
+    # 'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_mar28'],
+    'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_mar30'],
     'nboots': [5],
 
     # fixed params
     # 'UTS03', 'UTS01', 'UTS02'],
     'subject': ['UTS03'],
-    # 'mlp_dim_hidden': [768],
     'use_test_setup': [0],
 }
 params_coupled_dict = {
