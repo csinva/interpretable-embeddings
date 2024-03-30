@@ -9,7 +9,7 @@ repo_dir = dirname(dirname(os.path.abspath(__file__)))
 
 params_shared_dict = {
     # 'pc_components': [1000, 100, -1],  # [5000, 100, -1], # default -1 predicts each voxel independently
-    'pc_components': [100],
+    'pc_components': [100, 1000, -1],
     'encoding_model': ['ridge'],
 
 
@@ -26,22 +26,22 @@ params_shared_dict = {
 }
 params_coupled_dict = {
     ('feature_space', 'qa_questions_version', 'seed', 'ndelays'): [
-        # ('bert-10', 'v1', 1, 4),
-        # ('bert-10', 'v1', 1, 8),
-        # ('bert-10', 'v1', 1, 12),
-        # ('eng1000', 'v1', 1, 4),
-        # ('eng1000', 'v1', 1, 8),
-        # ('eng1000', 'v1', 1, 12),
-        # ('qa_embedder-5', 'v1', 1, 4),
-        # ('qa_embedder-5', 'v1', 1, 8),
-        # ('qa_embedder-5', 'v1', 1, 12),
-        # ('qa_embedder-10', 'v1', 1, 4),
-        # ('qa_embedder-10', 'v1', 1, 8),
-        # ('qa_embedder-10', 'v1', 1, 12),
-        ('qa_embedder-10', 'v2', 1, 4),
-        ('qa_embedder-10', 'v2', 1, 8),
-        ('qa_embedder-10', 'v2', 1, 12),
-        ('qa_embedder-10', 'v2', 2, 8),
+        ('bert-10', 'v1', 1, 4),
+        ('bert-10', 'v1', 1, 8),
+        ('bert-10', 'v1', 1, 12),
+        ('eng1000', 'v1', 1, 4),
+        ('eng1000', 'v1', 1, 8),
+        ('eng1000', 'v1', 1, 12),
+        ('qa_embedder-5', 'v1', 1, 4),
+        ('qa_embedder-5', 'v1', 1, 8),
+        ('qa_embedder-5', 'v1', 1, 12),
+        ('qa_embedder-10', 'v1', 1, 4),
+        ('qa_embedder-10', 'v1', 1, 8),
+        ('qa_embedder-10', 'v1', 1, 12),
+        # ('qa_embedder-10', 'v2', 1, 4),
+        # ('qa_embedder-10', 'v2', 2, 8),
+        # ('qa_embedder-10', 'v2', 3, 12),
+        # ('qa_embedder-10', 'v2', 4, 8),
     ],
 }
 # Args list is a list of dictionaries
@@ -56,8 +56,8 @@ submit_utils.run_args_list(
     actually_run=True,
     # gpu_ids=[0, 1],
     # n_cpus=9,
-    # n_cpus=2,
-    gpu_ids=[0, 1, 2, 3],
+    n_cpus=8,
+    # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,

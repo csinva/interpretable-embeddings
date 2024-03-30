@@ -9,6 +9,7 @@ import torch
 from sklearn.preprocessing import StandardScaler
 import random
 import logging
+from sklearn.ensemble import RandomForestRegressor
 from os.path import join, dirname
 import json
 import argparse
@@ -40,9 +41,14 @@ def add_main_args(parser):
     Changing the default arg an argument will break cache compatibility with previous runs.
     """
     parser.add_argument("--subject", type=str, default='UTS03')
-    parser.add_argument("--feature_space", type=str, default='distil-bert-10',  # qa_embedder-10
+    parser.add_argument("--feature_space", type=str,
+                        # default='distil-bert-10',# qa_embedder-10
+                        default='qa_embedder-10',
                         choices=list(_FEATURE_VECTOR_FUNCTIONS.keys()))
-    parser.add_argument("--encoding_model", type=str, default='ridge')
+    parser.add_argument("--encoding_model", type=str,
+                        # default='ridge',
+                        default='randomforest'
+                        )
     parser.add_argument("--qa_embedding_model", type=str,
                         default='mistralai/Mistral-7B-v0.1',
                         help='Model to use for QA embedding, if feature_space is qa_embedder',
@@ -150,14 +156,14 @@ def get_data(args, story_names):
             features_downsampled_dict, args.trim, normalize=True
         )
         features_downsampled_list.append(deepcopy(features_downsampled))
-    features_downsampled_full = np.hstack(features_downsampled_list)
+    features_downsampled_list = np.hstack(features_downsampled_list)
+    torch.cuda.empty_cache()
 
     # n_time_points x (n_delays x n_features)
-    stim_delayed = make_delayed(features_downsampled_full,
+    stim_delayed = make_delayed(features_downsampled_list,
                                 delays=range(1, args.ndelays+1))
     # stim_delayed = encoding_utils.add_delays(
     # story_names, features_downsampled_dict, args.trim, args.ndelays, normalize=normalize)
-    torch.cuda.empty_cache()
 
     # Response
     # use cached responses
@@ -273,6 +279,21 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
             weights_key: lin.coef_.T,
             'alpha_best': lin.alpha_,
             'num_nonzero-coefs': np.sum(np.abs(lin.coef_) > 1e-8),
+        }
+    elif args.encoding_model == 'randomforest':
+        rf = RandomForestRegressor(
+            n_estimators=100, n_jobs=10)  # , max_depth=5)
+        corrs_test = []
+        for i in range(resp_train.shape[1]):
+            rf.fit(stim_train_delayed, resp_train[:, i])
+            preds = rf.predict(stim_test_delayed)
+            corrs_test.append(np.corrcoef(resp_test[:, i], preds)[0, 1])
+            print(i, 'rf corr', corrs_test[-1])
+        corrs_test = np.array(corrs_test)
+        corrs_test[np.isnan(corrs_test)] = 0
+        r[corrs_key_test] = corrs_test
+        model_params_to_save = {
+            'weights': rf.feature_importances_,
         }
 
     # elif args.encoding_model == 'mlp':
@@ -400,8 +421,10 @@ if __name__ == "__main__":
         model_params_to_save['scaler_test'] = scaler_test
         model_params_to_save['scaler_train'] = scaler_train
 
-    os.makedirs(save_dir_unique, exist_ok=True)
+    # add extra stats
     r = add_summary_stats(r, verbose=True)
+
+    os.makedirs(save_dir_unique, exist_ok=True)
     joblib.dump(r, join(save_dir_unique, "results.pkl"))
     joblib.dump(model_params_to_save, join(
         save_dir_unique, "model_params.pkl"))
