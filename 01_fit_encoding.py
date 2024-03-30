@@ -21,6 +21,7 @@ import encoding_utils
 import encoding_models
 from feature_spaces import _FEATURE_VECTOR_FUNCTIONS, get_features, repo_dir, em_data_dir, data_dir, results_dir
 from ridge_utils.ridge import bootstrap_ridge, gen_temporal_chunk_splits
+from ridge_utils.utils import make_delayed
 import imodelsx.cache_save_utils
 import story_names
 import random
@@ -39,7 +40,7 @@ def add_main_args(parser):
     Changing the default arg an argument will break cache compatibility with previous runs.
     """
     parser.add_argument("--subject", type=str, default='UTS03')
-    parser.add_argument("--feature_space", type=str, default='distil-bert-10',  # qa_embedder-5
+    parser.add_argument("--feature_space", type=str, default='distil-bert-10',  # qa_embedder-10
                         choices=list(_FEATURE_VECTOR_FUNCTIONS.keys()))
     parser.add_argument("--encoding_model", type=str, default='ridge')
     parser.add_argument("--qa_embedding_model", type=str,
@@ -48,6 +49,8 @@ def add_main_args(parser):
                         choices=['mistralai/Mistral-7B-v0.1',
                                  "mistralai/Mixtral-8x7B-v0.1"],
                         )
+    parser.add_argument("--qa_questions_version", type=str, default='v2',
+                        help='Which set of QA questions to use, if feature_space is qa_embedder')
     parser.add_argument("--l1_ratio", type=float,
                         default=0.5, help='l1 ratio for elasticnet (ignored if encoding_model is not elasticnet)')
     parser.add_argument("--min_alpha", type=float,
@@ -123,16 +126,38 @@ def get_data(args, story_names):
     Returns
     -------
     stim_delayed: np.ndarray
-        n_time_points x (n_delays * n_features)
+        n_time_points x (n_delays x n_features)
     resp: np.ndarray
         n_time_points x n_voxels (e.g. (27449, 95556) or (550, 95556))
     '''
-    # Features
-    features_downsampled_dict = get_features(
-        args.feature_space, allstories=story_names, qa_embedding_model=args.qa_embedding_model)
-    normalize = True if args.pc_components <= 0 else False
-    stim_delayed = encoding_utils.add_delays(
-        story_names, features_downsampled_dict, args.trim, args.ndelays, normalize=normalize)
+
+    # for qa versions, we extract features multiple times and concatenate them
+    # this helps with caching
+    if 'qa_embedder' in args.feature_space:
+        version_num = int(args.qa_questions_version[1:])
+        kwargs_list = [{'qa_questions_version': f'v{i + 1}'}
+                       for i in range(version_num)]
+    else:
+        kwargs_list = [{}]
+
+    features_downsampled_list = []
+    for kwargs in kwargs_list:
+        # Features
+        features_downsampled_dict = get_features(
+            args.feature_space, allstories=story_names, qa_embedding_model=args.qa_embedding_model, **kwargs)
+        normalize = True if args.pc_components <= 0 else False
+        # n_time_points x n_features
+        features_downsampled = encoding_utils.trim_and_normalize_features(
+            features_downsampled_dict, args.trim, normalize=normalize
+        )
+        features_downsampled_list.append(deepcopy(features_downsampled))
+    features_downsampled_full = np.hstack(features_downsampled_list)
+
+    # n_time_points x (n_delays x n_features)
+    stim_delayed = make_delayed(features_downsampled_full,
+                                delays=range(1, args.ndelays+1))
+    # stim_delayed = encoding_utils.add_delays(
+    # story_names, features_downsampled_dict, args.trim, args.ndelays, normalize=normalize)
     torch.cuda.empty_cache()
 
     # Response
@@ -295,7 +320,7 @@ def evaluate_pc_model_on_each_voxel(
 
 
 def add_summary_stats(r, verbose=True):
-    for key in ['corrs_test', 'corrs_tune']:
+    for key in ['corrs_test', 'corrs_tune', 'corrs_tune_pc', 'corrs_test_pc']:
         if key in r:
             r[key + '_mean'] = np.mean(r[key])
             r[key + '_median'] = np.median(r[key])
@@ -313,6 +338,7 @@ def add_summary_stats(r, verbose=True):
                     f"mean top1 percentile {key}: {r[key + '_mean_top1_percentile']:.4f}")
                 logging.info(
                     f"mean top5 percentile {key}: {r[key + '_mean_top5_percentile']:.4f}")
+
     return r
 
 

@@ -5,6 +5,7 @@ import numpy as np
 import json
 from os.path import join, dirname
 from functools import partial
+import qa_questions
 from ridge_utils.data_sequence import DataSequence
 from typing import Dict, List
 from tqdm import tqdm
@@ -189,14 +190,16 @@ def get_embs_from_text_list(text_list: List[str], embedding_function) -> List[np
 
 def get_llm_vectors(
         allstories, model='bert-base-uncased', ngram_size=5,
-        qa_embedding_model='mistralai/Mistral-7B-v0.1') -> Dict[str, np.ndarray]:
+        qa_embedding_model='mistralai/Mistral-7B-v0.1', qa_questions_version='v1') -> Dict[str, np.ndarray]:
     """Get llm embedding vectors
     """
 
     wordseqs = get_story_wordseqs(allstories)
     print(f'extracting {model} embs...')
     if 'qa_embedder' in model:
-        embedding_model = QuestionEmbedder(checkpoint=qa_embedding_model)
+        questions = qa_questions.get_questions(version=qa_questions_version)
+        embedding_model = QuestionEmbedder(
+            checkpoint=qa_embedding_model, questions=questions)
     if not 'qa_embedder' in model:
         embedding_model = pipeline("feature-extraction", model=model, device=0)
 

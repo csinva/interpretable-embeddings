@@ -422,14 +422,178 @@ ANS_WORDS = '''- Does the input contain emotional words?
 - Is there a mention of a musical experience or concert?'''
 
 
-def get_questions():
-    qs_semantic = [q.strip('- ') for q in ANS_SEMANTIC.split('\n')]
-    qs_story = [q.strip('- ') for q in ANS_STORY.split('\n')]
-    qs_story_followup = [q.strip('- ') for q in ANS_STORY_FOLLOWUP.split('\n')]
-    qs_words = [q.strip('- ') for q in ANS_WORDS.split('\n')]
-    qs = qs_semantic + qs_story + qs_story_followup + qs_words
-    return sorted(list(set(qs)))
+PROMPT_NEURO = '''Based on what you know from the neuroscience and psychology literature, generate a bulleted list of 100 diverse, non-overlapping yes/no questions that ask about properties of a sentence that might be important for predicting brain activity.
+
+Return only a bulleted list of questions and nothing else'''
+
+ANS_NEURO = '''- Does the sentence contain emotionally charged words?
+- Is the sentence grammatically complex?
+- Does the sentence include a metaphor?
+- Does the sentence require inferential reasoning to understand?
+- Is the sentence part of a narrative?
+- Does the sentence describe a physical action?
+- Does the sentence include numerical information?
+- Is the sentence in the active voice?
+- Is the sentence in the passive voice?
+- Does the sentence involve a social interaction?
+- Does the sentence contain a negation?
+- Is the sentence a question?
+- Does the sentence describe a sensory experience?
+- Is the sentence humorous?
+- Does the sentence contain a contradiction?
+- Does the sentence reference a specific time or date?
+- Is the sentence abstract rather than concrete?
+- Does the sentence involve moral reasoning?
+- Does the sentence contain a proper noun?
+- Is the sentence structured as a list?
+- Does the sentence use future tense?
+- Does the sentence use past tense?
+- Does the sentence include a conditional clause?
+- Does the sentence describe an event with emotional significance?
+- Is the sentence part of a scientific explanation?
+- Does the sentence include a direct speech quotation?
+- Does the sentence describe a hypothetical scenario?
+- Does the sentence include an idiom?
+- Is the sentence autobiographical?
+- Does the sentence contain a cultural reference?
+- Does the sentence describe a personal preference?
+- Is the sentence a command?
+- Does the sentence include technical or specialized terminology?
+- Does the sentence involve spatial reasoning?
+- Does the sentence relate to personal health or bodily functions?
+- Is the sentence repetitive or redundant?
+- Does the sentence include a comparison or simile?
+- Does the sentence reference a famous person or event?
+- Does the sentence use non-standard or slang language?
+- Is the sentence intentionally vague or ambiguous?
+- Does the sentence describe a natural phenomenon?
+- Does the sentence involve mathematical reasoning?
+- Is the sentence part of a legal document or text?
+- Does the sentence contain words with strong visual imagery?
+- Does the sentence use alliteration or rhyme?
+- Is the sentence part of a dialogue?
+- Does the sentence describe an ethical dilemma?
+- Does the sentence use irony or sarcasm?
+- Does the sentence reference historical events?
+- Is the sentence emotionally neutral?
+- Does the sentence describe a routine activity?
+- Is the sentence related to food or eating?
+- Does the sentence contain a pun?
+- Does the sentence describe a common fear or phobia?
+- Is the sentence part of a poem or song?
+- Does the sentence describe a technological concept?
+- Does the sentence include a threat or warning?
+- Is the sentence humorous because of a play on words?
+- Does the sentence describe a physical sensation (e.g., touch, taste)?
+- Is the sentence designed to persuade or convince?
+- Does the sentence reference a specific location or place?
+- Does the sentence describe a fictional scenario?
+- Is the sentence emotionally positive?
+- Is the sentence emotionally negative?
+- Does the sentence include an oxymoron?
+- Does the sentence describe a relationship between people?
+- Does the sentence use a common cliché?
+- Is the sentence related to sports or physical exercise?
+- Does the sentence describe a creative or artistic activity?
+- Does the sentence use a unique or unusual word?
+- Is the sentence related to politics or government?
+- Does the sentence reference a religious or spiritual concept?
+- Does the sentence describe an economic concept or issue?
+- Is the sentence about a current event or recent news?
+- Does the sentence contain a question that encourages reflection?
+- Does the sentence describe a scientific experiment or finding?
+- Is the sentence related to environmental issues?
+- Does the sentence describe a character in a story?
+- Does the sentence use an unusual syntactic structure?
+- Is the sentence a well-known quote or saying?
+- Does the sentence describe a dream or fantasy?
+- Does the sentence involve planning or decision-making?
+- Is the sentence related to education or learning?
+- Does the sentence describe a cultural practice or tradition?
+- Does the sentence include a rhetorical question?
+- Is the sentence intended to evoke nostalgia?
+- Does the sentence describe an animal or involve animals?
+- Is the sentence about a game or leisure activity?
+- Does the sentence describe a travel experience?
+- Does the sentence involve time travel or hypothetical future scenarios?
+- Is the sentence part of a mystery or puzzle?
+- Does the sentence describe a common superstition or myth?
+- Does the sentence use metaphor to describe emotions?
+- Is the sentence related to health and fitness advice?
+- Does the sentence describe a personal achievement or milestone?
+- Is the sentence intended to be motivational or inspirational?
+- Does the sentence involve a logical paradox?
+- Does the sentence describe an art or craft technique?
+- Is the sentence related to fashion or personal style?'''
+
+PROMPT_NEURO_FOLLOWUP = '''Generate more diverse questions that may occur for a single sentence in a first-person narrative story'''
+
+ANS_NEURO_FOLLOWUP = '''- Does the sentence express a personal fear or anxiety?
+- Is the sentence reflective, involving self-analysis or introspection?
+- Does the sentence reveal a secret or confidential information?
+- Is the sentence focused on a memory from the past?
+- Does the sentence express hope or aspiration for the future?
+- Is the sentence describing a physical sensation experienced by the narrator?
+- Does the sentence include dialogue or thoughts directed towards another character?
+- Is the sentence expressing confusion or uncertainty?
+- Does the sentence convey a decision or choice made by the narrator?
+- Is the sentence describing an immediate reaction to an event or action?
+- Does the sentence express regret or remorse for a past action?
+- Is the sentence conveying a change in the narrator's emotional state?
+- Does the sentence describe a lesson learned or insight gained by the narrator?
+- Is the sentence describing a moment of realization or epiphany?
+- Does the sentence express gratitude or appreciation for something or someone?
+- Is the sentence conveying a sense of loneliness or isolation?
+- Does the sentence express anger or frustration directed at a specific situation or person?
+- Is the sentence describing a moment of peace or contentment?
+- Does the sentence convey a sense of urgency or haste?
+- Is the sentence expressing a wish or desire for something to be different?
+- Does the sentence describe an interaction that is significant to the narrator's development?
+- Is the sentence conveying the narrator's physical movement or action in detail?
+- Does the sentence express the narrator's opinion or judgment about an event or character?
+- Is the sentence highlighting a contrast between the narrator's past and present self?
+- Does the sentence express a sense of belonging or connection to a place or community?
+- Is the sentence describing a moment of vulnerability or weakness?
+- Does the sentence convey the narrator's sense of humor or wit?
+- Is the sentence expressing skepticism or disbelief towards something or someone?
+- Does the sentence describe a recurring thought or obsession?
+- Is the sentence conveying the narrator's admiration or respect for another character?
+- Does the sentence express a philosophical or existential query or observation?
+- Is the sentence highlighting a cultural or societal norm that impacts the narrator?
+- Does the sentence express a moment of defiance or resistance by the narrator?
+- Is the sentence conveying a sense of awe or wonder experienced by the narrator?
+- Does the sentence describe the narrator's creative process or artistic inspiration?
+- Is the sentence expressing the narrator's aspirations for societal change or impact?
+- Does the sentence convey the narrator's relationship with time, such as impatience or nostalgia?
+- Is the sentence describing a significant change in the narrator's environment or circumstances?
+- Does the sentence express a moment of forgiveness, either giving or receiving?
+- Is the sentence conveying a strategic or tactical thought by the narrator?
+- Does the sentence express the narrator's attachment or detachment from material possessions?
+- Is the sentence describing a ritual or routine important to the narrator?
+- Does the sentence convey the narrator's interaction with nature or the outdoors?
+- Is the sentence expressing the narrator's response to art or music?
+- Does the sentence describe a moment of companionship or solitude?'''
+
+
+def get_questions(version='v1'):
+    if version == 'v1':
+        qs_semantic = [q.strip('- ') for q in ANS_SEMANTIC.split('\n')]
+        qs_story = [q.strip('- ') for q in ANS_STORY.split('\n')]
+        qs_story_followup = [q.strip('- ')
+                             for q in ANS_STORY_FOLLOWUP.split('\n')]
+        qs_words = [q.strip('- ') for q in ANS_WORDS.split('\n')]
+        qs = qs_semantic + qs_story + qs_story_followup + qs_words
+        return sorted(list(set(qs)))
+    elif version == 'v2':
+        qs_neuro = [q.strip('- ') for q in ANS_NEURO.split('\n')]
+        qs_neuro_followup = [q.strip('- ')
+                             for q in ANS_NEURO_FOLLOWUP.split('\n')]
+        qs = qs_neuro + qs_neuro_followup
+        qs_v1 = get_questions(version='v1')
+        qs_v2_unique = sorted(list(set(qs) - set(qs_v1)))
+        return sorted(list(set(qs_v2_unique)))
 
 
 if __name__ == "__main__":
-    print(len(get_questions()), 'questions')
+    print('v1 has', len(get_questions(version='v1')), 'questions')
+    print('v2 adds', len(get_questions(version='v2')), 'questions')
