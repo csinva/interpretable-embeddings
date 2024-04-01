@@ -54,17 +54,17 @@ args_list = submit_utils.get_args_list(
     params_shared_dict=params_shared_dict,
     params_coupled_dict=params_coupled_dict,
 )
-submit_utils.run_args_list(
-    args_list,
-    script_name=join(repo_dir, '01_fit_encoding.py'),
-    actually_run=True,
-    # gpu_ids=[0, 1],
-    # n_cpus=9,
-    # n_cpus=3,
-    # gpu_ids=[0, 1, 2, 3],
-    # gpu_ids=[0, 1, 2, 3],
-    gpu_ids=[[1, 2, 3]],
-    # gpu_ids=[[0, 1], [2, 3]],
-    repeat_failed_jobs=True,
-    shuffle=True,
-)
+# submit_utils.run_args_list(
+#     args_list,
+#     script_name=join(repo_dir, '01_fit_encoding.py'),
+#     actually_run=True,
+#     # gpu_ids=[0, 1],
+#     # n_cpus=9,
+#     # n_cpus=3,
+#     # gpu_ids=[0, 1, 2, 3],
+#     # gpu_ids=[0, 1, 2, 3],
+#     # gpu_ids=[[0, 1, 2, 3]],
+#     # gpu_ids=[[0, 1], [2, 3]],
+#     repeat_failed_jobs=True,
+#     shuffle=True,
+# )

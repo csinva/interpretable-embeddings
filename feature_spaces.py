@@ -1,6 +1,7 @@
 import os
-import sys
+from dict_hash import sha256
 import datasets
+import joblib
 import numpy as np
 import json
 from os.path import join, dirname
@@ -17,7 +18,7 @@ from ridge_utils.utils_stim import load_textgrids, load_simulated_trfiles
 from transformers import pipeline
 import logging
 from qa_embedder import QuestionEmbedder
-from config import repo_dir, nlp_utils_dir, em_data_dir, data_dir, results_dir
+from config import repo_dir, nlp_utils_dir, em_data_dir, data_dir, results_dir, cache_embs_dir
 
 
 def get_story_wordseqs(stories) -> Dict[str, DataSequence]:
@@ -183,7 +184,8 @@ def get_embs_from_text_list(text_list: List[str], embedding_function) -> List[np
 
 def get_llm_vectors(
         allstories, model='bert-base-uncased', ngram_size=5,
-        qa_embedding_model='mistralai/Mistral-7B-v0.1', qa_questions_version='v1') -> Dict[str, np.ndarray]:
+        qa_embedding_model='mistralai/Mistral-7B-v0.1', qa_questions_version='v1'
+) -> Dict[str, np.ndarray]:
     """Get llm embedding vectors
     """
 
@@ -201,29 +203,40 @@ def get_llm_vectors(
         Alternatively, we could have used wordseqs[story].chunks() to combine each TR.
         '''
         vectors = {}
+        os.makedirs(cache_embs_dir, exist_ok=True)
         for story_num, story in enumerate(allstories):
-            ds = wordseqs[story]
-            # get list of every word (each has its own timing info, many words are in a single TR)
-            words_list = ds.data
-
-            # replace each word with an ngram leading up to that word
-            ngrams_list = get_ngrams_list_from_words_list(
-                words_list, ngram_size=ngram_size)
-
-            # embed the ngrams
-            if 'qa_embedder' in model:
-                print(f'Extracting {story_num}/{len(allstories)}: {story}')
-                embs = embedding_model(ngrams_list, verbose=False)
+            cache_hash = sha256({'story': story, 'model': model, 'ngram_size': ngram_size,
+                                'qa_embedding_model': qa_embedding_model, 'qa_questions_version': qa_questions_version})
+            cache_file = join(
+                cache_embs_dir, f'{cache_hash}.jl')
+            if os.path.exists(cache_file):
+                print(f'Loading cached {story_num}/{len(allstories)}: {story}')
+                vectors[story] = joblib.load(cache_file)
             else:
-                embs = get_embs_from_text_list(
-                    ngrams_list, embedding_function=embedding_model)
+                ds = wordseqs[story]
+                # get list of every word (each has its own timing info, many words are in a single TR)
+                words_list = ds.data
 
-            # put in each embedding at the appropriate time
-            vectors[story] = DataSequence(
-                embs, ds.split_inds, ds.data_times, ds.tr_times).data
+                # replace each word with an ngram leading up to that word
+                ngrams_list = get_ngrams_list_from_words_list(
+                    words_list, ngram_size=ngram_size)
+
+                # embed the ngrams
+                if 'qa_embedder' in model:
+                    print(f'Extracting {story_num}/{len(allstories)}: {story}')
+                    embs = embedding_model(ngrams_list, verbose=False)
+                else:
+                    embs = get_embs_from_text_list(
+                        ngrams_list, embedding_function=embedding_model)
+
+                # put in each embedding at the appropriate time
+                vectors[story] = DataSequence(
+                    embs, ds.split_inds, ds.data_times, ds.tr_times).data
+                joblib.dump(vectors[story], cache_file)
 
         # downsample combined embeddings
-        return downsample_word_vectors(allstories, vectors, wordseqs)
+        return downsample_word_vectors(
+            allstories, vectors, wordseqs)
 
     return _llm_vectors_ngram_based(allstories, wordseqs, embedding_model, ngram_size)
 

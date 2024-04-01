@@ -79,8 +79,6 @@ def add_main_args(parser):
 
     # basic params
     parser.add_argument('--seed', type=int, default=1)
-    parser.add_argument('--save_dir', type=str,
-                        default=os.path.join(path_to_file, 'results'))
     parser.add_argument('--use_test_setup', type=int, default=1,
                         help='For fast testing - train/test on single story with 2 nboots.')
     return parser
@@ -88,6 +86,8 @@ def add_main_args(parser):
 
 def add_computational_args(parser):
     """Arguments that only affect computation and not the results (shouldnt use when checking cache)"""
+    parser.add_argument('--save_dir', type=str,
+                        default=os.path.join(path_to_file, 'results'))
     parser.add_argument(
         "--use_cache",
         type=int,
@@ -151,7 +151,8 @@ def get_data(args, story_names):
     for kwargs in kwargs_list:
         # Features
         features_downsampled_dict = get_features(
-            args.feature_space, allstories=story_names, qa_embedding_model=args.qa_embedding_model, **kwargs)
+            args.feature_space, allstories=story_names, qa_embedding_model=args.qa_embedding_model,
+            **kwargs)
         # n_time_points x n_features
         features_downsampled = encoding_utils.trim_and_normalize_features(
             features_downsampled_dict, args.trim, normalize=True

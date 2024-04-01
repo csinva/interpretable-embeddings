@@ -7,6 +7,7 @@ else:
     mnt_dir = '/mntv1'
 
 repo_dir = join(mnt_dir, 'deep-fMRI')
+cache_embs_dir = join(repo_dir, 'cache_embs')
 nlp_utils_dir = '/home/chansingh/nlp_utils'
 em_data_dir = join(repo_dir, 'em_data')
 data_dir = repo_dir  # join(repo_dir, 'data')
