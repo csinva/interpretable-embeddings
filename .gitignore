@@ -49,3 +49,5 @@ figs
 **.png
 **.jbl
 results*
+**pycache*
+**logs*

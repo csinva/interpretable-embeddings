@@ -32,15 +32,13 @@ jobs:
 - name: debug_2gpus
   process_count_per_node: 1
   # sku: 16C2
-  sku: G1
+  sku: {sku}
   # sku: 64G2-MI200-xGMI # options [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI, 64G8-MI200-xGMI, 64G4-MI200-xGMI 64G2-MI200-xGMI]
   command:
   - echo "Starting..."
-  # - ls /mntv1
-  # - ls /
   # - echo "test" >> /mntv1/test.txt
-  - python 01_fit_encoding.py
-  # - sleep 800
+  # - python 01_fit_encoding.py
+  - {param_str}
 
 # amlt debug launch.yaml
 # amlt --pdb run launch.yaml
