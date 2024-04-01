@@ -1,0 +1,47 @@
+description: inference debugging
+environment:
+  image: amlt-sing/acpt-rocm5.7_ubuntu20.04_py3.10_pytorch_2.0.1
+  # image: amlt-sing/acpt-rocm5.4.2_ubuntu20.04_py3.8_pytorch_2.0.0
+  # image: pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel
+  # registry: docker.io
+  setup:
+    - echo "Installing things..."
+    - pip install -r requirements.txt --user    
+
+code:
+  local_dir: $CONFIG_DIR
+
+# target:
+#   service: amlk8s
+#   name: itplabrr1cl1
+#   vc: resrchvc
+
+target:
+  service: sing
+  name: huashanvc1
+  resource_group: gcr-singularity
+  workspace_name: msrresrchws
+
+storage:
+  output:
+    storage_account_name: chansingh
+    container_name: cs1
+    mount_dir: /mntv1 # dir on the local machine
+
+jobs:
+- name: debug_2gpus
+  process_count_per_node: 1
+  # sku: 16C2
+  sku: G1
+  # sku: 64G2-MI200-xGMI
+  command:
+  - echo "Starting..."
+  # - ls /mntv1
+  # - ls /
+  # - echo "test" >> /mntv1/test.txt
+  - python 01_fit_encoding.py
+  # - sleep 800
+
+# amlt debug launch.yaml
+# amlt --pdb run launch.yaml
+# amlt run launch.yaml

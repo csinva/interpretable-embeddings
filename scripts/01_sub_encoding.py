@@ -23,25 +23,29 @@ params_shared_dict = {
     # 'UTS03', 'UTS01', 'UTS02'],
     'subject': ['UTS03'],
     'use_test_setup': [0],
+    'qa_embedding_model': [
+        # 'mistralai/Mistral-7B-v0.1',
+        "mistralai/Mixtral-8x7B-v0.1"
+    ],
 }
 params_coupled_dict = {
     ('feature_space', 'qa_questions_version', 'seed', 'ndelays'): [
-        ('bert-10', 'v1', 1, 4),
-        ('bert-10', 'v1', 1, 8),
-        ('bert-10', 'v1', 1, 12),
-        ('eng1000', 'v1', 1, 4),
-        ('eng1000', 'v1', 1, 8),
-        ('eng1000', 'v1', 1, 12),
+        # ('bert-10', 'v1', 1, 4),
+        # ('bert-10', 'v1', 1, 8),
+        # ('bert-10', 'v1', 1, 12),
+        # ('eng1000', 'v1', 1, 4),
+        # ('eng1000', 'v1', 1, 8),
+        # ('eng1000', 'v1', 1, 12),
         ('qa_embedder-5', 'v1', 1, 4),
-        ('qa_embedder-5', 'v1', 1, 8),
-        ('qa_embedder-5', 'v1', 1, 12),
-        ('qa_embedder-10', 'v1', 1, 4),
-        ('qa_embedder-10', 'v1', 1, 8),
-        ('qa_embedder-10', 'v1', 1, 12),
+        ('qa_embedder-5', 'v1', 2, 8),
+        ('qa_embedder-5', 'v1', 3, 12),
+        # ('qa_embedder-10', 'v1', 1, 4),
+        # ('qa_embedder-10', 'v1', 1, 8),
+        # ('qa_embedder-10', 'v1', 1, 12),
         # ('qa_embedder-10', 'v2', 1, 4),
         # ('qa_embedder-10', 'v2', 2, 8),
         # ('qa_embedder-10', 'v2', 3, 12),
-        # ('qa_embedder-10', 'v2', 4, 8),
+
     ],
 }
 # Args list is a list of dictionaries
@@ -56,9 +60,10 @@ submit_utils.run_args_list(
     actually_run=True,
     # gpu_ids=[0, 1],
     # n_cpus=9,
-    n_cpus=8,
+    # n_cpus=3,
     # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[0, 1, 2, 3],
+    gpu_ids=[[1, 2, 3]],
     # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,
     shuffle=True,

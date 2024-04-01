@@ -8,10 +8,15 @@ tables
 numpy
 pandas
 torch
-transformers[torch]
+transformers
 datasets
 scikit-learn
-openai
+imodelsx
+imodels
+skorch
+nltk
+fire
+dict_hash
 
 # basic
 tqdm

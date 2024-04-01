@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 from typing import List, Tuple
 from sklearn.linear_model import RidgeCV, LogisticRegressionCV, LogisticRegression
 from sklearn.feature_extraction.text import CountVectorizer
-from feature_spaces import em_data_dir, data_dir, results_dir, nlp_utils_dir
+from config import em_data_dir, results_dir, nlp_utils_dir
 import feature_spaces
 from collections import defaultdict
 import pandas as pd
@@ -216,7 +216,6 @@ def apply_pointwise_nonlinearity(feats_train, feats_test, nonlinearity='relu'):
         return np.clip(feats_train, a_min=0, a_max=None), np.clip(feats_test, a_min=0, a_max=None)
     elif nonlinearity == 'tanh':
         return np.tanh(feats_train), np.tanh(feats_test)
-
 
 
 if __name__ == '__main__':

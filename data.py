@@ -1,24 +1,7 @@
-import argparse
 import datasets
 import numpy as np
-import os
-from os.path import join
-import logging
-from sklearn.model_selection import StratifiedKFold, GridSearchCV, train_test_split
-from transformers import pipeline
-from ridge_utils.semantic_model import SemanticModel
-from matplotlib import pyplot as plt
 from typing import List
-from sklearn.linear_model import RidgeCV, LogisticRegressionCV, LogisticRegression
-from sklearn.feature_extraction.text import CountVectorizer
-from feature_spaces import em_data_dir, data_dir, results_dir, nlp_utils_dir
-import feature_spaces
-from collections import defaultdict
 import pandas as pd
-import pickle as pkl
-from sklearn import metrics
-from copy import deepcopy
-import sys
 
 from tqdm import tqdm
 
@@ -39,12 +22,12 @@ def get_dsets(dataset: str, seed: int = 1, subsample_frac: float = None):
         # ['commonsense', 'deontology', 'justice', 'utilitarianism', 'virtue']:
         def get_dset():
             return datasets.load_dataset('metaeval/ethics', dataset.replace('ethics-', ''))
-        
+
     elif dataset.startswith('probing-'):
         # ['subj_number', 'word_content', 'obj_number', 'past_present', 'sentence_length',
         # 'top_constituents', 'tree_depth', 'coordination_inversion', 'odd_man_out', 'bigram_shift']
         def get_dset():
-            return datasets.load_dataset('metaeval/linguisticprobing', dataset.replace('probing-', '')) 
+            return datasets.load_dataset('metaeval/linguisticprobing', dataset.replace('probing-', ''))
 
     # default keys
     dataset_key_text = 'text'

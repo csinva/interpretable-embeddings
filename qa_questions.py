@@ -1,13 +1,3 @@
-import sglang as sgl
-import numpy as np
-from typing import List
-import json
-import argparse
-import os
-from tqdm import tqdm
-import guidance
-import imodelsx.llm
-
 PROMPT_SEMANTIC = '''Generate a bulleted list of 500 diverse, non-overlapping questions that can be used to classify an input based on its semantic properties. Phrase the questions in diverse ways.
 
 Here are some example questions:

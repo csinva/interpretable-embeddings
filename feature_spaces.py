@@ -17,14 +17,7 @@ from ridge_utils.utils_stim import load_textgrids, load_simulated_trfiles
 from transformers import pipeline
 import logging
 from qa_embedder import QuestionEmbedder
-
-
-# join(dirname(dirname(os.path.abspath(__file__))))
-repo_dir = '/home/chansingh/mntv1/deep-fMRI'
-nlp_utils_dir = '/home/chansingh/nlp_utils'
-em_data_dir = join(repo_dir, 'em_data')
-data_dir = repo_dir  # join(repo_dir, 'data')
-results_dir = join(repo_dir, 'results_new')
+from config import repo_dir, nlp_utils_dir, em_data_dir, data_dir, results_dir
 
 
 def get_story_wordseqs(stories) -> Dict[str, DataSequence]:
