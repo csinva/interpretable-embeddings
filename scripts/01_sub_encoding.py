@@ -14,6 +14,7 @@ sys.path.append(repo_dir)
 params_shared_dict = {
     # 'pc_components': [1000, 100, -1],  # [5000, 100, -1], # default -1 predicts each voxel independently
     # 'pc_components': [100, 1000, -1],
+    'pc_components': [100],
     'encoding_model': ['ridge'],
 
 
@@ -28,8 +29,8 @@ params_shared_dict = {
     'subject': ['UTS03'],
     'use_test_setup': [0],
     'qa_embedding_model': [
-        'mistralai/Mistral-7B-v0.1',
-        # "mistralai/Mixtral-8x7B-v0.1"
+        # 'mistralai/Mistral-7B-v0.1',
+        "mistralai/Mixtral-8x7B-v0.1"
     ],
 }
 params_coupled_dict = {
@@ -40,15 +41,23 @@ params_coupled_dict = {
         # ('eng1000', 'v1', 1, 4),
         # ('eng1000', 'v1', 1, 8),
         # ('eng1000', 'v1', 1, 12),
-        ('qa_embedder-5', 'v2', 1, 4),
-        ('qa_embedder-5', 'v2', 2, 8),
-        ('qa_embedder-5', 'v2', 3, 12),
-        ('qa_embedder-10', 'v1', 1, 4),
-        ('qa_embedder-10', 'v1', 2, 8),
-        ('qa_embedder-10', 'v1', 3, 12),
-        ('qa_embedder-10', 'v2', 4, 4),
-        ('qa_embedder-10', 'v2', 5, 8),
-        ('qa_embedder-10', 'v2', 6, 12),
+        # ('qa_embedder-5', 'v2', 1, 4),
+        # ('qa_embedder-5', 'v2', 2, 8),
+        # ('qa_embedder-5', 'v2', 3, 12),
+        # ('qa_embedder-10', 'v1', 1, 4),
+        ('qa_embedder-10', 'v1', 22, 8),
+        # ('qa_embedder-10', 'v1', 3, 12),
+        # ('qa_embedder-10', 'v2', 4, 4),
+        # ('qa_embedder-10', 'v2', 15, 8),
+        # ('qa_embedder-10', 'v2', 6, 12),
+        # ('qa_embedder-10', 'v2', 7, 4),
+        # ('qa_embedder-10', 'v2', 8, 8),
+        # ('qa_embedder-10', 'v2', 9, 12),
+        # ('qa_embedder-10', 'v2', 10, 4),
+        # ('qa_embedder-10', 'v2', 11, 8),
+        # ('qa_embedder-10', 'v2', 12, 12),
+        # ('qa_embedder-10', 'v2', 13, 12),
+        # ('qa_embedder-10', 'v2', 14, 12),
     ],
 }
 # Args list is a list of dictionaries
@@ -60,8 +69,9 @@ args_list = submit_utils.get_args_list(
 script_name = join(repo_dir, '01_fit_encoding.py')
 amlt_kwargs = {
     'amlt_file': join(repo_dir, 'launch.yaml'),
-    # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI, 64G8-MI200-xGMI, 64G4-MI200-xGMI 64G2-MI200-xGMI]
-    'sku': '64G2-MI200-xGMI',
+    # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
+    'sku': '64G8-MI200-xGMI',
+    # 'sku': '64G2-MI200-xGMI',
     # 'sku': '64G4-MI200-xGMI',
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
@@ -69,13 +79,13 @@ submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     actually_run=True,
-    amlt_kwargs=amlt_kwargs,
+    # amlt_kwargs=amlt_kwargs,
     # gpu_ids=[0, 1],
     # n_cpus=9,
     # n_cpus=6,
     # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[0, 1, 2, 3],
-    # gpu_ids=[[0, 1, 2, 3]],
+    gpu_ids=[[0, 1, 2, 3]],
     # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,
     shuffle=True,
