@@ -1,4 +1,4 @@
-description: inference debugging
+description: fMRI embedding extraction
 environment:
   image: amlt-sing/acpt-rocm5.7_ubuntu20.04_py3.10_pytorch_2.0.1
   # image: amlt-sing/acpt-rocm5.4.2_ubuntu20.04_py3.8_pytorch_2.0.0

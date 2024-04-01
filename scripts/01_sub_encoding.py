@@ -1,3 +1,4 @@
+from config import mnt_dir
 import itertools
 import os
 from os.path import dirname, join
@@ -7,6 +8,7 @@ import subprocess
 from imodelsx import submit_utils
 path_to_file = os.path.dirname(os.path.abspath(__file__))
 repo_dir = dirname(dirname(os.path.abspath(__file__)))
+sys.path.append(repo_dir)
 # python /home/chansingh/fmri/01_fit_encoding.py
 
 params_shared_dict = {
@@ -27,7 +29,7 @@ params_shared_dict = {
     'use_test_setup': [0],
     'qa_embedding_model': [
         'mistralai/Mistral-7B-v0.1',
-        "mistralai/Mixtral-8x7B-v0.1"
+        # "mistralai/Mixtral-8x7B-v0.1"
     ],
 }
 params_coupled_dict = {
@@ -38,15 +40,15 @@ params_coupled_dict = {
         # ('eng1000', 'v1', 1, 4),
         # ('eng1000', 'v1', 1, 8),
         # ('eng1000', 'v1', 1, 12),
-        ('qa_embedder-5', 'v1', 1, 4),
-        ('qa_embedder-5', 'v1', 2, 8),
-        ('qa_embedder-5', 'v1', 3, 12),
-        # ('qa_embedder-10', 'v1', 1, 4),
-        # ('qa_embedder-10', 'v1', 2, 8),
-        # ('qa_embedder-10', 'v1', 3, 12),
-        # ('qa_embedder-10', 'v2', 4, 4),
-        # ('qa_embedder-10', 'v2', 5, 8),
-        # ('qa_embedder-10', 'v2', 6, 12),
+        ('qa_embedder-5', 'v2', 1, 4),
+        ('qa_embedder-5', 'v2', 2, 8),
+        ('qa_embedder-5', 'v2', 3, 12),
+        ('qa_embedder-10', 'v1', 1, 4),
+        ('qa_embedder-10', 'v1', 2, 8),
+        ('qa_embedder-10', 'v1', 3, 12),
+        ('qa_embedder-10', 'v2', 4, 4),
+        ('qa_embedder-10', 'v2', 5, 8),
+        ('qa_embedder-10', 'v2', 6, 12),
     ],
 }
 # Args list is a list of dictionaries
@@ -61,19 +63,20 @@ amlt_kwargs = {
     # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI, 64G8-MI200-xGMI, 64G4-MI200-xGMI 64G2-MI200-xGMI]
     'sku': '64G2-MI200-xGMI',
     # 'sku': '64G4-MI200-xGMI',
+    'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
 submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     actually_run=True,
+    amlt_kwargs=amlt_kwargs,
     # gpu_ids=[0, 1],
     # n_cpus=9,
-    # n_cpus=3,
+    # n_cpus=6,
     # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1, 2, 3]],
     # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,
     shuffle=True,
-    amlt_kwargs=amlt_kwargs
 )
