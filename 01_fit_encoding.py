@@ -399,12 +399,12 @@ if __name__ == "__main__":
 
     # get data
     story_names_train, story_names_test = get_story_names(args)
-    stim_test_delayed, resp_test = get_data(args, story_names_test)
-    print('stim_test.shape', stim_test_delayed.shape,
-          'resp_test.shape', resp_test.shape)
     stim_train_delayed, resp_train = get_data(args, story_names_train)
     print('stim_train.shape', stim_train_delayed.shape,
           'resp_train.shape', resp_train.shape)
+    stim_test_delayed, resp_test = get_data(args, story_names_test)
+    print('stim_test.shape', stim_test_delayed.shape,
+          'resp_test.shape', resp_test.shape)
     if args.pc_components > 0:
         resp_train, resp_test, pca, scaler_train, scaler_test = transform_resps(
             args, resp_train, resp_test)

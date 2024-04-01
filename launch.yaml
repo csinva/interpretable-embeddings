@@ -1,3 +1,7 @@
+# amlt debug launch.yaml
+# amlt --pdb run launch.yaml
+# amlt run launch.yaml
+
 description: fMRI embedding extraction
 environment:
   image: amlt-sing/acpt-rocm5.7_ubuntu20.04_py3.10_pytorch_2.0.1
@@ -5,7 +9,6 @@ environment:
   # image: pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel
   # registry: docker.io
   setup:
-    - echo "Installing things..."
     - pip install -r requirements.txt --user    
 
 code:
@@ -28,18 +31,18 @@ storage:
     container_name: cs1
     mount_dir: /mntv1 # dir on the local machine
 
-jobs:
-- name: debug_2gpus
-  process_count_per_node: 1
-  # sku: 16C2
-  sku: {sku}
-  # sku: 64G2-MI200-xGMI # options [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI, 64G8-MI200-xGMI, 64G4-MI200-xGMI 64G2-MI200-xGMI]
-  command:
-  - echo "Starting..."
-  # - echo "test" >> /mntv1/test.txt
-  # - python 01_fit_encoding.py
-  - {param_str}
+# sku: 64G2-MI200-xGMI # options [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI, 64G8-MI200-xGMI, 64G4-MI200-xGMI 64G2-MI200-xGMI]
+# jobs:
+# - name: run_fmri
+#   process_count_per_node: 1
+#   sku: 64G2-MI200-xGMI
+#   command:
+#   - echo "test"
+# - name: run_fmri2
+#   process_count_per_node: 1
+#   sku: 64G2-MI200-xGMI
+#   command:
+#   - echo "test2"
 
-# amlt debug launch.yaml
-# amlt --pdb run launch.yaml
-# amlt run launch.yaml
+# must end with just 'jobs:' for imodelsx
+jobs:

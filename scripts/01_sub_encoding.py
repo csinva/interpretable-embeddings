@@ -33,31 +33,55 @@ params_shared_dict = {
         "mistralai/Mixtral-8x7B-v0.1"
     ],
 }
+
+
+# main args are qa_embedder-10, 'v2', seed=1, ndelays=8
 params_coupled_dict = {
     ('feature_space', 'qa_questions_version', 'seed', 'ndelays'): [
+        # baselines
         # ('bert-10', 'v1', 1, 4),
         # ('bert-10', 'v1', 2, 8),
         # ('bert-10', 'v1', 3, 12),
         # ('eng1000', 'v1', 1, 4),
         # ('eng1000', 'v1', 1, 8),
         # ('eng1000', 'v1', 1, 12),
-        # ('qa_embedder-5', 'v2', 1, 4),
-        # ('qa_embedder-5', 'v2', 2, 8),
-        # ('qa_embedder-5', 'v2', 3, 12),
-        # ('qa_embedder-10', 'v1', 1, 4),
+
+        # # main
+        # ('qa_embedder-10', 'v2', 1, 4),
+        # ('qa_embedder-10', 'v2', 2, 8),
+        # ('qa_embedder-10', 'v2', 3, 12),
+
+        # # ablation ngrams (should have run this with v2 but never did)
+        # ('qa_embedder-5', 'v1', 1, 4),
+        # ('qa_embedder-5', 'v1', 2, 8),
+        # ('qa_embedder-5', 'v1', 3, 12),
+
+        # ablation version
+        ('qa_embedder-10', 'v1', 1, 4),
+        ('qa_embedder-10', 'v1', 2, 8),
+        ('qa_embedder-10', 'v1', 3, 12),
+        ('qa_embedder-10', 'v1', 4, 8),
+        ('qa_embedder-10', 'v1', 5, 8),
+        ('qa_embedder-10', 'v1', 6, 8),
+        ('qa_embedder-10', 'v1', 7, 8),
+        ('qa_embedder-10', 'v1', 8, 8),
+        ('qa_embedder-10', 'v1', 9, 8),
+        ('qa_embedder-10', 'v1', 10, 8),
+        ('qa_embedder-10', 'v1', 11, 8),
+        ('qa_embedder-10', 'v1', 12, 8),
+        ('qa_embedder-10', 'v1', 13, 8),
+        ('qa_embedder-10', 'v1', 14, 8),
+        ('qa_embedder-10', 'v1', 15, 8),
+        ('qa_embedder-10', 'v1', 16, 8),
+        ('qa_embedder-10', 'v1', 17, 8),
+        ('qa_embedder-10', 'v1', 18, 8),
+        ('qa_embedder-10', 'v1', 19, 8),
+        ('qa_embedder-10', 'v1', 20, 8),
+        ('qa_embedder-10', 'v1', 21, 8),
         ('qa_embedder-10', 'v1', 22, 8),
-        # ('qa_embedder-10', 'v1', 3, 12),
-        # ('qa_embedder-10', 'v2', 4, 4),
-        # ('qa_embedder-10', 'v2', 15, 8),
-        # ('qa_embedder-10', 'v2', 6, 12),
-        # ('qa_embedder-10', 'v2', 7, 4),
-        # ('qa_embedder-10', 'v2', 8, 8),
-        # ('qa_embedder-10', 'v2', 9, 12),
-        # ('qa_embedder-10', 'v2', 10, 4),
-        # ('qa_embedder-10', 'v2', 11, 8),
-        # ('qa_embedder-10', 'v2', 12, 12),
-        # ('qa_embedder-10', 'v2', 13, 12),
-        # ('qa_embedder-10', 'v2', 14, 12),
+        ('qa_embedder-10', 'v1', 23, 8),
+        ('qa_embedder-10', 'v1', 24, 8),
+        ('qa_embedder-10', 'v1', 25, 8),
     ],
 }
 # Args list is a list of dictionaries
@@ -70,22 +94,22 @@ script_name = join(repo_dir, '01_fit_encoding.py')
 amlt_kwargs = {
     'amlt_file': join(repo_dir, 'launch.yaml'),
     # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
-    'sku': '64G8-MI200-xGMI',
+    # 'sku': '64G8-MI200-xGMI',
     # 'sku': '64G2-MI200-xGMI',
-    # 'sku': '64G4-MI200-xGMI',
+    'sku': '64G4-MI200-xGMI',
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
 submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     actually_run=True,
-    # amlt_kwargs=amlt_kwargs,
+    amlt_kwargs=amlt_kwargs,
     # gpu_ids=[0, 1],
     # n_cpus=9,
     # n_cpus=6,
     # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[0, 1, 2, 3],
-    gpu_ids=[[0, 1, 2, 3]],
+    # gpu_ids=[[0, 1, 2, 3]],
     # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,
     shuffle=True,
