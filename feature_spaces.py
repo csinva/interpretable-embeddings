@@ -134,7 +134,7 @@ def get_ngrams_list_from_words_list(words_list: List[str], ngram_size: int = 5) 
     for i in range(len(words_list)):
         l = max(0, i - ngram_size)
         ngram = ' '.join(words_list[l: i + 1])
-        ngrams_list.append(ngram)
+        ngrams_list.append(ngram.strip())
     return ngrams_list
 
 
