@@ -47,10 +47,10 @@ if __name__ == "__main__":
     ]
     examples = ['I sliced some cucumbers', 'The kids were laughing']
     # checkpoint = 'gpt2'
-    # checkpoint = "meta-llama/Llama-2-7b-hf"
-    # checkpoint = "meta-llama/Llama-2-7b-hf"
+    checkpoint = "meta-llama/Llama-2-7b-hf"
+    # checkpoint = "meta-llama/Llama-2-70b-hf"
     # checkpoint = "mistralai/Mixtral-8x7B-v0.1"
-    checkpoint = 'mistralai/Mistral-7B-v0.1'
+    # checkpoint = 'mistralai/Mistral-7B-v0.1'
 
     # test
     llm = imodelsx.llm.get_llm(checkpoint)
@@ -67,8 +67,8 @@ if __name__ == "__main__":
     # assert outputs[i] == outputs2[i]
 
     # questions = qa_questions.get_questions()[:5]
-    # embedder = QuestionEmbedder(questions=questions, checkpoint=checkpoint)
-    embedder = QuestionEmbedder(
-        questions=qa_questions.get_questions(), checkpoint=checkpoint)
+    embedder = QuestionEmbedder(questions=questions, checkpoint=checkpoint)
+    # embedder = QuestionEmbedder(
+    # questions=qa_questions.get_questions(), checkpoint=checkpoint)
     embeddings = embedder(examples)
     print(embeddings)

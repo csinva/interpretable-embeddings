@@ -120,6 +120,7 @@ def get_story_names(args):
         # test_stories = ['sloth', 'fromboyhoodtofatherhood']
         story_names_test = ['fromboyhoodtofatherhood']
         # 'onapproachtopluto']  # , 'onapproachtopluto']
+        random.shuffle(story_names_test)
 
     else:
         story_names_train = story_names.get_story_names(args.subject, 'train')
