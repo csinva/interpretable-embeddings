@@ -16,11 +16,11 @@ import argparse
 import h5py
 import numpy as np
 import sys
+import feature_spaces
 import joblib
 import os
 import encoding_utils
 import encoding_models
-from feature_spaces import _FEATURE_VECTOR_FUNCTIONS, get_features
 from config import data_dir
 from ridge_utils.ridge import bootstrap_ridge, gen_temporal_chunk_splits
 from ridge_utils.utils import make_delayed
@@ -45,7 +45,7 @@ def add_main_args(parser):
     parser.add_argument("--feature_space", type=str,
                         default='distil-bert-10',  # qa_embedder-10
                         # default='qa_embedder-10',
-                        choices=list(_FEATURE_VECTOR_FUNCTIONS.keys()))
+                        choices=list(feature_spaces._FEATURE_VECTOR_FUNCTIONS.keys()))
     parser.add_argument("--encoding_model", type=str,
                         default='ridge',
                         # default='randomforest'
@@ -150,7 +150,7 @@ def get_data(args, story_names):
     features_downsampled_list = []
     for kwargs in kwargs_list:
         # Features
-        features_downsampled_dict = get_features(
+        features_downsampled_dict = feature_spaces.get_features(
             args.feature_space, allstories=story_names, qa_embedding_model=args.qa_embedding_model,
             **kwargs)
         # n_time_points x n_features

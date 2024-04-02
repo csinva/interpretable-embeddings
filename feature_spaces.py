@@ -201,11 +201,12 @@ def get_llm_vectors(
 
     # This loop function works at the level of individual words, embeds the ngram leading up to each word, and then interpolates them.
     # Alternatively, we could have used wordseqs[story].chunks() to combine each TR.
-    print(f'extracting {model} embs...')
+    print(f'getting wordseqs..')
     wordseqs = get_story_wordseqs(allstories)
     vectors = {}
     os.makedirs(cache_embs_dir, exist_ok=True)
     embedding_model = None  # only initialize if needed
+    print(f'extracting {model} embs...')
     for story_num, story in enumerate(allstories):
         cache_hash = sha256({'story': story, 'model': model, 'ngram_size': ngram_size,
                             'qa_embedding_model': qa_embedding_model, 'qa_questions_version': qa_questions_version})
