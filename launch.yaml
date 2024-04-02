@@ -9,7 +9,9 @@ environment:
   # image: pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel
   # registry: docker.io
   setup:
-    - pip install -r requirements.txt --user    
+    - pip install -r requirements.txt --user
+    - git clone https://github.com/csinva/imodelsX.git
+    - pip install imodelsX
 
 code:
   local_dir: $CONFIG_DIR

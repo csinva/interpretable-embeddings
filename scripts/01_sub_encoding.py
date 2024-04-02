@@ -1,7 +1,7 @@
 from config import mnt_dir
 import itertools
 import os
-from os.path import dirname, join
+from os.path import dirname, join, expanduser
 import sys
 from dict_hash import sha256
 import subprocess
@@ -135,4 +135,5 @@ submit_utils.run_args_list(
     # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,
     shuffle=True,
+    cmd_python=f'export HF_TOKEN={open(expanduser("~/.HF_TOKEN"), "r").read().strip()}; python',
 )
