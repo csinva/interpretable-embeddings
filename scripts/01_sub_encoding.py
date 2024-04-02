@@ -41,8 +41,14 @@ params_coupled_dict = {
         # ('eng1000', 'v1', 1, 4, 'mistralai/Mistral-7B-v0.1'),
         # ('eng1000', 'v1', 1, 8, 'mistralai/Mistral-7B-v0.1'),
         # ('eng1000', 'v1', 1, 12, 'mistralai/Mistral-7B-v0.1'),
+        # ('bert-tr2', 'v1', 1, 4, 'mistralai/Mistral-7B-v0.1'),
+        # ('bert-tr2', 'v1', 1, 8, 'mistralai/Mistral-7B-v0.1'),
+        # ('bert-tr2', 'v1', 1, 12, 'mistralai/Mistral-7B-v0.1'),
+        # ('bert-tr3', 'v1', 1, 4, 'mistralai/Mistral-7B-v0.1'),
+        # ('bert-tr3', 'v1', 1, 8, 'mistralai/Mistral-7B-v0.1'),
+        # ('bert-tr3', 'v1', 1, 12, 'mistralai/Mistral-7B-v0.1'),
 
-        # # main (should upgrade this to v1)
+        # # main
         # ('qa_embedder-10', 'v1', 1, 4, 'mistralai/Mistral-7B-v0.1'),
         # ('qa_embedder-10', 'v1', 1, 8, 'mistralai/Mistral-7B-v0.1'),
         # ('qa_embedder-10', 'v1', 1, 12, 'mistralai/Mistral-7B-v0.1'),
@@ -61,6 +67,20 @@ params_coupled_dict = {
         # ('qa_embedder-5', 'v1', 1, 4, 'mistralai/Mistral-7B-v0.1'),
         # ('qa_embedder-5', 'v1', 2, 8, 'mistralai/Mistral-7B-v0.1'),
         # ('qa_embedder-5', 'v1', 3, 12, 'mistralai/Mistral-7B-v0.1'),
+
+        # tr versions
+        ('qa_embedder-tr2', 'v1', 1, 4, 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-tr2', 'v1', 2, 8, 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-tr2', 'v1', 3, 12, 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-tr2', 'v1', 4, 4, 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-tr2', 'v1', 5, 8, 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-tr2', 'v1', 6, 12, 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-tr2', 'v1', 7, 4, 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-tr2', 'v1', 8, 8, 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-tr2', 'v1', 9, 12, 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-tr2', 'v1', 10, 4, 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-tr2', 'v1', 11, 8, 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-tr2', 'v1', 12, 12, 'mistralai/Mistral-7B-v0.1'),
 
 
         # run mixtral v3
@@ -92,18 +112,24 @@ params_coupled_dict = {
 
 
         # run llama-2 70B
-        ('qa_embedder-10', 'v3', 2, 4, 'meta-llama/Llama-2-70b-hf'),
-        ('qa_embedder-10', 'v3', 1, 8, 'meta-llama/Llama-2-70b-hf'),
-        ('qa_embedder-10', 'v3', 3, 12, 'meta-llama/Llama-2-70b-hf'),
-        ('qa_embedder-10', 'v3', 4, 8, 'meta-llama/Llama-2-70b-hf'),
-        ('qa_embedder-10', 'v3', 5, 4, 'meta-llama/Llama-2-70b-hf'),
-        ('qa_embedder-10', 'v3', 6, 4, 'meta-llama/Llama-2-70b-hf'),
-        ('qa_embedder-10', 'v3', 7, 4, 'meta-llama/Llama-2-70b-hf'),
-        ('qa_embedder-10', 'v3', 8, 4, 'meta-llama/Llama-2-70b-hf'),
-        ('qa_embedder-10', 'v3', 9, 4, 'meta-llama/Llama-2-70b-hf'),
-        ('qa_embedder-10', 'v3', 10, 4, 'meta-llama/Llama-2-70b-hf'),
-        ('qa_embedder-10', 'v3', 11, 4, 'meta-llama/Llama-2-70b-hf'),
-        ('qa_embedder-10', 'v3', 12, 4, 'meta-llama/Llama-2-70b-hf'),
+        # ('qa_embedder-10', 'v3', 2, 4, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 1, 8, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 3, 12, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 4, 8, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 5, 4, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 6, 4, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 7, 4, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 8, 4, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 9, 4, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 10, 4, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 11, 4, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 12, 4, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 13, 4, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 14, 4, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 15, 4, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 16, 4, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 17, 4, 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 18, 4, 'meta-llama/Llama-2-13b-hf'),
     ],
 }
 # Args list is a list of dictionaries
@@ -117,8 +143,8 @@ amlt_kwargs = {
     'amlt_file': join(repo_dir, 'launch.yaml'),
     # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
     # 'sku': '64G8-MI200-xGMI',
-    'sku': '64G4-MI200-xGMI',
-    # 'sku': '64G2-MI200-xGMI',
+    # 'sku': '64G4-MI200-xGMI',
+    'sku': '64G2-MI200-xGMI',
     # 'sku': '64G1-MI200-xGMI',
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
@@ -130,7 +156,7 @@ submit_utils.run_args_list(
     # gpu_ids=[0, 1, 2, 3],
     # n_cpus=9,
     # n_cpus=8,
-    # gpu_ids=[0, 1, 2, 3],
+    # gpu_ids=[0, 1],
     # gpu_ids=[[0, 1, 2, 3]],
     # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,

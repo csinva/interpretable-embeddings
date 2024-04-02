@@ -1,3 +1,4 @@
+from copy import deepcopy
 import os
 from dict_hash import sha256
 import datasets
@@ -127,17 +128,6 @@ def get_glove_vectors(allstories, **kwargs):
     return downsample_word_vectors(allstories, vectors, wordseqs)
 
 
-def get_ngrams_list_from_words_list(words_list: List[str], ngram_size: int = 5) -> List[str]:
-    """Concatenate running list of words into grams with spaces in between
-    """
-    ngrams_list = []
-    for i in range(len(words_list)):
-        l = max(0, i - ngram_size)
-        ngram = ' '.join(words_list[l: i + 1])
-        ngrams_list.append(ngram.strip())
-    return ngrams_list
-
-
 def get_embs_from_text_list(text_list: List[str], embedding_function) -> List[np.ndarray]:
     """
 
@@ -182,22 +172,51 @@ def get_embs_from_text_list(text_list: List[str], embedding_function) -> List[np
     return embs
 
 
+def get_ngrams_list_from_words_list(words_list: List[str], ngram_size: int = 5) -> List[str]:
+    """Concatenate running list of words into grams with spaces in between
+    """
+    ngrams_list = []
+    for i in range(len(words_list)):
+        l = max(0, i - ngram_size)
+        ngram = ' '.join(words_list[l: i + 1])
+        ngrams_list.append(ngram.strip())
+    return ngrams_list
+
+
+def _get_ngrams_list_from_chunks(chunks, num_trs=2):
+    ngrams_list = []
+    for i in range(len(chunks)):
+        # print(chunks[i - num_trs:i])
+        # sum(chunks[i - num_trs:i], [])
+        chunk_block = chunks[i - num_trs:i]
+        if len(chunk_block) == 0:
+            ngrams_list.append('')
+        else:
+            chunk_block = np.concatenate(chunk_block)
+            ngrams_list.append(' '.join(chunk_block))
+    return ngrams_list
+
+
 def get_llm_vectors(
-        allstories, model='bert-base-uncased', ngram_size=5,
-        qa_embedding_model='mistralai/Mistral-7B-v0.1', qa_questions_version='v1'
+        allstories,
+        checkpoint='bert-base-uncased',
+        num_ngrams_context=10,
+        num_trs_context=None,
+        qa_embedding_model='mistralai/Mistral-7B-v0.1',
+        qa_questions_version='v1'
 ) -> Dict[str, np.ndarray]:
     """Get llm embedding vectors
     """
 
-    def _get_embedding_model(model, qa_questions_version, qa_embedding_model):
+    def _get_embedding_model(checkpoint, qa_questions_version, qa_embedding_model):
         print('loading embedding_model...')
-        if 'qa_embedder' in model:
+        if 'qa_embedder' in checkpoint:
             questions = qa_questions.get_questions(
                 version=qa_questions_version)
             return QuestionEmbedder(
                 checkpoint=qa_embedding_model, questions=questions)
-        if not 'qa_embedder' in model:
-            return pipeline("feature-extraction", model=model, device=0)
+        if not 'qa_embedder' in checkpoint:
+            return pipeline("feature-extraction", model=checkpoint, device=0)
 
     # This loop function works at the level of individual words, embeds the ngram leading up to each word, and then interpolates them.
     # Alternatively, we could have used wordseqs[story].chunks() to combine each TR.
@@ -206,10 +225,14 @@ def get_llm_vectors(
     vectors = {}
     os.makedirs(cache_embs_dir, exist_ok=True)
     embedding_model = None  # only initialize if needed
-    print(f'extracting {model} embs...')
+    print(f'extracting {checkpoint} embs...')
     for story_num, story in enumerate(allstories):
-        cache_hash = sha256({'story': story, 'model': model, 'ngram_size': ngram_size,
-                            'qa_embedding_model': qa_embedding_model, 'qa_questions_version': qa_questions_version})
+        args_cache = {'story': story, 'model': checkpoint, 'ngram_size': num_ngrams_context,
+                      'qa_embedding_model': qa_embedding_model, 'qa_questions_version': qa_questions_version}
+        if num_trs_context is not None:
+            args_cache['num_trs_context'] = num_trs_context
+            args_cache['ngram_size'] = None
+        cache_hash = sha256(args_cache)
         cache_file = join(
             cache_embs_dir, f'{cache_hash}.jl')
         if os.path.exists(cache_file):
@@ -218,31 +241,39 @@ def get_llm_vectors(
         else:
             if embedding_model is None:
                 embedding_model = _get_embedding_model(
-                    model, qa_questions_version, qa_embedding_model)
-            ds = wordseqs[story]
-            # get list of every word (each has its own timing info, many words are in a single TR)
-            words_list = ds.data
+                    checkpoint, qa_questions_version, qa_embedding_model)
 
-            # replace each word with an ngram leading up to that word
-            ngrams_list = get_ngrams_list_from_words_list(
-                words_list, ngram_size=ngram_size)
+            ds = wordseqs[story]
+
+            if num_trs_context is not None:
+                # replace each TR with text from the current TR and the TRs immediately before it
+                ngrams_list = _get_ngrams_list_from_chunks(
+                    ds.chunks(), num_trs=num_trs_context)
+            else:
+                # replace each word with an ngram leading up to that word
+                ngrams_list = get_ngrams_list_from_words_list(
+                    ds.data, ngram_size=num_ngrams_context)
 
             # embed the ngrams
-            if 'qa_embedder' in model:
+            if 'qa_embedder' in checkpoint:
                 print(f'Extracting {story_num}/{len(allstories)}: {story}')
                 embs = embedding_model(ngrams_list, verbose=False)
             else:
                 embs = get_embs_from_text_list(
                     ngrams_list, embedding_function=embedding_model)
 
-            # put in each embedding at the appropriate time
-            vectors[story] = DataSequence(
-                embs, ds.split_inds, ds.data_times, ds.tr_times).data
-            joblib.dump(vectors[story], cache_file)
+            if num_trs_context is None:
+                embs = DataSequence(
+                    embs, ds.split_inds, ds.data_times, ds.tr_times).data
 
-    # downsample combined embeddings
-    return downsample_word_vectors(
-        allstories, vectors, wordseqs)
+            vectors[story] = deepcopy(embs)
+            joblib.dump(embs, cache_file)
+
+    if num_trs_context is not None:
+        return vectors
+    else:
+        return downsample_word_vectors(
+            allstories, vectors, wordseqs)
 
 
 ############################################
@@ -261,13 +292,23 @@ _FEATURE_CHECKPOINTS = {
     'qa_embedder': 'qa_embedder',
 }
 BASE_KEYS = list(_FEATURE_CHECKPOINTS.keys())
-for ngram_size in [3, 5, 10, 20]:
+for context_length in [2, 3, 4, 5, 10, 20]:
     for k in BASE_KEYS:
-        _FEATURE_VECTOR_FUNCTIONS[f'{k}-{ngram_size}'] = partial(
+        # context length by ngrams
+        _FEATURE_VECTOR_FUNCTIONS[f'{k}-{context_length}'] = partial(
             get_llm_vectors,
-            ngram_size=ngram_size,
-            model=_FEATURE_CHECKPOINTS[k])
-        _FEATURE_CHECKPOINTS[f'{k}-{ngram_size}'] = _FEATURE_CHECKPOINTS[k]
+            num_ngrams_context=context_length,
+            checkpoint=_FEATURE_CHECKPOINTS[k])
+        _FEATURE_CHECKPOINTS[f'{k}-{context_length}'] = _FEATURE_CHECKPOINTS.get(
+            k, k)
+
+        # context length by TRs
+        _FEATURE_VECTOR_FUNCTIONS[f'{k}-tr{context_length}'] = partial(
+            get_llm_vectors,
+            num_trs_context=context_length,
+            checkpoint=_FEATURE_CHECKPOINTS[k])
+        _FEATURE_CHECKPOINTS[f'{k}-tr{context_length}'] = _FEATURE_CHECKPOINTS.get(
+            k, k)
 
 
 def get_features(feature, **kwargs):

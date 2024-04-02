@@ -43,9 +43,18 @@ def add_main_args(parser):
     """
     parser.add_argument("--subject", type=str, default='UTS03')
     parser.add_argument("--feature_space", type=str,
-                        default='distil-bert-10',  # qa_embedder-10
+                        default='distil-bert-tr2',
+                        # default='distil-bert-10',
+                        # qa_embedder-10
                         # default='qa_embedder-10',
-                        choices=list(feature_spaces._FEATURE_VECTOR_FUNCTIONS.keys()))
+                        #
+                        choices=list(
+                            feature_spaces._FEATURE_VECTOR_FUNCTIONS.keys()),
+                        help='''Overloaded this argument.
+                        qa_embedder-10 will run with ngram_context of 10 ngrams
+                        qa_embedder-tr10 will run with tr_context of 10 TRs
+                        '''
+                        )
     parser.add_argument("--encoding_model", type=str,
                         default='ridge',
                         # default='randomforest'
@@ -54,7 +63,7 @@ def add_main_args(parser):
                         default='mistralai/Mistral-7B-v0.1',
                         help='Model to use for QA embedding, if feature_space is qa_embedder',
                         choices=['mistralai/Mistral-7B-v0.1',
-                                 "mistralai/Mixtral-8x7B-v0.1", 'meta-llama/Llama-2-70b-hf'],
+                                 "mistralai/Mixtral-8x7B-v0.1", 'meta-llama/Llama-2-70b-hf', 'meta-llama/Llama-2-13b-hf'],
                         )
     parser.add_argument("--qa_questions_version", type=str, default='v2',
                         help='Which set of QA questions to use, if feature_space is qa_embedder')
@@ -111,6 +120,7 @@ def get_story_names(args):
         # train_stories = ['sloth']
         args.nboots = 3
         story_names_train = ['sloth', 'adollshouse']
+        # story_names_train = ['sloth']
         # story_names_train = story_names.get_story_names(args.subject, 'train')
         # story_names_train = [
         # 'adollshouse', 'adventuresinsayingyes', 'afatherscover', 'againstthewind', 'alternateithicatom', 'avatar',
