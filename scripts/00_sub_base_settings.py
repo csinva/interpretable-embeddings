@@ -28,8 +28,7 @@ params_shared_dict = {
     # 'UTS03', 'UTS01', 'UTS02'],
     'subject': ['UTS03'],
     'use_test_setup': [0],
-
-    'ndelays': [4, 8, 12],
+    'ndelays': [4, 8, 12]
 }
 
 
@@ -40,26 +39,22 @@ params_coupled_dict = {
         # ('bert-10', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
         # ('eng1000', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
 
-        # # main
-        # ('qa_embedder-10', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
-
-        # # version v3
-        # ('qa_embedder-10', 'v3', 1, 'mistralai/Mistral-7B-v0.1'),
-
-        # # mixtral
-        # ('qa_embedder-10', 'v1', 1, 'mistralai/Mixtral-8x7B-v0.1'),
+        # bert sec versions
+        # ('bert-sec3', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
+        # ('bert-sec5', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
 
         # tr versions
-        # ('qa_embedder--tr2', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
+        # ('bert-tr2', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
+        # ('bert-tr3', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
 
-        # mixtral v3
-        # ('qa_embedder-10', 'v3', 1, 'mistralai/Mixtral-8x7B-v0.1'),
+        # qa sec versions
+        ('qa_embedder-sec3', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-sec5', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
 
-        # llama-2 70B
-        # ('qa_embedder-10', 'v3', 1, 'meta-llama/Llama-2-13b-hf'),
+        # qa tr versions
+        ('qa_embedder-tr2', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-tr3', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
 
-        # low priority -- ablation ngrams (should have run this with v2 but is v1)
-        # ('qa_embedder-5', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
     ],
 }
 # Args list is a list of dictionaries
@@ -82,13 +77,13 @@ submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     actually_run=True,
-    amlt_kwargs=amlt_kwargs,
+    # amlt_kwargs=amlt_kwargs,
     # gpu_ids=[0, 1, 2, 3],
     # n_cpus=9,
     # n_cpus=8,
     # gpu_ids=[0, 1],
     # gpu_ids=[[0, 1, 2, 3]],
-    # gpu_ids=[[0, 1], [2, 3]],
+    gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,
     shuffle=True,
     cmd_python=f'export HF_TOKEN={open(expanduser("~/.HF_TOKEN"), "r").read().strip()}; python',

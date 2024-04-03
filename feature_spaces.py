@@ -172,7 +172,7 @@ def get_embs_from_text_list(text_list: List[str], embedding_function) -> List[np
     return embs
 
 
-def get_ngrams_list_from_words_list(words_list: List[str], ngram_size: int = 5) -> List[str]:
+def _get_ngrams_list_from_words_list(words_list: List[str], ngram_size: int = 5) -> List[str]:
     """Concatenate running list of words into grams with spaces in between
     """
     ngrams_list = []
@@ -197,11 +197,24 @@ def _get_ngrams_list_from_chunks(chunks, num_trs=2):
     return ngrams_list
 
 
+def _get_ngrams_list_from_words_list_and_times(words_list: List[str], times_list: np.ndarray[float], sec_offset: float = 4) -> List[str]:
+    words_arr = np.array(words_list)
+    ngrams_list = []
+    for i in range(len(times_list)):
+        t = times_list[i]
+        t_off = t - sec_offset
+        idxs = np.where(np.logical_and(
+            times_list >= t_off, times_list <= t))[0]
+        ngrams_list.append(' '.join(words_arr[idxs]))
+    return ngrams_list
+
+
 def get_llm_vectors(
         allstories,
         checkpoint='bert-base-uncased',
         num_ngrams_context=10,
         num_trs_context=None,
+        num_secs_context_per_word=None,
         qa_embedding_model='mistralai/Mistral-7B-v0.1',
         qa_questions_version='v1'
 ) -> Dict[str, np.ndarray]:
@@ -218,8 +231,7 @@ def get_llm_vectors(
         if not 'qa_embedder' in checkpoint:
             return pipeline("feature-extraction", model=checkpoint, device=0)
 
-    # This loop function works at the level of individual words, embeds the ngram leading up to each word, and then interpolates them.
-    # Alternatively, we could have used wordseqs[story].chunks() to combine each TR.
+    assert not num_trs_context and num_secs_context_per_word, 'num_trs_context and num_secs_context_per_word are mutually exclusive'
     print(f'getting wordseqs..')
     wordseqs = get_story_wordseqs(allstories)
     vectors = {}
@@ -232,12 +244,18 @@ def get_llm_vectors(
         if num_trs_context is not None:
             args_cache['num_trs_context'] = num_trs_context
             args_cache['ngram_size'] = None
+        elif num_secs_context_per_word is not None:
+            args_cache['num_secs_context_per_word'] = num_secs_context_per_word
+            args_cache['ngram_size'] = None
         cache_hash = sha256(args_cache)
         cache_file = join(
             cache_embs_dir, f'{cache_hash}.jl')
         if os.path.exists(cache_file):
             print(f'Loading cached {story_num}/{len(allstories)}: {story}')
-            vectors[story] = joblib.load(cache_file)
+            try:
+                vectors[story] = joblib.load(cache_file)
+            except:
+                print('Error loading', cache_file)
         else:
             if embedding_model is None:
                 embedding_model = _get_embedding_model(
@@ -249,10 +267,17 @@ def get_llm_vectors(
                 # replace each TR with text from the current TR and the TRs immediately before it
                 ngrams_list = _get_ngrams_list_from_chunks(
                     ds.chunks(), num_trs=num_trs_context)
+                assert len(ngrams_list) == len(ds.chunks())
+            elif num_secs_context_per_word is not None:
+                # replace each word with the ngrams in a time window leading up to that word
+                ngrams_list = _get_ngrams_list_from_words_list_and_times(
+                    ds.data, ds.data_times, sec_offset=num_secs_context_per_word)
+                assert len(ngrams_list) == len(ds.data)
             else:
                 # replace each word with an ngram leading up to that word
-                ngrams_list = get_ngrams_list_from_words_list(
+                ngrams_list = _get_ngrams_list_from_words_list(
                     ds.data, ngram_size=num_ngrams_context)
+                assert len(ngrams_list) == len(ds.data)
 
             # embed the ngrams
             if 'qa_embedder' in checkpoint:
@@ -308,6 +333,14 @@ for context_length in [2, 3, 4, 5, 10, 20]:
             num_trs_context=context_length,
             checkpoint=_FEATURE_CHECKPOINTS[k])
         _FEATURE_CHECKPOINTS[f'{k}-tr{context_length}'] = _FEATURE_CHECKPOINTS.get(
+            k, k)
+
+        # context length by seconds
+        _FEATURE_VECTOR_FUNCTIONS[f'{k}-sec{context_length}'] = partial(
+            get_llm_vectors,
+            num_secs_context_per_word=context_length,
+            checkpoint=_FEATURE_CHECKPOINTS[k])
+        _FEATURE_CHECKPOINTS[f'{k}-sec{context_length}'] = _FEATURE_CHECKPOINTS.get(
             k, k)
 
 

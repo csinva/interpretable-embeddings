@@ -43,7 +43,8 @@ def add_main_args(parser):
     """
     parser.add_argument("--subject", type=str, default='UTS03')
     parser.add_argument("--feature_space", type=str,
-                        default='distil-bert-tr2',
+                        # default='distil-bert-tr2',
+                        default='distil-bert-sec4',
                         # default='distil-bert-10',
                         # qa_embedder-10
                         # default='qa_embedder-10',
@@ -52,7 +53,8 @@ def add_main_args(parser):
                             feature_spaces._FEATURE_VECTOR_FUNCTIONS.keys()),
                         help='''Overloaded this argument.
                         qa_embedder-10 will run with ngram_context of 10 ngrams
-                        qa_embedder-tr10 will run with tr_context of 10 TRs
+                        qa_embedder-tr2 will run with tr_context of 2 TRs
+                        qa_embedder-sec4 will run with ngram_context of 4 secs leading up to each word
                         '''
                         )
     parser.add_argument("--encoding_model", type=str,
@@ -392,7 +394,7 @@ if __name__ == "__main__":
         parser, parser_without_computational_args, args, args.save_dir
     )
 
-    if args.use_cache and already_cached:
+    if args.use_cache and already_cached and not args.use_test_setup:
         logging.info(f"cached version exists! Successfully skipping :)\n\n\n")
         exit(0)
     for k in sorted(vars(args)):
