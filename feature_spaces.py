@@ -231,7 +231,8 @@ def get_llm_vectors(
         if not 'qa_embedder' in checkpoint:
             return pipeline("feature-extraction", model=checkpoint, device=0)
 
-    assert not num_trs_context and num_secs_context_per_word, 'num_trs_context and num_secs_context_per_word are mutually exclusive'
+    assert not (
+        num_trs_context and num_secs_context_per_word), 'num_trs_context and num_secs_context_per_word are mutually exclusive'
     print(f'getting wordseqs..')
     wordseqs = get_story_wordseqs(allstories)
     vectors = {}

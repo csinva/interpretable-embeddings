@@ -113,6 +113,13 @@ def add_computational_args(parser):
         choices=[0, 1],
         help="whether to save the constructed features",
     )
+    parser.add_argument(
+        "--use_extract_only",
+        type=int,
+        default=1,
+        choices=[0, 1],
+        help="whether to jointly extract train/test (speeds things up if running over many seeds)",
+    )
     return parser
 
 
@@ -121,6 +128,7 @@ def get_story_names(args):
     if args.use_test_setup:
         # train_stories = ['sloth']
         args.nboots = 3
+        args.use_extract_only = 0
         story_names_train = ['sloth', 'adollshouse']
         # story_names_train = ['sloth']
         # story_names_train = story_names.get_story_names(args.subject, 'train')
@@ -141,8 +149,13 @@ def get_story_names(args):
     return story_names_train, story_names_test
 
 
-def get_data(args, story_names):
+def get_data(args, story_names, extract_only=False):
     '''
+    Params
+    ------
+    extract_only: bool
+        if True, just run feature extraction and return
+
     Returns
     -------
     stim_delayed: np.ndarray
@@ -171,8 +184,11 @@ def get_data(args, story_names):
             features_downsampled_dict, args.trim, normalize=True
         )
         features_downsampled_list.append(deepcopy(features_downsampled))
-    features_downsampled_list = np.hstack(features_downsampled_list)
     torch.cuda.empty_cache()
+    if extract_only:
+        return
+
+    features_downsampled_list = np.hstack(features_downsampled_list)
 
     # n_time_points x (n_delays x n_features)
     stim_delayed = make_delayed(features_downsampled_list,
@@ -412,6 +428,10 @@ if __name__ == "__main__":
 
     # get data
     story_names_train, story_names_test = get_story_names(args)
+    if args.use_extract_only:
+        all_stories = story_names_train + story_names_test
+        random.shuffle(all_stories)
+        get_data(args, all_stories, extract_only=True)
     stim_train_delayed, resp_train = get_data(args, story_names_train)
     print('stim_train.shape', stim_train_delayed.shape,
           'resp_train.shape', resp_train.shape)

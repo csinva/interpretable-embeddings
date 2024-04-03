@@ -30,36 +30,37 @@ params_shared_dict = {
     'use_test_setup': [0],
 
     'ndelays': [4, 8, 12],
+    # 'seed': range(25),
+    'seed': [1],
 }
 
 
 # main args are qa_embedder-10, 'v2', seed=1, ndelays=8
 params_coupled_dict = {
-    ('feature_space', 'qa_questions_version', 'seed', 'qa_embedding_model'): [
+    ('feature_space', 'qa_questions_version', 'qa_embedding_model'): [
         # baselines
-        # ('bert-10', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
-        # ('eng1000', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
+        # ('bert-10', 'v1', 'mistralai/Mistral-7B-v0.1'),
+        # ('eng1000', 'v1', 'mistralai/Mistral-7B-v0.1'),
 
         # # main
-        # ('qa_embedder-10', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
+        # ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-v0.1'),
 
-        # # version v3
-        # ('qa_embedder-10', 'v3', 1, 'mistralai/Mistral-7B-v0.1'),
+        # # vary mistral versions
+        ('qa_embedder-10', 'v2', 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-10', 'v3', 'mistralai/Mistral-7B-v0.1'),
 
         # # mixtral
-        # ('qa_embedder-10', 'v1', 1, 'mistralai/Mixtral-8x7B-v0.1'),
+        ('qa_embedder-10', 'v1', 'mistralai/Mixtral-8x7B-v0.1'),
+        ('qa_embedder-10', 'v2', 'mistralai/Mixtral-8x7B-v0.1'),
+        ('qa_embedder-10', 'v3', 'mistralai/Mixtral-8x7B-v0.1'),
 
-        # tr versions
-        # ('qa_embedder--tr2', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
-
-        # mixtral v3
-        # ('qa_embedder-10', 'v3', 1, 'mistralai/Mixtral-8x7B-v0.1'),
-
-        # llama-2 70B
-        # ('qa_embedder-10', 'v3', 1, 'meta-llama/Llama-2-13b-hf'),
+        # llama-2
+        # ('qa_embedder-10', 'v1', 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v2', 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 'meta-llama/Llama-2-13b-hf'),
 
         # low priority -- ablation ngrams (should have run this with v2 but is v1)
-        # ('qa_embedder-5', 'v1', 1, 'mistralai/Mistral-7B-v0.1'),
+        # ('qa_embedder-5', 'v1', 'mistralai/Mistral-7B-v0.1'),
     ],
 }
 # Args list is a list of dictionaries
@@ -82,12 +83,14 @@ submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     actually_run=True,
-    amlt_kwargs=amlt_kwargs,
+    # amlt_kwargs=amlt_kwargs,
     # gpu_ids=[0, 1, 2, 3],
     # n_cpus=9,
-    # n_cpus=8,
+    n_cpus=6,
     # gpu_ids=[0, 1],
     # gpu_ids=[[0, 1, 2, 3]],
+    # unique_seeds=True,
+    unique_seeds=True,
     # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,
     shuffle=True,
