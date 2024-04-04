@@ -938,6 +938,363 @@ ANS_RANDOM_DATA_EXAMPLES_2 = '''- Does the sentence mention a specific time of d
 - Does the sentence contain a mention of a specific social or community role? (and the minister from the church where the service was was)
 - Is there a mention of a specific environmental or ecological issue? (surrounded by water my entire life i didn't like swimming and)'''
 
+PROMPT_BOOST_1 = '''Here are some example narrative sentences:
+- at the time and i realized as that came out didn't sound good um
+- got two feet away i lifted my can
+- i put her name like ivy and she'd be like all the rage at parades
+- driving there are no stop lights i have to
+- my idea of flirty banter is sending someone
+- a bipolar and if you don't know what that is it's just basically a chemical
+- no did they find somebody with a weapon no well why did
+- us with espionage which was farcical given we had little money no
+- and he bought me um a jeans jacket and he would
+- that fatima zohra escort me to the town's ramshackle internet
+- the village where we were to montevideo or to california
+- it's like finding an old cassette tape that you made
+- becoming friends with people that maybe i don't
+- and wept for a minute and gave thanks as i was really
+- you had to go through this concrete corridor that sort of dumped out
+- and bizarrely the first thing i thought about was henley royal regatta
+- but things at home start to get a little tricky
+- you know or sane people do sane people do
+- uh which weren't the united states yet uh across the rockies leaving everything
+- that parrotfish those parrotfish that gather the together i'd
+- the coin
+- most of the time everybody only talks about how really happy
+- i stood in his doorway she um explained who i was and
+- to be in the world that the books showed
+- one of these ways was to strike up seemingly natural conversations
+- up in her eyes and i said mama what's wrong
+- ang among my friends for having tripped over my own feet when i was in college in boston and actually
+- and white shirts and it's an italian
+- far away from that as possible my parents were uh dyed in the wool liberals
+- family and that night is so beautiful
+- got my own set of controls he has his own set of controls we
+- i'm really excited so i'm in the van going to camp
+- the tribal rituals that are used for the treatment of depression here
+- love for the first time such intense feelings can make you feel small
+- obama bobs his head in time to the music and betty white gets her card and
+- i was dating or anything personal going on in my life and
+- but i wasn't very happy because i kept thinking about my family
+- to a degree of intimacy that includes all kinds of intimate sounds
+- and we come to a stoplight and
+- in the middle of my life i have spent years
+- and then he called and i picked up with the intention
+- we used to go to almost every day after school but
+- but they really want to confirm if blessing is pregnant
+- but as a college professor it's rarely up to me and i
+- i told wesley that i was glad he was reading this book because
+- was like a maniac you know always screaming goddamn fucking bitch you know
+- amazing course that has you spending your days doing
+- how's it fucking feel down there bitch
+- and think about my missing friend
+- i saved up and we got a guide dog and
+- and i'm really really nervous because not only am i scared
+- old unsent greeting cards throw away another pile
+- female open minded easy going down
+- could face another execution date in a matter of days
+- and then one day
+- and i figured there's two ways of looking at it either we should be very grateful that
+- a page out of the program that listed all the different you know yankee executives and i wrote
+- speeches for people who do not support gay marriage
+- there was like a complete silence
+- uh in what was called uh the duck and cover years
+- game for the start of the game so
+- that ancient red rock they wanna see that desert city i mean there are songs
+- caught by surprise she succumbed to my rescue
+- that i thought of as home right and
+- using pamela's age and some of her defining
+- and he notices me for the first time sitting in the car and he points
+- and i'm also thinking this conversation
+- and agitated and leaning against the railing
+- and all these gray and so my salary got went up
+- year olds got me thinking about the parameters of acceptable
+- i had been at a school in the township where we had something called hot seating
+- or five jeeps full of mps
+- options i could somehow be cool
+- because the soldier out outside were very impatient
+- all the things that that give us joy
+- that was at lackland air force base in texas nineteen sixty
+- and um i went they paid for this gold this is true they pay for this thing called
+- just don't make pies
+- one wanted to answer but i was low seniority so they gave it you know my boss gave it
+- sharing beachfront with the kennedy compound
+- and he tells me about berlin one evening
+
+Generate a bulleted list of 100 diverse, non-overlapping yes/no questions that ask about properties of these narrative sentences that might be important for classifying them.
+Make sure to focus on the given sentences and try to ask questions that combine properties of multiple sentences above.
+Return only a bulleted list of questions and nothing else'''
+
+ANS_BOOST_1 = '''- Does the sentence involve a realization or sudden understanding?
+- Is there a physical action or movement described?
+- Does the sentence include a specific name or designation (like a person's name or a place)?
+- Is there mention of transportation or travel?
+- Does the sentence include flirting or romantic interaction?
+- Is there a mention of a mental health condition or emotional state?
+- Does the sentence question the actions or decisions of others?
+- Is espionage, surveillance, or conspiracy mentioned?
+- Does the sentence describe a gift or an act of giving?
+- Is there a mention of using technology or the internet?
+- Does the sentence involve geographical movement between cities or countries?
+- Is nostalgia or reminiscing about the past a theme?
+- Does the sentence describe forming new relationships or friendships?
+- Are emotions or reactions to a situation described?
+- Does the sentence describe navigating through a specific space or location?
+- Is there a mention of a specific event or occasion?
+- Does the sentence describe family dynamics or home life?
+- Is the sentence about personal habits or behaviors in social situations?
+- Does the sentence describe a journey or adventure?
+- Is there a description of aquatic life or underwater scenes?
+- Is the sentence about making a choice or decision?
+- Does the sentence express a generally positive or happy sentiment?
+- Does the sentence involve an introduction or explaining one's identity to someone?
+- Does the sentence describe a desire to explore or learn from books?
+- Is there an attempt to engage someone in conversation mentioned?
+- Does the sentence describe a moment of emotional vulnerability?
+- Does the sentence recount a humorous or embarrassing personal anecdote?
+- Is clothing or personal style a focus of the sentence?
+- Does the sentence mention political or ideological beliefs?
+- Does the sentence revolve around a family event or gathering?
+- Is there mention of operating machinery or vehicles?
+- Does the sentence describe excitement or anticipation for an event?
+- Are traditional or cultural practices mentioned?
+- Is the experience of first love or deep emotion described?
+- Are celebrities or public figures mentioned?
+- Is personal or private life details being shared?
+- Is there an expression of dissatisfaction with personal circumstances?
+- Does the sentence discuss aspects of a close relationship?
+- Is there a mention of stopping or waiting at an intersection?
+- Does the sentence reflect on personal history or life decisions?
+- Does the sentence describe initiating a phone call or conversation?
+- Is there a mention of a routine or habitual activity?
+- Is pregnancy or the potential for it a topic?
+- Does the sentence describe academic or professional challenges?
+- Is there a recommendation or endorsement of a book?
+- Does the sentence include aggressive or violent language?
+- Is the sentence about an educational or learning experience?
+- Is derogatory language or insults used?
+- Does the sentence reflect on a loss or absence of someone?
+- Is there mention of acquiring a service animal?
+- Does the sentence express fear or anxiety about an upcoming event?
+- Is decluttering or disposing of items described?
+- Does the sentence describe someone as being approachable or sociable?
+- Is there an impending legal or judicial event mentioned?
+- Does the sentence describe a moment of change or decision?
+- Is gratitude or appreciation for a situation expressed?
+- Does the sentence involve collecting or writing down information?
+- Does the sentence discuss political or social opinions?
+- Is there a sudden shift in the atmosphere or mood mentioned?
+- Does the sentence describe a historical period or context?
+- Is anticipation for a game or event described?
+- Does the sentence describe a desire to visit a natural or scenic location?
+- Is there a rescue or assistance in a difficult situation?
+- Does the sentence describe a feeling of belonging or home?
+- Are physical characteristics or attributes of a person detailed?
+- Does the sentence describe a first encounter or noticing someone?
+- Does the sentence involve contemplation or reflection on a conversation?
+- Is there a description of emotional or physical discomfort?
+- Does the sentence describe a financial or career change?
+- Does the sentence discuss considerations of social or age-appropriate behavior?
+- Is there a mention of an educational method or school activity?
+- Are military or law enforcement personnel mentioned?
+- Does the sentence suggest looking for ways to be perceived as cool?
+- Is there impatience or urgency expressed by characters?
+- Does the sentence describe finding joy or happiness in something?
+- Is a specific military base or location mentioned?
+- Does the sentence describe receiving financial support for something?
+- Is there advice against a specific action or behavior?
+- Does seniority or hierarchy influence a decision or action?
+- Is there a mention of a famous family or property?
+- Does the sentence recount a detailed personal experience in a specific city or place?'''
+
+PROMPT_BOOST_2 = '''Here are some example narrative sentences:
+- on top of that my my wife got pregnant at the time and i realized as that
+- off guard but when he got two feet away
+- pounds of baby that i'm analyzing her skull and she goes
+- therapy he's had shock treatments he's had every combination
+- feeling creepy for staring at these strangers and also envious
+- by he was also a bipolar and if
+- to play and every so often i turn around to look at mike course
+- unsettled i sensed i was now exactly where i should be
+- and we would he taught me how to chop wood and he bought me um
+- me to the town's ramshackle internet cafe so i could check my e-mail
+- we were happy we kept all the time in touch with the family
+- just lost his wife
+- straight at me and almost
+- and the snacks that doesn't even start with the clothing so we overpacked
+- over blueprints and the building
+- in the morning and the streets of delhi were quiet i'd never seen them quiet before they're normally
+- education director and i asked him which class he thought i should take and he
+- god's gift to the planet you know or
+- trail and he says well there's a water fountain right there and
+- resist we called him puff like puff the magic dragon he
+- to the car park and i ask to be let down they offer
+- about how really happy adoption is and we are
+- and i saw that it was only a few miles
+- not feel like somebody who had suffered liked someone
+- of church that was trying to be really hip and modern it met in a strip mall and
+- that water was starting to well up in her eyes and i said
+- chloe kept making remarks about how only a few of our friends have been killed by customers
+- graduated on to a two room school house in the center of chilmark
+- an evangelical christian i grew up as far away from that as possible my parents
+- uh to this day you know i still think that he died on purpose
+- through it and i'm just like this is so cool i i say
+- it's like super cool and um i'm really excited so
+- thing and she came out with her very prized possession which was a
+- intense feelings can make you feel small in their grasp or
+- so we feel good about the joke but but we still need a birthday card so uh one
+- ones that make you lose sleep and
+- and you know and i
+- the weirdest thing is that his friends all went naked
+- i shut the door i call out to my wife i said hey babe
+- my clothes my books my bookcases
+- me twice and i never replied and then he called and
+- oh one and we're waiting outside the room
+- your space and your family
+- rarely up to me and i go new places and i meet new people
+- he was reading this book because he needed to understand
+- ride back he's like fucking like you know that dude from leave it to beaver
+- numbers so you can imagine my joy when i heard
+- there bitch with no one writing about you in the new yorker
+- seconds and i just fell to the side somebody took my place
+- please don't send any more please don't send any more because my
+- and my classmate right in front of me is stephanie wilson
+- now we have this moment where we're laughing together at this image of my mom like digging through the
+- waiting for me from my adult female open minded
+- in a matter of days how could i say no to him
+- german concentration camp and then
+- we should be very grateful that ancient catholic
+- i went home that night and i tore a page out of the program that listed all the different
+- i got to do at the white house uh some of the proudest moments of my life
+- so i had no option but to find a job
+- our gear into a small bering airplane
+- about keeping promises and about self sacrifice
+- he's done his cop training he's like we have evidence
+- in distress style caught by surprise
+- me to be there that she in fact needed me there for support my brothers too
+- i laughed
+- with his friends we would just find some little nook or a corner or like go in the backyard
+- thinking this conversation about being
+- i think it's very difficult to really live any day as
+- it was all of a sudden i started feeling things i started feeling hot
+- justified or even worse satisfyingly resolved
+- where we had something called hot seating which meant that forty eight of us came
+- seems like seconds four or five jeeps full of mps
+- fifth grade was the last year i can remember believing that the world needed
+- outside were very impatient uh waiting for
+- i do the camp thing i do what's at camp and i don't know if you know this but there are a lot
+- like out cold alright and the surgeon's like do gives him like
+- he was no help and um somehow though sam and i survived our
+- now probably making sure everyone she shares the afterlife
+- eddie heka told you about and
+- well where i was from but i felt that somehow or other this
+- chicken fights but it's kinda weird because there's only three of us so
+- rid of the fear one problem is i don't actually
+
+Generate a bulleted list of 100 specific, non-overlapping yes/no questions that ask about aspects of the above sentences that are important for classifying them.
+Focus on the given sentences and form questions that combine shared properties from multiple sentences above.
+Return only a bulleted list of questions and nothing else'''
+
+ANS_BOOST_2 = '''- Does the sentence involve a significant life event (e.g., pregnancy, death)?
+- Is there a mention of a specific emotional state (e.g., feeling creepy, envious, unsettled)?
+- Does the sentence reference a mental health condition (e.g., bipolar disorder, need for therapy)?
+- Is there a physical activity or skill being learned (e.g., chopping wood)?
+- Does the sentence involve technology or modern conveniences (e.g., internet cafe)?
+- Is there a clear expression of happiness or contentment?
+- Does the sentence involve a significant other or family member?
+- Is there an animal mentioned explicitly or implied (e.g., dragon)?
+- Does the sentence contain a reference to a specific location (e.g., Delhi, a church)?
+- Is there a mention of an educational setting or learning environment (e.g., school house, class)?
+- Does the sentence involve a creative or recreational activity (e.g., playing, joking)?
+- Is there a sense of loss or grief expressed?
+- Does the sentence involve planning or preparation (e.g., overpacking, looking at blueprints)?
+- Is there a mention of a medical or health-related situation?
+- Does the sentence reference a historical or significant event (e.g., White House, concentration camp)?
+- Is the focus on a personal achievement or a proud moment?
+- Does the sentence involve a job or work-related activity?
+- Is there an element of surprise or being caught off guard?
+- Does the sentence discuss a social issue or a cause (e.g., adoption, self-sacrifice)?
+- Is law enforcement or military mentioned or implied?
+- Does the sentence involve support or needing support from others?
+- Is there a mention of a casual or informal gathering (e.g., with friends, backyard)?
+- Does the sentence discuss feelings of physical discomfort or sensations (e.g., feeling hot)?
+- Is there a reference to a specific cultural or religious aspect?
+- Does the sentence involve an outdoor activity or setting (e.g., trail, camp)?
+- Is a specific object of value or importance mentioned (e.g., prized possession)?
+- Does the sentence discuss a conflict or problem-solving situation?
+- Is there a mention of a fictional or imaginative concept (e.g., magic dragon, afterlife)?
+- Does the narrative involve travel or moving to a new place?
+- Is there a focus on personal introspection or realization?
+- Does the sentence involve a health or medical professional (e.g., surgeon)?
+- Is there a mention of a specific time of day or atmospheric condition (e.g., morning, quiet streets)?
+- Does the sentence involve a physical or emotional challenge?
+- Is the concept of teaching or mentoring explicitly mentioned?
+- Does the sentence reference a specific form of communication or interaction (e.g., calling, sending messages)?
+- Is there a mention of a specific type of establishment (e.g., strip mall, cafe)?
+- Does the narrative involve an aspect of performance or presentation (e.g., acting, at the White House)?
+- Is the sentence focused on a personal decision or choice?
+- Does the narrative involve an unusual or unexpected behavior (e.g., going naked)?
+- Is there a mention of specific types of items or belongings (e.g., books, clothing)?
+- Does the sentence reference a financial aspect or consideration?
+- Is there a mention of a social or community event (e.g., camp)?
+- Does the sentence involve an act of creativity or artistic expression?
+- Is there a focus on a personal or family tradition?
+- Does the narrative involve a discovery or new experience?
+- Is there a mention of a specific feeling of discomfort or distress?
+- Does the sentence involve a specific form of transportation (e.g., airplane)?
+- Is the concept of time or timing important to the narrative?
+- Does the sentence involve a legal or judicial aspect?
+- Is there a mention of a specific type of relationship (e.g., classmate, adult female)?
+- Does the narrative involve a form of entertainment or leisure activity?
+- Is there a specific geographical or historical detail mentioned?
+- Does the sentence involve an aspect of physical or environmental change?
+- Is the focus on a personal or internal conflict?
+- Does the narrative involve an act of helping or assisting others?
+- Is there a mention of a specific physical sensation or experience (e.g., falling, feeling small)?
+- Does the sentence involve an academic or scholarly activity?
+- Is there a reference to a specific type of document or written material (e.g., program, New Yorker article)?
+- Does the narrative involve a change in personal beliefs or perspective?
+- Is there a mention of a specific health treatment or procedure?
+- Does the sentence involve an aspect of personal security or safety?
+- Is there a reference to a specific form of media or technology usage?
+- Does the narrative involve a reference to a specific age or life stage?
+- Is the focus on a specific type of environment or setting (e.g., in distress, quiet streets)?
+- Does the sentence involve a mention of food or dietary considerations?
+- Is there a focus on emotional support or empathy?
+- Does the narrative involve a specific task or duty being performed?
+- Is there a mention of a personal habit or routine?
+- Does the sentence involve a reference to a specific type of clothing or accessory?
+- Is the concept of privacy or personal space discussed?
+- Does the narrative involve an aspect of cultural or social identity?
+- Is there a mention of a specific type of animal or pet?
+- Does the sentence involve an element of risk or danger?
+- Is there a reference to a specific type of game or sport?
+- Does the narrative involve a financial transaction or exchange?
+- Is there a focus on a specific type of emotion or feeling (e.g., gratitude, satisfaction)?
+- Does the sentence involve an aspect of personal growth or development?
+- Is there a mention of a specific type of music or song?
+- Does the narrative involve a form of competition or challenge?
+- Is there a reference to a specific type of building or structure?
+- Does the sentence involve a personal reflection or insight?
+- Is the focus on a specific type of event or occasion (e.g., birthday)?
+- Does the narrative involve a specific type of craft or handiwork?
+- Is there a mention of a specific type of tool or equipment?
+- Does the sentence involve a form of academic or intellectual exploration?
+- Is there a focus on a specific type of landscape or natural feature?
+- Does the narrative involve a specific type of personal care or hygiene activity?
+- Is there a reference to a specific type of artistic or creative work?
+- Does the sentence involve a mention of a specific type of professional or expert?
+- Is the focus on a specific form of social interaction or relationship dynamics?
+- Does the narrative involve a specific type of health or fitness activity?
+- Is there a mention of a specific historical period or era?
+- Does the sentence involve a specific type of technology or device?
+- Is the narrative focused on a personal challenge or adversity?
+- Is there a mention of a specific type of group or organization?
+- Does the sentence involve an aspect of personal or household maintenance?
+- Is there a focus on a specific type of personal achievement or milestone?
+- Does the narrative involve a specific type of outdoor or nature activity?
+- Is there a mention of a specific type of weather or climate condition?'''
+
 
 def _split_bulleted_str(s, remove_parentheticals=False):
     qs = [q.strip('- ') for q in s.split('\n')]
@@ -974,11 +1331,22 @@ def get_questions(version='v1'):
         qs_v3_unique = sorted(
             list(set(qs) - set(qs_v1) - set(qs_v2)))
         return sorted(list(set(qs_v3_unique)))
+    elif version == 'v4':
+        qs_boost_1 = _split_bulleted_str(ANS_BOOST_1)
+        qs_boost_2 = _split_bulleted_str(ANS_BOOST_2)
+        qs = qs_boost_1 + qs_boost_2
+        qs_v1 = get_questions(version='v1')
+        qs_v2 = get_questions(version='v2')
+        qs_v3 = get_questions(version='v3')
+        qs_v4_unique = sorted(
+            list(set(qs) - set(qs_v1) - set(qs_v2) - set(qs_v3)))
+        return sorted(list(set(qs_v4_unique)))
 
 
 if __name__ == "__main__":
     print('v1 has', len(get_questions(version='v1')), 'questions')
     print('v2 adds', len(get_questions(version='v2')), 'questions')
     print('v3 adds', len(get_questions(version='v3')), 'questions')
-    for q in get_questions('v3'):
+    print('v4 adds', len(get_questions(version='v4')), 'questions')
+    for q in get_questions('v4'):
         print(q)
