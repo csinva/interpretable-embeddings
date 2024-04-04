@@ -30,8 +30,8 @@ params_shared_dict = {
     'use_test_setup': [0],
 
     'ndelays': [4, 8, 12],
-    'seed': range(7),
-    # 'seed': [1],
+    # 'seed': range(10),
+    'seed': [1],
 }
 
 
@@ -46,20 +46,21 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-v0.1'),
 
         # # vary mistral versions
-        # ('qa_embedder-10', 'v2', 'mistralai/Mistral-7B-v0.1'),
-        # ('qa_embedder-10', 'v3', 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-10', 'v2', 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-10', 'v3', 'mistralai/Mistral-7B-v0.1'),
         ('qa_embedder-10', 'v4', 'mistralai/Mistral-7B-v0.1'),
 
         # # mixtral
         # ('qa_embedder-10', 'v1', 'mistralai/Mixtral-8x7B-v0.1'),
-        # ('qa_embedder-10', 'v2', 'mistralai/Mixtral-8x7B-v0.1'),
-        # ('qa_embedder-10', 'v3', 'mistralai/Mixtral-8x7B-v0.1'),
-        # ('qa_embedder-10', 'v4', 'mistralai/Mixtral-8x7B-v0.1'),
+        ('qa_embedder-10', 'v2', 'mistralai/Mixtral-8x7B-v0.1'),
+        ('qa_embedder-10', 'v3', 'mistralai/Mixtral-8x7B-v0.1'),
+        ('qa_embedder-10', 'v4', 'mistralai/Mixtral-8x7B-v0.1'),
 
         # llama-2
         # ('qa_embedder-10', 'v1', 'meta-llama/Llama-2-13b-hf'),
         # ('qa_embedder-10', 'v2', 'meta-llama/Llama-2-13b-hf'),
         # ('qa_embedder-10', 'v3', 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v4', 'meta-llama/Llama-2-13b-hf'),
 
         # low priority -- ablation ngrams (should have run this with v2 but is v1)
         # ('qa_embedder-5', 'v1', 'mistralai/Mistral-7B-v0.1'),
@@ -85,11 +86,11 @@ submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     actually_run=True,
-    unique_seeds=True,
-    amlt_kwargs=amlt_kwargs,
+    # unique_seeds=True,
+    # amlt_kwargs=amlt_kwargs,
     # gpu_ids=[0, 1, 2, 3],
     # n_cpus=9,
-    # n_cpus=6,
+    n_cpus=6,
     # gpu_ids=[0, 1],
     # gpu_ids=[[0, 1, 2, 3]],
     # gpu_ids=[[0, 1], [2, 3]],

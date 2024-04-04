@@ -318,7 +318,7 @@ _FEATURE_CHECKPOINTS = {
     'qa_embedder': 'qa_embedder',
 }
 BASE_KEYS = list(_FEATURE_CHECKPOINTS.keys())
-for context_length in [2, 3, 4, 5, 10, 20]:
+for context_length in [2, 3, 4, 5, 10, 20, 25, 50, 75]:
     for k in BASE_KEYS:
         # context length by ngrams
         _FEATURE_VECTOR_FUNCTIONS[f'{k}-{context_length}'] = partial(

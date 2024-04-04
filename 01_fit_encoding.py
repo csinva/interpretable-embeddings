@@ -167,8 +167,13 @@ def get_data(args, story_names, extract_only=False):
     # for qa versions, we extract features multiple times and concatenate them
     # this helps with caching
     if 'qa_embedder' in args.feature_space:
-        version_num = int(args.qa_questions_version[1:])
-        kwargs_list = [{'qa_questions_version': f'v{i + 1}'}
+        if '-' in args.qa_questions_version:
+            version_num = int(args.qa_questions_version.split('-')[0][1:])
+            suffix = '-' + args.qa_questions_version.split('-')[1]
+        else:
+            version_num = int(args.qa_questions_version[1])
+            suffix = ''
+        kwargs_list = [{'qa_questions_version': f'v{i + 1}{suffix}'}
                        for i in range(version_num)]
     else:
         kwargs_list = [{}]

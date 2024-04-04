@@ -1303,7 +1303,27 @@ def _split_bulleted_str(s, remove_parentheticals=False):
     return qs
 
 
-def get_questions(version='v1'):
+def _rewrite_to_focus_on_end(question, suffix='last'):
+    if suffix == 'last':
+        focus_text = 'In the last word of the input, '
+    elif suffix == 'end':
+        focus_text = 'At the end of the input, '
+    # replace nouns
+    question = question.lower().replace('the sentence', 'the text').replace(
+        'the story', 'the text').replace('the narrative', 'the text')
+    question = question.replace(' in the input?', '?').replace(
+        ' in the input text?', '?')
+    return focus_text + question
+
+
+def get_questions(version='v1', suffix=None, full=False):
+    '''Different versions
+    -last adds suffixes from last
+    '''
+    if len(version.split('-')) > 1:
+        version, suffix = version.split('-')
+    assert suffix in [None, 'last', 'end'], suffix
+
     if version == 'v1':
         qs_semantic = _split_bulleted_str(ANS_SEMANTIC)
         qs_story = _split_bulleted_str(ANS_STORY)
@@ -1311,36 +1331,51 @@ def get_questions(version='v1'):
             ANS_STORY_FOLLOWUP)
         qs_words = _split_bulleted_str(ANS_WORDS)
         qs = qs_semantic + qs_story + qs_story_followup + qs_words
-        return sorted(list(set(qs)))
+        qs_remove = []
     elif version == 'v2':
         qs_neuro = _split_bulleted_str(ANS_NEURO)
         qs_neuro_followup = _split_bulleted_str(ANS_NEURO_FOLLOWUP)
         qs = qs_neuro + qs_neuro_followup
-        qs_v1 = get_questions(version='v1')
-        qs_v2_unique = sorted(list(set(qs) - set(qs_v1)))
-        return sorted(list(set(qs_v2_unique)))
+        qs_remove = get_questions(version='v1', suffix=suffix)
     elif version == 'v3':
         qs_random_data = _split_bulleted_str(
             ANS_RANDOM_DATA_EXAMPLES, remove_parentheticals=True)
         qs_random_data_2 = _split_bulleted_str(
             ANS_RANDOM_DATA_EXAMPLES_2, remove_parentheticals=True)
         qs = qs_random_data + qs_random_data_2
-
-        qs_v1 = get_questions(version='v1')
-        qs_v2 = get_questions(version='v2')
-        qs_v3_unique = sorted(
-            list(set(qs) - set(qs_v1) - set(qs_v2)))
-        return sorted(list(set(qs_v3_unique)))
+        qs_v1 = get_questions(version='v1', suffix=suffix)
+        qs_v2 = get_questions(version='v2', suffix=suffix)
+        qs_remove = qs_v1 + qs_v2
     elif version == 'v4':
         qs_boost_1 = _split_bulleted_str(ANS_BOOST_1)
         qs_boost_2 = _split_bulleted_str(ANS_BOOST_2)
         qs = qs_boost_1 + qs_boost_2
-        qs_v1 = get_questions(version='v1')
-        qs_v2 = get_questions(version='v2')
-        qs_v3 = get_questions(version='v3')
-        qs_v4_unique = sorted(
-            list(set(qs) - set(qs_v1) - set(qs_v2) - set(qs_v3)))
-        return sorted(list(set(qs_v4_unique)))
+        qs_v1 = get_questions(version='v1', suffix=suffix)
+        qs_v2 = get_questions(version='v2', suffix=suffix)
+        qs_v3 = get_questions(version='v3', suffix=suffix)
+        qs_remove = qs_v1 + qs_v2 + qs_v3
+    elif version == 'all':
+        qs_v1 = get_questions(version='v1', suffix=suffix)
+        qs_v2 = get_questions(version='v2', suffix=suffix)
+        qs_v3 = get_questions(version='v3', suffix=suffix)
+        qs_v4 = get_questions(version='v4', suffix=suffix)
+        qs = qs_v1 + qs_v2 + qs_v3 + qs_v4
+        qs_remove = []
+    if suffix == 'last':
+        qs = [_rewrite_to_focus_on_end(q, suffix) for q in qs]
+
+    qs_added = sorted(list(set(qs) - set(qs_remove)))
+    if full:
+        # be careful to always add things in the right order!!!!
+        return qs_remove + qs_added
+    return qs_added
+
+
+def get_question_num(question_version):
+    if '-' in question_version:
+        return int(question_version.split('-')[0][1:])
+    else:
+        return int(question_version[1])
 
 
 if __name__ == "__main__":
@@ -1348,5 +1383,6 @@ if __name__ == "__main__":
     print('v2 adds', len(get_questions(version='v2')), 'questions')
     print('v3 adds', len(get_questions(version='v3')), 'questions')
     print('v4 adds', len(get_questions(version='v4')), 'questions')
-    for q in get_questions('v4'):
+    print('total questions', len(get_questions('all')))
+    for q in get_questions('v4-last'):
         print(q)

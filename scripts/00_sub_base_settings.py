@@ -30,8 +30,8 @@ params_shared_dict = {
     'subject': ['UTS03'],
     'use_test_setup': [0],
     'ndelays': [4, 8, 12],
-    'seed': [1],
-    # 'seed': list(range(10)),
+    # 'seed': [1],
+    'seed': list(range(4)),
     'use_extract_only': [1],
 }
 
@@ -44,6 +44,17 @@ params_coupled_dict = {
         # ('bert-10', 'v1', 'mistralai/Mistral-7B-v0.1'),
         # ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-v0.1'),
 
+        # -last, -end versions
+        # ('qa_embedder-10', 'v1-last', 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-25', 'v1-last', 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-50', 'v1-last', 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-75', 'v1-last', 'mistralai/Mistral-7B-v0.1'),
+        # ('qa_embedder-10', 'v1-end', 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-25', 'v1-end', 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-50', 'v1-end', 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-75', 'v1-end', 'mistralai/Mistral-7B-v0.1'),
+
+
         # bert sec versions
         # ('bert-sec3', 'v1', 'mistralai/Mistral-7B-v0.1'),
         # ('bert-sec5', 'v1', 'mistralai/Mistral-7B-v0.1'),
@@ -53,12 +64,12 @@ params_coupled_dict = {
         # ('bert-tr3', 'v1', 'mistralai/Mistral-7B-v0.1'),
 
         # qa sec versions
-        ('qa_embedder-sec3', 'v1', 'mistralai/Mistral-7B-v0.1'),
-        ('qa_embedder-sec5', 'v1', 'mistralai/Mistral-7B-v0.1'),
+        # ('qa_embedder-sec3', 'v1', 'mistralai/Mistral-7B-v0.1'),
+        # ('qa_embedder-sec5', 'v1', 'mistralai/Mistral-7B-v0.1'),
 
         # qa tr versions
-        ('qa_embedder-tr2', 'v1', 'mistralai/Mistral-7B-v0.1'),
-        ('qa_embedder-tr3', 'v1', 'mistralai/Mistral-7B-v0.1'),
+        # ('qa_embedder-tr2', 'v1', 'mistralai/Mistral-7B-v0.1'),
+        # ('qa_embedder-tr3', 'v1', 'mistralai/Mistral-7B-v0.1'),
 
     ],
 }
@@ -85,14 +96,14 @@ submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     # actually_run=False,
-    # unique_seeds=True,
-    # amlt_kwargs=amlt_kwargs,
+    unique_seeds=True,
+    amlt_kwargs=amlt_kwargs,
     # gpu_ids=[0, 1, 2, 3],
     # n_cpus=9,
-    n_cpus=8,
+    # n_cpus=8,
     # gpu_ids=[0, 1],
     # gpu_ids=[[0, 1, 2, 3]],
-    # gpu_ids=[[0, 1], [2, 3]],
+    gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,
     shuffle=True,
     cmd_python=f'export HF_TOKEN={open(expanduser("~/.HF_TOKEN"), "r").read().strip()}; python',

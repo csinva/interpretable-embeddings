@@ -13,24 +13,14 @@ from os.path import dirname
 import seaborn as sns
 import dvu
 import sys
+import json
 sys.path.append('..')
 fit_encoding = __import__('01_fit_encoding')
 path_to_repo = dirname(dirname(os.path.abspath(__file__)))
 dvu.set_style()
 
 
-def get_weights_top():
-    results_dir = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr1'
-
-    # load the results in to a pandas dataframe
-    r = imodelsx.process_results.get_results_df(results_dir)
-
-    qa = r[(r.feature_space == 'qa_embedder-10') * (r.pc_components == -1)
-           ].sort_values(by='corrs_tune_mean', ascending=False).iloc[0]
-
-    # args = r[(r.pc_components == -1) * (r.ndelays == 8)].iloc[0]
-    # args = r.sort_values(by='corrs_test_mean').iloc[-1]
-    args = qa
+def get_weights_top(args):
     model_params_to_save = joblib.load(
         join(args.save_dir_unique, 'model_params.pkl'))
     print(f'{args.feature_space=}, {args.pc_components=}, {args.ndelays=} {args.qa_embedding_model}')
@@ -45,14 +35,16 @@ def get_weights_top():
     return weights
 
 
-def save_coefs_csv(weights):
+def save_coefs_csv(weights, out_dir, version):
     '''weights should be emb_size x num_voxels
     '''
     # look at coefs per feature
     weights = np.abs(weights)
     weights_per_feat = weights.mean(axis=-1)
 
-    questions = qa_questions.get_questions()
+    questions = qa_questions.get_questions(version, full=True)
+    print(version, 'shapes', weights_per_feat.shape,
+          weights.shape, len(questions))
     df = (
         pd.DataFrame({
             'question': questions,
@@ -62,17 +54,17 @@ def save_coefs_csv(weights):
         .round(3)
     )
     # df.to_json('../questions_v1.json', orient='index', indent=2)
-    df.to_csv(join(path_to_repo, 'qa_results/questions_v1.csv', index=False))
+    df.to_csv(join(out_dir, 'questions.csv'), index=False)
     return df
 
 
-def save_coefs_flatmaps(weights, df, subject='UTS03'):
+def save_coefs_flatmaps(weights, df, out_dir, subject='UTS03', num_flatmaps=10):
     '''weights should be emb_size x num_voxels
     '''
-    for i in tqdm(range(10)):
+    for i in tqdm(range(num_flatmaps)):
         row = df.iloc[i]
         emb_dim_idx = row.name
-        fname_save = f'../qa_results/{i}___{row.question}.png'
+        fname_save = join(out_dir, f'{i}___{row.question}.png')
         w = weights[emb_dim_idx]
         vabs = max(np.abs(w))
         vol = cortex.Volume(
@@ -83,6 +75,30 @@ def save_coefs_flatmaps(weights, df, subject='UTS03'):
 
 
 if __name__ == '__main__':
-    weights = get_weights_top()
-    df = save_coefs_csv(weights)
-    save_coefs_flatmaps(weights, df)
+    # select best model
+    results_dir = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr1'
+
+    # load the results in to a pandas dataframe
+    r = imodelsx.process_results.get_results_df(results_dir)
+    for k in ['save_dir', 'save_dir_unique']:
+        r[k] = r[k].map(lambda x: x if x.startswith('/home')
+                        else x.replace('/mntv1', '/home/chansingh/mntv1'))
+
+    for version in ['v1', 'v4', 'v2', 'v3']:
+        print('Version', version)
+        out_dir = join(path_to_repo, 'qa_results', version)
+        os.makedirs(out_dir, exist_ok=True)
+        args = r[(r.feature_space == 'qa_embedder-10') *
+                 #  (r.pc_components == -1) *
+                 (r.pc_components == 100) *
+                 (r.qa_questions_version == version)
+                 ].sort_values(by='corrs_tune_mean', ascending=False).iloc[0]
+        args_dict = {k: v for k, v in args.to_dict().items(
+        ) if not isinstance(v, np.ndarray)}
+        json.dump(args_dict, open(
+            join(out_dir, 'meta.json'), 'w'), indent=2)
+
+        weights = get_weights_top(args)
+        df = save_coefs_csv(weights, out_dir, version=version)
+        save_coefs_flatmaps(weights, df, out_dir,
+                            subject='UTS03', num_flatmaps=10)
