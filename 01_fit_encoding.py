@@ -77,6 +77,8 @@ def add_main_args(parser):
                         help='number of principal components to use (-1 doesnt use PCA at all)')
     parser.add_argument("--mlp_dim_hidden", type=int,
                         help="hidden dim for MLP", default=512)
+    parser.add_argument('--num_stories', type=int, default=-1,
+                        help='number of stories to use (-1 for all)')
 
     # linear modeling splits
     parser.add_argument("--trim", type=int, default=5)
@@ -136,16 +138,19 @@ def get_story_names(args):
         # 'adollshouse', 'adventuresinsayingyes', 'afatherscover', 'againstthewind', 'alternateithicatom', 'avatar',
         # 'backsideofthestorm', 'becomingindian', 'beneaththemushroomcloud',
         # ]
-        random.shuffle(story_names_train)
         # test_stories = ['sloth', 'fromboyhoodtofatherhood']
         story_names_test = ['fromboyhoodtofatherhood']
         # 'onapproachtopluto']  # , 'onapproachtopluto']
         random.shuffle(story_names_test)
-
+    elif args.num_stories > 0:
+        story_names_train = story_names.get_story_names(
+            args.subject, 'train')[:args.num_stories]
+        story_names_test = story_names.get_story_names(
+            args.subject, 'test')
     else:
         story_names_train = story_names.get_story_names(args.subject, 'train')
-        random.shuffle(story_names_train)
         story_names_test = story_names.get_story_names(args.subject, 'test')
+    random.shuffle(story_names_train)
     return story_names_train, story_names_test
 
 
