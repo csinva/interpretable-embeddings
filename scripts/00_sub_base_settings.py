@@ -31,9 +31,7 @@ params_shared_dict = {
     'ndelays': [4, 8, 12],
     'seed': [1],
     # 'seed': list(range(15)),
-    # 'num_stories': [12],
     'use_extract_only': [1],
-    'pc_components_input': [50, 100],
 }
 
 
@@ -41,18 +39,18 @@ params_shared_dict = {
 params_coupled_dict = {
     ('feature_space', 'qa_questions_version', 'qa_embedding_model'): [
         # baselines
-        ('eng1000', 'v1', 'mistralai/Mistral-7B-v0.1'),
-        ('bert-10', 'v1', 'mistralai/Mistral-7B-v0.1'),
-        ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-v0.1'),
+        # ('eng1000', 'v1', 'mistralai/Mistral-7B-v0.1'),
+        # ('bert-10', 'v1', 'mistralai/Mistral-7B-v0.1'),
+        # ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-v0.1'),
 
         # -last, -end versions
         # ('qa_embedder-10', 'v1-last', 'mistralai/Mistral-7B-v0.1'),
-        ('qa_embedder-25', 'v1-last', 'mistralai/Mistral-7B-v0.1'),
+        # ('qa_embedder-25', 'v1-last', 'mistralai/Mistral-7B-v0.1'),
         # ('qa_embedder-50', 'v1-last', 'mistralai/Mistral-7B-v0.1'),
         # ('qa_embedder-75', 'v1-last', 'mistralai/Mistral-7B-v0.1'),
-        ('qa_embedder-10', 'v1-end', 'mistralai/Mistral-7B-v0.1'),
-        ('qa_embedder-25', 'v1-end', 'mistralai/Mistral-7B-v0.1'),
-        # ('qa_embedder-25', 'v1-end', 'mistralai/Mixtral-8x7B-v0.1'),
+        # ('qa_embedder-10', 'v1-end', 'mistralai/Mistral-7B-v0.1'),
+        # ('qa_embedder-25', 'v1-end', 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-25', 'v1-end', 'mistralai/Mixtral-8x7B-v0.1'),
         # ('qa_embedder-50', 'v1-end', 'mistralai/Mistral-7B-v0.1'),
         # ('qa_embedder-75', 'v1-end', 'mistralai/Mistral-7B-v0.1'),
 
@@ -102,9 +100,9 @@ submit_utils.run_args_list(
     # amlt_kwargs=amlt_kwargs,
     # gpu_ids=[0, 1, 2, 3],
     # n_cpus=9,
-    n_cpus=8,
+    # n_cpus=8,
     # gpu_ids=[0, 1],
-    # gpu_ids=[[0, 1, 2, 3]],
+    gpu_ids=[[0, 1, 2, 3]],
     # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,
     shuffle=True,
