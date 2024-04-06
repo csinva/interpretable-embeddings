@@ -17,6 +17,7 @@ import h5py
 import numpy as np
 import sys
 import feature_spaces
+import sklearn.decomposition
 import joblib
 import os
 import encoding_utils
@@ -75,6 +76,9 @@ def add_main_args(parser):
                         default=-1, help='min alpha, useful for forcing sparse coefs in elasticnet. Note: if too large, we arent really doing CV at all.')
     parser.add_argument('--pc_components', type=int, default=-1,
                         help='number of principal components to use (-1 doesnt use PCA at all)')
+    parser.add_argument('--pc_components_input', type=int, default=-1,
+                        help='number of principal components to use to transform features (-1 doesnt use PCA at all)')
+
     parser.add_argument("--mlp_dim_hidden", type=int,
                         help="hidden dim for MLP", default=512)
     parser.add_argument('--num_stories', type=int, default=-1,
@@ -449,8 +453,20 @@ if __name__ == "__main__":
     print('stim_test.shape', stim_test_delayed.shape,
           'resp_test.shape', resp_test.shape)
     if args.pc_components > 0:
+        print('pc transforming resps...')
         resp_train, resp_test, pca, scaler_train, scaler_test = transform_resps(
             args, resp_train, resp_test)
+    if args.pc_components_input > 0:
+        # fit pca and project with less components
+        print('fitting pca to inputs...', args.pc_components_input, 'components')
+        pca_input = sklearn.decomposition.PCA(
+            n_components=args.pc_components_input)
+        stim_train_delayed = pca_input.fit_transform(stim_train_delayed)
+        stim_test_delayed = pca_input.transform(stim_test_delayed)
+        scaler_input_train = StandardScaler().fit(stim_train_delayed)
+        stim_train_delayed = scaler_input_train.transform(stim_train_delayed)
+        scaler_input_test = StandardScaler().fit(stim_test_delayed)
+        stim_test_delayed = scaler_input_test.transform(stim_test_delayed)
 
     # fit model
     r, model_params_to_save = fit_regression(
@@ -459,6 +475,9 @@ if __name__ == "__main__":
     # evaluate per voxel
     if args.pc_components > 0:
         stim_test_delayed, resp_test = get_data(args, story_names_test)
+        if args.pc_components_input > 0:
+            stim_test_delayed = pca_input.transform(stim_test_delayed)
+            stim_test_delayed = scaler_input_test.transform(stim_test_delayed)
         r['corrs_test'] = evaluate_pc_model_on_each_voxel(
             args, stim_test_delayed, resp_test,
             model_params_to_save, pca, scaler_test)
