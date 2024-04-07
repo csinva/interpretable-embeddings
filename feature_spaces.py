@@ -236,20 +236,6 @@ def _get_ngrams_list_from_words_list_and_times(words_list: List[str], times_list
     return ngrams_list
 
 
-def _get_cache_hash(
-        story, checkpoint, num_ngrams_context, qa_embedding_model, qa_questions_version,
-        num_trs_context, num_secs_context_per_word):
-    args_cache = {'story': story, 'model': checkpoint, 'ngram_size': num_ngrams_context,
-                  'qa_embedding_model': qa_embedding_model, 'qa_questions_version': qa_questions_version}
-    if num_trs_context is not None:
-        args_cache['num_trs_context'] = num_trs_context
-        args_cache['ngram_size'] = None
-    elif num_secs_context_per_word is not None:
-        args_cache['num_secs_context_per_word'] = num_secs_context_per_word
-        args_cache['ngram_size'] = None
-    return sha256(args_cache)
-
-
 def get_llm_vectors(
         allstories,
         checkpoint='bert-base-uncased',
@@ -280,22 +266,25 @@ def get_llm_vectors(
     print(f'getting wordseqs..')
     wordseqs = get_story_wordseqs(allstories)
     vectors = {}
-    os.makedirs(cache_embs_dir, exist_ok=True)
     embedding_model = None  # only initialize if needed
     print(f'extracting {checkpoint} embs...')
     for story_num, story in enumerate(allstories):
-        cache_hash = _get_cache_hash(
-            story, checkpoint, num_ngrams_context, qa_embedding_model, qa_questions_version,
-            num_trs_context, num_secs_context_per_word)
+        args_cache = {'story': story, 'model': checkpoint, 'ngram_size': num_ngrams_context,
+                      'qa_embedding_model': qa_embedding_model, 'qa_questions_version': qa_questions_version,
+                      'num_trs_context': num_trs_context, 'num_secs_context_per_word': num_secs_context_per_word}
+        cache_hash = sha256(args_cache)
         cache_file = join(
-            cache_embs_dir, f'{cache_hash}.jl')
+            cache_embs_dir, qa_questions_version, checkpoint.replace('/', '_'), f'{cache_hash}.jl')
+        loaded_from_cache = False
         if os.path.exists(cache_file):
             print(f'Loading cached {story_num}/{len(allstories)}: {story}')
             try:
                 vectors[story] = joblib.load(cache_file)
+                loaded_from_cache = True
             except:
                 print('Error loading', cache_file)
-        else:
+
+        if not loaded_from_cache:
             if embedding_model is None:
                 embedding_model = _get_embedding_model(
                     checkpoint, qa_questions_version, qa_embedding_model)
@@ -331,6 +320,7 @@ def get_llm_vectors(
                     embs, ds.split_inds, ds.data_times, ds.tr_times).data
 
             vectors[story] = deepcopy(embs)
+            os.makedirs(cache_file, exist_ok=True)
             joblib.dump(embs, cache_file)
 
     if num_trs_context is not None:

@@ -65,8 +65,7 @@ def add_main_args(parser):
     parser.add_argument("--qa_embedding_model", type=str,
                         default='mistralai/Mistral-7B-v0.1',
                         help='Model to use for QA embedding, if feature_space is qa_embedder',
-                        choices=['mistralai/Mistral-7B-v0.1',
-                                 "mistralai/Mixtral-8x7B-v0.1", 'meta-llama/Llama-2-70b-hf', 'meta-llama/Llama-2-13b-hf'],
+                        choices=['mistralai/Mistral-7B-Instruct-v0.2', 'mistralai/Mixtral-8x7B-Instruct-v0.1'],
                         )
     parser.add_argument("--qa_questions_version", type=str, default='v1',
                         help='Which set of QA questions to use, if feature_space is qa_embedder')

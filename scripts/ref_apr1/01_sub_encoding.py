@@ -20,7 +20,8 @@ params_shared_dict = {
 
     # things to average over
     'use_cache': [1],
-    'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'],
+    # 'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_mar28'],
+    'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr1'],
     'nboots': [5],
 
     # fixed params
@@ -29,8 +30,8 @@ params_shared_dict = {
     'use_test_setup': [0],
 
     'ndelays': [4, 8, 12],
-    'seed': range(25),
-    # 'seed': [1],
+    # 'seed': range(10),
+    'seed': [1],
 }
 
 
@@ -38,26 +39,31 @@ params_shared_dict = {
 params_coupled_dict = {
     ('feature_space', 'qa_questions_version', 'qa_embedding_model'): [
         # baselines
-        # ('bert-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        # ('eng1000', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('bert-10', 'v1', 'mistralai/Mistral-7B-v0.1'),
+        # ('eng1000', 'v1', 'mistralai/Mistral-7B-v0.1'),
 
         # # main
-        ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-v0.1'),
 
         # # vary mistral versions
-        # ('qa_embedder-10', 'v2', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        # ('qa_embedder-10', 'v3', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        # ('qa_embedder-10', 'v4', 'mistralai/Mistral-7B-Instruct-v0.2'),
-
-        # vary context len
-        # ('qa_embedder-25', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
-
+        ('qa_embedder-10', 'v2', 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-10', 'v3', 'mistralai/Mistral-7B-v0.1'),
+        ('qa_embedder-10', 'v4', 'mistralai/Mistral-7B-v0.1'),
 
         # # mixtral
-        # ('qa_embedder-10', 'v1', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
-        # ('qa_embedder-10', 'v2', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
-        # ('qa_embedder-10', 'v3', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
-        # ('qa_embedder-10', 'v4', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
+        # ('qa_embedder-10', 'v1', 'mistralai/Mixtral-8x7B-v0.1'),
+        ('qa_embedder-10', 'v2', 'mistralai/Mixtral-8x7B-v0.1'),
+        ('qa_embedder-10', 'v3', 'mistralai/Mixtral-8x7B-v0.1'),
+        ('qa_embedder-10', 'v4', 'mistralai/Mixtral-8x7B-v0.1'),
+
+        # llama-2
+        # ('qa_embedder-10', 'v1', 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v2', 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v3', 'meta-llama/Llama-2-13b-hf'),
+        # ('qa_embedder-10', 'v4', 'meta-llama/Llama-2-13b-hf'),
+
+        # low priority -- ablation ngrams (should have run this with v2 but is v1)
+        # ('qa_embedder-5', 'v1', 'mistralai/Mistral-7B-v0.1'),
     ],
 }
 # Args list is a list of dictionaries
@@ -80,14 +86,14 @@ submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     actually_run=True,
-    unique_seeds=True,
-    amlt_kwargs=amlt_kwargs,
-    # n_cpus=9,
-    # n_cpus=6,
-    # gpu_ids=[0, 1],
+    # unique_seeds=True,
+    # amlt_kwargs=amlt_kwargs,
     # gpu_ids=[0, 1, 2, 3],
+    # n_cpus=9,
+    n_cpus=6,
+    # gpu_ids=[0, 1],
     # gpu_ids=[[0, 1, 2, 3]],
-    gpu_ids=[[0, 1], [2, 3]],
+    # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,
     shuffle=True,
     cmd_python=f'export HF_TOKEN={open(expanduser("~/.HF_TOKEN"), "r").read().strip()}; python',

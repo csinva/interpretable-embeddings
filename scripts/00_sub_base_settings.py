@@ -21,7 +21,7 @@ params_shared_dict = {
 
     # things to average over
     'use_cache': [1],
-    'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr1'],
+    'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'],
     'nboots': [5],
 
     # fixed params
@@ -39,37 +39,37 @@ params_shared_dict = {
 params_coupled_dict = {
     ('feature_space', 'qa_questions_version', 'qa_embedding_model'): [
         # baselines
-        # ('eng1000', 'v1', 'mistralai/Mistral-7B-v0.1'),
-        # ('bert-10', 'v1', 'mistralai/Mistral-7B-v0.1'),
-        # ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-v0.1'),
+        # ('eng1000', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('bert-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
         # -last, -end versions
-        # ('qa_embedder-10', 'v1-last', 'mistralai/Mistral-7B-v0.1'),
-        # ('qa_embedder-25', 'v1-last', 'mistralai/Mistral-7B-v0.1'),
-        # ('qa_embedder-50', 'v1-last', 'mistralai/Mistral-7B-v0.1'),
-        # ('qa_embedder-75', 'v1-last', 'mistralai/Mistral-7B-v0.1'),
-        # ('qa_embedder-10', 'v1-ending', 'mistralai/Mistral-7B-v0.1'),
-        ('qa_embedder-25', 'v1-ending', 'mistralai/Mistral-7B-v0.1'),
-        # ('qa_embedder-25', 'v1-ending', 'mistralai/Mixtral-8x7B-v0.1'),
-        # ('qa_embedder-50', 'v1-ending', 'mistralai/Mistral-7B-v0.1'),
-        # ('qa_embedder-75', 'v1-ending', 'mistralai/Mistral-7B-v0.1'),
+        # ('qa_embedder-10', 'v1-last', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-25', 'v1-last', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-50', 'v1-last', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-75', 'v1-last', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-10', 'v1-ending', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-25', 'v1-ending', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-25', 'v1-ending', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
+        # ('qa_embedder-50', 'v1-ending', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-75', 'v1-ending', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
 
         # bert sec versions
-        # ('bert-sec3', 'v1', 'mistralai/Mistral-7B-v0.1'),
-        # ('bert-sec5', 'v1', 'mistralai/Mistral-7B-v0.1'),
+        # ('bert-sec3', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('bert-sec5', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
         # tr versions
-        # ('bert-tr2', 'v1', 'mistralai/Mistral-7B-v0.1'),
-        # ('bert-tr3', 'v1', 'mistralai/Mistral-7B-v0.1'),
+        # ('bert-tr2', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('bert-tr3', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
         # qa sec versions
-        # ('qa_embedder-sec3', 'v1', 'mistralai/Mistral-7B-v0.1'),
-        # ('qa_embedder-sec5', 'v1', 'mistralai/Mistral-7B-v0.1'),
+        # ('qa_embedder-sec3', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-sec5', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
         # qa tr versions
-        # ('qa_embedder-tr2', 'v1', 'mistralai/Mistral-7B-v0.1'),
-        # ('qa_embedder-tr3', 'v1', 'mistralai/Mistral-7B-v0.1'),
+        # ('qa_embedder-tr2', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-tr3', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
     ],
 }

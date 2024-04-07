@@ -4,17 +4,22 @@ from os.path import join, expanduser
 from tqdm import tqdm
 import imodelsx.llm
 import qa_questions
+import torch.nn
+from transformers import T5ForConditionalGeneration, T5Tokenizer
 
 
 class QuestionEmbedder:
     def __init__(
             self,
             questions: List[str] = qa_questions.get_questions(),
-            checkpoint: str = 'mistralai/Mistral-7B-v0.1',
-            prompt: str = 'Input: {example}\nQuestion: {question} Answer yes or no.\nAnswer:',
+            checkpoint: str = 'mistralai/Mistral-7B-Instruct-v0.2',
     ):
+
         self.questions = questions
-        self.prompt = prompt
+        if 'mistral' in checkpoint and 'Instruct' in checkpoint:
+            self.prompt = "<s>[INST]'Input text: {example}\nQuestion: {question}\nAnswer with yes or no, then give an explanation.[/INST]"
+        else:
+            self.prompt = 'Input: {example}\nQuestion: {question} Answer yes or no.\nAnswer:'
         # self.llm = guidance.models.Transformers("meta-llama/Llama-2-13b-hf")
         self.llm = imodelsx.llm.get_llm(
             checkpoint, CACHE_DIR=expanduser("~/cache_qa_embedder"))
@@ -26,7 +31,10 @@ class QuestionEmbedder:
                 self.prompt.format(example=examples[ex_num], question=question)
                 for question in self.questions
             ]
-            answers = self.llm(programs, max_new_tokens=3, verbose=verbose)
+            # print(programs)
+            answers = self.llm(programs, max_new_tokens=2,
+                               verbose=verbose)
+            # print(answers)
             answers = list(map(lambda x: 'yes' in x.lower(), answers))
             # note: mistral token names often start with weird underscore e.g. '▁yes'
             # so this is actually better than constrained decoding
@@ -46,14 +54,14 @@ if __name__ == "__main__":
         'Does the input mention laughter?',
     ]
     examples = ['I sliced some cucumbers', 'The kids were laughing']
-    # checkpoint = 'gpt2'
-    checkpoint = "meta-llama/Llama-2-7b-hf"
+    checkpoint = 'mistralai/Mistral-7B-Instruct-v0.2'
+    # checkpoint = "meta-llama/Llama-2-7b-hf"
     # checkpoint = "meta-llama/Llama-2-70b-hf"
     # checkpoint = "mistralai/Mixtral-8x7B-v0.1"
     # checkpoint = 'mistralai/Mistral-7B-v0.1'
 
     # test
-    llm = imodelsx.llm.get_llm(checkpoint)
+    # llm = imodelsx.llm.get_llm(checkpoint)
     # prompt = 'yes or no.\nQuestion:is the sky blue?\nAnswer:'
     # probs = llm(prompt, return_next_token_prob_scores=True)
     # probs_top = probs.flatten().argsort()[::-1]
@@ -67,8 +75,8 @@ if __name__ == "__main__":
     # assert outputs[i] == outputs2[i]
 
     # questions = qa_questions.get_questions()[:5]
-    embedder = QuestionEmbedder(questions=questions, checkpoint=checkpoint)
-    # embedder = QuestionEmbedder(
-    # questions=qa_questions.get_questions(), checkpoint=checkpoint)
+    # embedder = QuestionEmbedder(questions=questions, checkpoint=checkpoint)
+    embedder = QuestionEmbedder(
+        questions=qa_questions.get_questions(), checkpoint=checkpoint)
     embeddings = embedder(examples)
     print(embeddings)
