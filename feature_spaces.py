@@ -11,7 +11,7 @@ import qa_questions
 from ridge_utils.data_sequence import DataSequence
 from typing import Dict, List
 from tqdm import tqdm
-from ridge_utils.interp_data import lanczosinterp2D
+from ridge_utils.interp_data import lanczosinterp2D, expinterp2D, kernel_density_interp2D, nearest_neighbor_interp2D
 from ridge_utils.semantic_model import SemanticModel
 from transformers.pipelines.pt_utils import KeyDataset
 from ridge_utils.utils_ds import apply_model_to_words, make_word_ds, make_phoneme_ds
@@ -40,7 +40,7 @@ def get_story_phonseqs(stories):
     return wordseqs
 
 
-def downsample_word_vectors(stories, word_vectors, wordseqs):
+def downsample_word_vectors(stories, word_vectors, wordseqs, strategy='lanczos'):
     """Get Lanczos downsampled word_vectors for specified stories.
 
     Args:
@@ -52,17 +52,38 @@ def downsample_word_vectors(stories, word_vectors, wordseqs):
     """
     downsampled_semanticseqs = dict()
     for story in stories:
-        downsampled_semanticseqs[story] = lanczosinterp2D(
-            word_vectors[story],
-            oldtime=wordseqs[story].data_times,  # timing of the old data
-            newtime=wordseqs[story].tr_times,  # timing of the new data
-            window=3
-        )
+        if strategy == 'lanczos':
+            downsampled_semanticseqs[story] = lanczosinterp2D(
+                word_vectors[story],
+                oldtime=wordseqs[story].data_times,  # timing of the old data
+                newtime=wordseqs[story].tr_times,  # timing of the new data
+                window=3
+            )
+        elif strategy == 'exp':
+            downsampled_semanticseqs[story] = expinterp2D(
+                word_vectors[story],
+                oldtime=wordseqs[story].data_times,  # timing of the old data
+                newtime=wordseqs[story].tr_times,  # timing of the new data
+                theta=1
+            )
+            # downsampled_semanticseqs[story] = kernel_density_interp2D(
+            #     word_vectors[story],
+            #     oldtime=wordseqs[story].data_times,  # timing of the old data
+            #     newtime=wordseqs[story].tr_times,  # timing of the new data
+            #     bandwidth=0.1
+            # )
+            # downsampled_semanticseqs[story] = nearest_neighbor_interp2D(
+            #     word_vectors[story],
+            #     oldtime=wordseqs[story].data_times,  # timing of the old data
+            #     newtime=wordseqs[story].tr_times,  # timing of the new data
+            # )
+        else:
+            raise ValueError(f"Strategy {strategy} not recognized")
     return downsampled_semanticseqs
 
 
 def ph_to_articulate(ds, ph_2_art):
-    """ Following make_phoneme_ds converts the phoneme DataSequence object to an 
+    """ Following make_phoneme_ds converts the phoneme DataSequence object to an
     articulate Datasequence for each grid.
     """
     articulate_ds = []
@@ -74,7 +95,7 @@ def ph_to_articulate(ds, ph_2_art):
     return articulate_ds
 
 
-def get_wordrate_vectors(allstories, **kwargs):
+def get_wordrate_vectors(allstories, downsample=True, **kwargs):
     """Get wordrate vectors for specified stories.
 
     Args:
@@ -89,10 +110,13 @@ def get_wordrate_vectors(allstories, **kwargs):
     for story in allstories:
         nwords = len(wordseqs[story].data)
         vectors[story] = np.ones([nwords, 1])
-    return downsample_word_vectors(allstories, vectors, wordseqs)
+    if downsample:
+        return downsample_word_vectors(allstories, vectors, wordseqs)
+    else:
+        return allstories, vectors, wordseqs
 
 
-def get_eng1000_vectors(allstories, **kwargs):
+def get_eng1000_vectors(allstories, downsample='lanczos', **kwargs):
     """Get Eng1000 vectors (985-d) for specified stories.
 
     Args:
@@ -107,7 +131,10 @@ def get_eng1000_vectors(allstories, **kwargs):
     for story in allstories:
         sm = apply_model_to_words(wordseqs[story], eng1000, 985)
         vectors[story] = sm.data
-    return downsample_word_vectors(allstories, vectors, wordseqs)
+    if downsample:
+        return downsample_word_vectors(allstories, vectors, wordseqs, strategy=downsample)
+    else:
+        return allstories, vectors, wordseqs
 
 
 def get_glove_vectors(allstories, **kwargs):
@@ -230,7 +257,10 @@ def get_llm_vectors(
         num_trs_context=None,
         num_secs_context_per_word=None,
         qa_embedding_model='mistralai/Mistral-7B-v0.1',
-        qa_questions_version='v1'
+        qa_questions_version='v1',
+        downsample='lanczos',
+
+
 ) -> Dict[str, np.ndarray]:
     """Get llm embedding vectors
     """
@@ -305,9 +335,11 @@ def get_llm_vectors(
 
     if num_trs_context is not None:
         return vectors
+    elif not downsample:
+        return allstories, vectors, wordseqs
     else:
         return downsample_word_vectors(
-            allstories, vectors, wordseqs)
+            allstories, vectors, wordseqs, strategy=downsample)
 
 
 ############################################

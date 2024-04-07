@@ -68,7 +68,7 @@ def add_main_args(parser):
                         choices=['mistralai/Mistral-7B-v0.1',
                                  "mistralai/Mixtral-8x7B-v0.1", 'meta-llama/Llama-2-70b-hf', 'meta-llama/Llama-2-13b-hf'],
                         )
-    parser.add_argument("--qa_questions_version", type=str, default='v2',
+    parser.add_argument("--qa_questions_version", type=str, default='v1',
                         help='Which set of QA questions to use, if feature_space is qa_embedder')
     parser.add_argument("--l1_ratio", type=float,
                         default=0.5, help='l1 ratio for elasticnet (ignored if encoding_model is not elasticnet)')
