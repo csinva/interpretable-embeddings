@@ -1306,8 +1306,12 @@ def _split_bulleted_str(s, remove_parentheticals=False):
 def _rewrite_to_focus_on_end(question, suffix='last'):
     if suffix == 'last':
         focus_text = 'In the last word of the input, '
-    elif suffix == 'end':
+    elif suffix == 'ending':
         focus_text = 'At the end of the input, '
+    elif suffix == 'last10':
+        focus_text = 'In the last ten words of the input, '
+    else:
+        raise ValueError(suffix)
     # replace nouns
     question = question.lower().replace('the sentence', 'the text').replace(
         'the story', 'the text').replace('the narrative', 'the text')
@@ -1318,11 +1322,10 @@ def _rewrite_to_focus_on_end(question, suffix='last'):
 
 def get_questions(version='v1', suffix=None, full=False):
     '''Different versions
-    -last adds suffixes from last
+    -last, -ending adds suffixes from last
     '''
     if len(version.split('-')) > 1:
         version, suffix = version.split('-')
-    assert suffix in [None, 'last', 'end'], suffix
 
     if version == 'v1':
         qs_semantic = _split_bulleted_str(ANS_SEMANTIC)
@@ -1361,7 +1364,7 @@ def get_questions(version='v1', suffix=None, full=False):
         qs_v4 = get_questions(version='v4', suffix=suffix)
         qs = qs_v1 + qs_v2 + qs_v3 + qs_v4
         qs_remove = []
-    if suffix == 'last':
+    if suffix is not None:
         qs = [_rewrite_to_focus_on_end(q, suffix) for q in qs]
 
     qs_added = sorted(list(set(qs) - set(qs_remove)))
@@ -1384,5 +1387,5 @@ if __name__ == "__main__":
     print('v3 adds', len(get_questions(version='v3')), 'questions')
     print('v4 adds', len(get_questions(version='v4')), 'questions')
     print('total questions', len(get_questions('all')))
-    for q in get_questions('v4-last'):
+    for q in get_questions('v4-end'):
         print(q)
