@@ -320,7 +320,7 @@ def get_llm_vectors(
                     embs, ds.split_inds, ds.data_times, ds.tr_times).data
 
             vectors[story] = deepcopy(embs)
-            os.makedirs(cache_file, exist_ok=True)
+            os.makedirs(dirname(cache_file), exist_ok=True)
             joblib.dump(embs, cache_file)
 
     if num_trs_context is not None:

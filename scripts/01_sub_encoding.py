@@ -29,7 +29,7 @@ params_shared_dict = {
     'use_test_setup': [0],
 
     'ndelays': [4, 8, 12],
-    'seed': range(25),
+    'seed': range(10),
     # 'seed': [1],
 }
 
@@ -73,7 +73,6 @@ amlt_kwargs = {
     # 'sku': '64G8-MI200-xGMI',
     # 'sku': '64G4-MI200-xGMI',
     'sku': '64G2-MI200-xGMI',
-    # 'sku': '64G1-MI200-xGMI',
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
 submit_utils.run_args_list(

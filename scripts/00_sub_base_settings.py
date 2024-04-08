@@ -54,7 +54,6 @@ params_coupled_dict = {
         # ('qa_embedder-50', 'v1-ending', 'mistralai/Mistral-7B-Instruct-v0.2'),
         # ('qa_embedder-75', 'v1-ending', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
-
         # bert sec versions
         # ('bert-sec3', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
         # ('bert-sec5', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
