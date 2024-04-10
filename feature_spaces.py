@@ -168,7 +168,6 @@ def get_embs_from_text_list(text_list: List[str], embedding_function) -> List[np
     embs: np.ndarray (len(text_list), embedding_size)
     """
 
-    # ngrams_list = ngrams_list[:100]
     text = datasets.Dataset.from_dict({'text': text_list})
 
     # get embeddings
@@ -245,8 +244,7 @@ def get_llm_vectors(
         qa_embedding_model='mistralai/Mistral-7B-v0.1',
         qa_questions_version='v1',
         downsample='lanczos',
-
-
+        use_cache=True,
 ) -> Dict[str, np.ndarray]:
     """Get llm embedding vectors
     """
@@ -276,11 +274,13 @@ def get_llm_vectors(
         cache_file = join(
             cache_embs_dir, qa_questions_version, checkpoint.replace('/', '_'), f'{cache_hash}.jl')
         loaded_from_cache = False
-        if os.path.exists(cache_file):
+        if os.path.exists(cache_file) and use_cache:
             print(f'Loading cached {story_num}/{len(allstories)}: {story}')
             try:
                 vectors[story] = joblib.load(cache_file)
                 loaded_from_cache = True
+                print('Loaded', story, 'vectors', vectors[story].shape,
+                      'unique', np.unique(vectors[story], return_counts=True))
             except:
                 print('Error loading', cache_file)
 
@@ -315,11 +315,12 @@ def get_llm_vectors(
                 embs = get_embs_from_text_list(
                     ngrams_list, embedding_function=embedding_model)
 
-            if num_trs_context is None:
-                embs = DataSequence(
-                    embs, ds.split_inds, ds.data_times, ds.tr_times).data
-
+            # if num_trs_context is None:
+                # embs = DataSequence(
+                # embs, ds.split_inds, ds.data_times, ds.tr_times).data
             vectors[story] = deepcopy(embs)
+            print(story, 'vectors', vectors[story].shape,
+                  'unique', np.unique(vectors[story], return_counts=True))
             os.makedirs(dirname(cache_file), exist_ok=True)
             joblib.dump(embs, cache_file)
 

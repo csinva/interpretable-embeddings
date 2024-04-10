@@ -32,10 +32,16 @@ class QuestionEmbedder:
                 for question in self.questions
             ]
             # print(programs)
-            answers = self.llm(programs, max_new_tokens=2,
-                               verbose=verbose)
-            # print(answers)
+            answers = self.llm(
+                programs, max_new_tokens=2,
+                verbose=verbose)
+
+            # for i in range(len(programs)):
+            # print(answers[i], '->', programs[i].replace('\n', '_n_'))
+            print('answers text', answers)
+
             answers = list(map(lambda x: 'yes' in x.lower(), answers))
+            # print('answers', np.sum(answers), answers)
             # note: mistral token names often start with weird underscore e.g. '▁yes'
             # so this is actually better than constrained decoding
             # answers = self.llm(programs, target_token_strs=[
@@ -53,7 +59,8 @@ if __name__ == "__main__":
         'Is the input related to food preparation?',
         'Does the input mention laughter?',
     ]
-    examples = ['I sliced some cucumbers', 'The kids were laughing']
+    examples = ['I sliced some cucumbers',
+                'The kids were laughing', 'walking to school I was']
     checkpoint = 'mistralai/Mistral-7B-Instruct-v0.2'
     # checkpoint = "meta-llama/Llama-2-7b-hf"
     # checkpoint = "meta-llama/Llama-2-70b-hf"
@@ -76,7 +83,8 @@ if __name__ == "__main__":
 
     # questions = qa_questions.get_questions()[:5]
     # embedder = QuestionEmbedder(questions=questions, checkpoint=checkpoint)
-    embedder = QuestionEmbedder(
-        questions=qa_questions.get_questions(), checkpoint=checkpoint)
+    # embedder = QuestionEmbedder(
+    # questions=qa_questions.get_questions(), checkpoint=checkpoint)
+    embedder = QuestionEmbedder(questions=questions, checkpoint=checkpoint)
     embeddings = embedder(examples)
     print(embeddings)

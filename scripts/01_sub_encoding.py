@@ -29,8 +29,8 @@ params_shared_dict = {
     'use_test_setup': [0],
 
     'ndelays': [4, 8, 12],
-    'seed': range(10),
-    # 'seed': [1],
+    # 'seed': range(24),
+    'seed': [1],
 }
 
 
@@ -71,8 +71,8 @@ amlt_kwargs = {
     'amlt_file': join(repo_dir, 'launch.yaml'),
     # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
     # 'sku': '64G8-MI200-xGMI',
-    # 'sku': '64G4-MI200-xGMI',
-    'sku': '64G2-MI200-xGMI',
+    'sku': '64G4-MI200-xGMI',
+    # 'sku': '64G2-MI200-xGMI',
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
 submit_utils.run_args_list(
@@ -82,11 +82,11 @@ submit_utils.run_args_list(
     unique_seeds=True,
     amlt_kwargs=amlt_kwargs,
     # n_cpus=9,
-    # n_cpus=6,
+    # n_cpus=1,
     # gpu_ids=[0, 1],
     # gpu_ids=[0, 1, 2, 3],
-    # gpu_ids=[[0, 1, 2, 3]],
-    gpu_ids=[[0, 1], [2, 3]],
+    gpu_ids=[[0, 1, 2, 3]],
+    # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,
     shuffle=True,
     cmd_python=f'export HF_TOKEN={open(expanduser("~/.HF_TOKEN"), "r").read().strip()}; python',

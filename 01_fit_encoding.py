@@ -45,7 +45,7 @@ def add_main_args(parser):
     parser.add_argument("--subject", type=str, default='UTS03')
     parser.add_argument("--feature_space", type=str,
                         # default='distil-bert-tr2',
-                        default='distil-bert-sec4',
+                        default='qa_embedder-10',
                         # default='distil-bert-10',
                         # qa_embedder-10
                         # default='qa_embedder-10',
@@ -63,9 +63,10 @@ def add_main_args(parser):
                         # default='randomforest'
                         )
     parser.add_argument("--qa_embedding_model", type=str,
-                        default='mistralai/Mistral-7B-v0.1',
+                        default='mistralai/Mistral-7B-Instruct-v0.2',
                         help='Model to use for QA embedding, if feature_space is qa_embedder',
-                        choices=['mistralai/Mistral-7B-Instruct-v0.2', 'mistralai/Mixtral-8x7B-Instruct-v0.1'],
+                        choices=['mistralai/Mistral-7B-Instruct-v0.2',
+                                 'mistralai/Mixtral-8x7B-Instruct-v0.1'],
                         )
     parser.add_argument("--qa_questions_version", type=str, default='v1',
                         help='Which set of QA questions to use, if feature_space is qa_embedder')
@@ -144,7 +145,7 @@ def get_story_names(args):
         # test_stories = ['sloth', 'fromboyhoodtofatherhood']
         story_names_test = ['fromboyhoodtofatherhood']
         # 'onapproachtopluto']  # , 'onapproachtopluto']
-        random.shuffle(story_names_test)
+        # random.shuffle(story_names_test)
     elif args.num_stories > 0:
         story_names_train = story_names.get_story_names(
             args.subject, 'train')[:args.num_stories]
@@ -190,8 +191,14 @@ def get_data(args, story_names, extract_only=False):
     for kwargs in kwargs_list:
         # Features
         features_downsampled_dict = feature_spaces.get_features(
-            args.feature_space, allstories=story_names, qa_embedding_model=args.qa_embedding_model,
+            args.feature_space,
+            allstories=story_names,
+            qa_embedding_model=args.qa_embedding_model,
+            # use_cache=False,
             **kwargs)
+        for story_name in story_names:
+            print('unique after get_features', story_name, np.unique(
+                features_downsampled_dict[story_name], return_counts=True))
         # n_time_points x n_features
         features_downsampled = encoding_utils.trim_and_normalize_features(
             features_downsampled_dict, args.trim, normalize=True
@@ -202,6 +209,7 @@ def get_data(args, story_names, extract_only=False):
         return
 
     features_downsampled_list = np.hstack(features_downsampled_list)
+    # print('unique', np.unique(features_downsampled_list, return_counts=True))
 
     # n_time_points x (n_delays x n_features)
     stim_delayed = make_delayed(features_downsampled_list,
