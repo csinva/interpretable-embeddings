@@ -76,7 +76,7 @@ def save_coefs_flatmaps(weights, df, out_dir, subject='UTS03', num_flatmaps=10):
 
 if __name__ == '__main__':
     # select best model
-    results_dir = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr1'
+    results_dir = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'
 
     # load the results in to a pandas dataframe
     r = imodelsx.process_results.get_results_df(results_dir)
@@ -84,7 +84,7 @@ if __name__ == '__main__':
         r[k] = r[k].map(lambda x: x if x.startswith('/home')
                         else x.replace('/mntv1', '/home/chansingh/mntv1'))
 
-    for version in ['v1', 'v4', 'v2', 'v3']:
+    for version in ['v1', 'v2', 'v3', 'v4']:
         print('Version', version)
         out_dir = join(path_to_repo, 'qa_results', version)
         os.makedirs(out_dir, exist_ok=True)
@@ -92,7 +92,7 @@ if __name__ == '__main__':
                  #  (r.pc_components == -1) *
                  (r.pc_components == 100) *
                  (r.qa_questions_version == version)
-                 ].sort_values(by='corrs_tune_mean', ascending=False).iloc[0]
+                 ].sort_values(by='corrs_tune_pc_mean', ascending=False).iloc[0]
         args_dict = {k: v for k, v in args.to_dict().items(
         ) if not isinstance(v, np.ndarray)}
         json.dump(args_dict, open(

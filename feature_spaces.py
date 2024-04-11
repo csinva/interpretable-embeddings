@@ -279,8 +279,8 @@ def get_llm_vectors(
             try:
                 vectors[story] = joblib.load(cache_file)
                 loaded_from_cache = True
-                print('Loaded', story, 'vectors', vectors[story].shape,
-                      'unique', np.unique(vectors[story], return_counts=True))
+                # print('Loaded', story, 'vectors', vectors[story].shape,
+                #   'unique', np.unique(vectors[story], return_counts=True))
             except:
                 print('Error loading', cache_file)
 
@@ -319,8 +319,8 @@ def get_llm_vectors(
                 # embs = DataSequence(
                 # embs, ds.split_inds, ds.data_times, ds.tr_times).data
             vectors[story] = deepcopy(embs)
-            print(story, 'vectors', vectors[story].shape,
-                  'unique', np.unique(vectors[story], return_counts=True))
+            # print(story, 'vectors', vectors[story].shape,
+            #   'unique', np.unique(vectors[story], return_counts=True))
             os.makedirs(dirname(cache_file), exist_ok=True)
             joblib.dump(embs, cache_file)
 

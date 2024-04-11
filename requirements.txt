@@ -11,12 +11,12 @@ torch
 transformers
 datasets
 scikit-learn
-imodelsx
 imodels
 skorch
 nltk
 fire
 dict_hash
+# imodelsx should be installed from source
 
 # basic
 tqdm

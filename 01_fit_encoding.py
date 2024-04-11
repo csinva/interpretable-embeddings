@@ -196,9 +196,9 @@ def get_data(args, story_names, extract_only=False):
             qa_embedding_model=args.qa_embedding_model,
             # use_cache=False,
             **kwargs)
-        for story_name in story_names:
-            print('unique after get_features', story_name, np.unique(
-                features_downsampled_dict[story_name], return_counts=True))
+        # for story_name in story_names:
+        # print('unique after get_features', story_name, np.unique(
+        # features_downsampled_dict[story_name], return_counts=True))
         # n_time_points x n_features
         features_downsampled = encoding_utils.trim_and_normalize_features(
             features_downsampled_dict, args.trim, normalize=True

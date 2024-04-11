@@ -13,6 +13,7 @@ class QuestionEmbedder:
             self,
             questions: List[str] = qa_questions.get_questions(),
             checkpoint: str = 'mistralai/Mistral-7B-Instruct-v0.2',
+            use_cache: bool = True,
     ):
 
         self.questions = questions
@@ -23,6 +24,7 @@ class QuestionEmbedder:
         # self.llm = guidance.models.Transformers("meta-llama/Llama-2-13b-hf")
         self.llm = imodelsx.llm.get_llm(
             checkpoint, CACHE_DIR=expanduser("~/cache_qa_embedder"))
+        self.use_cache = use_cache
 
     def __call__(self, examples: List[str], verbose=True) -> np.ndarray:
         embeddings = np.zeros((len(examples), len(self.questions)))
@@ -33,12 +35,15 @@ class QuestionEmbedder:
             ]
             # print(programs)
             answers = self.llm(
-                programs, max_new_tokens=2,
-                verbose=verbose)
+                programs,
+                max_new_tokens=2,
+                verbose=verbose,
+                use_cache=self.use_cache,
+            )
 
             # for i in range(len(programs)):
             # print(answers[i], '->', programs[i].replace('\n', '_n_'))
-            print('answers text', answers)
+            # print('answers text', answers)
 
             answers = list(map(lambda x: 'yes' in x.lower(), answers))
             # print('answers', np.sum(answers), answers)
@@ -85,6 +90,7 @@ if __name__ == "__main__":
     # embedder = QuestionEmbedder(questions=questions, checkpoint=checkpoint)
     # embedder = QuestionEmbedder(
     # questions=qa_questions.get_questions(), checkpoint=checkpoint)
-    embedder = QuestionEmbedder(questions=questions, checkpoint=checkpoint)
+    embedder = QuestionEmbedder(
+        questions=questions, checkpoint=checkpoint, use_cache=False)
     embeddings = embedder(examples)
     print(embeddings)
