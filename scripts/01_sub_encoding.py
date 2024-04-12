@@ -1,10 +1,6 @@
-from config import mnt_dir
-import itertools
 import os
 from os.path import dirname, join, expanduser
 import sys
-from dict_hash import sha256
-import subprocess
 from imodelsx import submit_utils
 path_to_file = os.path.dirname(os.path.abspath(__file__))
 repo_dir = dirname(dirname(os.path.abspath(__file__)))
@@ -24,36 +20,35 @@ params_shared_dict = {
     'ndelays': [4, 8, 12],
 
     # cluster
-    # 'seed': range(24),
-    # 'pc_components': [100],
+    'seed': range(14),
+    'pc_components': [100],
 
     # local
-    'seed': [1],
-    'pc_components': [1000, 100, -1],
+    # 'seed': [1],
+    # 'pc_components': [1000, 100, -1],
     # 'use_extract_only': [0],
 }
 
 params_coupled_dict = {
     ('feature_space', 'qa_questions_version', 'qa_embedding_model'): [
-        # baselines
-        ('bert-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        ('eng1000', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # # baselines
+        # ('bert-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('eng1000', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
-        # # main
-        ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # # # main
+        # ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
-        # # vary mistral versions
-        ('qa_embedder-10', 'v2', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        ('qa_embedder-10', 'v3', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        ('qa_embedder-10', 'v4', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # # # vary mistral versions
+        # ('qa_embedder-10', 'v2', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-10', 'v3', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-10', 'v4', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
         # vary context len
         # ('qa_embedder-25', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
-
         # # mixtral
         # ('qa_embedder-10', 'v1', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
-        # ('qa_embedder-10', 'v2', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
+        ('qa_embedder-10', 'v2', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
         # ('qa_embedder-10', 'v3', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
         # ('qa_embedder-10', 'v4', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
 
@@ -91,17 +86,17 @@ amlt_kwargs = {
     'amlt_file': join(repo_dir, 'launch.yaml'),
     # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
     # 'sku': '64G8-MI200-xGMI',
-    # 'sku': '64G4-MI200-xGMI',
-    'sku': '64G2-MI200-xGMI',
+    'sku': '64G4-MI200-xGMI',
+    # 'sku': '64G2-MI200-xGMI',
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
 submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     actually_run=True,
-    # unique_seeds=True,
-    # amlt_kwargs=amlt_kwargs,
-    n_cpus=9,
+    unique_seeds=True,
+    amlt_kwargs=amlt_kwargs,
+    # n_cpus=9,
     # n_cpus=4,
     # gpu_ids=[0, 1],
     # gpu_ids=[0, 1, 2, 3],

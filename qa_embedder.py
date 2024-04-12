@@ -66,7 +66,8 @@ if __name__ == "__main__":
     ]
     examples = ['I sliced some cucumbers',
                 'The kids were laughing', 'walking to school I was']
-    checkpoint = 'mistralai/Mistral-7B-Instruct-v0.2'
+    # checkpoint = 'mistralai/Mistral-7B-Instruct-v0.2'
+    checkpoint = 'mistralai/Mixtral-8x7B-Instruct-v0.1'
     # checkpoint = "meta-llama/Llama-2-7b-hf"
     # checkpoint = "meta-llama/Llama-2-70b-hf"
     # checkpoint = "mistralai/Mixtral-8x7B-v0.1"
