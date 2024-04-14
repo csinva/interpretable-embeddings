@@ -20,12 +20,14 @@ params_shared_dict = {
     'ndelays': [4, 8, 12],
 
     # cluster
-    'seed': range(14),
+    # 'seed': range(14),
+    # 'seed': range(20),
     'pc_components': [100],
 
     # local
-    # 'seed': [1],
+    'seed': [1],
     # 'pc_components': [1000, 100, -1],
+    # 'pc_components': [100],
     # 'use_extract_only': [0],
 }
 
@@ -42,13 +44,14 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v2', 'mistralai/Mistral-7B-Instruct-v0.2'),
         # ('qa_embedder-10', 'v3', 'mistralai/Mistral-7B-Instruct-v0.2'),
         # ('qa_embedder-10', 'v4', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        ('qa_embedder-10', 'v5', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
         # vary context len
         # ('qa_embedder-25', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
         # # mixtral
         # ('qa_embedder-10', 'v1', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
-        ('qa_embedder-10', 'v2', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
+        # ('qa_embedder-10', 'v2', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
         # ('qa_embedder-10', 'v3', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
         # ('qa_embedder-10', 'v4', 'mistralai/Mixtral-8x7B-Instruct-v0.1'),
 
@@ -86,16 +89,16 @@ amlt_kwargs = {
     'amlt_file': join(repo_dir, 'launch.yaml'),
     # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
     # 'sku': '64G8-MI200-xGMI',
-    'sku': '64G4-MI200-xGMI',
-    # 'sku': '64G2-MI200-xGMI',
+    # 'sku': '64G4-MI200-xGMI',
+    'sku': '64G2-MI200-xGMI',
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
 submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     actually_run=True,
-    unique_seeds=True,
-    amlt_kwargs=amlt_kwargs,
+    # unique_seeds=True,
+    # amlt_kwargs=amlt_kwargs,
     # n_cpus=9,
     # n_cpus=4,
     # gpu_ids=[0, 1],
