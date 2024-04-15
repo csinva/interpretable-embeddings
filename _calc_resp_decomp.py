@@ -13,20 +13,27 @@ import joblib
 path_to_file = os.path.dirname(os.path.abspath(__file__))
 
 
-def cache_resps(cache_fmri_resps_dir='/home/chansingh/cache_fmri_resps'):
-    for subject in ['UTS03', 'UTS02', 'UTS01']:
-        print('caching', subject)
-        train_stories = story_names.get_story_names(subject, 'train')
-        zRresp = encoding_utils.get_response(
-            train_stories, subject)  # shape (27449, 95556)
-        joblib.dump(zRresp, join(cache_fmri_resps_dir, f'{subject}.pkl'))
+# def cache_resps(cache_fmri_resps_dir='/home/chansingh/cache_fmri_resps'):
+#     for subject in ['UTS03', 'UTS02', 'UTS01']:
+#         print('caching', subject)
+#         train_stories = story_names.get_story_names(subject, 'train')
+#         zRresp = encoding_utils.get_response(
+#             train_stories, subject)  # shape (27449, 95556)
+#         joblib.dump(zRresp, join(cache_fmri_resps_dir, f'{subject}.pkl'))
 
 
 def calc_decomp(out_dir, subject, subsample_input=None):
     print('loading responses...')
-    zRresp = joblib.load(
-        join('/home/chansingh/cache_fmri_resps', f'{subject}.pkl'))
-    print('shape', zRresp.shape)
+    train_stories = story_names.get_story_names(subject, 'train')
+    zRresp = encoding_utils.get_response(
+        train_stories, subject)  # shape (27449, 95556)
+    print('num nans', np.sum(np.isnan(zRresp)))
+    # fill nan with mean
+    zRresp[np.isnan(zRresp)] = np.nanmean(zRresp)
+    # zRresp = joblib.load(
+    # join('/home/chansingh/cache_fmri_resps', f'{subject}.pkl'))
+
+    print('loaded shape', zRresp.shape)
     if subsample_input:
         zRresp = zRresp[::subsample_input]
         print('shape after subsampling', zRresp.shape)
@@ -89,7 +96,7 @@ def viz_decomp(out_dir):
 
 if __name__ == '__main__':
     # cache_resps()
-    for subject in ['UTS03', 'UTS01', 'UTS02']:
+    for subject in ['UTS01', 'UTS02']:  # 'UTS03',
         print(subject)
         out_dir = join(feature_spaces.data_dir, 'fmri_resp_norms', subject)
         os.makedirs(out_dir, exist_ok=True)

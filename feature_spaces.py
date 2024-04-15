@@ -18,6 +18,7 @@ from ridge_utils.utils_ds import apply_model_to_words, make_word_ds, make_phonem
 from ridge_utils.utils_stim import load_textgrids, load_simulated_trfiles
 from transformers import pipeline
 import logging
+import imodelsx.llm
 from qa_embedder import QuestionEmbedder
 from config import repo_dir, nlp_utils_dir, em_data_dir, data_dir, results_dir, cache_embs_dir
 
@@ -241,6 +242,7 @@ def get_llm_vectors(
         num_ngrams_context=10,
         num_trs_context=None,
         num_secs_context_per_word=None,
+        layer_idx=None,
         qa_embedding_model='mistralai/Mistral-7B-v0.1',
         qa_questions_version='v1',
         downsample='lanczos',
@@ -257,7 +259,10 @@ def get_llm_vectors(
             return QuestionEmbedder(
                 checkpoint=qa_embedding_model, questions=questions)
         if not 'qa_embedder' in checkpoint:
-            return pipeline("feature-extraction", model=checkpoint, device=0)
+            if 'bert' in checkpoint.lower():
+                return pipeline("feature-extraction", model=checkpoint, device=0)
+            elif layer_idx is not None:
+                return imodelsx.llm.LLMEmbs(checkpoint=checkpoint)
 
     assert not (
         num_trs_context and num_secs_context_per_word), 'num_trs_context and num_secs_context_per_word are mutually exclusive'
@@ -288,9 +293,9 @@ def get_llm_vectors(
             if embedding_model is None:
                 embedding_model = _get_embedding_model(
                     checkpoint, qa_questions_version, qa_embedding_model)
-
             ds = wordseqs[story]
 
+            # get ngrams_list
             if num_trs_context is not None:
                 # replace each TR with text from the current TR and the TRs immediately before it
                 ngrams_list = _get_ngrams_list_from_chunks(
@@ -311,9 +316,14 @@ def get_llm_vectors(
             if 'qa_embedder' in checkpoint:
                 print(f'Extracting {story_num}/{len(allstories)}: {story}')
                 embs = embedding_model(ngrams_list, verbose=False)
-            else:
+            elif 'bert' in checkpoint:
                 embs = get_embs_from_text_list(
                     ngrams_list, embedding_function=embedding_model)
+            elif layer_idx is not None:
+                embs = embedding_model(
+                    ngrams_list, layer_idx=layer_idx, batch_size=16)
+            else:
+                raise ValueError(checkpoint)
 
             # if num_trs_context is None:
                 # embs = DataSequence(
@@ -347,6 +357,8 @@ _FEATURE_CHECKPOINTS = {
     'roberta': 'roberta-large',
     'bert-sst2': 'textattack/bert-base-uncased-SST-2',
     'qa_embedder': 'qa_embedder',
+    'llama2-7B': 'meta-llama/Llama-2-7b-hf',
+    'llama2-13B': 'meta-llama/Llama-2-13b-hf',
 }
 BASE_KEYS = list(_FEATURE_CHECKPOINTS.keys())
 for context_length in [2, 3, 4, 5, 10, 20, 25, 50, 75]:
@@ -357,6 +369,16 @@ for context_length in [2, 3, 4, 5, 10, 20, 25, 50, 75]:
             num_ngrams_context=context_length,
             checkpoint=_FEATURE_CHECKPOINTS[k])
         _FEATURE_CHECKPOINTS[f'{k}-{context_length}'] = _FEATURE_CHECKPOINTS.get(
+            k, k)
+
+        # pass with layer
+        _FEATURE_VECTOR_FUNCTIONS[f'{k}_lay17-{context_length}'] = partial(
+            get_llm_vectors,
+            num_ngrams_context=context_length,
+            checkpoint=_FEATURE_CHECKPOINTS[k],
+            layer_idx=17,
+        )
+        _FEATURE_CHECKPOINTS[f'{k}_lay17-{context_length}'] = _FEATURE_CHECKPOINTS.get(
             k, k)
 
         # context length by TRs

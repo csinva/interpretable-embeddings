@@ -21,13 +21,12 @@ params_shared_dict = {
 
     # cluster
     # 'seed': range(14),
-    # 'seed': range(20),
+    'seed': range(20),
     'pc_components': [100],
 
     # local
     'seed': [1],
     # 'pc_components': [1000, 100, -1],
-    # 'pc_components': [100],
     # 'use_extract_only': [0],
 }
 
@@ -36,6 +35,7 @@ params_coupled_dict = {
         # # baselines
         # ('bert-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
         # ('eng1000', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        ('llama2-7B_lay17-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
         # # # main
         # ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
@@ -44,7 +44,8 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v2', 'mistralai/Mistral-7B-Instruct-v0.2'),
         # ('qa_embedder-10', 'v3', 'mistralai/Mistral-7B-Instruct-v0.2'),
         # ('qa_embedder-10', 'v4', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        ('qa_embedder-10', 'v5', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-10', 'v5', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('qa_embedder-10', 'v6', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
         # vary context len
         # ('qa_embedder-25', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
@@ -97,12 +98,12 @@ submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     actually_run=True,
-    # unique_seeds=True,
+    unique_seeds=True,
     # amlt_kwargs=amlt_kwargs,
     # n_cpus=9,
     # n_cpus=4,
     # gpu_ids=[0, 1],
-    # gpu_ids=[0, 1, 2, 3],
+    gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1, 2, 3]],
     # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,

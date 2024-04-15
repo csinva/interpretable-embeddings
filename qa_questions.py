@@ -2624,6 +2624,1526 @@ ANS_BOOST_5_2 = '''- Does the sentence mention a significant life change?
 - Does the sentence discuss an event or situation involving family or close friends?
 - Is there a reference to a specific geographic feature or natural phenomenon?'''
 
+PROMPT_BOOST_6 = '''# Example narrative sentences
+- old and i'm still talking about it should
+- course you couldn't study it back then well where i was from but i felt that somehow or other this
+- everyone says you have to be happy with yourself before you can find happiness with someone else
+- to walk for that long so i was here in manhattan um i took them on a forty block walk
+- ch two thousand miles across the united states uh which weren't the united states yet uh
+- couple of weeks before the wedding my father called mary
+- and many layered thing they did tore a hole in the middle of my life i have spent years
+- in the middle of my life i have spent years and a lot of money
+- i i i remember that moment those eyes were staring straight at me and almost
+- and i remember thinking that and then i and then the moment passed and i i ran forward and just as i did
+- so i said if you really really want a naked wedding you can have your naked wedding i'm wearing a towel
+- a woman and catch her off guard but when he got two feet away
+- in the world you know what i'm saying and i'm getting all positive and feeling almost righteous and then
+- there are legends and there are dreams everyone just wants to see that ancient red rock they wanna
+- therapy he's had shock treatments he's had every combination of antipsychotic drugs
+- what he was doing and he just kept repeating this and it was all of a sudden i started feeling
+- hand and so my mother was determined not to let this happen
+- female open minded easy going down to earth outgoing
+- many places around the world i actually helped foster new technologies
+- sharks can be as old as any of us or older older than your grandparents
+- pack all the staples for the week and the snacks that doesn't even start with the clothing so we overpacked
+- and and i couldn't and so i went home that night and i tore a page out of the program that listed all the different
+- there is with a great deal of persistence and a little bit of common sense even
+- no point did it cost me five thousand dollars
+- other ways they trained us to get bookings and one of these ways was to strike up seemingly natural conversations
+- she need jesus and i don't know which one i offered her but she said no
+- i shut the door i call out to my wife i said hey babe there's somebody here to see you
+- i uh to this day you know i still think that he died on purpose
+- family and that night is so beautiful there are hundreds
+- never threw away a piece of clothes um she had two closets and two armoirs just
+- going on in my life and my last breakup was
+- didn't even wanna talk to my dad about who i was dating or anything personal going on in my life and
+- more than any other when you're a presidential speech writer and the question is what happens when you disagree
+- that no matter what we go through in life there will always be
+- my father let me realize that no matter what we go through in life
+- six or seven of them and i watched as they started walking very slowly in a circle and
+- i watch this hand remove the coin
+- earlier that evening i had actually been staying at my boyfriend's flat he
+- doctrine based modes of behavioral modification because he's a shrink and shrinks
+- in the unflattering swimsuit of our own realities we at least as children
+- lust for revenge against those first grade bullies didn't last long at least not at that fever pitch
+- into our household and i mentioned this over the next four or five years i mentioned this to a couple of different
+- and we would he taught me how to chop wood and he bought me um a jeans jacket and he would
+- teach me how to be a man you know and we would he taught me how to chop wood and he bought me um
+- he hook me up to the boat to the to the line and i'm really really nervous
+- my obsession with this goal is simple i am rarely comfortable
+- in new situations my obsession with this goal is simple
+- him because even while he was being strapped to the gurney he wouldn't have known that i wasn't out there on those prison grounds but
+- i was i was in shock because i was thinking about the fact that you
+- tell everybody uh at the church and the next night
+- what is this aryan girl doing here and
+- so we feel good about the joke but but we still need a birthday card so uh one
+- thing and it doesn't work i still get that disappointed look and frankly nobody's more
+- family i i'm not uh an evangelical christian i grew up as far away from that as possible my parents
+- of other approaches to depression medication and therapy and she had finally found the thing
+- they said we're actually we but there's uh the next piece comes now and i said ok and we went over back to the area where we'd done the morning preparations
+- and i said well yeah most of the time everybody only talks about how really happy
+- coursed every time somebody goes to haridwar to take their loved one's ashes back they
+- my father was a hindu and the sermon was conducted by a hindu
+- rock climbing especially hundreds of feet up and he looked down at him and he said stand up
+- she was photographing did not feel like somebody who had suffered liked someone
+- revealed as jt leroy the articulation
+- my country so i had no option but to find a job
+- he's not married he he doesn't have kids he doesn't even have a job he's completely
+- him what does this mean and the psychic said wow this represents a fundamental choice
+- for the first time in my adult life i
+- mistake they were doing something nice while reliving their bad memory i think these mice are onto something
+- the neighborhood kids used to beat me up for looking like a german and indeed i
+- alright i knew that one wasn't cool um
+- i understood baseball i knew all the players names and i was hooked
+- i realize that this is simple i can follow this there's nine players nine innings they come up in the same order all of
+- you know black freedom fighters and after about fourteen years of war and negotiations in
+- we look at the helicopter we get inside butterflies are going i am so pumped it's
+- i go out with the pilot we look at the helicopter we get inside butterflies
+- by he was also a bipolar and if you don't know what that is it's just basically a chemical
+- and he had news of his own the abdominal pain that he had felt
+- on top of that my my wife got pregnant at the time and i realized as that came out didn't sound good um
+- the letters and you know {cg} that seemed that seemed like a great
+- and one of whom who had just lost his wife
+- it's like finding an old cassette tape that you made
+- mama what's wrong and she said baby mama can't read
+- the morning after my party jenny explained that she had recently broke up with her boyfriend of a few years
+- after years of feeling utterly unsettled i sensed i was now exactly where i should be
+- a problem i this is a ba very bad sign
+- the mussels which a friend of mine had grown off the coast of menemsha the same
+- a friend of mine had grown off the coast of menemsha the same friend that had actually
+- was just like never in a good mood so one day i'm down at the bus stop there's like you know ten other kids down there and shit we were all in like first grade
+- breaking rules whatever the case i'd become addicted every
+- day after school i would continue my quest for the perfect man
+- bitch i made it to the moon first how's it fucking feel down there bitch
+- me twice and i never replied and then he called and i picked up with the intention
+- my life so our fun conversations about past blind dates and stealing food from
+- by fatima zohra and her sister amel i insisted that fatima zohra escort
+- manhattan the ash building the three top floors was a sweatshop and a rag caught on fire and went
+- and he told in the letter he said he'd gotten a lot of the businesses in three rivers cited for fire code violations
+- house and walked across muddy clay fields in uh
+- you know at  at eleven years old she decided to give me a makeover but the result was something like if you put blue ah sh eyeshadow
+- to give me a makeover but the result was something like if you put blue ah sh eyeshadow and frosty pink lipstick on a cabbage
+- so cute you know and i mean she's like this like ten pounds of baby that i'm analyzing her skull and she goes
+- that their children are god's gift to the planet you know or
+- god's gift to the planet you know or sane people do sane people do
+- {cg} and that uh that was at lackland air force base in texas nineteen sixty
+- you parked your car you were on the sidewalk but to get into the restaurant you had to go through this concrete corridor
+- horiatiki is made of really good fresh tomatoes which in the eighties were in very short
+- be terrorists we don't know what's going on so we have to stop and check and i say well
+- it's like super cool and um i'm really excited so i'm in the van going to camp
+- be so you know it's how moms are but um it's this all girl's camp
+- start thinking of other reasons why they may want me to apply maybe they think i have a lot of money and i'll be a
+- i felt i can hear it i can feel it shaking and you know and i
+- and you know and i i have no idea what to do or or what's
+- this movement was about our lives
+- on saturday morning when reported for duty i got
+- that has you spending your days doing things like calculus and probability and statistics
+- so this one thanksgiving after dinner and a family fight at grandma's house um we were in the car and were
+- of pennsylvania that's where we met the researcher that got thomas's retinas
+- um we're gonna bring some flowers to put on thomas's grave and kalem
+- no well why did we have to get off stage at twelve thirty and then the promoter of the festival
+- not unlike falling in love for the first time such intense feelings can make you feel small
+- before not unlike falling in love for the first time such
+- and maybe i shouldn't have listened to that voice
+- i did not want igor to go into a german concentration camp and then
+- transformative when he told his story of his escape
+- was born uh or grew up during the height of the cold war uh in what was called
+
+# Example yes/no questions
+- Are celebrities or public figures mentioned?
+- Are military or law enforcement personnel mentioned?
+- Are traditional or cultural practices mentioned?
+- Does seniority or hierarchy influence a decision or action?
+- Does the input contain a number?
+- Does the input contain advice or recommendations?
+- Does the input contain emotional words?
+- Does the input contain negativity?
+- Does the input describe a body of water?
+- Does the input describe a form of local or community service?
+- Does the input describe a moment of cultural shock or adaptation?
+- Does the input describe a moment of realization or understanding?
+- Does the input describe a nighttime setting?
+- Does the input describe a scenic view or panorama?
+- Does the input describe a sensory experience?
+- Does the input describe a specific emotion in detail?
+- Does the input describe an animal?
+- Does the input describe an encounter with a stranger?
+- Does the input discuss a breakthrough in medical research?
+- Does the input discuss a collaboration or team effort?
+- Does the input discuss a fashion trend or style advice?
+- Does the input discuss a health-related issue or wellness?
+- Does the input discuss a moral or ethical dilemma?
+- Does the input discuss a personal achievement or milestone?
+- Does the input discuss a personal limitation or weakness?
+- Does the input discuss a philosophical or existential question?
+- Does the input discuss a technological or digital interaction?
+- Does the input discuss an act of kindness or charity?
+- Does the input discuss an environmental issue or conservation effort?
+- Does the input discuss educational content or learning?
+- Does the input discuss personal aspirations or goals?
+- Does the input discuss strategies for coping with or managing a problem?
+- Does the input express a political or social opinion?
+- Does the input express empathy or compassion?
+- Does the input express feelings of sadness?
+- Does the input express surprise or disbelief?
+- Does the input include a description of clothing?
+- Does the input include a mention of a specific food item or meal?
+- Does the input include a philosophical or reflective thought?
+- Does the input include an expression of disappointment?
+- Does the input include descriptions of historical events or periods?
+- Does the input include expressions of fear or anxiety?
+- Does the input involve a coding or programming concept?
+- Does the input involve a craft or handiwork project?
+- Does the input involve a cultural festival or event?
+- Does the input involve a depiction of a challenging or risky situation?
+- Does the input involve a description of a transportation method or travel experience?
+- Does the input involve a discussion about personal values or beliefs?
+- Does the input involve a discussion of a public or political issue?
+- Does the input involve a financial planning or investment strategy?
+- Does the input involve a financial transaction or discussion?
+- Does the input involve a game or recreational activity?
+- Does the input involve a legal matter or law enforcement?
+- Does the input involve a mention of a specific geographical feature like a mountain or river?
+- Does the input involve a philosophical question or theory?
+- Does the input involve a reference to a significant personal or social event?
+- Does the input involve a vehicle or mode of transportation?
+- Does the input involve an outdoor activity or adventure?
+- Does the input involve descriptions of a creative or artistic process?
+- Does the input involve descriptions of a natural disaster or extreme weather event?
+- Does the input involve descriptions of a physical action or activity?
+- Does the input involve descriptions of a specific urban or rural environment?
+- Does the input involve descriptions of an unusual or unexpected event?
+- Does the input involve descriptions of performing a specific task or activity?
+- Does the input involve descriptions of physical sensations or feelings?
+- Does the input involve discussions of legal matters or rights?
+- Does the input involve expressions of excitement or anticipation?
+- Does the input involve interactions with animals or pets?
+- Does the input involve planning or preparing for a future event?
+- Does the input mention a change in a relationship?
+- Does the input mention a cultural or societal norm?
+- Does the input mention a form of artistic expression?
+- Does the input mention a personal insecurity or doubt?
+- Does the input mention a political or social issue?
+- Does the input mention a social or community issue?
+- Does the input mention a specific event or festival?
+- Does the input mention laughter?
+- Does the input reference an event or phenomenon in nature?
+- Does the narrative involve a crisis or emergency situation?
+- Does the narrative involve a financial transaction or exchange?
+- Does the narrative involve a form of entertainment or leisure activity?
+- Does the narrative involve a specific task or duty being performed?
+- Does the narrative involve a specific type of health or fitness activity?
+- Does the narrative involve a specific type of personal care or hygiene activity?
+- Does the narrative involve an aspect of cultural or social identity?
+- Does the narrative involve an unusual or unexpected behavior (e.g., going naked)?
+- Does the sentence contain a contradiction?
+- Does the sentence contain a mention of a specific architectural style or element?
+- Does the sentence contain a mention of a specific event or occasion?
+- Does the sentence contain a mention of a specific plant or animal species?
+- Does the sentence contain a negation?
+- Does the sentence contain a pun?
+- Does the sentence contain a question?
+- Does the sentence contain a reference to a specific literary or artistic work?
+- Does the sentence contain a reference to weather or environmental conditions?
+- Does the sentence contain any mention of food or drink?
+- Does the sentence contain elements of the supernatural or fantastical?
+- Does the sentence contain humor or sarcasm?
+- Does the sentence convey a decision or choice made by the narrator?
+- Does the sentence convey the narrator's interaction with nature or the outdoors?
+- Does the sentence convey the narrator's sense of humor or wit?
+- Does the sentence describe a change in a relationship or social status?
+- Does the sentence describe a character in a story?
+- Does the sentence describe a common fear or phobia?
+- Does the sentence describe a creative or artistic activity?
+- Does the sentence describe a desire to explore or learn from books?
+- Does the sentence describe a dream or fantasy?
+- Does the sentence describe a fictional scenario?
+- Does the sentence describe a first encounter or noticing someone?
+- Does the sentence describe a gift or an act of giving?
+- Does the sentence describe a hypothetical scenario?
+- Does the sentence describe a landscape or natural feature?
+- Does the sentence describe a lesson learned or insight gained by the narrator?
+- Does the sentence describe a moment of companionship or solitude?
+- Does the sentence describe a moment of introspection or self-reflection?
+- Does the sentence describe a moment of surprise or unexpected event?
+- Does the sentence describe a particular atmospheric or weather condition?
+- Does the sentence describe a personal challenge or difficulty?
+- Does the sentence describe a personal preference?
+- Does the sentence describe a physical appearance or feature?
+- Does the sentence describe a physical sensation?
+- Does the sentence describe a recreational or leisure activity?
+- Does the sentence describe a relationship between people?
+- Does the sentence describe a routine or daily activity?
+- Does the sentence describe a scientific experiment or finding?
+- Does the sentence describe a significant personal decision or choice?
+- Does the sentence describe a specific environmental setting or scene?
+- Does the sentence describe a specific sensory detail such as a sound or smell?
+- Does the sentence describe a travel experience?
+- Does the sentence describe an act of care or nurturing?
+- Does the sentence describe an act of conflict resolution or peacemaking?
+- Does the sentence describe an act of physical or emotional support?
+- Does the sentence describe an action being done to someone?
+- Does the sentence describe an art or craft technique?
+- Does the sentence describe an attempt to solve a problem or resolve a situation?
+- Does the sentence describe an educational or learning experience?
+- Does the sentence describe an emotional reaction to an artistic or cultural work?
+- Does the sentence describe an ethical dilemma?
+- Does the sentence describe an experience of conflict or confrontation?
+- Does the sentence describe an instance of caregiving or parental responsibility?
+- Does the sentence describe an outdoor or adventurous activity?
+- Does the sentence describe family dynamics or home life?
+- Does the sentence describe forming new relationships or friendships?
+- Does the sentence describe navigating through a specific space or location?
+- Does the sentence describe practicing or learning a new skill?
+- Does the sentence describe someone as being approachable or sociable?
+- Does the sentence describe weather conditions?
+- Does the sentence discuss a form of physical activity or sport?
+- Does the sentence discuss a personal or emotional struggle?
+- Does the sentence discuss a social issue or a cause (e.g., adoption, self-sacrifice)?
+- Does the sentence discuss aspects of a close relationship?
+- Does the sentence discuss feelings of physical discomfort or sensations (e.g., feeling hot)?
+- Does the sentence express a generally positive or happy sentiment?
+- Does the sentence express a moment of forgiveness, either giving or receiving?
+- Does the sentence express a personal preference or desire?
+- Does the sentence express a sense of belonging or connection to a place or community?
+- Does the sentence express confidence or certainty?
+- Does the sentence express fear or anxiety?
+- Does the sentence express gratitude or appreciation for something or someone?
+- Does the sentence express longing or nostalgia?
+- Does the sentence express the narrator's attachment or detachment from material possessions?
+- Does the sentence include a comparison or simile?
+- Does the sentence include a cultural reference or idiom?
+- Does the sentence include a description of a specific physical activity?
+- Does the sentence include a foreign word or phrase?
+- Does the sentence include a mention of a specific object or item with sentimental value?
+- Does the sentence include a mention of technology?
+- Does the sentence include a metaphorical or symbolic element?
+- Does the sentence include a reference to a specific time period or era?
+- Does the sentence include a rhetorical question?
+- Does the sentence include a threat or warning?
+- Does the sentence include an idiom?
+- Does the sentence include details about a specific personal relationship?
+- Does the sentence include dialogue?
+- Does the sentence include numerical information?
+- Does the sentence involve a change in a personal relationship?
+- Does the sentence involve a conflict or disagreement?
+- Does the sentence involve a creative or recreational activity (e.g., playing, joking)?
+- Does the sentence involve a description of a personal or emotional challenge?
+- Does the sentence involve a discussion about a specific form of communication?
+- Does the sentence involve a discussion about personal or societal values?
+- Does the sentence involve a financial transaction or mention of money?
+- Does the sentence involve a gift or offering?
+- Does the sentence involve a health or wellness practice?
+- Does the sentence involve a legal or judicial aspect?
+- Does the sentence involve a mention of a community or social gathering?
+- Does the sentence involve a mention of a fictional character or scenario?
+- Does the sentence involve a mention of a health professional or medical advice?
+- Does the sentence involve a mention of a specific cultural or societal norm?
+- Does the sentence involve a mention of a specific type of professional or expert?
+- Does the sentence involve a mention of food or dietary considerations?
+- Does the sentence involve a mistake or error being made?
+- Does the sentence involve a negotiation or compromise?
+- Does the sentence involve a personal confession or admission?
+- Does the sentence involve a personal reflection or insight?
+- Does the sentence involve a physical or emotional challenge?
+- Does the sentence involve a plan or strategy being developed?
+- Does the sentence involve a realization or sudden understanding?
+- Does the sentence involve a reference to a specific type of clothing or accessory?
+- Does the sentence involve a significant life event (e.g., pregnancy, death)?
+- Does the sentence involve a social interaction?
+- Does the sentence involve a specific action taken to overcome a fear or challenge?
+- Does the sentence involve a specific form of communication or language use?
+- Does the sentence involve a specific mental or cognitive process?
+- Does the sentence involve a specific type of technology or device?
+- Does the sentence involve a technological or scientific concept?
+- Does the sentence involve a work or professional setting?
+- Does the sentence involve an act of commemoration or remembrance?
+- Does the sentence involve an act of creativity or invention?
+- Does the sentence involve an act of teaching or sharing knowledge?
+- Does the sentence involve an aspect of personal growth or development?
+- Does the sentence involve an aspect of personal security or safety?
+- Does the sentence involve an element of risk or danger?
+- Does the sentence involve an exploration or adventure?
+- Does the sentence involve an expression of personal identity or values?
+- Does the sentence involve an introduction or explaining one's identity to someone?
+- Does the sentence involve collecting or writing down information?
+- Does the sentence involve family members?
+- Does the sentence involve geographical movement between cities or countries?
+- Does the sentence involve making a choice or decision?
+- Does the sentence involve moral reasoning?
+- Does the sentence involve planning or preparation (e.g., overpacking, looking at blueprints)?
+- Does the sentence involve planning or preparation for an event?
+- Does the sentence involve receiving or giving advice?
+- Does the sentence involve support or needing support from others?
+- Does the sentence involve the use of a specific tool or device?
+- Does the sentence involve time travel or hypothetical future scenarios?
+- Does the sentence involve travel to a different country or state?
+- Does the sentence mention a mode of transportation?
+- Does the sentence mention a significant life change?
+- Does the sentence mention a specific form of communication or language?
+- Does the sentence mention a specific technological device or platform?
+- Does the sentence mention a unique or unusual experience?
+- Does the sentence mention political or ideological beliefs?
+- Does the sentence recount a detailed personal experience in a specific city or place?
+- Does the sentence refer to a specific cultural or religious belief?
+- Does the sentence reference a financial aspect or consideration?
+- Does the sentence reference a mental health condition (e.g., bipolar disorder, need for therapy)?
+- Does the sentence reference a specific form of communication or interaction (e.g., calling, sending messages)?
+- Does the sentence reference a specific time of day?
+- Does the sentence reference historical events?
+- Does the sentence reflect on personal history or life decisions?
+- Does the sentence require inferential reasoning to understand?
+- Does the sentence revolve around a family event or gathering?
+- Does the sentence use a common cliché?
+- Does the sentence use alliteration or rhyme?
+- Does the sentence use future tense?
+- Does the sentence use metaphor to describe emotions?
+- Does the sentence use past tense?
+- Does the story describe a ceremony or ritual?
+- Does the story describe a shopping experience?
+- Does the story include a lesson or moral?
+- Does the story include an act of bravery or courage?
+- Does the story involve a form of meditation or mindfulness?
+- Does the story involve a personal project or creation?
+- Does the story involve a retreat or getaway?
+- Does the story involve planning or preparing for an event?
+- Does the story mention a craft or DIY project?
+- Does the story mention a form of entertainment?
+- Does the story mention a health issue or injury?
+- Does the story mention an invention or discovery?
+- Does the story talk about a loss or letting go?
+- Does the story talk about a personal challenge?
+- Does the story talk about a vacation or travel experience?
+- Does the text describe a form of therapy or healing?
+- Does the text describe a hobby in detail?
+- Does the text describe a mode of communication?
+- Does the text describe a personal space or room?
+- Does the text describe an adventure or risky activity?
+- Does the text include a prediction or expectation?
+- Does the text include a reference to a past era or time period?
+- Does the text include a reflection on past events?
+- Does the text involve a financial challenge or setback?
+- Does the text involve a financial transaction?
+- Does the text involve a personal challenge or goal being achieved?
+- Does the text mention a celebrity or public figure?
+- Does the text mention a form of alternative transportation?
+- Does the text mention a form of manual labor or craft?
+- Does the text mention a piece of advice?
+- Does the text talk about a hobby or pastime?
+- Is a conflict or problem introduced?
+- Is a cultural event or festival mentioned?
+- Is a cultural practice or tradition mentioned?
+- Is a famous quote or saying referenced?
+- Is a form of leisure or relaxation described?
+- Is a form of self-improvement or personal development mentioned?
+- Is a health condition or disease mentioned?
+- Is a health or fitness routine described?
+- Is a historic landmark or monument described?
+- Is a historical figure or leader mentioned?
+- Is a holiday or celebration referenced in the input?
+- Is a legal or ethical dilemma discussed?
+- Is a meal being prepared or cooked?
+- Is a moment of solitude or reflection described?
+- Is a mythical or legendary story referenced?
+- Is a new technological advancement discussed?
+- Is a personal goal or objective mentioned?
+- Is a personal or family recipe mentioned?
+- Is a personal preference or taste described?
+- Is a piece of technology described?
+- Is a religious or spiritual practice mentioned?
+- Is a seasonal holiday or event described?
+- Is a significant life event mentioned?
+- Is a social gathering or event described?
+- Is a specific body part mentioned?
+- Is a specific color or pattern described?
+- Is a specific form of literature or writing style mentioned?
+- Is a specific health or safety measure mentioned?
+- Is a specific historical figure or leader mentioned?
+- Is a specific holiday or festive occasion mentioned?
+- Is a specific location described?
+- Is a specific military base or location mentioned?
+- Is a specific past event or memory mentioned?
+- Is a specific piece of technology or gadget mentioned?
+- Is a specific professional or job role mentioned?
+- Is a specific scientific concept or theory mentioned?
+- Is a specific season described?
+- Is a specific tool or equipment mentioned?
+- Is a specific type of food or cuisine discussed?
+- Is a sport or physical activity mentioned in the input?
+- Is a supernatural or paranormal event discussed?
+- Is an apology or expression of regret included?
+- Is an educational lesson or class described?
+- Is an outdoor activity mentioned?
+- Is anticipation for a game or event described?
+- Is cooking or a recipe discussed in the input?
+- Is derogatory language or insults used?
+- Is gratitude or appreciation for a situation expressed?
+- Is law enforcement or military mentioned or implied?
+- Is personal or private life details being shared?
+- Is someone running in the input text?
+- Is the concept of privacy or personal space discussed?
+- Is the concept of time or timing important to the narrative?
+- Is the focus on a personal achievement or a proud moment?
+- Is the focus on a specific form of social interaction or relationship dynamics?
+- Is the focus on a specific type of event or occasion (e.g., birthday)?
+- Is the input about a misunderstanding or assumption?
+- Is the input about a practical joke or prank?
+- Is the input about a scientific discovery or concept?
+- Is the input about an interaction with technology?
+- Is the input expressing a wish or desire?
+- Is the input focused on an emotional or psychological state?
+- Is the input reflecting on a personal change or growth?
+- Is the input related to food preparation?
+- Is the narrative focused on a personal challenge or adversity?
+- Is the sentence a command?
+- Is the sentence a well-known quote or saying?
+- Is the sentence about a game or leisure activity?
+- Is the sentence about making a choice or decision?
+- Is the sentence abstract rather than concrete?
+- Is the sentence conveying a change in the narrator's emotional state?
+- Is the sentence conveying a sense of loneliness or isolation?
+- Is the sentence conveying the narrator's admiration or respect for another character?
+- Is the sentence describing a craft or DIY project?
+- Is the sentence describing a moment of peace or contentment?
+- Is the sentence describing a moment of vulnerability or weakness?
+- Is the sentence describing a ritual or routine important to the narrator?
+- Is the sentence describing a significant change in the narrator's environment or circumstances?
+- Is the sentence describing an immediate reaction to an event or action?
+- Is the sentence emotionally negative?
+- Is the sentence emotionally positive?
+- Is the sentence expressing admiration or praise?
+- Is the sentence expressing skepticism or disbelief towards something or someone?
+- Is the sentence expressing the narrator's response to art or music?
+- Is the sentence focused on a personal decision or choice?
+- Is the sentence grammatically complex?
+- Is the sentence highlighting a cultural or societal norm that impacts the narrator?
+- Is the sentence humorous?
+- Is the sentence in the passive voice?
+- Is the sentence intended to evoke nostalgia?
+- Is the sentence involving a risk or dare?
+- Is the sentence part of a dialogue?
+- Is the sentence part of a mystery or puzzle?
+- Is the sentence part of a poem or song?
+- Is the sentence providing an explanation or rationale?
+- Is the sentence reflective, involving self-analysis or introspection?
+- Is the sentence related to environmental issues?
+- Is the sentence related to food or eating?
+- Is the sentence related to politics or government?
+- Is the sentence repetitive or redundant?
+- Is there a clear expression of happiness or contentment?
+- Is there a depiction of a dream or nightmare?
+- Is there a depiction of a public speaking or performance event?
+- Is there a depiction of a routine or habit?
+- Is there a description of a casual or informal social interaction?
+- Is there a description of a daily routine or regular activity?
+- Is there a description of a landscape or natural scene?
+- Is there a description of a meal?
+- Is there a description of a physical or emotional challenge faced by the narrator?
+- Is there a description of a specific animal behavior or trait?
+- Is there a description of a technological device or app?
+- Is there a description of a workplace or professional setting?
+- Is there a description of an emotional or sentimental moment?
+- Is there a description of emotional or physical discomfort?
+- Is there a discovery or realization mentioned?
+- Is there a discussion about a specific cultural practice or tradition?
+- Is there a discussion about cultural differences or diversity?
+- Is there a discussion about managing or resolving a personal or professional conflict?
+- Is there a discussion about sleep, dreams, or rest?
+- Is there a discussion about the role of technology in daily life?
+- Is there a discussion of a legal or ethical concern?
+- Is there a discussion of a new skill or hobby being learned?
+- Is there a discussion of a philosophical or moral question?
+- Is there a discussion of a significant life decision or choice?
+- Is there a discussion of a specific form of entertainment or media?
+- Is there a discussion of a specific political or social issue?
+- Is there a discussion of personal independence or autonomy?
+- Is there a focus on a personal or family tradition?
+- Is there a focus on a specific type of landscape or natural feature?
+- Is there a focus on emotional support or empathy?
+- Is there a mention of a book, movie, or song?
+- Is there a mention of a change in health or physical condition?
+- Is there a mention of a competition or contest?
+- Is there a mention of a family heirloom or artifact?
+- Is there a mention of a fictional character or story?
+- Is there a mention of a future plan or intention?
+- Is there a mention of a game or sport?
+- Is there a mention of a gift or present?
+- Is there a mention of a hobby or interest?
+- Is there a mention of a hobby or personal interest?
+- Is there a mention of a mental health condition or emotional state?
+- Is there a mention of a natural disaster?
+- Is there a mention of a personal achievement or milestone?
+- Is there a mention of a personal habit or routine?
+- Is there a mention of a personal or familial tradition?
+- Is there a mention of a personal or psychological insight?
+- Is there a mention of a physical activity or sport?
+- Is there a mention of a physical object or item?
+- Is there a mention of a place of worship or religious practice?
+- Is there a mention of a routine or habitual activity?
+- Is there a mention of a scientific or medical procedure?
+- Is there a mention of a significant natural or man-made structure?
+- Is there a mention of a significant weather event?
+- Is there a mention of a space or astronomical phenomenon?
+- Is there a mention of a specific age or life stage?
+- Is there a mention of a specific behavior or mannerism?
+- Is there a mention of a specific building or structure?
+- Is there a mention of a specific cultural or community tradition?
+- Is there a mention of a specific dietary habit or preference?
+- Is there a mention of a specific emotion or mental state?
+- Is there a mention of a specific emotional state (e.g., feeling creepy, envious, unsettled)?
+- Is there a mention of a specific event or experience involving children?
+- Is there a mention of a specific feeling of discomfort or distress?
+- Is there a mention of a specific food or drink?
+- Is there a mention of a specific form of entertainment or leisure activity?
+- Is there a mention of a specific geographical location or setting?
+- Is there a mention of a specific health treatment or procedure?
+- Is there a mention of a specific leisure activity or pastime?
+- Is there a mention of a specific location that is important to the narrator?
+- Is there a mention of a specific musical or artistic genre?
+- Is there a mention of a specific personal or family tradition?
+- Is there a mention of a specific piece of clothing or accessory?
+- Is there a mention of a specific profession or occupational activity?
+- Is there a mention of a specific public figure or celebrity?
+- Is there a mention of a specific time of day or atmospheric condition (e.g., morning, quiet streets)?
+- Is there a mention of a specific tool or equipment used in a professional or hobbyist context?
+- Is there a mention of a specific type of animal or wildlife?
+- Is there a mention of a specific type of clothing or personal attire?
+- Is there a mention of a specific type of establishment (e.g., strip mall, cafe)?
+- Is there a mention of a specific type of music or musical event?
+- Is there a mention of a specific type of personal care or hygiene activity?
+- Is there a mention of a specific type of sport or physical activity?
+- Is there a mention of a specific type of weather or climate condition?
+- Is there a mention of a transportation mode or travel experience?
+- Is there a mention of an educational setting or learning environment (e.g., school house, class)?
+- Is there a mention of familial relationships or dynamics?
+- Is there a mention of performing a specific task or duty?
+- Is there a mention of reading or writing?
+- Is there a mention of stopping or waiting at an intersection?
+- Is there a physical action or movement described?
+- Is there a recommendation or endorsement of a book?
+- Is there a reference to a cultural tradition or practice?
+- Is there a reference to a dream or aspiration?
+- Is there a reference to a famous work of literature or author?
+- Is there a reference to a life-changing decision or moment?
+- Is there a reference to a past event?
+- Is there a reference to a personal or family health issue?
+- Is there a reference to a philosophical or ethical dilemma?
+- Is there a reference to a physical or mental health treatment?
+- Is there a reference to a religious or spiritual practice?
+- Is there a reference to a social media trend or online phenomenon?
+- Is there a reference to a specific artistic style or influence?
+- Is there a reference to a specific cultural or religious belief?
+- Is there a reference to a specific cultural or social identity?
+- Is there a reference to a specific date or historical event?
+- Is there a reference to a specific form of literature or artistic expression?
+- Is there a reference to a specific geographic feature or natural phenomenon?
+- Is there a reference to a specific historical period or era?
+- Is there a reference to a specific leisure or entertainment device?
+- Is there a reference to a specific medical condition or diagnosis?
+- Is there a reference to a specific physical location or landmark?
+- Is there a reference to a specific professional field or discipline?
+- Is there a reference to a specific scientific concept or discovery?
+- Is there a reference to a specific scientific or technological invention?
+- Is there a reference to a specific social or political issue?
+- Is there a reference to a specific type of artistic or creative work?
+- Is there a reference to a specific type of document or written material (e.g., program, New Yorker article)?
+- Is there a reference to an act of learning from a mistake?
+- Is there a reference to an educational setting or activity?
+- Is there a reference to music, either listening or playing?
+- Is there a reference to space, astronomy, or the universe?
+- Is there a sense of loss or grief expressed?
+- Is there a sudden shift in the atmosphere or mood mentioned?
+- Is there an animal mentioned explicitly or implied (e.g., dragon)?
+- Is there an element of surprise or being caught off guard?
+- Is there an expression of dissatisfaction with personal circumstances?
+- Is there an expression of frustration or annoyance?
+- Is there an expression of love or affection?
+- Is there an expression of pride or self-esteem?
+- Is there an expression of surprise or unexpected outcome?
+- Is there an impending legal or judicial event mentioned?
+- Is there any mention of a family member?
+- Is there impatience or urgency expressed by characters?
+- Is there mention of a city, country, or geographic feature?
+- Is there mention of a family or personal relationship?
+- Is there mention of a natural or geographical feature?
+- Is there mention of a personal crisis or emergency?
+- Is there mention of a personal or family relationship?
+- Is there mention of a public service or community project?
+- Is there mention of a significant historical or societal change?
+- Is there mention of a specific body part or physical attribute?
+- Is there mention of a specific cultural artifact or symbol?
+- Is there mention of a specific form of art or craftsmanship?
+- Is there mention of a specific hobby or pastime?
+- Is there mention of a specific sport or sports-related activity?
+- Is there mention of a unique or unusual hobby?
+- Is there mention of acquiring a service animal?
+- Is there mention of operating machinery or vehicles?
+- Is there mention of technology or innovation?
+- Is there stuttering or uncertainty in the input?
+
+Generate a bulleted list of 100 specific, non-overlapping yes/no questions that ask about aspects of the example narrative sentences that are important for classifying them.
+Focus on the given sentences and form questions that combine shared properties from multiple sentences above.
+Do not repeat information in the example questions that are already given above.
+Return only a bulleted list of questions and nothing else.'''
+
+ANS_BOOST_6 = '''- Does the input involve a specific historical time period or event?
+- Is a specific mental health condition or treatment mentioned?
+- Does the input involve a specific animal and its traits or behavior?
+- Does the input mention a specific geographical location or travel?
+- Is a specific cultural or religious practice or event mentioned?
+- Does the input describe a personal or emotional challenge?
+- Is a specific health-related issue or medical treatment discussed?
+- Does the input describe a significant life event or decision?
+- Does the input involve a description of a personal or family relationship?
+- Does the input discuss a specific professional or job role?
+- Is a specific form of art or artistic expression mentioned?
+- Does the input involve a financial aspect or transaction?
+- Does the input discuss a legal matter or law enforcement?
+- Is there mention of a specific educational or learning experience?
+- Does the input involve a personal project or creative activity?
+- Does the input discuss a social or community issue?
+- Is a specific piece of technology or gadget mentioned?
+- Does the input involve a discussion about personal values or beliefs?
+- Does the input describe a specific type of entertainment or leisure activity?
+- Is there a description of a physical sensation or feeling?
+- Does the input involve a moment of realization or insight?
+- Does the input involve a specific environmental setting or scene?
+- Is a specific type of food or cuisine discussed?
+- Does the input involve planning or preparing for a future event?
+- Is a specific social or political issue discussed?
+- Does the input involve a discussion about personal or societal values?
+- Does the input mention a specific type of professional or expert?
+- Does the input involve a significant personal or social event?
+- Does the input describe navigating through a specific space or location?
+- Is there mention of a specific body part or physical attribute?
+- Does the input involve a description of a personal or emotional challenge?
+- Does the input discuss a breakthrough in medical research?
+- Does the input involve an outdoor activity or adventure?
+- Is a specific cultural or societal norm mentioned?
+- Does the input involve expressions of fear or anxiety?
+- Is there a mention of a specific architectural style or element?
+- Does the input discuss an environmental issue or conservation effort?
+- Is there a discussion of a new skill or hobby being learned?
+- Does the input involve a discussion of a public or political issue?
+- Is there a description of a daily routine or regular activity?
+- Does the input describe a physical action or activity?
+- Is there a description of an emotional or sentimental moment?
+- Does the input involve a description of a transportation method or travel experience?
+- Is a specific form of literature or writing style mentioned?
+- Does the input involve a description of a challenging or risky situation?
+- Does the input describe a personal preference?
+- Is there mention of a significant life change?
+- Does the input involve a mention of a community or social gathering?
+- Does the input involve a mention of a health professional or medical advice?
+- Is a specific historical figure or leader mentioned?
+- Does the input involve a game or recreational activity?
+- Is a specific scientific concept or theory mentioned?
+- Is there a mention of a specific form of entertainment?
+- Does the input discuss a form of physical activity or sport?
+- Does the input mention a mode of transportation?
+- Does the input discuss a moral or ethical dilemma?
+- Does the input express a political or social opinion?
+- Does the input involve an exploration or adventure?
+- Is there a discussion of a philosophical or moral question?
+- Does the input describe a moment of companionship or solitude?
+- Does the input discuss educational content or learning?
+- Does the input involve a philosophical question or theory?
+- Does the input involve descriptions of performing a specific task or activity?
+- Does the input discuss a personal achievement or milestone?
+- Does the input involve a depiction of a challenging or risky situation?
+- Does the input involve descriptions of a specific urban or rural environment?
+- Is there a mention of a specific geographical feature like a mountain or river?
+- Does the input involve a discussion about personal aspirations or goals?
+- Does the input involve descriptions of an unusual or unexpected event?
+- Does the input involve descriptions of a natural disaster or extreme weather event?
+- Does the input involve planning or preparing for an event?
+- Does the input involve a mention of a specific leisure activity or pastime?
+- Does the input involve a financial planning or investment strategy?
+- Is a specific military base or location mentioned?
+- Is there a mention of a specific type of clothing or personal attire?
+- Does the input involve discussions of legal matters or rights?
+- Does the input discuss strategies for coping with or managing a problem?
+- Does the input involve a cultural festival or event?
+- Is there a discussion about a specific cultural practice or tradition?
+- Is there a mention of a specific type of music or musical event?
+- Does the input involve a mention of a specific cultural or societal norm?
+- Does the input involve a financial transaction or discussion?
+- Does the input involve a legal matter or law enforcement?
+- Is there a mention of a significant natural or man-made structure?
+- Does the input involve a specific mental or cognitive process?
+- Does the input involve a specific type of technology or device?
+- Is there a discussion of a specific political or social issue?
+- Does the input involve a specific form of communication or language use?
+- Is there a mention of a specific dietary habit or preference?
+- Does the input involve an act of creativity or invention?
+- Does the input involve an element of risk or danger?'''
+
+PROMPT_BOOST_6 = '''# Example narrative sentences
+- i am not possessed of that classic dancer's body that makes us all wonder
+- and i don't think he meant it to be hurtful first dates can be awkward they're basically
+- was more surprised than offended and i don't think he meant it to be hurtful first dates
+- authentic occupations from the eighteen forties so okay so great there are farmers and there are gold miners
+- my mother is now probably making sure everyone she shares the afterlife
+- my mother is now probably making
+- taught me that love would see you through any misfortune my trouble began
+- uh he rolled up and there was this cloud of dust and he was standing there like the tasmanian devil
+- east through the desert through an area called fonts point which is like a canyon that was an
+- people we had you know all the diagnostic criteria we had the neurovegetative symptoms we had
+- off guard but when he got two feet away i lifted my can
+- him wheeze and sneeze and as i was doing that something karate chopped my right
+- everyone just wants to see that ancient red rock they wanna see that desert city i mean there are songs
+- we have a very tight relationship we've always had this bond this complicity this silent
+- these directions are like is my mother is my brother and my family in brooklyn
+- and he just kept repeating this and it was all of a sudden i started feeling things i started feeling hot
+- waiting for me from my adult female open minded easy going down
+- no he'll he'll he'll write to him only he wanted me to tell him what to write
+- of us or older older than your grandparents some of them
+- and so i sat there and wept for a minute and gave thanks as i was really
+- with kids it's just this activity and energy i loved it
+- i'm wrong i'm gonna be back in the bleachers like before my first game you know and and lose my dream job so
+- at no point did it cost me five thousand dollars
+- lesbian to that list and i'm also thinking this conversation
+- doing and the pastor interrupted to say that all five points needed to start with the same letter
+- so i shut the door i call out to my wife i said hey babe
+- i'm cool like time to go so they load us on a van
+- uh to this day you know i still think that he died on purpose just to avoid having to look me in
+- up in this closet i'd be like lose a shirt and i'd be like mom have you seen my shirt oh well did you check
+- what i was so worried about losing in the house but now they're my responsibility and before i knew it my whole
+- i was dating or anything personal going on in my life and my last breakup
+- you are a gay speechwriter writing speeches for people who do not support gay marriage
+- speech writer and the question is what happens when you disagree with the speeches
+- they're they begin to have their own suspicions and in fact at that period
+- one of the guys looks and he notices me for the first time sitting in the car and he points
+- each each other um increasingly we would go to these parties and we wouldn't even really interface with his friends we would just find some little
+- and i take the image of him in the color of his hair
+- in other words a a lack of making the effort necessary to
+- obviously cannot handle reading dante's inferno right now but lacking
+- want mothers to throw balls at children's heads but we especially don't want mothers to want to throw a second ball
+- the last two years we had been we had been soaking up japan we had been soaking up the culture the food
+- of the two pacific war veterans i told wesley that i was glad he was reading this book because
+- i'm gonna teach you how to play football alright but football is a man's game it's not a momma's boy's game {cg} alright
+- of the water i am also afraid of heights
+- stephanie starts marching in place she gets a little tug from the boat takes about a step and off she goes like peter pan
+- with this goal is simple i am rarely comfortable or confident in new situations
+- and i felt like i had abandoned him because even while he was being strapped to the gurney he wouldn't have known
+- but he could face another execution date in a matter of days
+- that you know comprise this community that i thought of as home right and
+- girl doing here and my aunt uh
+- towards the ceiling we heard this noise coming nearer and nearer
+- but it works president obama bobs his head in time to the music and betty white gets her card and
+- an evangelical christian i grew up as far away from that as possible my parents were uh dyed in the wool liberals
+- much more foreign than like tokyo or rio or or places like that and this was also coincidentally the
+- being outside in the sun like what you're describing which is after all where you begin to feel better there was no music
+- with babies until i got a phone call about our boy's baby sister
+- got a phone call about our boy's baby sister and could we come get her
+- i did spend time with my father going around the pubs and restaurants of windsor my dad had been a a pub
+- leaning into the rock that's not good when you're rock climbing especially hundreds of feet up and he looked down
+- as i could twenty thirty seconds and i just fell to the side somebody took my place
+- my avatar now mary ellen mark said that the person she was photographing did
+- there was like a complete silence
+- s so i went into like i ate the first tofu it went directly in my mouth perfectly
+- i know what i do i do the camp thing i do what's at camp and i don't know if you know this but there are a lot
+- friction deanna and i did plenty of talking we could stay up all night and not
+- superhero in trying to plot a clean escape i was
+- the first time i see german people the neighborhood kids used to beat me up for looking like a german
+- name i remember how it felt when she spoke up for me because on that day she
+- popular and cool michelle siever had sway and the room was quiet
+- is more than that it's about keeping promises and about self sacrifice
+- came to to to to salisbury to give a concert an independence
+- but it also had to start reevaluating our history and for some of the teachers i think
+- time i'm gonna fly this thing i got my own set of controls he has his own set of controls we
+- that i just always remember being fascinated by he was also a bipolar and if
+- about his fingers and his hands that i just always remember being fascinated by he was also
+- uh on top of that my my wife got pregnant at the time and i realized as that
+- for a blind person and i did i saved up and we got a guide dog and
+- that i was saving up for a guide dog for a blind person and i did i saved
+- that was the the soundtrack to the bachelor years and
+- job well from that point forward i started taking college classes at night
+- that water was starting to well up in her eyes and i said mama what's wrong
+- jenny explained that she had recently broke up with her boyfriend of a few years we both knew we needed to take it
+- men to go and i remember thinking don't go with the men to sam i did not
+- but he asked jerry all the things he wanted to ask um my i guess and couldn't like
+- handshake she complimented the mussels which a friend of mine had grown off the coast
+- where like uh i don't know he was always in a bad mood like if he tried to like teach you something he'd say it once
+- after me building this guy up the whole ride back he's like fucking like you know that dude from leave it to beaver
+- an attractive woman and that's where pamela came in
+- how's it fucking feel down there bitch with no one writing about you in the new yorker
+- hate her i wanna hate her what can i find out to make her hateable and she was like well have you tried googling her
+- i didn't even miss him he texted me twice and i never replied and then he called and
+- that fatima zohra escort me to the town's ramshackle internet cafe so i could check my e-mail
+- amel i insisted that fatima zohra escort me to the town's ramshackle internet
+- the three top floors was a sweatshop and a rag caught on fire and went through the whole shop and
+- and that was uh southeast poland and
+- we um we were happy we kept all the time in touch with the family
+- topless song so i went to the special topless part of the stage and the song started and um
+- so they're gonna cut her head open and he's like and i will remove the forehead and i will break it and reshape it and
+- pounds of baby that i'm analyzing her skull and she goes what happened with ivy is the right side
+- um so slow
+- and we pull up to the emergency room {cg} and that uh that was at lackland air force
+- and uh the doctor's like well we're just uh you know gotta shave a little bit there and then we gotta stitch him up
+- but to get into the restaurant you had to go through this concrete corridor that sort of dumped out
+- like aryan nation started putting out lists of rappers they thought should be
+- to get out of a car with your hands up
+- so it's you know like pro women and it's like super cool and um i'm really excited so
+- or my drawing it actually holds its own i have drawn a naked man
+- and part of the reason is i'm not supposed to excel beyond men definitely not beyond my husband
+- i would just sit and enjoy the peace but i wasn't very happy because i kept thinking about my family
+- to make you laugh and so they took her to five oh one and we're
+- restaurant in our neighborhood that we used to go to almost every day after school but
+- it's this really amazing course that has you spending your days doing
+- and now it's time for our for real punishment which was that we for the rest of vacation
+- that we for the rest of vacation had to stay on the beach because we did not have any respect for the water
+- at harvard medical school and i stood in his doorway she um explained who i was and
+- and he said no so i said okay fine i'll stay here um then
+- or eighty thousand people there and i'm headlining that night it's a friday night so i'm the last act in
+- love for the first time such intense feelings can make you feel small in their grasp or
+- and i decided i would jump i thought it would be simple quick
+- in halls and hearing my sink gurgle and strange
+- german concentration camp and then one day
+- during the height of the cold war uh in what was called uh the duck and cover years
+- all our dogs our dog sleds our gear into a small bering airplane
+
+# Example yes/no questions
+- Are emotions or reactions to a situation described?
+- Are physical characteristics or attributes of a person detailed?
+- Does it mention a relationship or social interaction?
+- Does the input contain a measurement?
+- Does the input contain a question?
+- Does the input contain an expression of anger?
+- Does the input contain humor or sarcasm?
+- Does the input contain repetition?
+- Does the input describe a conflict or disagreement between individuals?
+- Does the input describe a journey or a trip?
+- Does the input describe a moment of realization or epiphany?
+- Does the input describe a moment of teamwork or collaboration?
+- Does the input describe a problem or challenge?
+- Does the input describe a scientific experiment or discovery?
+- Does the input describe a social or interpersonal conflict?
+- Does the input describe a specific texture or sensation?
+- Does the input describe an emotional support or comfort?
+- Does the input describe an old habit or something the narrator wishes to change?
+- Does the input discuss a business or entrepreneurial venture?
+- Does the input discuss a craft or DIY project?
+- Does the input discuss a health issue or concern?
+- Does the input discuss a medical treatment or procedure?
+- Does the input discuss a natural disaster or emergency situation?
+- Does the input discuss a personal goal or aspiration?
+- Does the input discuss a personal or social dilemma?
+- Does the input discuss a societal issue or social justice topic?
+- Does the input discuss a technology trend or future prediction?
+- Does the input discuss an aspect of a financial or economic situation?
+- Does the input discuss aspects of personal security or safety?
+- Does the input discuss environmental concerns or issues?
+- Does the input discuss personal or emotional struggles?
+- Does the input discuss travel or exploration?
+- Does the input express disappointment or dissatisfaction?
+- Does the input express feelings of jealousy or envy?
+- Does the input express gratitude?
+- Does the input include a comparison or metaphor?
+- Does the input include a mention of a personal idol or hero?
+- Does the input include a moment of self-discovery?
+- Does the input include a reference to a book or movie?
+- Does the input include descriptions of a celebratory or festive event?
+- Does the input include dialogue between characters?
+- Does the input involve a character expressing a strong emotional response?
+- Does the input involve a comparison of before and after?
+- Does the input involve a critique or review of something?
+- Does the input involve a debate or controversial topic?
+- Does the input involve a description of a specific art form or artistic activity?
+- Does the input involve a dialogue or conversation?
+- Does the input involve a discussion of a craft or construction activity?
+- Does the input involve a discussion or mention of personal hobbies or interests?
+- Does the input involve a financial topic or economic concept?
+- Does the input involve a fitness routine or exercise?
+- Does the input involve a historical event?
+- Does the input involve a mention of a natural setting or environment?
+- Does the input involve a narrative of personal growth or change?
+- Does the input involve a puzzle or problem to solve?
+- Does the input involve a scientific experiment or research study?
+- Does the input involve an expression of regret or disappointment?
+- Does the input involve animals or wildlife?
+- Does the input involve descriptions of a learning or teaching experience?
+- Does the input involve descriptions of a personal or intimate relationship?
+- Does the input involve descriptions of a physical or mental health condition?
+- Does the input involve descriptions of an environmental or ecological issue?
+- Does the input involve descriptions of daily routines or common activities?
+- Does the input involve descriptions of personal reflections or thoughts?
+- Does the input involve discussions of future plans or aspirations?
+- Does the input involve discussions of loyalty or trust within a relationship?
+- Does the input involve gardening or plant care?
+- Does the input involve planning or organizing?
+- Does the input involve the creation or invention of something?
+- Does the input mention a construction or building?
+- Does the input mention a fear or phobia?
+- Does the input mention a friendship?
+- Does the input mention a piece of furniture or home decor?
+- Does the input mention a routine or daily activity?
+- Does the input mention a specific animal species?
+- Does the input mention any form of art or artistic activity?
+- Does the input mention medical conditions or symptoms?
+- Does the narrative involve a change in personal beliefs or perspective?
+- Does the narrative involve a discovery or new experience?
+- Does the narrative involve a form of competition or challenge?
+- Does the narrative involve a reference to a specific age or life stage?
+- Does the narrative involve a specific type of craft or handiwork?
+- Does the narrative involve a specific type of outdoor or nature activity?
+- Does the narrative involve an act of helping or assisting others?
+- Does the narrative involve an aspect of performance or presentation (e.g., acting, at the White House)?
+- Does the narrative involve travel or moving to a new place?
+- Does the sentence contain a cultural reference?
+- Does the sentence contain a mention of a specific business or brand?
+- Does the sentence contain a mention of a specific historical figure or celebrity?
+- Does the sentence contain a mention of a specific social or community role?
+- Does the sentence contain a proper noun?
+- Does the sentence contain a question that encourages reflection?
+- Does the sentence contain a reference to a specific historical or cultural event?
+- Does the sentence contain a reference to a specific location (e.g., Delhi, a church)?
+- Does the sentence contain a time duration?
+- Does the sentence contain dialogue or reported speech?
+- Does the sentence contain emotionally charged words?
+- Does the sentence contain words with strong visual imagery?
+- Does the sentence convey a sense of urgency or haste?
+- Does the sentence convey the narrator's relationship with time, such as impatience or nostalgia?
+- Does the sentence describe a challenge or obstacle overcome?
+- Does the sentence describe a change in personal belief or perspective?
+- Does the sentence describe a character's physical appearance or attire?
+- Does the sentence describe a common superstition or myth?
+- Does the sentence describe a cultural practice or tradition?
+- Does the sentence describe a desire to visit a natural or scenic location?
+- Does the sentence describe a feeling of belonging or home?
+- Does the sentence describe a financial or career change?
+- Does the sentence describe a form of manual labor or craftmanship?
+- Does the sentence describe a historical period or context?
+- Does the sentence describe a journey or adventure?
+- Does the sentence describe a learning experience or lesson?
+- Does the sentence describe a moment of change or decision?
+- Does the sentence describe a moment of emotional vulnerability?
+- Does the sentence describe a moment of realization or epiphany?
+- Does the sentence describe a natural phenomenon?
+- Does the sentence describe a personal achievement or milestone?
+- Does the sentence describe a personal or professional achievement?
+- Does the sentence describe a physical action?
+- Does the sentence describe a physical sensation (e.g., touch, taste)?
+- Does the sentence describe a process of learning or education?
+- Does the sentence describe a recurring thought or obsession?
+- Does the sentence describe a routine activity?
+- Does the sentence describe a scenic view or landscape?
+- Does the sentence describe a sensory experience?
+- Does the sentence describe a social or cultural interaction?
+- Does the sentence describe a specific method or technique?
+- Does the sentence describe a technological concept?
+- Does the sentence describe academic or professional challenges?
+- Does the sentence describe an act of communication or messaging?
+- Does the sentence describe an act of creativity or creation?
+- Does the sentence describe an act of remembrance or commemoration?
+- Does the sentence describe an animal or involve animals?
+- Does the sentence describe an artistic or creative activity?
+- Does the sentence describe an economic concept or issue?
+- Does the sentence describe an emotional or psychological transformation?
+- Does the sentence describe an environmental setting in detail?
+- Does the sentence describe an event with emotional significance?
+- Does the sentence describe an experience of surprise or shock?
+- Does the sentence describe an interaction that is significant to the narrator's development?
+- Does the sentence describe excitement or anticipation for an event?
+- Does the sentence describe finding joy or happiness in something?
+- Does the sentence describe initiating a phone call or conversation?
+- Does the sentence describe overcoming a challenge or obstacle?
+- Does the sentence describe receiving financial support for something?
+- Does the sentence describe the narrator's creative process or artistic inspiration?
+- Does the sentence discuss a conflict or problem-solving situation?
+- Does the sentence discuss a new discovery or innovative idea?
+- Does the sentence discuss a situation involving confrontation or conflict?
+- Does the sentence discuss an event or situation involving family or close friends?
+- Does the sentence discuss considerations of social or age-appropriate behavior?
+- Does the sentence discuss political or social opinions?
+- Does the sentence express a moment of defiance or resistance by the narrator?
+- Does the sentence express a personal fear or anxiety?
+- Does the sentence express a philosophical or existential query or observation?
+- Does the sentence express anger or frustration directed at a specific situation or person?
+- Does the sentence express fear or anxiety about an upcoming event?
+- Does the sentence express gratitude or acknowledgment?
+- Does the sentence express hope or aspiration for the future?
+- Does the sentence express regret or remorse for a past action?
+- Does the sentence express the narrator's opinion or judgment about an event or character?
+- Does the sentence include a conditional clause?
+- Does the sentence include a description of a person’s appearance or physical characteristics?
+- Does the sentence include a direct speech quotation?
+- Does the sentence include a mention of a legal or illegal activity?
+- Does the sentence include a mention of an animal as a significant element?
+- Does the sentence include a metaphor?
+- Does the sentence include a number or statistic?
+- Does the sentence include a reference to an emotional or psychological support mechanism?
+- Does the sentence include a specific name or designation (like a person's name or a place)?
+- Does the sentence include aggressive or violent language?
+- Does the sentence include an oxymoron?
+- Does the sentence include dialogue or thoughts directed towards another character?
+- Does the sentence include flirting or romantic interaction?
+- Does the sentence include technical or specialized terminology?
+- Does the sentence involve a comparison or analogy?
+- Does the sentence involve a creative or artistic activity?
+- Does the sentence involve a demonstration or protest?
+- Does the sentence involve a description of a physical or mental health treatment?
+- Does the sentence involve a discussion about personal or professional goals?
+- Does the sentence involve a financial transaction or consideration?
+- Does the sentence involve a form of academic or intellectual exploration?
+- Does the sentence involve a health or medical professional (e.g., surgeon)?
+- Does the sentence involve a job or work-related activity?
+- Does the sentence involve a logical paradox?
+- Does the sentence involve a mention of a cultural or historical artifact?
+- Does the sentence involve a mention of a geographical feature ?
+- Does the sentence involve a mention of a natural disaster or extreme weather event?
+- Does the sentence involve a mention of a specific political or social movement?
+- Does the sentence involve a mention of a specific vehicle or mode of transportation?
+- Does the sentence involve a mention of technology or digital communication?
+- Does the sentence involve a narrative about past experiences or memories?
+- Does the sentence involve a personal challenge or obstacle?
+- Does the sentence involve a personal preference or taste?
+- Does the sentence involve a personal reflection or introspection?
+- Does the sentence involve a physical or environmental challenge?
+- Does the sentence involve a public or community event?
+- Does the sentence involve a reference to a significant public or historical figure?
+- Does the sentence involve a safety or security concern?
+- Does the sentence involve a significant other or family member?
+- Does the sentence involve a social or community event?
+- Does the sentence involve a specific crafting or construction activity?
+- Does the sentence involve a specific form of transportation (e.g., airplane)?
+- Does the sentence involve a specific tradition or cultural practice?
+- Does the sentence involve a surprise or unexpected event?
+- Does the sentence involve a vehicle or form of transportation?
+- Does the sentence involve an academic or scholarly activity?
+- Does the sentence involve an act of creativity or artistic expression?
+- Does the sentence involve an act of rebellion or defiance?
+- Does the sentence involve an animal?
+- Does the sentence involve an aspect of personal or household maintenance?
+- Does the sentence involve an aspect of physical or environmental change?
+- Does the sentence involve an experience of loss or grief?
+- Does the sentence involve an expression of hope or aspiration?
+- Does the sentence involve an expression of regret or apology?
+- Does the sentence involve an outdoor activity or setting (e.g., trail, camp)?
+- Does the sentence involve contemplation or reflection on a conversation?
+- Does the sentence involve food or dining?
+- Does the sentence involve historical or cultural references?
+- Does the sentence involve mathematical reasoning?
+- Does the sentence involve planning or decision-making?
+- Does the sentence involve planning or preparation for a future event?
+- Does the sentence involve planning or scheduling?
+- Does the sentence involve spatial reasoning?
+- Does the sentence involve technology or modern conveniences (e.g., internet cafe)?
+- Does the sentence involve the use of technology or gadgets?
+- Does the sentence involve travel or movement?
+- Does the sentence mention a holiday or celebration?
+- Does the sentence mention a physical condition or health issue?
+- Does the sentence mention a specific educational or academic activity?
+- Does the sentence mention a specific location?
+- Does the sentence mention a specific time of day?
+- Does the sentence mention performing an experiment or research?
+- Does the sentence question the actions or decisions of others?
+- Does the sentence recount a humorous or embarrassing personal anecdote?
+- Does the sentence reference a famous person or event?
+- Does the sentence reference a historical or significant event (e.g., White House, concentration camp)?
+- Does the sentence reference a religious or spiritual concept?
+- Does the sentence reference a specific location or place?
+- Does the sentence reference a specific time or date?
+- Does the sentence reflect on a loss or absence of someone?
+- Does the sentence relate to personal health or bodily functions?
+- Does the sentence reveal a secret or confidential information?
+- Does the sentence suggest looking for ways to be perceived as cool?
+- Does the sentence use a unique or unusual word?
+- Does the sentence use an unusual syntactic structure?
+- Does the sentence use irony or sarcasm?
+- Does the sentence use non-standard or slang language?
+- Does the story describe a building or architecture?
+- Does the story describe a personal crisis or emergency?
+- Does the story describe a work or school setting?
+- Does the story include a portrayal of a city or urban setting?
+- Does the story involve a close call or narrow escape?
+- Does the story involve a game or sport?
+- Does the story involve a pet or domestic animal?
+- Does the story involve a technological problem or solution?
+- Does the story mention a childhood memory?
+- Does the story mention a form of art or exhibition?
+- Does the story mention a form of public transportation?
+- Does the story mention an act of charity or volunteering?
+- Does the story talk about a friendship or relationship ending?
+- Does the story talk about a misunderstanding or confusion?
+- Does the story talk about a personal sacrifice or compromise?
+- Does the story talk about an act of defiance or rebellion?
+- Does the text describe a form of transportation?
+- Does the text describe a journey?
+- Does the text describe a personal achievement?
+- Does the text describe an act of kindness?
+- Does the text include a planning or decision-making process?
+- Does the text include a reference to a famous painting or sculpture?
+- Does the text include a reference to a sport or athletic activity?
+- Does the text involve a change in perspective or attitude?
+- Does the text involve a financial goal or saving?
+- Does the text involve a journey by foot?
+- Does the text involve a safety or security measure?
+- Does the text mention a fitness or sports achievement?
+- Does the text mention a form of digital communication?
+- Does the text mention a personal limit or boundary?
+- Does the text mention a plant or gardening?
+- Is a change in location or setting mentioned?
+- Is a culinary experience or taste described?
+- Is a cultural or societal norm discussed?
+- Is a family member mentioned?
+- Is a fear or phobia expressed?
+- Is a form of non-verbal communication depicted?
+- Is a friendship being formed or ending?
+- Is a health condition or medical situation mentioned?
+- Is a health or wellness practice described?
+- Is a historical event referenced?
+- Is a holiday or celebration mentioned?
+- Is a language or linguistic detail mentioned?
+- Is a mathematical concept or number mentioned?
+- Is a moment of comedy or humor described?
+- Is a moment of unexpected kindness or generosity described?
+- Is a natural phenomenon, like an eclipse or meteor shower, described?
+- Is a personal belief or value expressed?
+- Is a personal or emotional revelation described?
+- Is a personal philosophy or worldview expressed?
+- Is a personal transformation or change described?
+- Is a professional or career-related decision discussed?
+- Is a scientific concept or theory mentioned?
+- Is a significant historical period or event described?
+- Is a significant life event, like a wedding or graduation, mentioned?
+- Is a specific age mentioned?
+- Is a specific chemical or substance mentioned?
+- Is a specific emotional reaction to an event or situation mentioned?
+- Is a specific game or toy mentioned?
+- Is a specific historical event or period mentioned?
+- Is a specific historical or cultural figure mentioned?
+- Is a specific language or linguistic feature mentioned?
+- Is a specific location referred to in the input?
+- Is a specific object of value or importance mentioned (e.g., prized possession)?
+- Is a specific physical sensation described?
+- Is a specific profession or job role mentioned?
+- Is a specific school, university, or educational institution mentioned?
+- Is a specific scientific field or discipline mentioned?
+- Is a specific social or political stance expressed?
+- Is a specific type of animal described?
+- Is a specific weather condition mentioned?
+- Is a sports activity or event mentioned?
+- Is a superstition or myth discussed?
+- Is an art or craft mentioned?
+- Is an environmental concern or issue mentioned?
+- Is an unexpected discovery or surprise mentioned?
+- Is clothing or personal style a focus of the sentence?
+- Is decluttering or disposing of items described?
+- Is espionage, surveillance, or conspiracy mentioned?
+- Is hair or clothing mentioned in the input?
+- Is nostalgia or reminiscing about the past a theme?
+- Is pregnancy or the potential for it a topic?
+- Is technology or innovation discussed in the input?
+- Is the concept of teaching or mentoring explicitly mentioned?
+- Is the experience of first love or deep emotion described?
+- Is the focus on a personal or internal conflict?
+- Is the focus on a specific type of environment or setting (e.g., in distress, quiet streets)?
+- Is the input about a discovery or realization?
+- Is the input about a personal achievement or milestone?
+- Is the input about a relationship with another person?
+- Is the input about a social or community event?
+- Is the input about overcoming a fear or challenge?
+- Is the input expressing gratitude or thanks?
+- Is the input mentioning an animal?
+- Is the input related to a specific industry or profession?
+- Is the input related to physical injury or trauma?
+- Is the narrative focused on a personal discovery or realization?
+- Is the sentence a question?
+- Is the sentence about a current event or recent news?
+- Is the sentence about an educational or learning experience?
+- Is the sentence about personal habits or behaviors in social situations?
+- Is the sentence autobiographical?
+- Is the sentence conveying a sense of awe or wonder experienced by the narrator?
+- Is the sentence conveying a strategic or tactical thought by the narrator?
+- Is the sentence conveying the narrator's physical movement or action in detail?
+- Is the sentence describing a misunderstanding or confusion?
+- Is the sentence describing a moment of realization or epiphany?
+- Is the sentence describing a physical sensation experienced by the narrator?
+- Is the sentence describing a routine or habit?
+- Is the sentence describing a work or school-related task?
+- Is the sentence designed to persuade or convince?
+- Is the sentence emotionally neutral?
+- Is the sentence expressing a wish or desire for something to be different?
+- Is the sentence expressing confusion or uncertainty?
+- Is the sentence expressing the narrator's aspirations for societal change or impact?
+- Is the sentence focused on a memory from the past?
+- Is the sentence giving advice or a suggestion?
+- Is the sentence highlighting a contrast between the narrator's past and present self?
+- Is the sentence humorous because of a play on words?
+- Is the sentence in the active voice?
+- Is the sentence intended to be motivational or inspirational?
+- Is the sentence intentionally vague or ambiguous?
+- Is the sentence mentioning a pet or domestic animal?
+- Is the sentence part of a legal document or text?
+- Is the sentence part of a narrative?
+- Is the sentence part of a scientific explanation?
+- Is the sentence referencing legal matters or rights?
+- Is the sentence related to education or learning?
+- Is the sentence related to fashion or personal style?
+- Is the sentence related to health and fitness advice?
+- Is the sentence related to sports or physical exercise?
+- Is the sentence structured as a list?
+- Is there a comparison or metaphor?
+- Is there a depiction of a physical activity?
+- Is there a depiction of a relaxing or peaceful moment?
+- Is there a depiction of an urban or rural difference?
+- Is there a description of a childhood toy or game?
+- Is there a description of a fantasy or imaginary scenario?
+- Is there a description of a leisure activity or hobby?
+- Is there a description of a personal sacrifice or compromise?
+- Is there a description of a social or community interaction?
+- Is there a description of a specific geographical location?
+- Is there a description of a unique or unusual event?
+- Is there a description of an act of kindness or compassion?
+- Is there a description of aquatic life or underwater scenes?
+- Is there a description of weather conditions?
+- Is there a discussion about a change in societal or community norms?
+- Is there a discussion about artistic or creative expression?
+- Is there a discussion about ethical consumption or sustainability?
+- Is there a discussion about politics or government?
+- Is there a discussion about the future or predictions?
+- Is there a discussion of a family tradition or custom?
+- Is there a discussion of a lesson learned or wisdom gained?
+- Is there a discussion of a philosophical or ideological concept?
+- Is there a discussion of a psychological concept or mental health issue?
+- Is there a discussion of a social issue?
+- Is there a discussion of a specific medical or health-related treatment?
+- Is there a discussion of a technological problem or bug?
+- Is there a first-person pronoun in the input?
+- Is there a focus on a specific type of emotion or feeling (e.g., gratitude, satisfaction)?
+- Is there a focus on a specific type of personal achievement or milestone?
+- Is there a focus on personal introspection or realization?
+- Is there a mention of a casual or informal gathering (e.g., with friends, backyard)?
+- Is there a mention of a childhood aspiration or dream job?
+- Is there a mention of a cultural or social event?
+- Is there a mention of a famous family or property?
+- Is there a mention of a fictional or imaginative concept (e.g., magic dragon, afterlife)?
+- Is there a mention of a gadget or piece of technology?
+- Is there a mention of a geographical feature, like a mountain or river?
+- Is there a mention of a historical event?
+- Is there a mention of a hobby or leisure activity?
+- Is there a mention of a medical or health-related situation?
+- Is there a mention of a musical experience or concert?
+- Is there a mention of a new beginning or start?
+- Is there a mention of a personal emotion or feeling?
+- Is there a mention of a personal milestone or significant event?
+- Is there a mention of a personal or family recipe?
+- Is there a mention of a physical activity or action?
+- Is there a mention of a physical injury or harm?
+- Is there a mention of a physical object?
+- Is there a mention of a puzzle or mystery?
+- Is there a mention of a scientific fact or concept?
+- Is there a mention of a significant life event such as birth, death, or marriage?
+- Is there a mention of a significant personal or emotional realization?
+- Is there a mention of a social or community event (e.g., camp)?
+- Is there a mention of a specific academic or scholarly activity?
+- Is there a mention of a specific artistic or creative activity?
+- Is there a mention of a specific book, film, or other media that has influenced the narrator?
+- Is there a mention of a specific construction or architectural feature?
+- Is there a mention of a specific cultural or national identity?
+- Is there a mention of a specific educational degree or qualification?
+- Is there a mention of a specific emotion?
+- Is there a mention of a specific environmental or ecological issue?
+- Is there a mention of a specific event or occasion?
+- Is there a mention of a specific food or cuisine?
+- Is there a mention of a specific form of art or craft?
+- Is there a mention of a specific form of music or musical experience?
+- Is there a mention of a specific health or wellness practice?
+- Is there a mention of a specific historical period or era?
+- Is there a mention of a specific location or place?
+- Is there a mention of a specific location?
+- Is there a mention of a specific natural resource or environmental concern?
+- Is there a mention of a specific physical sensation or experience (e.g., falling, feeling small)?
+- Is there a mention of a specific place that holds personal significance?
+- Is there a mention of a specific psychological condition or mental health issue?
+- Is there a mention of a specific religious or spiritual practice?
+- Is there a mention of a specific tool or device?
+- Is there a mention of a specific type of animal or pet?
+- Is there a mention of a specific type of clothing or accessory?
+- Is there a mention of a specific type of entertainment or performance?
+- Is there a mention of a specific type of group or organization?
+- Is there a mention of a specific type of music or song?
+- Is there a mention of a specific type of relationship (e.g., classmate, adult female)?
+- Is there a mention of a specific type of tool or equipment?
+- Is there a mention of a tradition or custom?
+- Is there a mention of an educational method or school activity?
+- Is there a mention of an environmental or ecological practice?
+- Is there a mention of music or dancing?
+- Is there a mention of performing arts or entertainment ?
+- Is there a mention of specific types of items or belongings (e.g., books, clothing)?
+- Is there a mention of using technology or the internet?
+- Is there a physical activity or skill being learned (e.g., chopping wood)?
+- Is there a reference to a childhood memory?
+- Is there a reference to a diet, nutrition, or food choice?
+- Is there a reference to a famous painting, sculpture, or artist?
+- Is there a reference to a health or wellness practice?
+- Is there a reference to a myth, legend, or folklore?
+- Is there a reference to a personal idol or role model?
+- Is there a reference to a personal or family tradition?
+- Is there a reference to a physical injury or accident?
+- Is there a reference to a political or governmental action?
+- Is there a reference to a significant other or close family member?
+- Is there a reference to a social or political issue?
+- Is there a reference to a specific cultural or religious aspect?
+- Is there a reference to a specific cultural or social event?
+- Is there a reference to a specific cultural tradition or practice?
+- Is there a reference to a specific educational institution or program?
+- Is there a reference to a specific form of media or technology usage?
+- Is there a reference to a specific historical figure or celebrity?
+- Is there a reference to a specific individual or public figure?
+- Is there a reference to a specific lifestyle or way of living?
+- Is there a reference to a specific personal achievement or milestone?
+- Is there a reference to a specific piece of legislation or law?
+- Is there a reference to a specific religious figure or deity?
+- Is there a reference to a specific scientific concept or theory?
+- Is there a reference to a specific social or cultural identity?
+- Is there a reference to a specific time of day?
+- Is there a reference to a specific type of building or structure?
+- Is there a reference to a specific type of game or sport?
+- Is there a reference to an animal or pet?
+- Is there a reference to health and safety precautions?
+- Is there a reference to physical health or fitness?
+- Is there a rescue or assistance in a difficult situation?
+- Is there a specific geographical or historical detail mentioned?
+- Is there advice against a specific action or behavior?
+- Is there an attempt to engage someone in conversation mentioned?
+- Is there an explicit mention of a hobby or leisure activity?
+- Is there an expression of fear or anxiety?
+- Is there an expression of hope or optimism?
+- Is there an expression of loyalty or commitment?
+- Is there an expression of regret or apology?
+- Is there an expression of surprise?
+- Is there any mention of a dream or aspiration?
+- Is there any mention of weather or climate conditions?
+- Is there mention of a book, film, or television show?
+- Is there mention of a concert, play, or live performance?
+- Is there mention of a legal or official process?
+- Is there mention of a personal challenge or obstacle overcome?
+- Is there mention of a personal hobby or interest?
+- Is there mention of a political event, policy, or figure?
+- Is there mention of a religious or spiritual theme?
+- Is there mention of a significant personal or family event?
+- Is there mention of a specific book, movie, or song?
+- Is there mention of a specific cultural icon or landmark?
+- Is there mention of a specific form of entertainment or media?
+- Is there mention of a specific piece of technology or gadget?
+- Is there mention of a traditional or cultural dish?
+- Is there mention of a war, battle, or military event?
+- Is there mention of an educational or learning experience?
+- Is there mention of overcoming a physical challenge or obstacle?
+- Is there mention of transportation or travel?
+- Is time mentioned in the input?
+
+Generate a bulleted list of 100 specific, non-overlapping yes/no questions that ask about aspects of the example narrative sentences that are important for classifying them.
+Focus on the given sentences and form questions that combine shared properties from multiple sentences above.
+Do not repeat information in the example questions that are already given above.
+Return only a bulleted list of questions and nothing else.'''
+
+ANS_BOOST_6_2 = '''- Does the sentence describe a romantic or dating experience?
+- Is a physical action or movement detailed in the sentence?
+- Does the sentence involve a personal anecdote or story?
+- Is there a mention of a specific geographic location in the sentence?
+- Does the sentence involve a character experiencing a strong emotion?
+- Does the sentence discuss family relationships or dynamics?
+- Does the sentence involve an animal or mention an animal?
+- Is there a mention of a specific occupation or professional role?
+- Does the sentence describe a past or historical event?
+- Is there mention of a personal challenge or struggle?
+- Does the sentence describe an interaction with technology or use of a digital device?
+- Does the sentence involve a physical or environmental setting being described?
+- Is there a mention of a specific cultural or social practice?
+- Does the sentence involve a character making a realization or discovery?
+- Does the sentence include a metaphor or simile?
+- Is a specific sensory experience like taste or smell described?
+- Does the sentence contain any legal or official terminology?
+- Is a health condition, symptom, or medical situation mentioned?
+- Does the sentence involve a character expressing frustration or annoyance?
+- Is there a description of a specific action taken by a character?
+- Does the sentence discuss an educational or learning experience?
+- Is a specific historical or significant event mentioned?
+- Does the sentence contain a reference to a specific time period or era?
+- Does the sentence describe a social gathering or event?
+- Is there mention of a musical or artistic performance?
+- Does the sentence include a character's internal thoughts or feelings?
+- Is there a mention of a vehicle or form of transportation?
+- Does the sentence involve a description of a natural or scenic location?
+- Does the sentence include descriptions of weather or climate conditions?
+- Is there a discussion about a character's career or professional life?
+- Does the sentence contain a cultural reference or mention of a cultural icon?
+- Is there mention of a specific building or type of architecture?
+- Does the sentence involve a description of clothing or personal attire?
+- Is there a reference to a religious or spiritual concept or practice?
+- Does the sentence involve the description of a physical object?
+- Is there mention of a specific food item or cuisine?
+- Does the sentence involve a discussion or mention of a public figure or celebrity?
+- Does the sentence discuss a societal or community norm?
+- Is a form of non-verbal communication described?
+- Does the sentence describe a character's physical appearance?
+- Is there a mention of a specific age or life stage?
+- Does the sentence contain dialogue or conversation between characters?
+- Does the sentence involve a description of a physical activity or sport?
+- Does the sentence involve planning or preparing for an event or action?
+- Is there a description of a routine or daily activity?
+- Is there a mention of a specific type of craft or handiwork?
+- Does the sentence discuss a form of entertainment or media?
+- Is there a mention of a specific tool or device used in the sentence?
+- Does the sentence describe a financial transaction or economic concept?
+- Is there mention of an event that is significant in someone’s personal or professional life?
+- Does the sentence contain a direct speech quotation?
+- Is there a reference to a specific political or social movement?
+- Does the sentence involve a description of a performance or presentation?
+- Is there a description of a personal or intimate relationship?
+- Does the sentence involve a description of a specific art form or artistic activity?
+- Does the sentence involve an expression of regret or disappointment?
+- Does the sentence involve discussions of future plans or aspirations?
+- Does the sentence involve descriptions of personal reflections or thoughts?
+- Is there a mention of an animal as a significant element?
+- Does the sentence discuss an aspect of personal security or safety?
+- Does the sentence discuss environmental concerns or issues?
+- Does the sentence describe an emotional support or comfort?
+- Does the sentence describe a moment of teamwork or collaboration?
+- Does the sentence describe a scientific experiment or discovery?
+- Does the sentence describe a social or interpersonal conflict?
+- Does the sentence describe a specific texture or sensation?
+- Does the sentence discuss a craft or DIY project?
+- Does the sentence discuss a health issue or concern?
+- Does the sentence discuss a medical treatment or procedure?
+- Does the sentence discuss a natural disaster or emergency situation?
+- Does the sentence discuss a personal goal or aspiration?
+- Does the sentence discuss a personal or social dilemma?
+- Does the sentence discuss a societal issue or social justice topic?
+- Does the sentence discuss a technology trend or future prediction?
+- Does the sentence discuss an aspect of a financial or economic situation?
+- Does the sentence express disappointment or dissatisfaction?
+- Does the sentence express feelings of jealousy or envy?
+- Does the sentence include a comparison or metaphor?
+- Does the sentence include a mention of a personal idol or hero?
+- Does the sentence include a reference to a book or movie?
+- Does the sentence include descriptions of a celebratory or festive event?
+- Does the sentence involve a character expressing a strong emotional response?
+- Does the sentence involve a comparison of before and after?
+- Does the sentence involve a critique or review of something?
+- Does the sentence involve a debate or controversial topic?
+- Does the sentence involve a dialogue or conversation?
+- Does the sentence involve a discussion of a craft or construction activity?
+- Does the sentence involve a discussion or mention of personal hobbies or interests?
+- Does the sentence involve a financial topic or economic concept?
+- Does the sentence involve a fitness routine or exercise?
+- Does the sentence involve a historical event?
+- Does the sentence involve a mention of a natural setting or environment?
+- Does the sentence involve a narrative of personal growth or change?
+- Does the sentence involve a puzzle or problem to solve?
+- Does the sentence involve a scientific experiment or research study?
+- Does the sentence involve animals or wildlife?
+- Does the sentence involve descriptions of a learning or teaching experience?
+- Does the sentence involve descriptions of a physical or mental health condition?
+- Does the sentence involve descriptions of an environmental or ecological issue?
+- Does the sentence involve descriptions of daily routines or common activities?
+- Does the sentence involve gardening or plant care?
+- Does the sentence involve planning or organizing?
+- Does the sentence involve the creation or invention of something?'''
+
 
 def _split_bulleted_str(s, remove_parentheticals=False):
     qs = [q.strip('- ') for q in s.split('\n')]
@@ -2698,12 +4218,24 @@ def get_questions(version='v1', suffix=None, full=False):
         qs_v3 = get_questions(version='v3', suffix=suffix)
         qs_v4 = get_questions(version='v4', suffix=suffix)
         qs_remove = qs_v1 + qs_v2 + qs_v3 + qs_v4
+    elif version == 'v6':
+        qs_boost_1 = _split_bulleted_str(ANS_BOOST_6)
+        qs_boost_2 = _split_bulleted_str(ANS_BOOST_6_2)
+        qs = qs_boost_1 + qs_boost_2
+        qs_v1 = get_questions(version='v1', suffix=suffix)
+        qs_v2 = get_questions(version='v2', suffix=suffix)
+        qs_v3 = get_questions(version='v3', suffix=suffix)
+        qs_v4 = get_questions(version='v4', suffix=suffix)
+        qs_v5 = get_questions(version='v5', suffix=suffix)
+        qs_remove = qs_v1 + qs_v2 + qs_v3 + qs_v4 + qs_v5
     elif version == 'all':
         qs_v1 = get_questions(version='v1', suffix=suffix)
         qs_v2 = get_questions(version='v2', suffix=suffix)
         qs_v3 = get_questions(version='v3', suffix=suffix)
         qs_v4 = get_questions(version='v4', suffix=suffix)
-        qs = qs_v1 + qs_v2 + qs_v3 + qs_v4
+        qs_v5 = get_questions(version='v5', suffix=suffix)
+        qs_v6 = get_questions(version='v6', suffix=suffix)
+        qs = qs_v1 + qs_v2 + qs_v3 + qs_v4 + qs_v5 + qs_v6
         qs_remove = []
     if suffix is not None:
         qs = [_rewrite_to_focus_on_end(q, suffix) for q in qs]
@@ -2723,15 +4255,12 @@ def get_question_num(question_version):
 
 
 if __name__ == "__main__":
-    print('v1 has', len(get_questions(version='v1')), 'questions')
-    print('v2 adds', len(get_questions(version='v2')), 'questions')
-    print('v3 adds', len(get_questions(version='v3')), 'questions')
-    print('v4 adds', len(get_questions(version='v4')), 'questions')
-    print('v5 adds', len(get_questions(version='v5')), 'questions')
+    for v in ['v1', 'v2', 'v3', 'v4', 'v5', 'v6']:
+        print(v, len(get_questions(v)))
     print('total questions', len(get_questions('all')))
     # write all questions to a json file
     all_questions = get_questions('all')
-    # with open('all_questions.json', 'w') as f:
-    # json.dump(all_questions, f, indent=4)
+    with open('all_questions.json', 'w') as f:
+        json.dump(all_questions, f, indent=4)
     # for q in get_questions('v5'):
     # print(q)

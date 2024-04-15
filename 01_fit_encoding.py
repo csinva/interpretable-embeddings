@@ -50,8 +50,8 @@ def add_main_args(parser):
                         # qa_embedder-10
                         # default='qa_embedder-10',
                         #
-                        choices=list(
-                            feature_spaces._FEATURE_VECTOR_FUNCTIONS.keys()),
+                        choices=sorted(list(
+                            feature_spaces._FEATURE_VECTOR_FUNCTIONS.keys())),
                         help='''Overloaded this argument.
                         qa_embedder-10 will run with ngram_context of 10 ngrams
                         qa_embedder-tr2 will run with tr_context of 2 TRs
