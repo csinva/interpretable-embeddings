@@ -21,8 +21,9 @@ params_shared_dict = {
 
     # cluster
     # 'seed': range(14),
-    'seed': range(20),
+    # 'seed': range(20),
     'pc_components': [100],
+    # 'ndelays': [4],
 
     # local
     'seed': [1],
@@ -35,7 +36,12 @@ params_coupled_dict = {
         # # baselines
         # ('bert-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
         # ('eng1000', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        ('llama2-7B_lay6-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        ('llama2-7B_lay11-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
         ('llama2-7B_lay17-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        ('llama2-13B_lay6-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        ('llama2-13B_lay11-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        ('llama2-13B_lay17-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
         # # # main
         # ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
@@ -97,8 +103,8 @@ amlt_kwargs = {
 submit_utils.run_args_list(
     args_list,
     script_name=script_name,
-    actually_run=True,
-    unique_seeds=True,
+    # actually_run=True,
+    # unique_seeds=True,
     # amlt_kwargs=amlt_kwargs,
     # n_cpus=9,
     # n_cpus=4,

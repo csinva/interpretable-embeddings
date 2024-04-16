@@ -371,15 +371,17 @@ for context_length in [2, 3, 4, 5, 10, 20, 25, 50, 75]:
         _FEATURE_CHECKPOINTS[f'{k}-{context_length}'] = _FEATURE_CHECKPOINTS.get(
             k, k)
 
-        # pass with layer
-        _FEATURE_VECTOR_FUNCTIONS[f'{k}_lay17-{context_length}'] = partial(
-            get_llm_vectors,
-            num_ngrams_context=context_length,
-            checkpoint=_FEATURE_CHECKPOINTS[k],
-            layer_idx=17,
-        )
-        _FEATURE_CHECKPOINTS[f'{k}_lay17-{context_length}'] = _FEATURE_CHECKPOINTS.get(
-            k, k)
+        # 7B has 32 layers, 13B has 40 layers, best model is likely between 20%-50% of layers
+        for layer_idx in [6, 11, 17, 20]:
+            # pass with layer
+            _FEATURE_VECTOR_FUNCTIONS[f'{k}_lay{layer_idx}-{context_length}'] = partial(
+                get_llm_vectors,
+                num_ngrams_context=context_length,
+                checkpoint=_FEATURE_CHECKPOINTS[k],
+                layer_idx=layer_idx,
+            )
+            _FEATURE_CHECKPOINTS[f'{k}_lay{layer_idx}-{context_length}'] = _FEATURE_CHECKPOINTS.get(
+                k, k)
 
         # context length by TRs
         _FEATURE_VECTOR_FUNCTIONS[f'{k}-tr{context_length}'] = partial(
