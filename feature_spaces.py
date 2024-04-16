@@ -275,6 +275,8 @@ def get_llm_vectors(
         args_cache = {'story': story, 'model': checkpoint, 'ngram_size': num_ngrams_context,
                       'qa_embedding_model': qa_embedding_model, 'qa_questions_version': qa_questions_version,
                       'num_trs_context': num_trs_context, 'num_secs_context_per_word': num_secs_context_per_word}
+        if layer_idx is not None:
+            args_cache['layer_idx'] = layer_idx
         cache_hash = sha256(args_cache)
         cache_file = join(
             cache_embs_dir, qa_questions_version, checkpoint.replace('/', '_'), f'{cache_hash}.jl')
@@ -321,7 +323,7 @@ def get_llm_vectors(
                     ngrams_list, embedding_function=embedding_model)
             elif layer_idx is not None:
                 embs = embedding_model(
-                    ngrams_list, layer_idx=layer_idx, batch_size=16)
+                    ngrams_list, layer_idx=layer_idx, batch_size=8)
             else:
                 raise ValueError(checkpoint)
 
@@ -359,6 +361,7 @@ _FEATURE_CHECKPOINTS = {
     'qa_embedder': 'qa_embedder',
     'llama2-7B': 'meta-llama/Llama-2-7b-hf',
     'llama2-13B': 'meta-llama/Llama-2-13b-hf',
+    'llama2-70B': 'meta-llama/Llama-2-70b-hf',
 }
 BASE_KEYS = list(_FEATURE_CHECKPOINTS.keys())
 for context_length in [2, 3, 4, 5, 10, 20, 25, 50, 75]:
@@ -372,7 +375,8 @@ for context_length in [2, 3, 4, 5, 10, 20, 25, 50, 75]:
             k, k)
 
         # 7B has 32 layers, 13B has 40 layers, best model is likely between 20%-50% of layers
-        for layer_idx in [6, 11, 17, 20]:
+        for layer_idx in [0, 6, 12, 18, 24, 30, 36, 48, 60]:
+
             # pass with layer
             _FEATURE_VECTOR_FUNCTIONS[f'{k}_lay{layer_idx}-{context_length}'] = partial(
                 get_llm_vectors,
@@ -381,7 +385,7 @@ for context_length in [2, 3, 4, 5, 10, 20, 25, 50, 75]:
                 layer_idx=layer_idx,
             )
             _FEATURE_CHECKPOINTS[f'{k}_lay{layer_idx}-{context_length}'] = _FEATURE_CHECKPOINTS.get(
-                k, k)
+                k)
 
         # context length by TRs
         _FEATURE_VECTOR_FUNCTIONS[f'{k}-tr{context_length}'] = partial(

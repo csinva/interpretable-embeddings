@@ -36,12 +36,24 @@ params_coupled_dict = {
         # # baselines
         # ('bert-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
         # ('eng1000', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        ('llama2-7B_lay6-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        ('llama2-7B_lay11-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        ('llama2-7B_lay17-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        ('llama2-13B_lay6-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        ('llama2-13B_lay11-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        ('llama2-13B_lay17-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('llama2-7B_lay6-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('llama2-7B_lay12-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('llama2-7B_lay18-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('llama2-7B_lay24-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('llama2-7B_lay30-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+
+        # ('llama2-13B_lay6-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('llama2-13B_lay12-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('llama2-13B_lay18-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('llama2-13B_lay24-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('llama2-13B_lay30-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+
+        ('llama2-70B_lay12-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        ('llama2-70B_lay24-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        ('llama2-70B_lay36-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        ('llama2-70B_lay48-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        ('llama2-70B_lay60-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+
 
         # # # main
         # ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
@@ -96,20 +108,20 @@ amlt_kwargs = {
     'amlt_file': join(repo_dir, 'launch.yaml'),
     # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
     # 'sku': '64G8-MI200-xGMI',
-    # 'sku': '64G4-MI200-xGMI',
-    'sku': '64G2-MI200-xGMI',
+    'sku': '64G4-MI200-xGMI',
+    # 'sku': '64G2-MI200-xGMI',
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
 submit_utils.run_args_list(
     args_list,
     script_name=script_name,
-    # actually_run=True,
+    # actually_run=False,
     # unique_seeds=True,
-    # amlt_kwargs=amlt_kwargs,
+    amlt_kwargs=amlt_kwargs,
     # n_cpus=9,
     # n_cpus=4,
     # gpu_ids=[0, 1],
-    gpu_ids=[0, 1, 2, 3],
+    # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1, 2, 3]],
     # gpu_ids=[[0, 1], [2, 3]],
     repeat_failed_jobs=True,
