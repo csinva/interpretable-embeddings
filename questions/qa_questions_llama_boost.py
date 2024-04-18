@@ -1,0 +1,1917 @@
+PROMPT_BOOST_LLAMA_v3_1 = '''# Example narrative sentences
+- and i'm standing there in my bra and underwear i'm just like oh my god
+- um it's crazy i'm naked with my shoes on like who does that it's wild
+- or i've just broken up with someone or i'm just feeling a little down about myself all i have to do
+- remember after they showed one of those child safety videos being terrified of child
+- made a load of predictions which my life has varied from immensely
+- and then we get the great plan of having chicken fights so we start to have chicken fights but it's kinda weird because
+- and their practice did not involve being outside in the sun like what you're describing which is after all where you
+- so first you have to put your your hands by your sides and and hold your stand very straight and very erect and i said
+- and that's how i became obsessed with googling myself and here's the thing about googling yourself it's as dirty as it sounds
+- waiting for me from my adult female open minded easy going down
+- to the very adult messages that i that i that i sent to them and and there was
+- i have combined do you guys know the oregon trail video game fans okay uh
+- i could tell him where igor was day by day so on the day
+- from an old peasant lady who said she had nothing and you know me friends he says in his very heavy russian accent
+- somehow though sam and i survived our uh my highschool reunion but um mr kaufman who lived downstairs
+- say please let us drive you and your sister all the way to south dakota to retrieve your father's
+- this little fella who kept baby me safe in a house full of monsters
+- expressive one where i cursed him out or punched him in the face and he saw that i was at a loss
+- adult does it was the only house that i had ever lived in my entire life from when i was
+- like dragged herself out of bed got the stuff up and when she passed away when i was
+- raise my hands and i turn around to face him
+- and i thought to myself okay i've got the money i've got the time
+- also in that parental package was attendance at the ballet and in our
+- recent loss maybe you're questioning the meaning of life call me crazy but have you considered
+- what are you wearing where do you like to do it how do you like it
+- i realized no one wanted to message with a boy in his early adolescence
+- my friend wrote vixen is still shy and when i went to grab her she
+- and um i remember i like rolled uh joints for him for this other girl i don't know i i i have this vague memory
+- it you know by myself and my my mother had s a lotta problems with like the the the
+- uh that really is about you know do you believe in politics and i i do you
+- took a moment had a cigarette and a beer and it was like eleven o'clock you know
+- and a beer and it was like eleven o'clock you know and then then we jumped in the car put
+- back to my room not to my roommate that day or the next and not
+- and an extensive background check never once did anyone ever think to ask
+- we drown proofed that mets we we got on our back with only our mouth exposed bringing in uh
+- wha fuck why couldn't i have seen that so
+- blah blah blah not blah blah blah i'm sure she had points but we really we're very very
+- this world which is what you ultimately ultimately ultimately wish for as a parent um
+- no one knows what to do and max reaches in his pocket and he takes out the car keys and he gets in the driver
+- uh looking for some to scare us uh and they said to my mother tell the boy
+- in a little notebook which had actually belonged to my father
+- and he wailed back and hit me in the head and came around and hit me in the head
+- off on the side and i'm kind of you know the conversation comes to a standstill basically because there's
+- to ask of you i've just unpacked all my bats fro from spring training and i don't know if it was the altitude of the flight
+- we do this game in the d every day and you think that i'm gonna give you
+- good uh uh so i get them to come out we sit outside uh out on a table and we order
+- we have a very tight relationship we've always had this bond this complicity this silent
+- well i shovel driveways all winter long in three rivers michigan so i had enough money to get a round trip train
+- when i really saw it i couldn't tolerate any more a man appeared out of nowhere he
+- but as a college professor it's rarely up to me and i
+- um and it it enabled me to to to commit to have breakfast
+- and this idea women living underwater seemed to light a lot of fires because we got
+- embrace more of the land but with blue parks as
+- alright i knew that one wasn't cool um fifth grade was the last year i can remember believing that the world needed
+- at art school since we don't have grades we have review boards and at the
+- whatever action they're gonna see today and the cop the
+- um first when they started putting out these lists there were rappers like ice cube and chuck
+- like through my viewfinder i want those pictures so bad the complicating and mitigating factors that i
+- and they need to know that you're solid winter in the mountains is where i like to spend a lot of my time guiding
+- of silver dollars i took my clients back to town and then headed home the storm was really
+- pack all the staples for the week and the snacks that doesn't even start with the clothing so we overpacked
+- anything about transracial adoption in those classes uh the most they might have said was
+- african american and i felt like i had been punched in the stomach
+- who fought a horrible and bloody war what's gonna happen when i keep saying no
+- assumed that sloth would be the first sin picked because it is really the central thing about our culture
+- achiever of underachievement um if if sloth is a sin i am i think
+- in together she's taking the kids uh he's completely crushed poor alternate ithaca tom he he starts
+- they're they begin to have their own suspicions and in fact at that period
+- our privacy you see in that moment my father was asserting that
+- philosophy in the religion that you take the ashes to this place called haridwar which is where the river ganges comes out of the mountains
+- me mugshots and everything i'm cool like time to go so
+- i'm cool like time to go so they load us on a van
+- speak but i have made it i have survived later the sol the police
+- confinement once we were together shane and i needed each other but also needed
+- jenny vomited i thought it was because of the turbulence and an effort to purge israeli politics
+- abdominal pain that he had felt that he'd been dealing with for the last eight months the doctors had been treating
+- in a play or trying on a new version of myself since my usual version didn't seem to be having
+- something about being in canada getting distracted and dropping the ball
+- commenced in the front seat my assumptions about fatima zohra's sheltered life
+- exterior matches the story and everyone's looking at this one
+- ellen mark said that the person she was photographing did not feel like somebody who had
+- it people living with epilepsy were coming to my blog for inspiration and information and
+- our son was born i found myself perhaps like most new fathers feeling marginalized
+- myself perhaps like most new fathers feeling marginalized but i
+- so six years went on like this without a word from them so finally hurt
+- to erase clementine his ex girlfriend from his memories he goes to a doctor who has this innovative technique
+- something happens a bunch of mice in a nearby lab is doing something different by
+- like my interview was here in boston so i learned everything about the football
+- answers but i do have some sort of clues and one of them is just simply time
+- some sort of clues and one of them is just simply time as time went on
+- and when we were standing there all naked uh was there was this little incident
+- weeks in the hospital weeks blind and mute as well um
+- i was told that i would probably never have children naturally
+- you know we both sort of in and out of other relationships um and the book came out and
+- had already fought the good fight a period in which i had asked and answered many questions
+- and answered many questions about my identity following a breakup the fall before
+- i became this other person i became this insane person but
+- but the mets manage to win so now they're going into wednesday to game
+- intends to take us to the ballpark well i don't know how we got there but it was in record time
+- it has been twenty years since that easter my sister
+- of faces for some clue some information that would help me to understand
+- back in my purse and i stood up only to
+- the mussels which a friend of mine had grown off the coast of menemsha the same
+- and even do bad things in the movies if a mother is going to be bad then we want
+- first grade flirtation with cruelty but when the teacher informed me of it i went internally
+- mama that's where we live she told me i wrote it and we went all the way down the form this way until we got to
+- that was the the soundtrack to the bachelor years and
+- just lost his wife it's like finding an old cassette tape
+- so and he brought in this great big sack and he sh shot out all these
+- like he may be able to land this thing we're coming down towards the ground and and i now my my
+- get inside butterflies are going i am so pumped it's time i'm gonna fly this thing i
+- um we were all in shock i was i was in shock because i was thinking about the fact
+- and after about fourteen years of war and negotiations in england we finally became
+- of war and negotiations in england we finally became an independent republic called
+- guys been here and he said we've been here since about two o'clock and i looked and it was about
+- thing and it doesn't work i still get that disappointed look and frankly nobody's more
+- a and the moral was always the same any moment could be the moment that changes your life forever
+- pounds of baby that i'm analyzing her skull and she goes what happened with ivy is the right side
+- problem so the policemen sit me down and they said well we we didn't want to tell you this because we were
+- pictures of herself naked and well whatever um so but then
+- and it was all in one run on sentence and i'm an english teacher
+- um because i um i gave them a donation but it wasn't just signing a check
+
+# Example yes/no questions
+- Does the input contain a measurement?
+- Does the input contain a question?
+- Does the input contain an expression of anger?
+- Does the input contain humor or sarcasm?
+- Does the input contain repetition?
+- Does the input describe a form of local or community service?
+- Does the input describe a moment of realization or epiphany?
+- Does the input describe a nighttime setting?
+- Does the input describe a scenic view or panorama?
+- Does the input describe a sensory experience?
+- Does the input describe a specific texture or sensation?
+- Does the input describe an emotional support or comfort?
+- Does the input describe an old habit or something the narrator wishes to change?
+- Does the input discuss a business or entrepreneurial venture?
+- Does the input discuss a craft or DIY project?
+- Does the input discuss a health issue or concern?
+- Does the input discuss a medical treatment or procedure?
+- Does the input discuss a natural disaster or emergency situation?
+- Does the input discuss a personal goal or aspiration?
+- Does the input discuss a philosophical or existential question?
+- Does the input discuss a technology trend or future prediction?
+- Does the input discuss an environmental issue or conservation effort?
+- Does the input discuss environmental concerns or issues?
+- Does the input express a political or social opinion?
+- Does the input express empathy or compassion?
+- Does the input express feelings of sadness?
+- Does the input express surprise or disbelief?
+- Does the input include a description of clothing?
+- Does the input include a moment of self-discovery?
+- Does the input include a reference to a book or movie?
+- Does the input include dialogue between characters?
+- Does the input involve a comparison of before and after?
+- Does the input involve a critique or review of something?
+- Does the input involve a debate or controversial topic?
+- Does the input involve a financial topic or economic concept?
+- Does the input involve a fitness routine or exercise?
+- Does the input involve a historical event?
+- Does the input involve a philosophical question or theory?
+- Does the input involve a scientific experiment or research study?
+- Does the input involve an outdoor activity or adventure?
+- Does the input involve gardening or plant care?
+- Does the input involve the creation or invention of something?
+- Does the input mention a construction or building?
+- Does the input mention a fear or phobia?
+- Does the input mention a friendship?
+- Does the input mention a piece of furniture or home decor?
+- Does the input mention a routine or daily activity?
+- Does the input mention a specific animal species?
+- Does the input mention any form of art or artistic activity?
+- Does the input reference an event or phenomenon in nature?
+- Does the sentence describe a challenge or obstacle overcome?
+- Does the sentence describe a physical action?
+- Does the sentence describe a scenic view or landscape?
+- Does the sentence describe weather conditions?
+- Does the sentence express longing or nostalgia?
+- Does the sentence include a foreign word or phrase?
+- Does the sentence include dialogue?
+- Does the sentence involve a health or wellness practice?
+- Does the sentence involve a personal preference or taste?
+- Does the sentence involve making a choice or decision?
+- Does the sentence mention a mode of transportation?
+- Does the sentence mention a unique or unusual experience?
+- Does the story describe a building or architecture?
+- Does the story describe a personal crisis or emergency?
+- Does the story describe a work or school setting?
+- Does the story include a portrayal of a city or urban setting?
+- Does the story involve a close call or narrow escape?
+- Does the story involve a game or sport?
+- Does the story involve a pet or domestic animal?
+- Does the story involve a technological problem or solution?
+- Does the story mention a childhood memory?
+- Does the story mention a form of art or exhibition?
+- Does the story mention a form of public transportation?
+- Does the story mention an act of charity or volunteering?
+- Does the story talk about a friendship or relationship ending?
+- Does the story talk about a misunderstanding or confusion?
+- Does the story talk about a personal sacrifice or compromise?
+- Does the story talk about an act of defiance or rebellion?
+- Does the text describe a form of transportation?
+- Does the text describe a journey?
+- Does the text describe a personal achievement?
+- Does the text describe an act of kindness?
+- Does the text include a planning or decision-making process?
+- Does the text include a reference to a famous painting or sculpture?
+- Does the text include a reference to a sport or athletic activity?
+- Does the text involve a change in perspective or attitude?
+- Does the text involve a financial goal or saving?
+- Does the text involve a journey by foot?
+- Does the text involve a safety or security measure?
+- Does the text mention a fitness or sports achievement?
+- Does the text mention a form of digital communication?
+- Does the text mention a personal limit or boundary?
+- Does the text mention a plant or gardening?
+- Is a conflict or problem introduced?
+- Is a cultural event or festival mentioned?
+- Is a cultural practice or tradition mentioned?
+- Is a famous quote or saying referenced?
+- Is a form of leisure or relaxation described?
+- Is a form of self-improvement or personal development mentioned?
+- Is a health condition or disease mentioned?
+- Is a health or wellness practice described?
+- Is a historical event referenced?
+- Is a holiday or celebration mentioned?
+- Is a language or linguistic detail mentioned?
+- Is a mathematical concept or number mentioned?
+- Is a moment of comedy or humor described?
+- Is a moment of unexpected kindness or generosity described?
+- Is a natural phenomenon, like an eclipse or meteor shower, described?
+- Is a personal belief or value expressed?
+- Is a personal or family recipe mentioned?
+- Is a personal preference or taste described?
+- Is a piece of technology described?
+- Is a religious or spiritual practice mentioned?
+- Is a seasonal holiday or event described?
+- Is a significant life event, like a wedding or graduation, mentioned?
+- Is a specific chemical or substance mentioned?
+- Is a specific form of literature or writing style mentioned?
+- Is a specific language or linguistic feature mentioned?
+- Is a specific location referred to in the input?
+- Is a specific school, university, or educational institution mentioned?
+- Is a specific season described?
+- Is a specific type of animal described?
+- Is a supernatural or paranormal event discussed?
+- Is an apology or expression of regret included?
+- Is an educational lesson or class described?
+- Is an outdoor activity mentioned?
+- Is cooking or a recipe discussed in the input?
+- Is someone running in the input text?
+- Is the input about a discovery or realization?
+- Is the input about a personal achievement or milestone?
+- Is the input about a relationship with another person?
+- Is the input about a social or community event?
+- Is the input about overcoming a fear or challenge?
+- Is the input expressing gratitude or thanks?
+- Is the input reflecting on a personal change or growth?
+- Is the input related to food preparation?
+- Is the sentence describing a craft or DIY project?
+- Is the sentence describing a routine or habit?
+- Is the sentence expressing admiration or praise?
+- Is the sentence involving a risk or dare?
+- Is the sentence providing an explanation or rationale?
+- Is there a comparison or metaphor?
+- Is there a depiction of a physical activity?
+- Is there a depiction of a relaxing or peaceful moment?
+- Is there a depiction of an urban or rural difference?
+- Is there a description of a fantasy or imaginary scenario?
+- Is there a description of a meal?
+- Is there a description of a unique or unusual event?
+- Is there a discussion about ethical consumption or sustainability?
+- Is there a discussion about sleep, dreams, or rest?
+- Is there a discussion of a family tradition or custom?
+- Is there a discussion of a new skill or hobby being learned?
+- Is there a discussion of a social issue?
+- Is there a first-person pronoun in the input?
+- Is there a mention of a childhood aspiration or dream job?
+- Is there a mention of a family heirloom or artifact?
+- Is there a mention of a future plan or intention?
+- Is there a mention of a game or sport?
+- Is there a mention of a gift or present?
+- Is there a mention of a hobby or interest?
+- Is there a mention of a musical experience or concert?
+- Is there a mention of a new beginning or start?
+- Is there a mention of a place of worship or religious practice?
+- Is there a mention of a scientific fact or concept?
+- Is there a mention of a space or astronomical phenomenon?
+- Is there a mention of a tradition or custom?
+- Is there a mention of music or dancing?
+- Is there a reference to a childhood memory?
+- Is there a reference to a diet, nutrition, or food choice?
+- Is there a reference to a famous painting, sculpture, or artist?
+- Is there a reference to a myth, legend, or folklore?
+- Is there a reference to a personal idol or role model?
+- Is there a reference to a social media trend or online phenomenon?
+- Is there a reference to health and safety precautions?
+- Is there a reference to physical health or fitness?
+- Is there an expression of fear or anxiety?
+- Is there an expression of hope or optimism?
+- Is there an expression of loyalty or commitment?
+- Is there an expression of regret or apology?
+- Is there an expression of surprise?
+- Is there any mention of a family member?
+- Is there mention of a book, film, or television show?
+- Is there mention of a concert, play, or live performance?
+- Is there mention of a personal challenge or obstacle overcome?
+- Is there mention of a political event, policy, or figure?
+- Is there mention of a religious or spiritual theme?
+- Is there mention of a unique or unusual hobby?
+- Is there stuttering or uncertainty in the input?
+- Does the sentence contain a contradiction?
+- Does the sentence contain a negation?
+- Does the sentence contain a pun?
+- Does the sentence contain emotionally charged words?
+- Does the sentence convey a decision or choice made by the narrator?
+- Does the sentence convey the narrator's interaction with nature or the outdoors?
+- Does the sentence convey the narrator's sense of humor or wit?
+- Does the sentence describe a common fear or phobia?
+- Does the sentence describe a creative or artistic activity?
+- Does the sentence describe a dream or fantasy?
+- Does the sentence describe a hypothetical scenario?
+- Does the sentence describe a moment of companionship or solitude?
+- Does the sentence describe a personal achievement or milestone?
+- Does the sentence describe a physical sensation (e.g., touch, taste)?
+- Does the sentence describe a relationship between people?
+- Does the sentence describe a scientific experiment or finding?
+- Does the sentence describe a technological concept?
+- Does the sentence describe an animal or involve animals?
+- Does the sentence describe an economic concept or issue?
+- Does the sentence describe an event with emotional significance?
+- Does the sentence describe the narrator's creative process or artistic inspiration?
+- Does the sentence express a moment of forgiveness, either giving or receiving?
+- Does the sentence express a philosophical or existential query or observation?
+- Does the sentence express anger or frustration directed at a specific situation or person?
+- Does the sentence express hope or aspiration for the future?
+- Does the sentence express the narrator's attachment or detachment from material possessions?
+- Does the sentence include a comparison or simile?
+- Does the sentence include a direct speech quotation?
+- Does the sentence include a rhetorical question?
+- Does the sentence include an idiom?
+- Does the sentence include dialogue or thoughts directed towards another character?
+- Does the sentence involve a logical paradox?
+- Does the sentence involve mathematical reasoning?
+- Does the sentence involve planning or decision-making?
+- Does the sentence involve time travel or hypothetical future scenarios?
+- Does the sentence reference a religious or spiritual concept?
+- Does the sentence reference a specific time or date?
+- Does the sentence relate to personal health or bodily functions?
+- Does the sentence reveal a secret or confidential information?
+- Does the sentence use a unique or unusual word?
+- Does the sentence use an unusual syntactic structure?
+- Does the sentence use irony or sarcasm?
+- Does the sentence use non-standard or slang language?
+- Is the sentence a command?
+- Is the sentence a well-known quote or saying?
+- Is the sentence about a game or leisure activity?
+- Is the sentence autobiographical?
+- Is the sentence conveying a sense of awe or wonder experienced by the narrator?
+- Is the sentence conveying a strategic or tactical thought by the narrator?
+- Is the sentence conveying the narrator's physical movement or action in detail?
+- Is the sentence describing a moment of realization or epiphany?
+- Is the sentence describing a physical sensation experienced by the narrator?
+- Is the sentence describing a significant change in the narrator's environment or circumstances?
+- Is the sentence designed to persuade or convince?
+- Is the sentence emotionally neutral?
+- Is the sentence expressing a wish or desire for something to be different?
+- Is the sentence expressing skepticism or disbelief towards something or someone?
+- Is the sentence expressing the narrator's response to art or music?
+- Is the sentence grammatically complex?
+- Is the sentence highlighting a cultural or societal norm that impacts the narrator?
+- Is the sentence humorous?
+- Is the sentence in the passive voice?
+- Is the sentence intended to evoke nostalgia?
+- Is the sentence part of a dialogue?
+- Is the sentence part of a mystery or puzzle?
+- Is the sentence part of a poem or song?
+- Is the sentence reflective, involving self-analysis or introspection?
+- Is the sentence related to environmental issues?
+- Is the sentence related to food or eating?
+- Is the sentence related to politics or government?
+- Is the sentence repetitive or redundant?
+
+Generate a bulleted list of 100 specific, non-overlapping yes/no questions that ask about aspects of the example narrative sentences that are important for classifying them.
+Focus on the given narrative sentences and form questions that combine shared properties from multiple sentences above.
+Do not repeat information in the example questions that are already given above. Instead, generate complementary questions that are not covered by the example questions.
+Return only a bulleted list of questions and nothing else.'''
+
+ANS_BOOST_LLAMA_v3_1 = '''- Does the input contain a reference to a specific time of day?
+- Does the input describe a social interaction or gathering?
+- Does the input describe a past personal experience or memory?
+- Does the input contain a first-person narrative perspective?
+- Does the input involve the use of technology or digital devices?
+- Does the input contain any humorous or comedic elements?
+- Does the input contain direct speech or conversation?
+- Does the input describe a personal or emotional reaction to an event?
+- Does the input include a mention of an animal or pet?
+- Does the input involve travel or movement from one location to another?
+- Does the input describe a physical or athletic activity?
+- Does the input mention any type of emotional distress or discomfort?
+- Does the input describe a scene set in an urban environment?
+- Does the input involve the narrator performing an action?
+- Does the input include a detailed description of a person or character?
+- Does the input involve a form of entertainment or recreational activity?
+- Does the input describe a specific location or setting?
+- Does the input contain a reflection on a past decision or action?
+- Does the input discuss a personal or intimate detail about the narrator?
+- Does the input describe an interaction with family members?
+- Does the input involve a reference to a historical or significant event?
+- Does the input involve a celebration or festive occasion?
+- Does the input describe a challenging or difficult task?
+- Does the input involve the narrator expressing a strong opinion or belief?
+- Does the input describe a change in the narrator's emotional or mental state?
+- Does the input contain a reference to weather or climatic conditions?
+- Does the input involve a discussion about cultural or societal norms?
+- Does the input involve the narrator encountering an unexpected situation or event?
+- Does the input describe a professional or work-related scenario?
+- Does the input involve a mention of health or physical well-being?
+- Does the input involve the use of a vehicle or mode of transport?
+- Does the input describe an indoor setting or activity?
+- Does the input contain a mention of a leisure activity or hobby?
+- Does the input discuss an educational or learning experience?
+- Does the input include a reference to a specific age or life stage?
+- Does the input contain metaphors or figurative language?
+- Does the input describe an act of communication, like writing or speaking?
+- Does the input describe a creative or artistic endeavor?
+- Does the input mention a specific cultural or ethnic identity?
+- Does the input contain elements of suspense or tension?
+- Does the input describe the narrator’s planning or preparation for an event?
+- Does the input involve the narrator making a significant life choice?
+- Does the input describe a habit or routine of the narrator?
+- Does the input involve the narrator seeking or receiving advice?
+- Does the input describe a moment of conflict or disagreement?
+- Does the input contain a reference to a specific holiday or festival?
+- Does the input describe a moment of success or accomplishment?
+- Does the input involve the narrator experiencing a change in physical location?
+- Does the input describe a moment of reflection or contemplation?
+- Does the input contain non-standard grammar or colloquial language?
+- Does the input discuss a financial transaction or economic situation?
+- Does the input describe a personal possession or item of significance?
+- Does the input describe a communal or group activity?
+- Does the input mention a specific sport or athletic event?
+- Does the input involve the narrator observing something unusual or noteworthy?
+- Does the input discuss a global or international issue?
+- Does the input contain a description of a meal or food-related activity?
+- Does the input describe a physical object in detail?
+- Does the input involve the narrator expressing a wish or desire?
+- Does the input describe a public or crowded setting?
+- Does the input involve the narrator reflecting on a personal philosophy or life lesson?
+- Does the input involve the narrator reacting to someone else's behavior or actions?
+- Does the input contain elements of irony or unexpected outcomes?
+- Does the input involve the narrator in a moment of danger or risk?
+- Does the input describe a moment of relaxation or leisure?
+- Does the input contain any references to specific brands or products?
+- Does the input describe a personal project or task that the narrator undertakes?
+- Does the input contain a reference to a recent or current event?
+- Does the input involve the narrator interacting with technology in a significant way?
+- Does the input describe a specific artistic or musical experience?
+- Does the input involve a change in the narrator's routine or daily life?
+- Does the input describe a moment of learning or gaining new information?
+- Does the input contain a question posed by the narrator?
+- Does the input describe a moment where the narrator overcomes a personal limitation?
+- Does the input involve the narrator participating in a tradition or ritual?
+- Does the input describe a moment of cooperation or teamwork?
+- Does the input contain a significant quote or saying?
+- Does the input involve the narrator making a mistake or error?
+- Does the input describe an act of creativity or invention?
+- Does the input involve the narrator experiencing a significant emotion?
+- Does the input describe an event with a moral or ethical dimension?
+- Does the input involve the narrator facing a dilemma or difficult choice?
+- Does the input involve the narrator expressing disappointment or dissatisfaction?
+- Does the input describe a competitive or confrontational situation?
+- Does the input involve the narrator recounting an anecdote or story?
+- Does the input describe a physical sensation or experience in detail?
+- Does the input contain a description of the narrator's physical appearance or attire?
+- Does the input involve the narrator expressing confusion or uncertainty?
+- Does the input describe a moment of surprise or unexpected discovery?
+- Does the input involve the narrator expressing gratitude or appreciation?
+- Does the input describe a scene involving nature or the outdoors?
+- Does the input involve the narrator interacting with a stranger or new acquaintance?
+- Does the input contain a description of a specific emotional response?'''
+
+PROMPT_BOOST_LLAMA_v3_2 = '''# Example narrative sentences
+- you i'm a fourteen year old girl i'm already awkward enough as it is with clothes on
+- and so just then um the dj who's this fo you know three hundred pound man named rudy comes
+- you know at  at eleven years old she decided to give me a makeover but the result was something like if you put blue ah sh eyeshadow
+- one of those child safety videos being terrified of child snatchers and anxious to
+- chicken fights so we start to have chicken fights but it's kinda weird because there's only three of us so
+- chicken fights but it's kinda weird because there's only three of us so but we're doing the best we can to have a chicken
+- ritual they said um so first you have to put your your hands by your sides and and hold your
+- yes do we know what craigslist is if anyone here doesn't know it's this like hippy dippy bulletin board
+- and i'm crying i'm crying and i'm disappointed but why not because i didn't
+- that i had waiting for me waiting for me from my adult female open minded
+- and i figure you know what i'm gonna give them just a brush with death so i write i write out a bunch
+- but that is the kind of oregon trail i wanna be on at that point um so that's the oregon trail but i have to
+- german concentration camp and then one day
+- he was no help and um somehow though sam and i survived our uh my highschool reunion but um
+- and my and i remember at the reunion i won most successful and i just was like yeah and my husband's gay
+- was so dark for me that i'm gonna bring this little fella who kept baby me safe in
+- i didn't even miss him he texted me twice and i never replied and then he called and
+- i really enjoyed being around him one weird thing that i did notice about samuel was
+- just made me feel like a pretty terrible daughter because i knew the expectation was that i was supposed to keep
+- i decided to remove my jewelry my watch leave my cards behind and my cash
+- maybe i'm stabbed but i go into intensive care
+- course you couldn't study it back then well where i was from but i felt that somehow or other this
+- i was looking for women who looked cute or friendly or approachable
+- women who looked cute or friendly or approachable when i found somebody like this then
+- i provided my usual answers i was wearing nothing i just got out of the shower and
+- retracing our trackless journey all the way back to provideniya and she
+- i could call uh an english speaking woman in the village of uelen and she would d d trying
+- um i'm not invited to the wedding and i'm very upset about this and and it it
+- now there's a question you're asked more than any other when you're a presidential
+- now there's a question you're asked more than any other when you're a presidential speech writer and the question is
+- and then so she showed me how to how to make birria basically and um you know they were wearing flower aprons
+- i was fifteen when i first met troy eighteen when he was executed and
+- but he could face another execution date in a matter of days
+- from head to toe and an extensive background check never once
+- after me building this guy up the whole ride back he's like fucking like
+- she meets my dad and the dude is like totally normal
+- potential problems in this world which is what you ultimately ultimately ultimately wish for
+- above me is the largest human being i had seen up to that point in my life uh he was a massive
+- he was alive and i got in this line of all these people waiting to greet his family and i could
+- after i went to be a sixteen brooklyn in the stuyvesant high school
+- back swing and the follow through and he wailed back and hit me in the head
+- my dad is still out and the surgeon goes just push him out to your mom okay and my
+- it dawns on me like i've played a lot of baseball in my life and i've you know been a big fan for a while
+- okay so i'm i'm actually destroying the the sex bell curve for everybody
+- no point did it cost me five thousand dollars
+- uh very close with my mother we have a very tight relationship we've always had this bond
+- how did you get here where are you staying and he said well i shovel driveways all winter long in three rivers michigan so i had enough
+- and he told in the letter he said he'd gotten a lot of the businesses in three rivers cited for fire code violations
+- the vendors had always been very kind to use whatever english that they knew to help us with our purchases
+- we got closer and my heart certainly opened a little bit knowing
+- it enabled me to to to commit to have breakfast with him every sunday
+- they made a all women's team which made headlines it was
+- alright i knew that one wasn't cool um fifth grade was the last year
+- out of sync so class continues for the next six weeks and it's an emotional
+- so i quit my full time job and i started consulting and i started taking classes
+- this situation in the late eighties and early nineties white supremacist organizations
+- silly photo art photo you know so mike needs you know i got my triangle and then i you know here's mike and he's doing an especially
+- angrier and more upsetting and there is no understanding happening between us at all and somebody
+- him but he wasn't breathing we cleared snow around him and carefully moved him up onto the snow
+- with the death of goldie i was saying goodbye to that and so i gave myself over for
+- walked with women through some horrific stories and so the fact that i'm being undone
+- with babies until i got a phone call about our boy's baby sister
+- will you come to hiroshima and nagasaki for the memorial ceremonies and i said yes
+- i've held sadako's crane in one hand and i have held in my other hand the hands of men
+- uh i i i assumed that sloth would be the first sin picked because
+- a vision of an alternate universe my alternate life i thought oh my god i was supposed
+- lit up they are finally getting to do that thing the thing they love it's like yes i finally get to joust
+- and in fact at that period many people who come to my
+- coursed every time somebody goes to haridwar to take their loved one's ashes back they
+- had done exactly the same thing as me they'd brought a loved one to haridwar poured the ashes in the river
+- and release and i'm on the release end at this point i get to r and r
+- i got my citizenship i was very happy or excited to live
+- i have survived later the sol the police escorts me home and my mom
+- i didn't know if i should return home to philadelphia resume my job in rural oregon or try to rebuild
+- had news of his own the abdominal pain that he had felt that he'd been dealing with
+- and he had news of his own the abdominal pain that he had felt
+- definition of insanity is repeating the same behavior over and over and expecting a different outcome
+- my assumptions about fatima zohra's sheltered life had been way off
+- the unboyfriend were as prickly as ever i didn't wanna lose my most loyal caller
+- people didn't understand why i wouldn't apologize she won't
+- to a blog and before i knew it people living with epilepsy were coming to my blog
+- imagine my joy when i heard about something called actuarial science
+- when our son was born i found myself perhaps like most
+- from them so finally hurt and confused beyond
+- this um this thing they did this extreme and unfathomable
+- bunch of mice in a nearby lab is doing something different by mistake they were doing something nice
+- or deported back to my country
+- but as soon as we went there it was a sushi restaurant and i
+- obviously had there for just this sort of event um and he couldn't figure out how to work it and then he figured out how to work
+- all naked uh was there was this little incident that one of these soldier
+- i didn't know what was happening i saw some
+- her and my stepdad because you know she wanted to take care of me i was still really sick i could
+- semester went on i sort of experimented in every facet of liberty's student life i
+- for hours about whether i should use they or we and i i knew
+- about my identity following a breakup the fall before i had struggled to feel like myself
+- around me and gesticulate wildly did i turn to joe and say
+- and i realized that the romance was starting to slip away from me that this other person
+- we don't go to the game but the mets manage to win so now they're going into wednesday
+- couple of weeks before the wedding my father called mary
+- now probably making sure everyone she shares the afterlife with are enjoying nuts and mints
+- i dropped my canister back in my purse and i stood
+- handshake she complimented the mussels which a friend of mine had grown off the coast
+- nice and soft just as i taught her and she looked at me and i tasted them and they were perfect
+- nothing extraordinary just your generic first grade flirtation with cruelty but when the teacher informed
+- job well from that point forward i started taking college classes at night
+- case just isn't there and i walked the hell out
+- it's like finding an old cassette tape that you made
+- we want to do an article on miss elizabeth and so my mother said well that's alright come on do an article
+- i'm a little girl home for the holidays with no friends and
+- are going i am so pumped it's time i'm gonna fly this thing i got my own set of controls he
+- and frank is protecting me once again twenty years later under very different
+- still keeping the focus on my father so she had me driving out in the you know
+- you know black freedom fighters and after about fourteen years of war and negotiations in
+- been here since about two o'clock and i looked and it was about five thirty so
+- arrested and all of that well my young friends and i um heard about
+- so i try to explain this whole death star thing and it doesn't work i still get that disappointed look
+- me i think it's adorable so my doctor calls me later that day and she goes melanie are you with
+- so i cut her head they so so they're gonna cut her head open and he's like and i will remove the forehead
+- the show and all of this is okay this is fine um i pack my stuff i go downstairs to the um
+- i'm sure you can imagine is tag with kissing as soon as my dad found out
+- tag with kissing as soon as my dad found out he came to the back room he grabbed me
+- had never heard of this before it didn't run in my family and i wondered uh was it something
+
+# Example yes/no questions
+- Does the input contain a number?
+- Does the input contain advice or recommendations?
+- Does the input contain emotional words?
+- Does the input contain negativity?
+- Does the input describe a body of water?
+- Does the input describe a moment of cultural shock or adaptation?
+- Does the input describe a moment of teamwork or collaboration?
+- Does the input describe a problem or challenge?
+- Does the input describe a scientific experiment or discovery?
+- Does the input describe a specific emotion in detail?
+- Does the input describe an animal?
+- Does the input describe an encounter with a stranger?
+- Does the input discuss a breakthrough in medical research?
+- Does the input discuss a collaboration or team effort?
+- Does the input discuss a fashion trend or style advice?
+- Does the input discuss a health-related issue or wellness?
+- Does the input discuss a moral or ethical dilemma?
+- Does the input discuss a personal achievement or milestone?
+- Does the input discuss a personal limitation or weakness?
+- Does the input discuss a societal issue or social justice topic?
+- Does the input discuss an act of kindness or charity?
+- Does the input discuss educational content or learning?
+- Does the input discuss travel or exploration?
+- Does the input express disappointment or dissatisfaction?
+- Does the input express feelings of jealousy or envy?
+- Does the input express gratitude?
+- Does the input include a comparison or metaphor?
+- Does the input include a mention of a personal idol or hero?
+- Does the input include a philosophical or reflective thought?
+- Does the input include an expression of disappointment?
+- Does the input involve a coding or programming concept?
+- Does the input involve a craft or handiwork project?
+- Does the input involve a cultural festival or event?
+- Does the input involve a financial planning or investment strategy?
+- Does the input involve a financial transaction or discussion?
+- Does the input involve a game or recreational activity?
+- Does the input involve a legal matter or law enforcement?
+- Does the input involve a puzzle or problem to solve?
+- Does the input involve a vehicle or mode of transportation?
+- Does the input involve animals or wildlife?
+- Does the input involve planning or organizing?
+- Does the input mention a change in a relationship?
+- Does the input mention a cultural or societal norm?
+- Does the input mention a form of artistic expression?
+- Does the input mention a personal insecurity or doubt?
+- Does the input mention a political or social issue?
+- Does the input mention a social or community issue?
+- Does the input mention a specific event or festival?
+- Does the input mention laughter?
+- Does the sentence contain a question?
+- Does the sentence describe a landscape or natural feature?
+- Does the sentence describe a physical sensation?
+- Does the sentence describe an artistic or creative activity?
+- Does the sentence express confidence or certainty?
+- Does the sentence include a cultural reference or idiom?
+- Does the sentence include a number or statistic?
+- Does the sentence include technical or specialized terminology?
+- Does the sentence involve a negotiation or compromise?
+- Does the sentence involve a safety or security concern?
+- Does the sentence mention a holiday or celebration?
+- Does the sentence mention a specific location?
+- Does the sentence reference a specific time of day?
+- Does the story describe a ceremony or ritual?
+- Does the story describe a shopping experience?
+- Does the story include a lesson or moral?
+- Does the story include an act of bravery or courage?
+- Does the story involve a form of meditation or mindfulness?
+- Does the story involve a personal project or creation?
+- Does the story involve a retreat or getaway?
+- Does the story involve planning or preparing for an event?
+- Does the story mention a craft or DIY project?
+- Does the story mention a form of entertainment?
+- Does the story mention a health issue or injury?
+- Does the story mention an invention or discovery?
+- Does the story talk about a loss or letting go?
+- Does the story talk about a personal challenge?
+- Does the story talk about a vacation or travel experience?
+- Does the text describe a form of therapy or healing?
+- Does the text describe a hobby in detail?
+- Does the text describe a mode of communication?
+- Does the text describe a personal space or room?
+- Does the text describe an adventure or risky activity?
+- Does the text include a prediction or expectation?
+- Does the text include a reference to a past era or time period?
+- Does the text include a reflection on past events?
+- Does the text involve a financial challenge or setback?
+- Does the text involve a financial transaction?
+- Does the text involve a personal challenge or goal being achieved?
+- Does the text mention a celebrity or public figure?
+- Does the text mention a form of alternative transportation?
+- Does the text mention a form of manual labor or craft?
+- Does the text mention a piece of advice?
+- Does the text talk about a hobby or pastime?
+- Is a culinary experience or taste described?
+- Is a cultural or societal norm discussed?
+- Is a family member mentioned?
+- Is a fear or phobia expressed?
+- Is a form of non-verbal communication depicted?
+- Is a friendship being formed or ending?
+- Is a health or fitness routine described?
+- Is a historic landmark or monument described?
+- Is a historical figure or leader mentioned?
+- Is a holiday or celebration referenced in the input?
+- Is a legal or ethical dilemma discussed?
+- Is a meal being prepared or cooked?
+- Is a moment of solitude or reflection described?
+- Is a mythical or legendary story referenced?
+- Is a new technological advancement discussed?
+- Is a personal goal or objective mentioned?
+- Is a personal philosophy or worldview expressed?
+- Is a personal transformation or change described?
+- Is a professional or career-related decision discussed?
+- Is a scientific concept or theory mentioned?
+- Is a significant historical period or event described?
+- Is a social gathering or event described?
+- Is a specific color or pattern described?
+- Is a specific historical figure or leader mentioned?
+- Is a specific location described?
+- Is a specific piece of technology or gadget mentioned?
+- Is a specific scientific field or discipline mentioned?
+- Is a specific tool or equipment mentioned?
+- Is a sport or physical activity mentioned in the input?
+- Is a superstition or myth discussed?
+- Is an art or craft mentioned?
+- Is an environmental concern or issue mentioned?
+- Is an unexpected discovery or surprise mentioned?
+- Is hair or clothing mentioned in the input?
+- Is technology or innovation discussed in the input?
+- Is the input about a misunderstanding or assumption?
+- Is the input about a practical joke or prank?
+- Is the input about a scientific discovery or concept?
+- Is the input about an interaction with technology?
+- Is the input expressing a wish or desire?
+- Is the input mentioning an animal?
+- Is the input related to a specific industry or profession?
+- Is the input related to physical injury or trauma?
+- Is the sentence describing a misunderstanding or confusion?
+- Is the sentence describing a work or school-related task?
+- Is the sentence giving advice or a suggestion?
+- Is the sentence mentioning a pet or domestic animal?
+- Is the sentence referencing legal matters or rights?
+- Is there a depiction of a dream or nightmare?
+- Is there a depiction of a public speaking or performance event?
+- Is there a depiction of a routine or habit?
+- Is there a description of a childhood toy or game?
+- Is there a description of a landscape or natural scene?
+- Is there a description of a technological device or app?
+- Is there a description of weather conditions?
+- Is there a discussion about politics or government?
+- Is there a discussion about the future or predictions?
+- Is there a discussion of a lesson learned or wisdom gained?
+- Is there a discussion of a psychological concept or mental health issue?
+- Is there a discussion of a technological problem or bug?
+- Is there a mention of a book, movie, or song?
+- Is there a mention of a competition or contest?
+- Is there a mention of a fictional character or story?
+- Is there a mention of a gadget or piece of technology?
+- Is there a mention of a geographical feature, like a mountain or river?
+- Is there a mention of a historical event?
+- Is there a mention of a hobby or leisure activity?
+- Is there a mention of a natural disaster?
+- Is there a mention of a physical object or item?
+- Is there a mention of a puzzle or mystery?
+- Is there a mention of a significant weather event?
+- Is there a mention of a specific food or drink?
+- Is there a mention of an environmental or ecological practice?
+- Is there a mention of reading or writing?
+- Is there a reference to a cultural tradition or practice?
+- Is there a reference to a dream or aspiration?
+- Is there a reference to a famous work of literature or author?
+- Is there a reference to a past event?
+- Is there a reference to a philosophical or ethical dilemma?
+- Is there a reference to a specific individual or public figure?
+- Is there a reference to music, either listening or playing?
+- Is there a reference to space, astronomy, or the universe?
+- Is there an expression of frustration or annoyance?
+- Is there an expression of love or affection?
+- Is there an expression of pride or self-esteem?
+- Is there an expression of surprise or unexpected outcome?
+- Is there any mention of a dream or aspiration?
+- Is there any mention of weather or climate conditions?
+- Is there mention of a city, country, or geographic feature?
+- Is there mention of a family or personal relationship?
+- Is there mention of a personal hobby or interest?
+- Is there mention of a public service or community project?
+- Is there mention of a traditional or cultural dish?
+- Is there mention of a war, battle, or military event?
+- Is time mentioned in the input?
+- Does the sentence contain a cultural reference?
+- Does the sentence contain a proper noun?
+- Does the sentence contain a question that encourages reflection?
+- Does the sentence contain words with strong visual imagery?
+- Does the sentence convey a sense of urgency or haste?
+- Does the sentence convey the narrator's relationship with time, such as impatience or nostalgia?
+- Does the sentence describe a character in a story?
+- Does the sentence describe a common superstition or myth?
+- Does the sentence describe a cultural practice or tradition?
+- Does the sentence describe a fictional scenario?
+- Does the sentence describe a lesson learned or insight gained by the narrator?
+- Does the sentence describe a natural phenomenon?
+- Does the sentence describe a personal preference?
+- Does the sentence describe a recurring thought or obsession?
+- Does the sentence describe a routine activity?
+- Does the sentence describe a sensory experience?
+- Does the sentence describe a travel experience?
+- Does the sentence describe an art or craft technique?
+- Does the sentence describe an ethical dilemma?
+- Does the sentence describe an interaction that is significant to the narrator's development?
+- Does the sentence express a moment of defiance or resistance by the narrator?
+- Does the sentence express a personal fear or anxiety?
+- Does the sentence express a sense of belonging or connection to a place or community?
+- Does the sentence express gratitude or appreciation for something or someone?
+- Does the sentence express regret or remorse for a past action?
+- Does the sentence express the narrator's opinion or judgment about an event or character?
+- Does the sentence include a conditional clause?
+- Does the sentence include a metaphor?
+- Does the sentence include a threat or warning?
+- Does the sentence include an oxymoron?
+- Does the sentence include numerical information?
+- Does the sentence involve a social interaction?
+- Does the sentence involve moral reasoning?
+- Does the sentence involve spatial reasoning?
+- Does the sentence reference a famous person or event?
+- Does the sentence reference a specific location or place?
+- Does the sentence reference historical events?
+- Does the sentence require inferential reasoning to understand?
+- Does the sentence use a common cliché?
+- Does the sentence use alliteration or rhyme?
+- Does the sentence use future tense?
+- Does the sentence use metaphor to describe emotions?
+- Does the sentence use past tense?
+- Is the sentence a question?
+- Is the sentence about a current event or recent news?
+- Is the sentence abstract rather than concrete?
+- Is the sentence conveying a change in the narrator's emotional state?
+- Is the sentence conveying a sense of loneliness or isolation?
+- Is the sentence conveying the narrator's admiration or respect for another character?
+- Is the sentence describing a moment of peace or contentment?
+- Is the sentence describing a moment of vulnerability or weakness?
+- Is the sentence describing a ritual or routine important to the narrator?
+- Is the sentence describing an immediate reaction to an event or action?
+- Is the sentence emotionally negative?
+- Is the sentence emotionally positive?
+- Is the sentence expressing confusion or uncertainty?
+- Is the sentence expressing the narrator's aspirations for societal change or impact?
+- Is the sentence focused on a memory from the past?
+- Is the sentence highlighting a contrast between the narrator's past and present self?
+- Is the sentence humorous because of a play on words?
+- Is the sentence in the active voice?
+- Is the sentence intended to be motivational or inspirational?
+- Is the sentence intentionally vague or ambiguous?
+- Is the sentence part of a legal document or text?
+- Is the sentence part of a narrative?
+- Is the sentence part of a scientific explanation?
+- Is the sentence related to education or learning?
+- Is the sentence related to fashion or personal style?
+- Is the sentence related to health and fitness advice?
+- Is the sentence related to sports or physical exercise?
+- Is the sentence structured as a list?
+
+Generate a bulleted list of 100 specific, non-overlapping yes/no questions that ask about aspects of the example narrative sentences that are important for classifying them.
+Focus on the given narrative sentences and form questions that combine shared properties from multiple sentences above.
+Do not repeat information in the example questions that are already given above. Instead, generate complementary questions that are not covered by the example questions.
+Return only a bulleted list of questions and nothing else.'''
+
+ANS_BOOST_LLAMA_v3_2 = '''- Does the input mention an individual by name?
+- Does the input contain dialogue or direct quotes?
+- Does the input describe a humorous or unusual situation?
+- Does the input mention a specific age or age group?
+- Does the input describe an educational or school-related event?
+- Does the input describe a physical altercation or conflict?
+- Does the input contain a description of someone's physical appearance?
+- Does the input discuss a family relationship or interaction?
+- Does the input describe a personal realization or insight?
+- Does the input describe a celebratory event or party?
+- Does the input involve the use of the internet or online platforms?
+- Does the input mention a specific city, state, or country?
+- Does the input describe a traumatic or highly emotional experience?
+- Does the input describe a medical or health-related scenario?
+- Does the input discuss a cultural or societal norm?
+- Does the input involve a metaphor or simile?
+- Does the input discuss a past job or professional experience?
+- Does the input involve a reference to historical events or periods?
+- Does the input mention a specific food or dish?
+- Does the input describe a scene involving nature or the outdoors?
+- Does the input involve a financial aspect or monetary transaction?
+- Does the input involve a personal conflict or disagreement?
+- Does the input discuss a technological or electronic device?
+- Does the input describe a scene in a domestic or home setting?
+- Does the input involve a life-threatening situation or danger?
+- Does the input involve a discussion about a personal habit or routine?
+- Does the input mention a sport or physical activity?
+- Does the input discuss a social media interaction or event?
+- Does the input mention a specific form of art or artistic activity?
+- Does the input involve a significant change in the narrator's life?
+- Does the input describe an event involving entertainment or performance?
+- Does the input involve a discussion about personal identity or self-perception?
+- Does the input involve a transportation method or vehicle?
+- Does the input involve a legal issue or law-related discussion?
+- Does the input mention a specific animal or type of pet?
+- Does the input describe a shopping experience or transaction?
+- Does the input describe a moment of confusion or misunderstanding?
+- Does the input involve a fictional or imaginary scenario?
+- Does the input mention a professional or academic achievement?
+- Does the input involve planning or preparing for a future event?
+- Does the input describe an act of creativity or creation?
+- Does the input involve a discussion about a philosophical or existential concept?
+- Does the input involve a character expressing regret or remorse?
+- Does the input discuss a personal project or endeavor?
+- Does the input involve a comparison between two or more things?
+- Does the input describe an unexpected or surprising event?
+- Does the input mention a form of communication, like a letter or email?
+- Does the input discuss a personal challenge or difficulty?
+- Does the input involve a description of weather conditions?
+- Does the input describe a public or crowded setting?
+- Does the input discuss a tradition or cultural practice?
+- Does the input involve a form of competition or contest?
+- Does the input discuss a health improvement or recovery?
+- Does the input involve an expression of strong emotion, such as anger or joy?
+- Does the input involve a detailed description of a place or location?
+- Does the input discuss a change in societal or community norms?
+- Does the input involve a moment of reflection or introspection?
+- Does the input involve a discussion about future aspirations or plans?
+- Does the input describe an interaction with a professional or authority figure?
+- Does the input discuss a personal or family tradition?
+- Does the input involve an anecdote or personal story?
+- Does the input mention a specific cultural event or holiday?
+- Does the input describe an act of learning or acquiring new knowledge?
+- Does the input discuss a decision-making process?
+- Does the input mention a specific piece of music, book, or film?
+- Does the input involve a personal loss or grief?
+- Does the input discuss a new skill or hobby being learned?
+- Does the input involve a statement of belief or opinion?
+- Does the input mention a specific gadget or technology?
+- Does the input involve an environmental issue or discussion?
+- Does the input involve a significant personal relationship, such as a friendship or romance?
+- Does the input discuss a personal insecurity or fear?
+- Does the input involve a discussion about ethical or moral values?
+- Does the input describe a routine daily activity or chore?
+- Does the input involve a significant personal choice or decision?
+- Does the input discuss a major life event, such as a wedding or graduation?
+- Does the input involve a discussion about career or professional development?
+- Does the input describe a scene involving leisure or relaxation?
+- Does the input involve a character overcoming an obstacle or challenge?
+- Does the input describe a personal interaction with significant emotional impact?
+- Does the input involve a discussion about cultural or ethnic identity?
+- Does the input involve a description of a physical or mental health condition?
+- Does the input involve a discussion about personal values or ethics?
+- Does the input mention a specific landmark or historical place?
+- Does the input describe a moment of personal growth or development?
+- Does the input involve a discussion about global issues or international relations?
+- Does the input involve a discussion about community involvement or volunteering?
+- Does the input involve a character reflecting on past experiences?
+- Does the input involve a description of a specific type of clothing or fashion item?
+- Does the input discuss a specific personal or professional goal?
+- Does the input involve a description of a complex emotional state?
+- Does the input involve a description of a physical action or movement?
+- Does the input discuss a significant personal realization or epiphany?
+- Does the input involve a discussion about a controversial or sensitive topic?
+- Does the input involve a description of a ritual or ceremonial practice?
+- Does the input involve a description of a personal or family conflict?'''
+
+PROMPT_BOOST_LLAMA_v3_1_ex = '''# Example narrative sentences
+- and i'm standing there in my bra and underwear i'm just like oh my god
+- um it's crazy i'm naked with my shoes on like who does that it's wild
+- or i've just broken up with someone or i'm just feeling a little down about myself all i have to do
+- remember after they showed one of those child safety videos being terrified of child
+- made a load of predictions which my life has varied from immensely
+- and then we get the great plan of having chicken fights so we start to have chicken fights but it's kinda weird because
+- and their practice did not involve being outside in the sun like what you're describing which is after all where you
+- so first you have to put your your hands by your sides and and hold your stand very straight and very erect and i said
+- and that's how i became obsessed with googling myself and here's the thing about googling yourself it's as dirty as it sounds
+- waiting for me from my adult female open minded easy going down
+- to the very adult messages that i that i that i sent to them and and there was
+- i have combined do you guys know the oregon trail video game fans okay uh
+- i could tell him where igor was day by day so on the day
+- from an old peasant lady who said she had nothing and you know me friends he says in his very heavy russian accent
+- somehow though sam and i survived our uh my highschool reunion but um mr kaufman who lived downstairs
+- say please let us drive you and your sister all the way to south dakota to retrieve your father's
+- this little fella who kept baby me safe in a house full of monsters
+- expressive one where i cursed him out or punched him in the face and he saw that i was at a loss
+- adult does it was the only house that i had ever lived in my entire life from when i was
+- like dragged herself out of bed got the stuff up and when she passed away when i was
+- raise my hands and i turn around to face him
+- and i thought to myself okay i've got the money i've got the time
+- also in that parental package was attendance at the ballet and in our
+- recent loss maybe you're questioning the meaning of life call me crazy but have you considered
+- what are you wearing where do you like to do it how do you like it
+- i realized no one wanted to message with a boy in his early adolescence
+- my friend wrote vixen is still shy and when i went to grab her she
+- and um i remember i like rolled uh joints for him for this other girl i don't know i i i have this vague memory
+- it you know by myself and my my mother had s a lotta problems with like the the the
+- uh that really is about you know do you believe in politics and i i do you
+- took a moment had a cigarette and a beer and it was like eleven o'clock you know
+- and a beer and it was like eleven o'clock you know and then then we jumped in the car put
+- back to my room not to my roommate that day or the next and not
+- and an extensive background check never once did anyone ever think to ask
+- we drown proofed that mets we we got on our back with only our mouth exposed bringing in uh
+- wha fuck why couldn't i have seen that so
+- blah blah blah not blah blah blah i'm sure she had points but we really we're very very
+- this world which is what you ultimately ultimately ultimately wish for as a parent um
+- no one knows what to do and max reaches in his pocket and he takes out the car keys and he gets in the driver
+- uh looking for some to scare us uh and they said to my mother tell the boy
+- in a little notebook which had actually belonged to my father
+- and he wailed back and hit me in the head and came around and hit me in the head
+- off on the side and i'm kind of you know the conversation comes to a standstill basically because there's
+- to ask of you i've just unpacked all my bats fro from spring training and i don't know if it was the altitude of the flight
+- we do this game in the d every day and you think that i'm gonna give you
+- good uh uh so i get them to come out we sit outside uh out on a table and we order
+- we have a very tight relationship we've always had this bond this complicity this silent
+- well i shovel driveways all winter long in three rivers michigan so i had enough money to get a round trip train
+- when i really saw it i couldn't tolerate any more a man appeared out of nowhere he
+- but as a college professor it's rarely up to me and i
+- um and it it enabled me to to to commit to have breakfast
+- and this idea women living underwater seemed to light a lot of fires because we got
+- embrace more of the land but with blue parks as
+- alright i knew that one wasn't cool um fifth grade was the last year i can remember believing that the world needed
+- at art school since we don't have grades we have review boards and at the
+- whatever action they're gonna see today and the cop the
+- um first when they started putting out these lists there were rappers like ice cube and chuck
+- like through my viewfinder i want those pictures so bad the complicating and mitigating factors that i
+- and they need to know that you're solid winter in the mountains is where i like to spend a lot of my time guiding
+- of silver dollars i took my clients back to town and then headed home the storm was really
+- pack all the staples for the week and the snacks that doesn't even start with the clothing so we overpacked
+- anything about transracial adoption in those classes uh the most they might have said was
+- african american and i felt like i had been punched in the stomach
+- who fought a horrible and bloody war what's gonna happen when i keep saying no
+- assumed that sloth would be the first sin picked because it is really the central thing about our culture
+- achiever of underachievement um if if sloth is a sin i am i think
+- in together she's taking the kids uh he's completely crushed poor alternate ithaca tom he he starts
+- they're they begin to have their own suspicions and in fact at that period
+- our privacy you see in that moment my father was asserting that
+- philosophy in the religion that you take the ashes to this place called haridwar which is where the river ganges comes out of the mountains
+- me mugshots and everything i'm cool like time to go so
+- i'm cool like time to go so they load us on a van
+- speak but i have made it i have survived later the sol the police
+- confinement once we were together shane and i needed each other but also needed
+- jenny vomited i thought it was because of the turbulence and an effort to purge israeli politics
+- abdominal pain that he had felt that he'd been dealing with for the last eight months the doctors had been treating
+- in a play or trying on a new version of myself since my usual version didn't seem to be having
+- something about being in canada getting distracted and dropping the ball
+- commenced in the front seat my assumptions about fatima zohra's sheltered life
+- exterior matches the story and everyone's looking at this one
+- ellen mark said that the person she was photographing did not feel like somebody who had
+- it people living with epilepsy were coming to my blog for inspiration and information and
+- our son was born i found myself perhaps like most new fathers feeling marginalized
+- myself perhaps like most new fathers feeling marginalized but i
+- so six years went on like this without a word from them so finally hurt
+- to erase clementine his ex girlfriend from his memories he goes to a doctor who has this innovative technique
+- something happens a bunch of mice in a nearby lab is doing something different by
+- like my interview was here in boston so i learned everything about the football
+- answers but i do have some sort of clues and one of them is just simply time
+- some sort of clues and one of them is just simply time as time went on
+- and when we were standing there all naked uh was there was this little incident
+- weeks in the hospital weeks blind and mute as well um
+- i was told that i would probably never have children naturally
+- you know we both sort of in and out of other relationships um and the book came out and
+- had already fought the good fight a period in which i had asked and answered many questions
+- and answered many questions about my identity following a breakup the fall before
+- i became this other person i became this insane person but
+- but the mets manage to win so now they're going into wednesday to game
+- intends to take us to the ballpark well i don't know how we got there but it was in record time
+- it has been twenty years since that easter my sister
+- of faces for some clue some information that would help me to understand
+- back in my purse and i stood up only to
+- the mussels which a friend of mine had grown off the coast of menemsha the same
+- and even do bad things in the movies if a mother is going to be bad then we want
+- first grade flirtation with cruelty but when the teacher informed me of it i went internally
+- mama that's where we live she told me i wrote it and we went all the way down the form this way until we got to
+- that was the the soundtrack to the bachelor years and
+- just lost his wife it's like finding an old cassette tape
+- so and he brought in this great big sack and he sh shot out all these
+- like he may be able to land this thing we're coming down towards the ground and and i now my my
+- get inside butterflies are going i am so pumped it's time i'm gonna fly this thing i
+- um we were all in shock i was i was in shock because i was thinking about the fact
+- and after about fourteen years of war and negotiations in england we finally became
+- of war and negotiations in england we finally became an independent republic called
+- guys been here and he said we've been here since about two o'clock and i looked and it was about
+- thing and it doesn't work i still get that disappointed look and frankly nobody's more
+- a and the moral was always the same any moment could be the moment that changes your life forever
+- pounds of baby that i'm analyzing her skull and she goes what happened with ivy is the right side
+- problem so the policemen sit me down and they said well we we didn't want to tell you this because we were
+- pictures of herself naked and well whatever um so but then
+- and it was all in one run on sentence and i'm an english teacher
+- um because i um i gave them a donation but it wasn't just signing a check
+
+# Example yes/no questions
+- Does the input contain a measurement?
+- Does the input contain a question?
+- Does the input contain an expression of anger?
+- Does the input contain humor or sarcasm?
+- Does the input contain repetition?
+- Does the input describe a form of local or community service?
+- Does the input describe a moment of realization or epiphany?
+- Does the input describe a nighttime setting?
+- Does the input describe a scenic view or panorama?
+- Does the input describe a sensory experience?
+- Does the input describe a specific texture or sensation?
+- Does the input describe an emotional support or comfort?
+- Does the input describe an old habit or something the narrator wishes to change?
+- Does the input discuss a business or entrepreneurial venture?
+- Does the input discuss a craft or DIY project?
+- Does the input discuss a health issue or concern?
+- Does the input discuss a medical treatment or procedure?
+- Does the input discuss a natural disaster or emergency situation?
+- Does the input discuss a personal goal or aspiration?
+- Does the input discuss a philosophical or existential question?
+- Does the input discuss a technology trend or future prediction?
+- Does the input discuss an environmental issue or conservation effort?
+- Does the input discuss environmental concerns or issues?
+- Does the input express a political or social opinion?
+- Does the input express empathy or compassion?
+- Does the input express feelings of sadness?
+- Does the input express surprise or disbelief?
+- Does the input include a description of clothing?
+- Does the input include a moment of self-discovery?
+- Does the input include a reference to a book or movie?
+- Does the input include dialogue between characters?
+- Does the input involve a comparison of before and after?
+- Does the input involve a critique or review of something?
+- Does the input involve a debate or controversial topic?
+- Does the input involve a financial topic or economic concept?
+- Does the input involve a fitness routine or exercise?
+- Does the input involve a historical event?
+- Does the input involve a philosophical question or theory?
+- Does the input involve a scientific experiment or research study?
+- Does the input involve an outdoor activity or adventure?
+- Does the input involve gardening or plant care?
+- Does the input involve the creation or invention of something?
+- Does the input mention a construction or building?
+- Does the input mention a fear or phobia?
+- Does the input mention a friendship?
+- Does the input mention a piece of furniture or home decor?
+- Does the input mention a routine or daily activity?
+- Does the input mention a specific animal species?
+- Does the input mention any form of art or artistic activity?
+- Does the input reference an event or phenomenon in nature?
+- Does the sentence describe a challenge or obstacle overcome?
+- Does the sentence describe a physical action?
+- Does the sentence describe a scenic view or landscape?
+- Does the sentence describe weather conditions?
+- Does the sentence express longing or nostalgia?
+- Does the sentence include a foreign word or phrase?
+- Does the sentence include dialogue?
+- Does the sentence involve a health or wellness practice?
+- Does the sentence involve a personal preference or taste?
+- Does the sentence involve making a choice or decision?
+- Does the sentence mention a mode of transportation?
+- Does the sentence mention a unique or unusual experience?
+- Does the story describe a building or architecture?
+- Does the story describe a personal crisis or emergency?
+- Does the story describe a work or school setting?
+- Does the story include a portrayal of a city or urban setting?
+- Does the story involve a close call or narrow escape?
+- Does the story involve a game or sport?
+- Does the story involve a pet or domestic animal?
+- Does the story involve a technological problem or solution?
+- Does the story mention a childhood memory?
+- Does the story mention a form of art or exhibition?
+- Does the story mention a form of public transportation?
+- Does the story mention an act of charity or volunteering?
+- Does the story talk about a friendship or relationship ending?
+- Does the story talk about a misunderstanding or confusion?
+- Does the story talk about a personal sacrifice or compromise?
+- Does the story talk about an act of defiance or rebellion?
+- Does the text describe a form of transportation?
+- Does the text describe a journey?
+- Does the text describe a personal achievement?
+- Does the text describe an act of kindness?
+- Does the text include a planning or decision-making process?
+- Does the text include a reference to a famous painting or sculpture?
+- Does the text include a reference to a sport or athletic activity?
+- Does the text involve a change in perspective or attitude?
+- Does the text involve a financial goal or saving?
+- Does the text involve a journey by foot?
+- Does the text involve a safety or security measure?
+- Does the text mention a fitness or sports achievement?
+- Does the text mention a form of digital communication?
+- Does the text mention a personal limit or boundary?
+- Does the text mention a plant or gardening?
+- Is a conflict or problem introduced?
+- Is a cultural event or festival mentioned?
+- Is a cultural practice or tradition mentioned?
+- Is a famous quote or saying referenced?
+- Is a form of leisure or relaxation described?
+- Is a form of self-improvement or personal development mentioned?
+- Is a health condition or disease mentioned?
+- Is a health or wellness practice described?
+- Is a historical event referenced?
+- Is a holiday or celebration mentioned?
+- Is a language or linguistic detail mentioned?
+- Is a mathematical concept or number mentioned?
+- Is a moment of comedy or humor described?
+- Is a moment of unexpected kindness or generosity described?
+- Is a natural phenomenon, like an eclipse or meteor shower, described?
+- Is a personal belief or value expressed?
+- Is a personal or family recipe mentioned?
+- Is a personal preference or taste described?
+- Is a piece of technology described?
+- Is a religious or spiritual practice mentioned?
+- Is a seasonal holiday or event described?
+- Is a significant life event, like a wedding or graduation, mentioned?
+- Is a specific chemical or substance mentioned?
+- Is a specific form of literature or writing style mentioned?
+- Is a specific language or linguistic feature mentioned?
+- Is a specific location referred to in the input?
+- Is a specific school, university, or educational institution mentioned?
+- Is a specific season described?
+- Is a specific type of animal described?
+- Is a supernatural or paranormal event discussed?
+- Is an apology or expression of regret included?
+- Is an educational lesson or class described?
+- Is an outdoor activity mentioned?
+- Is cooking or a recipe discussed in the input?
+- Is someone running in the input text?
+- Is the input about a discovery or realization?
+- Is the input about a personal achievement or milestone?
+- Is the input about a relationship with another person?
+- Is the input about a social or community event?
+- Is the input about overcoming a fear or challenge?
+- Is the input expressing gratitude or thanks?
+- Is the input reflecting on a personal change or growth?
+- Is the input related to food preparation?
+- Is the sentence describing a craft or DIY project?
+- Is the sentence describing a routine or habit?
+- Is the sentence expressing admiration or praise?
+- Is the sentence involving a risk or dare?
+- Is the sentence providing an explanation or rationale?
+- Is there a comparison or metaphor?
+- Is there a depiction of a physical activity?
+- Is there a depiction of a relaxing or peaceful moment?
+- Is there a depiction of an urban or rural difference?
+- Is there a description of a fantasy or imaginary scenario?
+- Is there a description of a meal?
+- Is there a description of a unique or unusual event?
+- Is there a discussion about ethical consumption or sustainability?
+- Is there a discussion about sleep, dreams, or rest?
+- Is there a discussion of a family tradition or custom?
+- Is there a discussion of a new skill or hobby being learned?
+- Is there a discussion of a social issue?
+- Is there a first-person pronoun in the input?
+- Is there a mention of a childhood aspiration or dream job?
+- Is there a mention of a family heirloom or artifact?
+- Is there a mention of a future plan or intention?
+- Is there a mention of a game or sport?
+- Is there a mention of a gift or present?
+- Is there a mention of a hobby or interest?
+- Is there a mention of a musical experience or concert?
+- Is there a mention of a new beginning or start?
+- Is there a mention of a place of worship or religious practice?
+- Is there a mention of a scientific fact or concept?
+- Is there a mention of a space or astronomical phenomenon?
+- Is there a mention of a tradition or custom?
+- Is there a mention of music or dancing?
+- Is there a reference to a childhood memory?
+- Is there a reference to a diet, nutrition, or food choice?
+- Is there a reference to a famous painting, sculpture, or artist?
+- Is there a reference to a myth, legend, or folklore?
+- Is there a reference to a personal idol or role model?
+- Is there a reference to a social media trend or online phenomenon?
+- Is there a reference to health and safety precautions?
+- Is there a reference to physical health or fitness?
+- Is there an expression of fear or anxiety?
+- Is there an expression of hope or optimism?
+- Is there an expression of loyalty or commitment?
+- Is there an expression of regret or apology?
+- Is there an expression of surprise?
+- Is there any mention of a family member?
+- Is there mention of a book, film, or television show?
+- Is there mention of a concert, play, or live performance?
+- Is there mention of a personal challenge or obstacle overcome?
+- Is there mention of a political event, policy, or figure?
+- Is there mention of a religious or spiritual theme?
+- Is there mention of a unique or unusual hobby?
+- Is there stuttering or uncertainty in the input?
+- Does the sentence contain a contradiction?
+- Does the sentence contain a negation?
+- Does the sentence contain a pun?
+- Does the sentence contain emotionally charged words?
+- Does the sentence convey a decision or choice made by the narrator?
+- Does the sentence convey the narrator's interaction with nature or the outdoors?
+- Does the sentence convey the narrator's sense of humor or wit?
+- Does the sentence describe a common fear or phobia?
+- Does the sentence describe a creative or artistic activity?
+- Does the sentence describe a dream or fantasy?
+- Does the sentence describe a hypothetical scenario?
+- Does the sentence describe a moment of companionship or solitude?
+- Does the sentence describe a personal achievement or milestone?
+- Does the sentence describe a physical sensation (e.g., touch, taste)?
+- Does the sentence describe a relationship between people?
+- Does the sentence describe a scientific experiment or finding?
+- Does the sentence describe a technological concept?
+- Does the sentence describe an animal or involve animals?
+- Does the sentence describe an economic concept or issue?
+- Does the sentence describe an event with emotional significance?
+- Does the sentence describe the narrator's creative process or artistic inspiration?
+- Does the sentence express a moment of forgiveness, either giving or receiving?
+- Does the sentence express a philosophical or existential query or observation?
+- Does the sentence express anger or frustration directed at a specific situation or person?
+- Does the sentence express hope or aspiration for the future?
+- Does the sentence express the narrator's attachment or detachment from material possessions?
+- Does the sentence include a comparison or simile?
+- Does the sentence include a direct speech quotation?
+- Does the sentence include a rhetorical question?
+- Does the sentence include an idiom?
+- Does the sentence include dialogue or thoughts directed towards another character?
+- Does the sentence involve a logical paradox?
+- Does the sentence involve mathematical reasoning?
+- Does the sentence involve planning or decision-making?
+- Does the sentence involve time travel or hypothetical future scenarios?
+- Does the sentence reference a religious or spiritual concept?
+- Does the sentence reference a specific time or date?
+- Does the sentence relate to personal health or bodily functions?
+- Does the sentence reveal a secret or confidential information?
+- Does the sentence use a unique or unusual word?
+- Does the sentence use an unusual syntactic structure?
+- Does the sentence use irony or sarcasm?
+- Does the sentence use non-standard or slang language?
+- Is the sentence a command?
+- Is the sentence a well-known quote or saying?
+- Is the sentence about a game or leisure activity?
+- Is the sentence autobiographical?
+- Is the sentence conveying a sense of awe or wonder experienced by the narrator?
+- Is the sentence conveying a strategic or tactical thought by the narrator?
+- Is the sentence conveying the narrator's physical movement or action in detail?
+- Is the sentence describing a moment of realization or epiphany?
+- Is the sentence describing a physical sensation experienced by the narrator?
+- Is the sentence describing a significant change in the narrator's environment or circumstances?
+- Is the sentence designed to persuade or convince?
+- Is the sentence emotionally neutral?
+- Is the sentence expressing a wish or desire for something to be different?
+- Is the sentence expressing skepticism or disbelief towards something or someone?
+- Is the sentence expressing the narrator's response to art or music?
+- Is the sentence grammatically complex?
+- Is the sentence highlighting a cultural or societal norm that impacts the narrator?
+- Is the sentence humorous?
+- Is the sentence in the passive voice?
+- Is the sentence intended to evoke nostalgia?
+- Is the sentence part of a dialogue?
+- Is the sentence part of a mystery or puzzle?
+- Is the sentence part of a poem or song?
+- Is the sentence reflective, involving self-analysis or introspection?
+- Is the sentence related to environmental issues?
+- Is the sentence related to food or eating?
+- Is the sentence related to politics or government?
+- Is the sentence repetitive or redundant?
+
+Generate a bulleted list of 100 specific, non-overlapping yes/no questions that ask about aspects of the example narrative sentences that are important for classifying them.
+Focus on the given narrative sentences and form questions that combine shared properties from multiple sentences above.
+Do not repeat information in the example questions that are already given above. Instead, generate complementary questions that are not covered by the example questions.
+Return only a bulleted list of questions and nothing else.
+Give an example from the narrative sentences in parentheses for each bullet.
+Example:
+- Does the sentence mention a number? (so six years went on like this without a word from them so finally hurt)'''
+
+ANS_BOOST_LLAMA_v3_1_ex = '''- Does the sentence contain a first-person narrative? (and i'm standing there in my bra and underwear i'm just like oh my god)
+- Does the sentence describe an embarrassing or awkward situation? (and i'm standing there in my bra and underwear i'm just like oh my god)
+- Does the sentence describe an indoor setting? (waiting for me from my adult female open minded easy going down)
+- Does the sentence include the mention of a specific time of day? (took a moment had a cigarette and a beer and it was like eleven o'clock you know)
+- Does the sentence mention a specific type of clothing? (um it's crazy i'm naked with my shoes on like who does that it's wild)
+- Does the sentence involve a social or interpersonal interaction? (say please let us drive you and your sister all the way to south dakota to retrieve your father's)
+- Does the sentence describe a personal habit or routine? (i realized no one wanted to message with a boy in his early adolescence)
+- Does the sentence include an animal? (my friend wrote vixen is still shy and when i went to grab her she)
+- Does the sentence mention a specific location or place? (philosophy in the religion that you take the ashes to this place called haridwar which is where the river ganges comes out of the mountains)
+- Does the sentence involve physical movement or action? (raise my hands and i turn around to face him)
+- Does the sentence describe a personal reflection or thought? (i thought to myself okay i've got the money i've got the time)
+- Does the sentence describe an interaction with technology? (i have combined do you guys know the oregon trail video game fans okay uh)
+- Does the sentence mention a family member? (say please let us drive you and your sister all the way to south dakota to retrieve your father's)
+- Does the sentence describe an unusual or unexpected event? (and then we get the great plan of having chicken fights so we start to have chicken fights but it's kinda weird because)
+- Does the sentence involve an expression of personal feelings or emotions? (and that's how i became obsessed with googling myself and here's the thing about googling yourself it's as dirty as it sounds)
+- Does the sentence include a metaphor or figurative language? (this little fella who kept baby me safe in a house full of monsters)
+- Does the sentence mention a past or historical event? (somehow though sam and i survived our uh my highschool reunion but um mr kaufman who lived downstairs)
+- Does the sentence describe a form of entertainment or leisure activity? (also in that parental package was attendance at the ballet and in our)
+- Does the sentence involve a personal discovery or insight? (recent loss maybe you're questioning the meaning of life call me crazy but have you considered)
+- Does the sentence describe a personal or emotional challenge? (expressive one where i cursed him out or punched him in the face and he saw that i was at a loss)
+- Does the sentence involve a decision-making process? (i thought to myself okay i've got the money i've got the time)
+- Does the sentence describe a specific sensation or feeling? (and i remember i like rolled uh joints for him for this other girl i don't know i i i have this vague memory)
+- Does the sentence include a personal anecdote or story? (from an old peasant lady who said she had nothing and you know me friends he says in his very heavy russian accent)
+- Does the sentence describe a moment of self-expression or assertiveness? (expressive one where i cursed him out or punched him in the face and he saw that i was at a loss)
+- Does the sentence describe an act of communication or interaction with others? (and i thought to myself okay i've got the money i've got the time)
+- Does the sentence include a specific sound or auditory description? (we do this game in the d every day and you think that i'm gonna give you)
+- Does the sentence describe a visual experience or scene? (like through my viewfinder i want those pictures so bad the complicating and mitigating factors that i)
+- Does the sentence involve the description of an emotional response? (and their practice did not involve being outside in the sun like what you're describing which is after all where you)
+- Does the sentence involve an artistic or creative activity? (at art school since we don't have grades we have review boards and at the)
+- Does the sentence describe a health-related topic or concern? (abdominal pain that he had felt that he'd been dealing with for the last eight months the doctors had been treating)
+- Does the sentence describe a confrontation or conflict? (and he wailed back and hit me in the head and came around and hit me in the head)
+- Does the sentence involve the mention of a specific object or item? (in a little notebook which had actually belonged to my father)
+- Does the sentence describe an outdoor activity or scene? (well i shovel driveways all winter long in three rivers michigan so i had enough money to get a round trip train)
+- Does the sentence describe a moment of realization or decision? (no one knows what to do and max reaches in his pocket and he takes out the car keys and he gets in the driver)
+- Does the sentence involve the use of technology or digital communication? (uh looking for some to scare us uh and they said to my mother tell the boy)
+- Does the sentence describe a change in a physical or emotional state? (jenny vomited i thought it was because of the turbulence and an effort to purge israeli politics)
+- Does the sentence include a reference to a cultural or societal norm? (we have a very tight relationship we've always had this bond this complicity this silent)
+- Does the sentence involve a description of a group activity or social gathering? (and then we get the great plan of having chicken fights so we start to have chicken fights but it's kinda weird because)
+- Does the sentence describe an act of creativity or imagination? (and this idea women living underwater seemed to light a lot of fires because we got)
+- Does the sentence describe an activity related to daily life or routine? (so first you have to put your your hands by your sides and and hold your stand very straight and very erect and i said)
+- Does the sentence mention an event or activity involving family or friends? (say please let us drive you and your sister all the way to south dakota to retrieve your father's)
+- Does the sentence describe a moment of surprise or unexpected turn of events? (what are you wearing where do you like to do it how do you like it)
+- Does the sentence involve a change or transition in life? (adult does it was the only house that i had ever lived in my entire life from when i was)
+- Does the sentence involve a description of a journey or travel? (say please let us drive you and your sister all the way to south dakota to retrieve your father's)
+- Does the sentence involve a personal conflict or dilemma? (what are you wearing where do you like to do it how do you like it)
+- Does the sentence involve an artistic or cultural event? (also in that parental package was attendance at the ballet and in our)
+- Does the sentence involve a discussion or mention of personal preferences? (what are you wearing where do you like to do it how do you like it)
+- Does the sentence describe an interaction with an animal? (my friend wrote vixen is still shy and when i went to grab her she)
+- Does the sentence describe a learning experience or educational moment? (and um i remember i like rolled uh joints for him for this other girl i don't know i i i have this vague memory)
+- Does the sentence describe a personal loss or mourning? (like dragged herself out of bed got the stuff up and when she passed away when i was)
+- Does the sentence describe a public or community event? (say please let us drive you and your sister all the way to south dakota to retrieve your father's)
+- Does the sentence involve a description of physical environment or setting? (we have a very tight relationship we've always had this bond this complicity this silent)
+- Does the sentence describe a personal accomplishment or achievement? (i thought to myself okay i've got the money i've got the time)
+- Does the sentence describe a moment of personal growth or development? (and that's how i became obsessed with googling myself and here's the thing about googling yourself it's as dirty as it sounds)
+- Does the sentence describe an act of personal care or maintenance? (so first you have to put your your hands by your sides and and hold your stand very straight and very erect and i said)
+- Does the sentence involve the description of a celebration or festive event? (recent loss maybe you're questioning the meaning of life call me crazy but have you considered)
+- Does the sentence involve a description of a daily or routine task? (so first you have to put your your hands by your sides and and hold your stand very straight and very erect and i said)
+- Does the sentence involve a mention of an object with sentimental or significant value? (in a little notebook which had actually belonged to my father)
+- Does the sentence describe a physical or mental health issue? (abdominal pain that he had felt that he'd been dealing with for the last eight months the doctors had been treating)
+- Does the sentence involve a mention of an unusual or rare event? (and then we get the great plan of having chicken fights so we start to have chicken fights but it's kinda weird because)
+- Does the sentence involve an emotional or psychological struggle? (expressive one where i cursed him out or punched him in the face and he saw that i was at a loss)
+- Does the sentence involve a description of a hobby or leisure activity? (also in that parental package was attendance at the ballet and in our)
+- Does the sentence describe a cultural or traditional practice? (philosophy in the religion that you take the ashes to this place called haridwar which is where the river ganges comes out of the mountains)
+- Does the sentence describe a moment of confusion or uncertainty? (blah blah blah not blah blah blah i'm sure she had points but we really we're very very)
+- Does the sentence involve a personal reflection on past experiences? (i have combined do you guys know the oregon trail video game fans okay uh)
+- Does the sentence describe a moment of interaction with nature or the outdoors? (well i shovel driveways all winter long in three rivers michigan so i had enough money to get a round trip train)
+- Does the sentence describe an experience of personal or social isolation? (back to my room not to my roommate that day or the next and not)
+- Does the sentence involve a discussion or mention of future aspirations or dreams? (recent loss maybe you're questioning the meaning of life call me crazy but have you considered)
+- Does the sentence involve a narrative about overcoming a personal or emotional challenge? (and that's how i became obsessed with googling myself and here's the thing about googling yourself it's as dirty as it sounds)
+- Does the sentence involve a description of a physical activity or sport? (and then we get the great plan of having chicken fights so we start to have chicken fights but it's kinda weird because)
+- Does the sentence describe an interaction that leads to a misunderstanding or conflict? (what are you wearing where do you like to do it how do you like it)
+- Does the sentence describe a personal or intimate moment? (and i'm standing there in my bra and underwear i'm just like oh my god)
+- Does the sentence describe a moment of relief or resolution of tension? (no one knows what to do and max reaches in his pocket and he takes out the car keys and he gets in the driver)
+- Does the sentence involve a discussion about a moral or ethical dilemma? (and their practice did not involve being outside in the sun like what you're describing which is after all where you)
+- Does the sentence describe an experience of learning or gaining new knowledge? (and um i remember i like rolled uh joints for him for this other girl i don't know i i i have this vague memory)
+- Does the sentence involve a description of a personal or family tradition? (philosophy in the religion that you take the ashes to this place called haridwar which is where the river ganges comes out of the mountains)
+- Does the sentence describe a moment of self-doubt or insecurity? (expressive one where i cursed him out or punched him in the face and he saw that i was at a loss)
+- Does the sentence involve a description of a personal crisis or urgent situation? (and that's how i became obsessed with googling myself and here's the thing about googling yourself it's as dirty as it sounds)
+- Does the sentence describe a form of personal expression or creativity? (and this idea women living underwater seemed to light a lot of fires because we got)
+- Does the sentence involve a description of dealing with a personal or emotional issue? (i thought to myself okay i've got the money i've got the time)
+- Does the sentence involve a description of an interpersonal misunderstanding or dispute? (what are you wearing where do you like to do it how do you like it)
+- Does the sentence describe a social or cultural event? (also in that parental package was attendance at the ballet and in our)
+- Does the sentence describe an act of self-improvement or personal growth? (and that's how i became obsessed with googling myself and here's the thing about googling yourself it's as dirty as it sounds)
+- Does the sentence involve a description of adapting to a new situation or environment? (adult does it was the only house that i had ever lived in my entire life from when i was)
+- Does the sentence involve a discussion about personal identity or self-perception? (and answered many questions about my identity following a breakup the fall before)
+- Does the sentence describe an experience of personal or social change? (i became this other person i became this insane person but)
+- Does the sentence describe a personal or social conflict? (what are you wearing where do you like to do it how do you like it)
+- Does the sentence involve a description of a cultural or societal change? (philosophy in the religion that you take the ashes to this place called haridwar which is where the river ganges comes out of the mountains)
+- Does the sentence involve a discussion about personal or social values? (and their practice did not involve being outside in the sun like what you're describing which is after all where you)
+- Does the sentence describe a personal or social celebration? (recent loss maybe you're questioning the meaning of life call me crazy but have you considered)
+- Does the sentence involve a description of a personal or social dilemma? (what are you wearing where do you like to do it how do you like it)
+- Does the sentence describe a personal or social interaction that leads to a change or revelation? (i thought to myself okay i've got the money i've got the time)
+- Does the sentence describe an interaction that affects personal relationships? (say please let us drive you and your sister all the way to south dakota to retrieve your father's)
+- Does the sentence describe a moment of personal or social conflict resolution? (no one knows what to do and max reaches in his pocket and he takes out the car keys and he gets in the driver)
+- Does the sentence involve a discussion or depiction of a personal or social norm? (we have a very tight relationship we've always had this bond this complicity this silent)
+- Does the sentence describe an act of personal or social adaptation or adjustment? (adult does it was the only house that i had ever lived in my entire life from when i was)
+- Does the sentence involve a description of a personal or social tradition or custom? (philosophy in the religion that you take the ashes to this place called haridwar which is where the river ganges comes out of the mountains)
+- Does the sentence involve a discussion about a personal or social challenge or problem? (what are you wearing where do you like to do it how do you like it)
+- Does the sentence describe an act of personal or social reconciliation or understanding? (no one knows what to do and max reaches in his pocket and he takes out the car keys and he gets in the driver)'''
+
+PROMPT_BOOST_LLAMA_v3_2_ex = '''# Example narrative sentences
+- you i'm a fourteen year old girl i'm already awkward enough as it is with clothes on
+- and so just then um the dj who's this fo you know three hundred pound man named rudy comes
+- you know at  at eleven years old she decided to give me a makeover but the result was something like if you put blue ah sh eyeshadow
+- one of those child safety videos being terrified of child snatchers and anxious to
+- chicken fights so we start to have chicken fights but it's kinda weird because there's only three of us so
+- chicken fights but it's kinda weird because there's only three of us so but we're doing the best we can to have a chicken
+- ritual they said um so first you have to put your your hands by your sides and and hold your
+- yes do we know what craigslist is if anyone here doesn't know it's this like hippy dippy bulletin board
+- and i'm crying i'm crying and i'm disappointed but why not because i didn't
+- that i had waiting for me waiting for me from my adult female open minded
+- and i figure you know what i'm gonna give them just a brush with death so i write i write out a bunch
+- but that is the kind of oregon trail i wanna be on at that point um so that's the oregon trail but i have to
+- german concentration camp and then one day
+- he was no help and um somehow though sam and i survived our uh my highschool reunion but um
+- and my and i remember at the reunion i won most successful and i just was like yeah and my husband's gay
+- was so dark for me that i'm gonna bring this little fella who kept baby me safe in
+- i didn't even miss him he texted me twice and i never replied and then he called and
+- i really enjoyed being around him one weird thing that i did notice about samuel was
+- just made me feel like a pretty terrible daughter because i knew the expectation was that i was supposed to keep
+- i decided to remove my jewelry my watch leave my cards behind and my cash
+- maybe i'm stabbed but i go into intensive care
+- course you couldn't study it back then well where i was from but i felt that somehow or other this
+- i was looking for women who looked cute or friendly or approachable
+- women who looked cute or friendly or approachable when i found somebody like this then
+- i provided my usual answers i was wearing nothing i just got out of the shower and
+- retracing our trackless journey all the way back to provideniya and she
+- i could call uh an english speaking woman in the village of uelen and she would d d trying
+- um i'm not invited to the wedding and i'm very upset about this and and it it
+- now there's a question you're asked more than any other when you're a presidential
+- now there's a question you're asked more than any other when you're a presidential speech writer and the question is
+- and then so she showed me how to how to make birria basically and um you know they were wearing flower aprons
+- i was fifteen when i first met troy eighteen when he was executed and
+- but he could face another execution date in a matter of days
+- from head to toe and an extensive background check never once
+- after me building this guy up the whole ride back he's like fucking like
+- she meets my dad and the dude is like totally normal
+- potential problems in this world which is what you ultimately ultimately ultimately wish for
+- above me is the largest human being i had seen up to that point in my life uh he was a massive
+- he was alive and i got in this line of all these people waiting to greet his family and i could
+- after i went to be a sixteen brooklyn in the stuyvesant high school
+- back swing and the follow through and he wailed back and hit me in the head
+- my dad is still out and the surgeon goes just push him out to your mom okay and my
+- it dawns on me like i've played a lot of baseball in my life and i've you know been a big fan for a while
+- okay so i'm i'm actually destroying the the sex bell curve for everybody
+- no point did it cost me five thousand dollars
+- uh very close with my mother we have a very tight relationship we've always had this bond
+- how did you get here where are you staying and he said well i shovel driveways all winter long in three rivers michigan so i had enough
+- and he told in the letter he said he'd gotten a lot of the businesses in three rivers cited for fire code violations
+- the vendors had always been very kind to use whatever english that they knew to help us with our purchases
+- we got closer and my heart certainly opened a little bit knowing
+- it enabled me to to to commit to have breakfast with him every sunday
+- they made a all women's team which made headlines it was
+- alright i knew that one wasn't cool um fifth grade was the last year
+- out of sync so class continues for the next six weeks and it's an emotional
+- so i quit my full time job and i started consulting and i started taking classes
+- this situation in the late eighties and early nineties white supremacist organizations
+- silly photo art photo you know so mike needs you know i got my triangle and then i you know here's mike and he's doing an especially
+- angrier and more upsetting and there is no understanding happening between us at all and somebody
+- him but he wasn't breathing we cleared snow around him and carefully moved him up onto the snow
+- with the death of goldie i was saying goodbye to that and so i gave myself over for
+- walked with women through some horrific stories and so the fact that i'm being undone
+- with babies until i got a phone call about our boy's baby sister
+- will you come to hiroshima and nagasaki for the memorial ceremonies and i said yes
+- i've held sadako's crane in one hand and i have held in my other hand the hands of men
+- uh i i i assumed that sloth would be the first sin picked because
+- a vision of an alternate universe my alternate life i thought oh my god i was supposed
+- lit up they are finally getting to do that thing the thing they love it's like yes i finally get to joust
+- and in fact at that period many people who come to my
+- coursed every time somebody goes to haridwar to take their loved one's ashes back they
+- had done exactly the same thing as me they'd brought a loved one to haridwar poured the ashes in the river
+- and release and i'm on the release end at this point i get to r and r
+- i got my citizenship i was very happy or excited to live
+- i have survived later the sol the police escorts me home and my mom
+- i didn't know if i should return home to philadelphia resume my job in rural oregon or try to rebuild
+- had news of his own the abdominal pain that he had felt that he'd been dealing with
+- and he had news of his own the abdominal pain that he had felt
+- definition of insanity is repeating the same behavior over and over and expecting a different outcome
+- my assumptions about fatima zohra's sheltered life had been way off
+- the unboyfriend were as prickly as ever i didn't wanna lose my most loyal caller
+- people didn't understand why i wouldn't apologize she won't
+- to a blog and before i knew it people living with epilepsy were coming to my blog
+- imagine my joy when i heard about something called actuarial science
+- when our son was born i found myself perhaps like most
+- from them so finally hurt and confused beyond
+- this um this thing they did this extreme and unfathomable
+- bunch of mice in a nearby lab is doing something different by mistake they were doing something nice
+- or deported back to my country
+- but as soon as we went there it was a sushi restaurant and i
+- obviously had there for just this sort of event um and he couldn't figure out how to work it and then he figured out how to work
+- all naked uh was there was this little incident that one of these soldier
+- i didn't know what was happening i saw some
+- her and my stepdad because you know she wanted to take care of me i was still really sick i could
+- semester went on i sort of experimented in every facet of liberty's student life i
+- for hours about whether i should use they or we and i i knew
+- about my identity following a breakup the fall before i had struggled to feel like myself
+- around me and gesticulate wildly did i turn to joe and say
+- and i realized that the romance was starting to slip away from me that this other person
+- we don't go to the game but the mets manage to win so now they're going into wednesday
+- couple of weeks before the wedding my father called mary
+- now probably making sure everyone she shares the afterlife with are enjoying nuts and mints
+- i dropped my canister back in my purse and i stood
+- handshake she complimented the mussels which a friend of mine had grown off the coast
+- nice and soft just as i taught her and she looked at me and i tasted them and they were perfect
+- nothing extraordinary just your generic first grade flirtation with cruelty but when the teacher informed
+- job well from that point forward i started taking college classes at night
+- case just isn't there and i walked the hell out
+- it's like finding an old cassette tape that you made
+- we want to do an article on miss elizabeth and so my mother said well that's alright come on do an article
+- i'm a little girl home for the holidays with no friends and
+- are going i am so pumped it's time i'm gonna fly this thing i got my own set of controls he
+- and frank is protecting me once again twenty years later under very different
+- still keeping the focus on my father so she had me driving out in the you know
+- you know black freedom fighters and after about fourteen years of war and negotiations in
+- been here since about two o'clock and i looked and it was about five thirty so
+- arrested and all of that well my young friends and i um heard about
+- so i try to explain this whole death star thing and it doesn't work i still get that disappointed look
+- me i think it's adorable so my doctor calls me later that day and she goes melanie are you with
+- so i cut her head they so so they're gonna cut her head open and he's like and i will remove the forehead
+- the show and all of this is okay this is fine um i pack my stuff i go downstairs to the um
+- i'm sure you can imagine is tag with kissing as soon as my dad found out
+- tag with kissing as soon as my dad found out he came to the back room he grabbed me
+- had never heard of this before it didn't run in my family and i wondered uh was it something
+
+# Example yes/no questions
+- Does the input contain a number?
+- Does the input contain advice or recommendations?
+- Does the input contain emotional words?
+- Does the input contain negativity?
+- Does the input describe a body of water?
+- Does the input describe a moment of cultural shock or adaptation?
+- Does the input describe a moment of teamwork or collaboration?
+- Does the input describe a problem or challenge?
+- Does the input describe a scientific experiment or discovery?
+- Does the input describe a specific emotion in detail?
+- Does the input describe an animal?
+- Does the input describe an encounter with a stranger?
+- Does the input discuss a breakthrough in medical research?
+- Does the input discuss a collaboration or team effort?
+- Does the input discuss a fashion trend or style advice?
+- Does the input discuss a health-related issue or wellness?
+- Does the input discuss a moral or ethical dilemma?
+- Does the input discuss a personal achievement or milestone?
+- Does the input discuss a personal limitation or weakness?
+- Does the input discuss a societal issue or social justice topic?
+- Does the input discuss an act of kindness or charity?
+- Does the input discuss educational content or learning?
+- Does the input discuss travel or exploration?
+- Does the input express disappointment or dissatisfaction?
+- Does the input express feelings of jealousy or envy?
+- Does the input express gratitude?
+- Does the input include a comparison or metaphor?
+- Does the input include a mention of a personal idol or hero?
+- Does the input include a philosophical or reflective thought?
+- Does the input include an expression of disappointment?
+- Does the input involve a coding or programming concept?
+- Does the input involve a craft or handiwork project?
+- Does the input involve a cultural festival or event?
+- Does the input involve a financial planning or investment strategy?
+- Does the input involve a financial transaction or discussion?
+- Does the input involve a game or recreational activity?
+- Does the input involve a legal matter or law enforcement?
+- Does the input involve a puzzle or problem to solve?
+- Does the input involve a vehicle or mode of transportation?
+- Does the input involve animals or wildlife?
+- Does the input involve planning or organizing?
+- Does the input mention a change in a relationship?
+- Does the input mention a cultural or societal norm?
+- Does the input mention a form of artistic expression?
+- Does the input mention a personal insecurity or doubt?
+- Does the input mention a political or social issue?
+- Does the input mention a social or community issue?
+- Does the input mention a specific event or festival?
+- Does the input mention laughter?
+- Does the sentence contain a question?
+- Does the sentence describe a landscape or natural feature?
+- Does the sentence describe a physical sensation?
+- Does the sentence describe an artistic or creative activity?
+- Does the sentence express confidence or certainty?
+- Does the sentence include a cultural reference or idiom?
+- Does the sentence include a number or statistic?
+- Does the sentence include technical or specialized terminology?
+- Does the sentence involve a negotiation or compromise?
+- Does the sentence involve a safety or security concern?
+- Does the sentence mention a holiday or celebration?
+- Does the sentence mention a specific location?
+- Does the sentence reference a specific time of day?
+- Does the story describe a ceremony or ritual?
+- Does the story describe a shopping experience?
+- Does the story include a lesson or moral?
+- Does the story include an act of bravery or courage?
+- Does the story involve a form of meditation or mindfulness?
+- Does the story involve a personal project or creation?
+- Does the story involve a retreat or getaway?
+- Does the story involve planning or preparing for an event?
+- Does the story mention a craft or DIY project?
+- Does the story mention a form of entertainment?
+- Does the story mention a health issue or injury?
+- Does the story mention an invention or discovery?
+- Does the story talk about a loss or letting go?
+- Does the story talk about a personal challenge?
+- Does the story talk about a vacation or travel experience?
+- Does the text describe a form of therapy or healing?
+- Does the text describe a hobby in detail?
+- Does the text describe a mode of communication?
+- Does the text describe a personal space or room?
+- Does the text describe an adventure or risky activity?
+- Does the text include a prediction or expectation?
+- Does the text include a reference to a past era or time period?
+- Does the text include a reflection on past events?
+- Does the text involve a financial challenge or setback?
+- Does the text involve a financial transaction?
+- Does the text involve a personal challenge or goal being achieved?
+- Does the text mention a celebrity or public figure?
+- Does the text mention a form of alternative transportation?
+- Does the text mention a form of manual labor or craft?
+- Does the text mention a piece of advice?
+- Does the text talk about a hobby or pastime?
+- Is a culinary experience or taste described?
+- Is a cultural or societal norm discussed?
+- Is a family member mentioned?
+- Is a fear or phobia expressed?
+- Is a form of non-verbal communication depicted?
+- Is a friendship being formed or ending?
+- Is a health or fitness routine described?
+- Is a historic landmark or monument described?
+- Is a historical figure or leader mentioned?
+- Is a holiday or celebration referenced in the input?
+- Is a legal or ethical dilemma discussed?
+- Is a meal being prepared or cooked?
+- Is a moment of solitude or reflection described?
+- Is a mythical or legendary story referenced?
+- Is a new technological advancement discussed?
+- Is a personal goal or objective mentioned?
+- Is a personal philosophy or worldview expressed?
+- Is a personal transformation or change described?
+- Is a professional or career-related decision discussed?
+- Is a scientific concept or theory mentioned?
+- Is a significant historical period or event described?
+- Is a social gathering or event described?
+- Is a specific color or pattern described?
+- Is a specific historical figure or leader mentioned?
+- Is a specific location described?
+- Is a specific piece of technology or gadget mentioned?
+- Is a specific scientific field or discipline mentioned?
+- Is a specific tool or equipment mentioned?
+- Is a sport or physical activity mentioned in the input?
+- Is a superstition or myth discussed?
+- Is an art or craft mentioned?
+- Is an environmental concern or issue mentioned?
+- Is an unexpected discovery or surprise mentioned?
+- Is hair or clothing mentioned in the input?
+- Is technology or innovation discussed in the input?
+- Is the input about a misunderstanding or assumption?
+- Is the input about a practical joke or prank?
+- Is the input about a scientific discovery or concept?
+- Is the input about an interaction with technology?
+- Is the input expressing a wish or desire?
+- Is the input mentioning an animal?
+- Is the input related to a specific industry or profession?
+- Is the input related to physical injury or trauma?
+- Is the sentence describing a misunderstanding or confusion?
+- Is the sentence describing a work or school-related task?
+- Is the sentence giving advice or a suggestion?
+- Is the sentence mentioning a pet or domestic animal?
+- Is the sentence referencing legal matters or rights?
+- Is there a depiction of a dream or nightmare?
+- Is there a depiction of a public speaking or performance event?
+- Is there a depiction of a routine or habit?
+- Is there a description of a childhood toy or game?
+- Is there a description of a landscape or natural scene?
+- Is there a description of a technological device or app?
+- Is there a description of weather conditions?
+- Is there a discussion about politics or government?
+- Is there a discussion about the future or predictions?
+- Is there a discussion of a lesson learned or wisdom gained?
+- Is there a discussion of a psychological concept or mental health issue?
+- Is there a discussion of a technological problem or bug?
+- Is there a mention of a book, movie, or song?
+- Is there a mention of a competition or contest?
+- Is there a mention of a fictional character or story?
+- Is there a mention of a gadget or piece of technology?
+- Is there a mention of a geographical feature, like a mountain or river?
+- Is there a mention of a historical event?
+- Is there a mention of a hobby or leisure activity?
+- Is there a mention of a natural disaster?
+- Is there a mention of a physical object or item?
+- Is there a mention of a puzzle or mystery?
+- Is there a mention of a significant weather event?
+- Is there a mention of a specific food or drink?
+- Is there a mention of an environmental or ecological practice?
+- Is there a mention of reading or writing?
+- Is there a reference to a cultural tradition or practice?
+- Is there a reference to a dream or aspiration?
+- Is there a reference to a famous work of literature or author?
+- Is there a reference to a past event?
+- Is there a reference to a philosophical or ethical dilemma?
+- Is there a reference to a specific individual or public figure?
+- Is there a reference to music, either listening or playing?
+- Is there a reference to space, astronomy, or the universe?
+- Is there an expression of frustration or annoyance?
+- Is there an expression of love or affection?
+- Is there an expression of pride or self-esteem?
+- Is there an expression of surprise or unexpected outcome?
+- Is there any mention of a dream or aspiration?
+- Is there any mention of weather or climate conditions?
+- Is there mention of a city, country, or geographic feature?
+- Is there mention of a family or personal relationship?
+- Is there mention of a personal hobby or interest?
+- Is there mention of a public service or community project?
+- Is there mention of a traditional or cultural dish?
+- Is there mention of a war, battle, or military event?
+- Is time mentioned in the input?
+- Does the sentence contain a cultural reference?
+- Does the sentence contain a proper noun?
+- Does the sentence contain a question that encourages reflection?
+- Does the sentence contain words with strong visual imagery?
+- Does the sentence convey a sense of urgency or haste?
+- Does the sentence convey the narrator's relationship with time, such as impatience or nostalgia?
+- Does the sentence describe a character in a story?
+- Does the sentence describe a common superstition or myth?
+- Does the sentence describe a cultural practice or tradition?
+- Does the sentence describe a fictional scenario?
+- Does the sentence describe a lesson learned or insight gained by the narrator?
+- Does the sentence describe a natural phenomenon?
+- Does the sentence describe a personal preference?
+- Does the sentence describe a recurring thought or obsession?
+- Does the sentence describe a routine activity?
+- Does the sentence describe a sensory experience?
+- Does the sentence describe a travel experience?
+- Does the sentence describe an art or craft technique?
+- Does the sentence describe an ethical dilemma?
+- Does the sentence describe an interaction that is significant to the narrator's development?
+- Does the sentence express a moment of defiance or resistance by the narrator?
+- Does the sentence express a personal fear or anxiety?
+- Does the sentence express a sense of belonging or connection to a place or community?
+- Does the sentence express gratitude or appreciation for something or someone?
+- Does the sentence express regret or remorse for a past action?
+- Does the sentence express the narrator's opinion or judgment about an event or character?
+- Does the sentence include a conditional clause?
+- Does the sentence include a metaphor?
+- Does the sentence include a threat or warning?
+- Does the sentence include an oxymoron?
+- Does the sentence include numerical information?
+- Does the sentence involve a social interaction?
+- Does the sentence involve moral reasoning?
+- Does the sentence involve spatial reasoning?
+- Does the sentence reference a famous person or event?
+- Does the sentence reference a specific location or place?
+- Does the sentence reference historical events?
+- Does the sentence require inferential reasoning to understand?
+- Does the sentence use a common cliché?
+- Does the sentence use alliteration or rhyme?
+- Does the sentence use future tense?
+- Does the sentence use metaphor to describe emotions?
+- Does the sentence use past tense?
+- Is the sentence a question?
+- Is the sentence about a current event or recent news?
+- Is the sentence abstract rather than concrete?
+- Is the sentence conveying a change in the narrator's emotional state?
+- Is the sentence conveying a sense of loneliness or isolation?
+- Is the sentence conveying the narrator's admiration or respect for another character?
+- Is the sentence describing a moment of peace or contentment?
+- Is the sentence describing a moment of vulnerability or weakness?
+- Is the sentence describing a ritual or routine important to the narrator?
+- Is the sentence describing an immediate reaction to an event or action?
+- Is the sentence emotionally negative?
+- Is the sentence emotionally positive?
+- Is the sentence expressing confusion or uncertainty?
+- Is the sentence expressing the narrator's aspirations for societal change or impact?
+- Is the sentence focused on a memory from the past?
+- Is the sentence highlighting a contrast between the narrator's past and present self?
+- Is the sentence humorous because of a play on words?
+- Is the sentence in the active voice?
+- Is the sentence intended to be motivational or inspirational?
+- Is the sentence intentionally vague or ambiguous?
+- Is the sentence part of a legal document or text?
+- Is the sentence part of a narrative?
+- Is the sentence part of a scientific explanation?
+- Is the sentence related to education or learning?
+- Is the sentence related to fashion or personal style?
+- Is the sentence related to health and fitness advice?
+- Is the sentence related to sports or physical exercise?
+- Is the sentence structured as a list?
+
+Generate a bulleted list of 100 specific, non-overlapping yes/no questions that ask about aspects of the example narrative sentences that are important for classifying them.
+Focus on the given narrative sentences and form questions that combine shared properties from multiple sentences above.
+Do not repeat information in the example questions that are already given above. Instead, generate complementary questions that are not covered by the example questions.
+Return only a bulleted list of questions and nothing else.
+Give atleast 2 examples from the narrative sentences in parentheses for each bullet separated by a semicolon.
+Example:
+- Does the sentence mention a number? (you i'm a fourteen year old girl i'm already awkward enough as it is with clothes on; no point did it cost me five thousand dollars)'''
+
+ANS_BOOST_LLAMA_v3_2_ex = '''- Does the sentence describe a childhood experience? (you i'm a fourteen year old girl i'm already awkward enough as it is with clothes on; i was fifteen when i first met troy eighteen when he was executed)
+- Does the sentence involve a personal story of a medical or health issue? (i didn't even miss him he texted me twice and i never replied and then he called; the abdominal pain that he had felt that he'd been dealing with)
+- Does the sentence involve an unexpected incident or accident? (back swing and the follow through and he wailed back and hit me in the head; but he wasn't breathing we cleared snow around him and carefully moved him up onto the snow)
+- Does the sentence describe an experience of fear or danger? (one of those child safety videos being terrified of child snatchers and anxious to; maybe i'm stabbed but i go into intensive care)
+- Does the sentence involve a description of an emotional reaction to a surprise or unexpected event? (and i'm crying i'm crying and i'm disappointed but why not because i didn't; and then so she showed me how to how to make birria basically and um you know they were wearing flower aprons)
+- Does the sentence involve a discussion of a familial relationship? (my dad is still out and the surgeon goes just push him out to your mom okay and my; her and my stepdad because you know she wanted to take care of me i was still really sick i could)
+- Does the sentence describe a significant life decision or change? (i decided to remove my jewelry my watch leave my cards behind and my cash; i didn't know if i should return home to philadelphia resume my job in rural oregon or try to rebuild)
+- Does the sentence discuss a past relationship? (i was fifteen when i first met troy eighteen when he was executed; tag with kissing as soon as my dad found out he came to the back room he grabbed me)
+- Does the sentence describe a personal crisis or a moment of self-doubt? (i'm not invited to the wedding and i'm very upset about this and and it it; walked with women through some horrific stories and so the fact that i'm being undone)
+- Does the sentence describe a social interaction that led to emotional discomfort or embarrassment? (yes do we know what craigslist is if anyone here doesn't know it's this like hippy dippy bulletin board; angrier and more upsetting and there is no understanding happening between us at all and somebody)
+- Does the sentence involve a description of a physical activity or sport? (chicken fights so we start to have chicken fights but it's kinda weird because there's only three of us so; my dad is still out and the surgeon goes just push him out to your mom okay and my)
+- Does the sentence contain a humorous or ironic comment? (and my and i remember at the reunion i won most successful and i just was like yeah and my husband's gay; okay so i'm i'm actually destroying the the sex bell curve for everybody)
+- Does the sentence describe a celebration or party? (he was alive and i got in this line of all these people waiting to greet his family and i could; couple of weeks before the wedding my father called mary)
+- Does the sentence involve a reflection on a past event that has had a lasting impact? (i've held sadako's crane in one hand and i have held in my other hand the hands of men; it's like finding an old cassette tape that you made)
+- Does the sentence discuss an interaction with an authority figure or professional? (she meets my dad and the dude is like totally normal; my dad is still out and the surgeon goes just push him out to your mom okay and my)
+- Does the sentence involve a cultural or traditional practice? (ritual they said um so first you have to put your your hands by your sides and and hold your; and then so she showed me how to how to make birria basically and um you know they were wearing flower aprons)
+- Does the sentence include an emotional appeal or plea? (i'm not invited to the wedding and i'm very upset about this and and it it; and i'm crying i'm crying and i'm disappointed but why not because i didn't)
+- Does the sentence involve a description of a personal achievement or recognition? (and my and i remember at the reunion i won most successful and i just was like yeah and my husband's gay; had news of his own the abdominal pain that he had felt that he'd been dealing with)
+- Does the sentence involve a discussion or description of a mental health issue? (one of those child safety videos being terrified of child snatchers and anxious to; was so dark for me that i'm gonna bring this little fella who kept baby me safe in)
+- Does the sentence describe an unusual or quirky scenario? (yes do we know what craigslist is if anyone here doesn't know it's this like hippy dippy bulletin board; so i try to explain this whole death star thing and it doesn't work i still get that disappointed look)
+- Does the sentence include a description of a life-altering moment? (i was fifteen when i first met troy eighteen when he was executed; i got my citizenship i was very happy or excited to live)
+- Does the sentence involve an act of personal or community significance? (will you come to hiroshima and nagasaki for the memorial ceremonies and i said yes; they made a all women's team which made headlines it was)
+- Does the sentence describe a personal or emotional challenge? (just made me feel like a pretty terrible daughter because i knew the expectation was that i was supposed to keep; walked with women through some horrific stories and so the fact that i'm being undone)
+- Does the sentence involve a mention of an event or occurrence that had unexpected outcomes? (and i figure you know what i'm gonna give them just a brush with death so i write i write out a bunch; obviously had there for just this sort of event um and he couldn't figure out how to work it and then he figured out how to work)
+- Does the sentence describe a moment of personal insight or realization? (definition of insanity is repeating the same behavior over and over and expecting a different outcome; it dawns on me like i've played a lot of baseball in my life and i've you know been a big fan for a while)
+- Does the sentence involve an expression of personal values or beliefs? (i have survived later the sol the police escorts me home and my mom; a vision of an alternate universe my alternate life i thought oh my god i was supposed)
+- Does the sentence describe a confrontation or conflict? (angrier and more upsetting and there is no understanding happening between us at all and somebody; but that is the kind of oregon trail i wanna be on at that point um so that's the oregon trail but i have to)
+- Does the sentence include a reflection on a change in societal or cultural conditions? (you know black freedom fighters and after about fourteen years of war and negotiations in; this situation in the late eighties and early nineties white supremacist organizations)
+- Does the sentence describe an interaction involving negotiation or compromise? (so i try to explain this whole death star thing and it doesn't work i still get that disappointed look; he told in the letter he said he'd gotten a lot of the businesses in three rivers cited for fire code violations)
+- Does the sentence involve an act of creativity or artistic expression? (and then so she showed me how to how to make birria basically and um you know they were wearing flower aprons; silly photo art photo you know so mike needs you know i got my triangle and then i you know here's mike and he's doing an especially)
+- Does the sentence describe a moment of self-awareness or personal growth? (and i'm crying i'm crying and i'm disappointed but why not because i didn't; imagine my joy when i heard about something called actuarial science)
+- Does the sentence describe a significant personal interaction? (and my and i remember at the reunion i won most successful and i just was like yeah and my husband's gay; and he told in the letter he said he'd gotten a lot of the businesses in three rivers cited for fire code violations)
+- Does the sentence involve a description of overcoming a personal obstacle? (was so dark for me that i'm gonna bring this little fella who kept baby me safe in; i didn't know if i should return home to philadelphia resume my job in rural oregon or try to rebuild)
+- Does the sentence involve a recounting of a memorable event or anecdote? (chicken fights but it's kinda weird because there's only three of us so but we're doing the best we can to have a chicken; after me building this guy up the whole ride back he's like fucking like)
+- Does the sentence discuss a journey or travel experience? (retracing our trackless journey all the way back to provideniya and she; i didn't know if i should return home to philadelphia resume my job in rural oregon or try to rebuild)
+- Does the sentence describe an unexpected encounter or meeting? (and then so she showed me how to how to make birria basically and um you know they were wearing flower aprons; she meets my dad and the dude is like totally normal)
+- Does the sentence involve a personal reflection on a past decision? (i decided to remove my jewelry my watch leave my cards behind and my cash; and he had news of his own the abdominal pain that he had felt)
+- Does the sentence include a narrative about facing fears or anxieties? (one of those child safety videos being terrified of child snatchers and anxious to; maybe i'm stabbed but i go into intensive care)
+- Does the sentence involve a description of adapting to a new environment or situation? (now there's a question you're asked more than any other when you're a presidential speech writer and the question is; and i'm not invited to the wedding and i'm very upset about this and and it it)
+- Does the sentence include an account of a miscommunication or misunderstanding? (so i try to explain this whole death star thing and it doesn't work i still get that disappointed look; is there a depiction of a public speaking or performance event)
+- Does the sentence involve a personal anecdote about family or friends? (she meets my dad and the dude is like totally normal; my dad is still out and the surgeon goes just push him out to your mom okay and my)
+- Does the sentence describe an emotional response to a specific event? (i'm not invited to the wedding and i'm very upset about this and and it it; and i'm crying i'm crying and i'm disappointed but why not because i didn't)
+- Does the sentence involve a recollection of a youthful experience? (i was fifteen when i first met troy eighteen when he was executed; alright i knew that one wasn't cool um fifth grade was the last year)
+- Does the sentence describe a significant personal moment or life event? (i was fifteen when i first met troy eighteen when he was executed; i got my citizenship i was very happy or excited to live)
+- Does the sentence involve a recount of a social or community event? (and he told in the letter he said he'd gotten a lot of the businesses in three rivers cited for fire code violations; they made a all women's team which made headlines it was)
+- Does the sentence describe a personal challenge or adversity faced? (was so dark for me that i'm gonna bring this little fella who kept baby me safe in; i didn't know if i should return home to philadelphia resume my job in rural oregon or try to rebuild)
+- Does the sentence contain a personal expression of feelings or emotions? (and i'm crying i'm crying and i'm disappointed but why not because i didn't; walked with women through some horrific stories and so the fact that i'm being undone)
+- Does the sentence involve a reflection on a relationship with a significant other or family member? (and my and i remember at the reunion i won most successful and i just was like yeah and my husband's gay; her and my stepdad because you know she wanted to take care of me i was still really sick i could)
+- Does the sentence describe a notable change in a personal or professional context? (i decided to remove my jewelry my watch leave my cards behind and my cash; so i quit my full time job and i started consulting and i started taking classes)
+- Does the sentence describe an event involving learning or personal growth? (and then so she showed me how to how to make birria basically and um you know they were wearing flower aprons; imagine my joy when i heard about something called actuarial science)
+- Does the sentence describe a memorable or unusual encounter? (after me building this guy up the whole ride back he's like fucking like; she meets my dad and the dude is like totally normal)
+- Does the sentence include a recounting of an impactful or emotional dialogue? (angrier and more upsetting and there is no understanding happening between us at all and somebody; my dad is still out and the surgeon goes just push him out to your mom okay and my)
+- Does the sentence discuss an episode of self-discovery or identity exploration? (about my identity following a breakup the fall before i had struggled to feel like myself; i've played a lot of baseball in my life and i've you know been a big fan for a while)
+- Does the sentence describe an experience involving fear or anxiety? (one of those child safety videos being terrified of child snatchers and anxious to; was so dark for me that i'm gonna bring this little fella who kept baby me safe in)
+- Does the sentence describe a scenario involving a cultural or social adjustment? (now there's a question you're asked more than any other when you're a presidential speech writer and the question is; you know black freedom fighters and after about fourteen years of war and negotiations in)
+- Does the sentence involve a recounting of a childhood or adolescent memory? (alright i knew that one wasn't cool um fifth grade was the last year; chicken fights but it's kinda weird because there's only three of us so)
+- Does the sentence describe a significant personal realization or epiphany? (i've held sadako's crane in one hand and i have held in my other hand the hands of men; definition of insanity is repeating the same behavior over and over and expecting a different outcome)
+- Does the sentence involve a discussion about a specific personal or professional achievement? (and my and i remember at the reunion i won most successful and i just was like yeah and my husband's gay; i got my citizenship i was very happy or excited to live)
+- Does the sentence describe an event that brought about a significant emotional impact? (and i'm crying i'm crying and i'm disappointed but why not because i didn't; walked with women through some horrific stories and so the fact that i'm being undone)
+- Does the sentence contain a description of an interaction that led to a misunderstanding or conflict? (so i try to explain this whole death star thing and it doesn't work i still get that disappointed look; angrier and more upsetting and there is no understanding happening between us at all and somebody)'''

@@ -21,12 +21,12 @@ params_shared_dict = {
 
     # cluster
     # 'seed': range(14),
-    # 'seed': range(20),
+    'seed': range(30),
     'pc_components': [100],
     # 'ndelays': [4],
 
     # local
-    'seed': [1],
+    # 'seed': [1],
     # 'pc_components': [1000, 100, -1],
     # 'use_extract_only': [0],
 }
@@ -48,22 +48,25 @@ params_coupled_dict = {
         # ('llama2-13B_lay24-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
         # ('llama2-13B_lay30-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
-        ('llama2-70B_lay12-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        ('llama2-70B_lay24-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        ('llama2-70B_lay36-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        ('llama2-70B_lay48-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
-        ('llama2-70B_lay60-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('llama2-70B_lay12-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('llama2-70B_lay24-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('llama2-70B_lay36-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('llama2-70B_lay48-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        # ('llama2-70B_lay60-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
 
         # # # main
         # ('qa_embedder-10', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
 
-        # # # vary mistral versions
+        # vary question versions
         # ('qa_embedder-10', 'v2', 'mistralai/Mistral-7B-Instruct-v0.2'),
         # ('qa_embedder-10', 'v3', 'mistralai/Mistral-7B-Instruct-v0.2'),
         # ('qa_embedder-10', 'v4', 'mistralai/Mistral-7B-Instruct-v0.2'),
         # ('qa_embedder-10', 'v5', 'mistralai/Mistral-7B-Instruct-v0.2'),
         # ('qa_embedder-10', 'v6', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        ('qa_embedder-10', 'v3_boostbasic', 'mistralai/Mistral-7B-Instruct-v0.2'),
+        ('qa_embedder-10', 'v3_boostexamples',
+         'mistralai/Mistral-7B-Instruct-v0.2'),
 
         # vary context len
         # ('qa_embedder-25', 'v1', 'mistralai/Mistral-7B-Instruct-v0.2'),
@@ -105,25 +108,25 @@ args_list = submit_utils.get_args_list(
 )
 script_name = join(repo_dir, '01_fit_encoding.py')
 amlt_kwargs = {
-    'amlt_file': join(repo_dir, 'launch.yaml'),
+    'amlt_file': join(repo_dir, 'launch.yaml'),  # change this to run a cpu job
     # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
     # 'sku': '64G8-MI200-xGMI',
-    'sku': '64G4-MI200-xGMI',
-    # 'sku': '64G2-MI200-xGMI',
+    # 'sku': '64G4-MI200-xGMI',
+    'sku': '64G2-MI200-xGMI',
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
 submit_utils.run_args_list(
     args_list,
     script_name=script_name,
-    # actually_run=False,
-    # unique_seeds=True,
+    unique_seeds=True,
     amlt_kwargs=amlt_kwargs,
     # n_cpus=9,
     # n_cpus=4,
     # gpu_ids=[0, 1],
-    # gpu_ids=[0, 1, 2, 3],
-    # gpu_ids=[[0, 1, 2, 3]],
+    gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1], [2, 3]],
+    # gpu_ids=[[0, 1, 2, 3]],
+    # actually_run=False,
     repeat_failed_jobs=True,
     shuffle=True,
     cmd_python=f'export HF_TOKEN={open(expanduser("~/.HF_TOKEN"), "r").read().strip()}; python',
