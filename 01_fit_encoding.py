@@ -427,6 +427,12 @@ def add_summary_stats(r, verbose=True):
             r[key + '_mean_top5_percentile'] = np.mean(
                 np.sort(r[key])[-len(r[key]) // 20:])
 
+            # add r2 stats
+            r[key.replace('corrs', 'r2') +
+              '_mean'] = np.mean(r[key] * np.abs(r[key]))
+            r[key.replace('corrs', 'r2') +
+              '_median'] = np.median(r[key] * np.abs(r[key]))
+
             if key == 'corrs_test' and verbose:
                 logging.info(f"mean {key}: {r[key + '_mean']:.4f}")
                 logging.info(f"median {key}: {r[key + '_median']:.4f}")

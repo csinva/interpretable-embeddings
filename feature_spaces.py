@@ -362,6 +362,7 @@ _FEATURE_CHECKPOINTS = {
     'llama2-7B': 'meta-llama/Llama-2-7b-hf',
     'llama2-13B': 'meta-llama/Llama-2-13b-hf',
     'llama2-70B': 'meta-llama/Llama-2-70b-hf',
+    'llama3-8B': 'meta-llama/Meta-Llama-3-8B',
 }
 BASE_KEYS = list(_FEATURE_CHECKPOINTS.keys())
 for context_length in [2, 3, 4, 5, 10, 20, 25, 50, 75]:
@@ -374,7 +375,8 @@ for context_length in [2, 3, 4, 5, 10, 20, 25, 50, 75]:
         _FEATURE_CHECKPOINTS[f'{k}-{context_length}'] = _FEATURE_CHECKPOINTS.get(
             k, k)
 
-        # 7B has 32 layers, 13B has 40 layers, best model is likely between 20%-50% of layers
+        # llama-2: 7B has 32 layers, 13B has 40 layers, best model is likely between 20%-50% of layers
+        # llama-3: 8B has 32 layers
         for layer_idx in [0, 6, 12, 18, 24, 30, 36, 48, 60]:
 
             # pass with layer

@@ -22,7 +22,7 @@ params_shared_dict = {
 
     # cluster
     # 'seed': range(14),
-    'seed': range(30),
+    # 'seed': range(30),
     'pc_components': [100],
     # 'ndelays': [4],
 
@@ -55,6 +55,12 @@ params_coupled_dict = {
         # ('llama2-70B_lay48-10', 'v1', MIST7B),
         # ('llama2-70B_lay60-10', 'v1', MIST7B),
 
+        ('llama3-8B_lay6-10', 'v1', MIST7B),
+        ('llama3-8B_lay12-10', 'v1', MIST7B),
+        ('llama3-8B_lay18-10', 'v1', MIST7B),
+        ('llama3-8B_lay24-10', 'v1', MIST7B),
+        ('llama3-8B_lay30-10', 'v1', MIST7B),
+
 
         # # # main
         # ('qa_embedder-10', 'v1', MIST7B),
@@ -65,8 +71,8 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v4', MIST7B),
         # ('qa_embedder-10', 'v5', MIST7B),
         # ('qa_embedder-10', 'v6', MIST7B),
-        ('qa_embedder-10', 'v3_boostbasic', MIST7B),
-        ('qa_embedder-10', 'v3_boostexamples', MIST7B),
+        # ('qa_embedder-10', 'v3_boostbasic', MIST7B),
+        # ('qa_embedder-10', 'v3_boostexamples', MIST7B),
 
         # vary context len
         # ('qa_embedder-25', 'v1', MIST7B),
@@ -119,11 +125,11 @@ submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     unique_seeds=True,
-    amlt_kwargs=amlt_kwargs,
+    # amlt_kwargs=amlt_kwargs,
     # n_cpus=9,
     # n_cpus=4,
     # gpu_ids=[0, 1],
-    # gpu_ids=[0, 1, 2, 3],
+    gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1], [2, 3]],
     # gpu_ids=[[0, 1, 2, 3]],
     # actually_run=False,
