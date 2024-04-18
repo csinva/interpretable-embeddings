@@ -19,17 +19,20 @@ params_shared_dict = {
     'use_test_setup': [0],
     'encoding_model': ['ridge'],
     'subject': ['UTS03'],
+    # 'distill_model_path': [BEST_RUN],
     'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'],
-    'ndelays': [4, 8, 12],
+    # 'ndelays': [4, 8, 12],
     # 'ndelays': [4, 8],
 
     'pc_components': [100],
-    'distill_model_path': [BEST_RUN],
+    # 'feature_selection_alpha_index': [1],
+
 
     # local
     # 'seed': [1],
     # 'pc_components': [1000, 100, -1],
     'use_extract_only': [0],
+    # 'feature_selection_alpha_index': range(100),
 }
 
 params_coupled_dict = {
@@ -43,10 +46,10 @@ params_coupled_dict = {
 
         # vary question versions
         # ('qa_embedder-10', 'v2', MIST7B),
-        ('qa_embedder-10', 'v3', MIST7B),
-        ('qa_embedder-10', 'v4', MIST7B),
+        # ('qa_embedder-10', 'v3', MIST7B),
+        # ('qa_embedder-10', 'v4', MIST7B),
         # ('qa_embedder-10', 'v5', MIST7B),
-        # ('qa_embedder-10', 'v6', MIST7B),
+        ('qa_embedder-10', 'v6', MIST7B),
         # ('qa_embedder-10', 'v3_boostbasic', MIST7B),
         # ('qa_embedder-10', 'v3_boostexamples', MIST7B),
 

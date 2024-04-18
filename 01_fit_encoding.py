@@ -1,7 +1,7 @@
 from collections import defaultdict
 import os.path
 import pandas as pd
-from sklearn.linear_model import MultiTaskElasticNetCV
+from sklearn.linear_model import MultiTaskElasticNet, MultiTaskElasticNetCV, enet_path
 from skorch import NeuralNetRegressor
 from skorch.callbacks import EarlyStopping
 from copy import deepcopy
@@ -24,6 +24,7 @@ import os
 import encoding_utils
 import encoding_models
 from config import data_dir
+import config
 from ridge_utils.ridge import bootstrap_ridge, gen_temporal_chunk_splits
 from ridge_utils.utils import make_delayed
 import imodelsx.cache_save_utils
@@ -68,6 +69,10 @@ def add_main_args(parser):
                         default='ridge',
                         # default='randomforest'
                         )
+    parser.add_argument("--feature_selection_alpha_index", type=int,
+                        # default=1,
+                        default=-1,
+                        help='in range(0, 100) - larger is more regularization')
     parser.add_argument("--qa_embedding_model", type=str,
                         default='mistralai/Mistral-7B-Instruct-v0.2',
                         help='Model to use for QA embedding, if feature_space is qa_embedder',
@@ -81,14 +86,14 @@ def add_main_args(parser):
     parser.add_argument("--min_alpha", type=float,
                         default=-1, help='min alpha, useful for forcing sparse coefs in elasticnet. Note: if too large, we arent really doing CV at all.')
     parser.add_argument('--pc_components', type=int, default=-1,
-                        help='number of principal components to use (-1 doesnt use PCA at all)')
+                        help='number of principal components to use (-1 doesnt use PCA at all). Note, use_test_setup alters this to 100.')
     parser.add_argument('--pc_components_input', type=int, default=-1,
                         help='number of principal components to use to transform features (-1 doesnt use PCA at all)')
 
     parser.add_argument("--mlp_dim_hidden", type=int,
                         help="hidden dim for MLP", default=512)
     parser.add_argument('--num_stories', type=int, default=-1,
-                        help='number of stories to use (-1 for all)')
+                        help='number of stories to use (-1 for all). Note: use_test_setup alters this.')
 
     # linear modeling splits
     parser.add_argument("--trim", type=int, default=5)
@@ -150,6 +155,7 @@ def get_story_names(args):
         # ]
         # test_stories = ['sloth', 'fromboyhoodtofatherhood']
         story_names_test = ['fromboyhoodtofatherhood']
+        args.pc_components = 100
         # 'onapproachtopluto']  # , 'onapproachtopluto']
         # random.shuffle(story_names_test)
     elif args.num_stories > 0:
@@ -319,15 +325,14 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         }
 
         # corrs_tune is (alphas, voxels, and bootstrap samples)
-
-        # reorder be (voxels, alphas, bootstrap samples)
+        # now reorder so it's (voxels, alphas, bootstrap samples)
         corrs_tune = np.swapaxes(corrs_tune, 0, 1)
         # mean over bootstrap samples
         corrs_tune = corrs_tune.mean(axis=-1)
 
         # replace each element of alphas_best with its index in alphas
         alphas_idx = np.array([np.where(alphas == a)[0][0]
-                              for a in alphas_best])
+                               for a in alphas_best])
 
         # apply best alpha to each voxel
         corrs_tune = corrs_tune[np.arange(corrs_tune.shape[0]), alphas_idx]
@@ -510,6 +515,42 @@ if __name__ == "__main__":
         stim_train_delayed = scaler_input_train.transform(stim_train_delayed)
         scaler_input_test = StandardScaler().fit(stim_test_delayed)
         stim_test_delayed = scaler_input_test.transform(stim_test_delayed)
+
+    # select features
+    if args.feature_selection_alpha_index >= 0:
+        print('selecting sparse feats...')
+        # remove delays from stim
+        stim_train = stim_train_delayed[:,
+                                        :stim_train_delayed.shape[1] // args.ndelays]
+
+        # coefs is (n_targets, n_features, n_alphas)
+        alpha_range = (0, -3, 15)
+        cache_file = join(config.repo_dir, 'sparse_feats',
+                          args.qa_questions_version + '_' + args.str(alpha_range) + '.joblib')
+        if os.path.exists(cache_file):
+            alphas_enet, coefs_enet = joblib.load(cache_file)
+        else:
+            alphas_enet, coefs_enet, _ = enet_path(
+                stim_train, resp_train,
+                l1_ratio=0.9,
+                alphas=np.logspace(*alpha_range),
+            )
+            os.makedirs(join(config.repo_dir, 'sparse_feats'), exist_ok=True)
+            joblib.dump((alphas_enet, coefs_enet), cache_file)
+
+        # pick the coefs
+        coef_enet = coefs_enet[:, :, args.feature_selection_alpha_index]
+        coef_nonzero = np.any(np.abs(coef_enet) > 0, axis=0)
+        r['alpha'] = alphas_enet[args.feature_selection_alpha_index]
+        r['weights_enet'] = coef_enet
+        r['weight_enet_mask'] = coef_nonzero
+        r['weight_enet_mask_num_nonzero'] = coef_nonzero.sum()
+
+        # mask stim_delayed based on nonzero coefs (need to repeat by args.ndelays)
+        coef_nonzero_rep = np.tile(
+            coef_nonzero.flatten(), args.ndelays).flatten()
+        stim_train_delayed = stim_train_delayed[:, coef_nonzero_rep]
+        stim_test_delayed = stim_test_delayed[:, coef_nonzero_rep]
 
     # fit model
     r, model_params_to_save = fit_regression(
