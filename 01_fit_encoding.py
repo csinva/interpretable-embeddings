@@ -1,5 +1,6 @@
 from collections import defaultdict
 import os.path
+import pandas as pd
 from sklearn.linear_model import MultiTaskElasticNetCV
 from skorch import NeuralNetRegressor
 from skorch.callbacks import EarlyStopping
@@ -59,6 +60,10 @@ def add_main_args(parser):
                         qa_embedder-sec4 will run with ngram_context of 4 secs leading up to each word
                         '''
                         )
+    parser.add_argument("--distill_model_path", type=str,
+                        default=None,
+                        # default='/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7/68936a10a548e2b4ce895d14047ac49e7a56c3217e50365134f78f990036c5f7',
+                        help='Path to saved pickles for distillation. Instead of fitting responses, fit the predictions of this model.')
     parser.add_argument("--encoding_model", type=str,
                         default='ridge',
                         # default='randomforest'
@@ -247,6 +252,22 @@ def transform_resps(args, resp_train, resp_test):
     resp_train = scaler_train.transform(resp_train)
     resp_test = scaler_test.transform(resp_test)
     return resp_train, resp_test, pca, scaler_train, scaler_test
+
+
+def get_resp_distilled(args, story_names):
+    print('loading distill model...')
+    args_distill = pd.Series(joblib.load(
+        join(args.distill_model_path, 'results.pkl')))
+    for k in ['subject', 'pc_components']:
+        assert args_distill[k] == vars(args)[k], f'{k} mismatch'
+    assert args_distill.pc_components > 0, 'distill only supported for pc_components > 0'
+
+    model_params = joblib.load(
+        join(args.distill_model_path, 'model_params.pkl'))
+    stim_delayed_distill, _ = get_data(
+        args_distill, story_names)
+    preds_distilled = stim_delayed_distill @ model_params['weights_pc']
+    return preds_distilled
 
 
 def get_model(args):
@@ -466,8 +487,13 @@ if __name__ == "__main__":
         print('pc transforming resps...')
         resp_train, resp_test, pca, scaler_train, scaler_test = transform_resps(
             args, resp_train, resp_test)
+
+    # overwrite resp_train with distill model predictions
+    if args.distill_model_path is not None:
+        resp_train = get_resp_distilled(args, story_names_train)
+
+    # fit pca and project with less components
     if args.pc_components_input > 0:
-        # fit pca and project with less components
         print('fitting pca to inputs...', args.pc_components_input, 'components')
         pca_input = sklearn.decomposition.PCA(
             n_components=args.pc_components_input)
