@@ -231,6 +231,7 @@ def get_data(args, story_names, extract_only=False):
     # resp_train = joblib.load(
     # join('/home/chansingh/cache_fmri_resps', f'{args.subject}.pkl'))
     # else:
+    print('loading resps...')
     resp = encoding_utils.get_response(
         story_names, args.subject)
     assert resp.shape[0] == stim_delayed.shape[0], 'Resps loading for all stories, make sure to align with stim'

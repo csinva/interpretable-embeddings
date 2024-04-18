@@ -1,0 +1,43 @@
+# amlt debug launch.yaml
+# amlt --pdb run launch.yaml
+# amlt run launch.yaml
+
+description: fMRI embedding extraction
+environment:
+  image: amlt-sing/acpt-2.2.1-py3.10-cuda12.1
+  setup:
+    - pip install -r requirements.txt --user
+    - git clone https://github.com/csinva/imodelsX.git
+    - pip install imodelsX/
+
+code:
+  local_dir: $CONFIG_DIR
+
+
+target:
+  service: sing
+  name: msrresrchvc
+  resource_group: gcr-singularity-resrch
+  workspace_name: msrresrchws
+
+storage:
+  output:
+    storage_account_name: chansingh
+    container_name: cs1
+    mount_dir: /mntv1 # dir on the local machine
+
+# sku: 64G2-MI200-xGMI # options [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI, 64G8-MI200-xGMI, 64G4-MI200-xGMI 64G2-MI200-xGMI]
+# jobs:
+# - name: run_fmri
+#   process_count_per_node: 1
+#   sku: 64G2-MI200-xGMI
+#   command:
+#   - echo "test"
+# - name: run_fmri2
+#   process_count_per_node: 1
+#   sku: 64G2-MI200-xGMI
+#   command:
+#   - echo "test2"
+
+# must end with just 'jobs:' for imodelsx
+jobs:

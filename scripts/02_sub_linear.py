@@ -21,6 +21,7 @@ params_shared_dict = {
     'subject': ['UTS03'],
     'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'],
     'ndelays': [4, 8, 12],
+    # 'ndelays': [4, 8],
 
     'pc_components': [100],
     'distill_model_path': [BEST_RUN],
@@ -35,15 +36,15 @@ params_coupled_dict = {
     ('feature_space', 'qa_questions_version', 'qa_embedding_model'): [
         # # baselines
         # ('bert-10', 'v1', MIST7B),
-        ('eng1000', 'v1', MIST7B),
+        # ('eng1000', 'v1', MIST7B),
 
         # # main
-        ('qa_embedder-10', 'v1', MIST7B),
+        # ('qa_embedder-10', 'v1', MIST7B),
 
         # vary question versions
-        ('qa_embedder-10', 'v2', MIST7B),
-        # ('qa_embedder-10', 'v3', MIST7B),
-        # ('qa_embedder-10', 'v4', MIST7B),
+        # ('qa_embedder-10', 'v2', MIST7B),
+        ('qa_embedder-10', 'v3', MIST7B),
+        ('qa_embedder-10', 'v4', MIST7B),
         # ('qa_embedder-10', 'v5', MIST7B),
         # ('qa_embedder-10', 'v6', MIST7B),
         # ('qa_embedder-10', 'v3_boostbasic', MIST7B),
@@ -59,11 +60,8 @@ args_list = submit_utils.get_args_list(
 )
 script_name = join(repo_dir, '01_fit_encoding.py')
 amlt_kwargs = {
-    'amlt_file': join(repo_dir, 'launch.yaml'),  # change this to run a cpu job
-    # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
-    # 'sku': '64G8-MI200-xGMI',
-    # 'sku': '64G4-MI200-xGMI',
-    'sku': '64G2-MI200-xGMI',
+    'amlt_file': join(repo_dir, 'launch_cpu.yaml'),
+    'sku': 'E4ads_v5',
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
 submit_utils.run_args_list(
