@@ -96,6 +96,11 @@ def get_questions(version='v1', suffix=None, full=False):
         remove_parentheticals = True
         remove_list = ['v1', 'v2']
 
+    elif version == 'v4_boostexamples':
+        ans_list = [ANS_BOOST_LLAMA_v4_1_ex, ANS_BOOST_LLAMA_v4_2_ex]
+        remove_parentheticals = True
+        remove_list = ['v1', 'v2', 'v3_boostexamples']
+
     # non-boost versions
     elif version == 'v3':
         ans_list = [ANS_RANDOM_DATA_EXAMPLES, ANS_RANDOM_DATA_EXAMPLES_2]
@@ -144,22 +149,24 @@ def get_question_num(question_version):
 
 
 if __name__ == "__main__":
-    # for k in ['v1', 'v3', 'v6', 'v3_boost_basic', 'v3_boost_examples', 'v4-ending', 'v3_boost_basic-ending']:
-    #     print(k, get_kwargs_list_for_version_str(k))
+    # for k in ['v1', 'v3', 'v6', 'v3_boostbasic', 'v3_boostexamples', 'v4-ending', 'v3_boostbasic-ending', 'v4_boostexamples']:
+    # print(k, get_kwargs_list_for_version_str(k))
+
     for v in ['v1', 'v2', 'v3', 'v4', 'v5', 'v6']:
         print(v, len(get_questions(v)))
     print('total questions', len(get_questions('all')))
 
     # boosting
-    for v in ['v3_boostbasic', 'v3_boostexamples']:
+    for v in ['v3_boostbasic', 'v3_boostexamples', 'v4_boostexamples']:
         print(v, len(get_questions(v)))
 
     # write all questions to a json file
-    all_questions = get_questions('all')
     with open('questions/all_questions.json', 'w') as f:
-        json.dump(all_questions, f, indent=4)
-    all_questions = get_questions('base')
+        json.dump(get_questions('all'), f, indent=4)
     with open('questions/base_questions.json', 'w') as f:
-        json.dump(all_questions, f, indent=4)
-    for q in get_questions('v3_boost_examples'):
-        print(q)
+        json.dump(get_questions('base'), f, indent=4)
+    with open('questions/v3_boostexamples.json', 'w') as f:
+        json.dump(get_questions('v3_boostexamples', full=True), f, indent=4)
+
+    # for q in get_questions('v4_boostexamples'):
+        # print(q)

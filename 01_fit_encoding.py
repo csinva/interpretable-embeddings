@@ -526,7 +526,7 @@ if __name__ == "__main__":
         # coefs is (n_targets, n_features, n_alphas)
         alpha_range = (0, -3, 15)
         cache_file = join(config.repo_dir, 'sparse_feats',
-                          args.qa_questions_version + '_' + args.str(alpha_range) + '.joblib')
+                          args.qa_questions_version + '_' + str(alpha_range) + '.joblib')
         if os.path.exists(cache_file):
             alphas_enet, coefs_enet = joblib.load(cache_file)
         else:
@@ -534,6 +534,7 @@ if __name__ == "__main__":
                 stim_train, resp_train,
                 l1_ratio=0.9,
                 alphas=np.logspace(*alpha_range),
+                verbose=1,
             )
             os.makedirs(join(config.repo_dir, 'sparse_feats'), exist_ok=True)
             joblib.dump((alphas_enet, coefs_enet), cache_file)

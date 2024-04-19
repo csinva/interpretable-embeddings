@@ -10,6 +10,7 @@ sys.path.append(repo_dir)
 # python /home/chansingh/fmri/01_fit_encoding.py
 MIST7B = 'mistralai/Mistral-7B-Instruct-v0.2'
 MIXTMOE = 'mistralai/Mixtral-8x7B-Instruct-v0.1'
+# (llama2-70B_lay24-10, 4 delays)
 BEST_RUN = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7/68936a10a548e2b4ce895d14047ac49e7a56c3217e50365134f78f990036c5f7'
 
 params_shared_dict = {
@@ -22,17 +23,15 @@ params_shared_dict = {
     # 'distill_model_path': [BEST_RUN],
     'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'],
     # 'ndelays': [4, 8, 12],
-    # 'ndelays': [4, 8],
 
     'pc_components': [100],
-    # 'feature_selection_alpha_index': [1],
+    'feature_selection_alpha_index': [1],
 
 
     # local
     # 'seed': [1],
     # 'pc_components': [1000, 100, -1],
     'use_extract_only': [0],
-    # 'feature_selection_alpha_index': range(100),
 }
 
 params_coupled_dict = {
@@ -49,9 +48,9 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v3', MIST7B),
         # ('qa_embedder-10', 'v4', MIST7B),
         # ('qa_embedder-10', 'v5', MIST7B),
-        ('qa_embedder-10', 'v6', MIST7B),
+        # ('qa_embedder-10', 'v6', MIST7B),
         # ('qa_embedder-10', 'v3_boostbasic', MIST7B),
-        # ('qa_embedder-10', 'v3_boostexamples', MIST7B),
+        ('qa_embedder-10', 'v3_boostexamples', MIST7B),
 
     ],
 }
@@ -63,8 +62,11 @@ args_list = submit_utils.get_args_list(
 )
 script_name = join(repo_dir, '01_fit_encoding.py')
 amlt_kwargs = {
-    'amlt_file': join(repo_dir, 'launch_cpu.yaml'),
-    'sku': 'E4ads_v5',
+    # 'amlt_file': join(repo_dir, 'launch_cpu.yaml'),
+    # 'sku': 'E4ads_v5',
+    # 'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
+    'amlt_file': join(repo_dir, 'launch.yaml'),  # change this to run a cpu job
+    'sku': '64G2-MI200-xGMI',
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
 submit_utils.run_args_list(
