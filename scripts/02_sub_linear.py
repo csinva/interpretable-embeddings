@@ -72,7 +72,7 @@ amlt_kwargs = {
 submit_utils.run_args_list(
     args_list,
     script_name=script_name,
-    # unique_seeds=True,
+    # unique_seeds='seed_stories',
     # amlt_kwargs=amlt_kwargs,
     n_cpus=9,
     # n_cpus=4,

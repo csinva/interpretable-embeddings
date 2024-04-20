@@ -77,7 +77,8 @@ def add_main_args(parser):
                         default='mistralai/Mistral-7B-Instruct-v0.2',
                         help='Model to use for QA embedding, if feature_space is qa_embedder',
                         choices=['mistralai/Mistral-7B-Instruct-v0.2',
-                                 'mistralai/Mixtral-8x7B-Instruct-v0.1'],
+                                 'mistralai/Mixtral-8x7B-Instruct-v0.1',
+                                 'meta-llama/Meta-Llama-3-8B-Instruct'],
                         )
     parser.add_argument("--qa_questions_version", type=str, default='v1',
                         help='Which set of QA questions to use, if feature_space is qa_embedder')
@@ -137,6 +138,12 @@ def add_computational_args(parser):
         choices=[0, 1],
         help="whether to jointly extract train/test (speeds things up if running over many seeds)",
     )
+    parser.add_argument(
+        '--seed_stories',
+        type=int,
+        default=1,
+        help='seed for order that stories are processed in',
+    )
     return parser
 
 
@@ -166,7 +173,9 @@ def get_story_names(args):
     else:
         story_names_train = story_names.get_story_names(args.subject, 'train')
         story_names_test = story_names.get_story_names(args.subject, 'test')
-    random.shuffle(story_names_train)
+
+    rng = np.random.default_rng(args.seed_stories)
+    rng.shuffle(story_names_train)
     return story_names_train, story_names_test
 
 

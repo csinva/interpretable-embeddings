@@ -8,6 +8,7 @@ sys.path.append(repo_dir)
 # python /home/chansingh/fmri/01_fit_encoding.py
 MIST7B = 'mistralai/Mistral-7B-Instruct-v0.2'
 MIXTMOE = 'mistralai/Mixtral-8x7B-Instruct-v0.1'
+LLAMA8B = 'meta-llama/Meta-Llama-3-8B-Instruct'
 BEST_RUN = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7/68936a10a548e2b4ce895d14047ac49e7a56c3217e50365134f78f990036c5f7'
 
 params_shared_dict = {
@@ -21,8 +22,7 @@ params_shared_dict = {
     'ndelays': [4, 8, 12],
 
     # cluster
-    'seed': range(25),
-    # 'seed': range(30),
+    'seed_stories': range(20),
     'pc_components': [100],
     # 'ndelays': [4],
 
@@ -73,12 +73,14 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v6', MIST7B),
         # ('qa_embedder-10', 'v3_boostbasic', MIST7B),
         # ('qa_embedder-10', 'v3_boostexamples', MIST7B),
-        ('qa_embedder-10', 'v4_boostexamples', MIST7B),
+        # ('qa_embedder-10', 'v4_boostexamples', MIST7B),
 
         # vary context len
         # ('qa_embedder-25', 'v1', MIST7B),
 
         # # mixtral
+        # ('qa_embedder-10', 'v1', LLAMA8B),
+        ('qa_embedder-10', 'v2', LLAMA8B),
         # ('qa_embedder-10', 'v1', MIXTMOE),
         # ('qa_embedder-10', 'v2', MIXTMOE),
         # ('qa_embedder-10', 'v3', MIXTMOE),
@@ -125,13 +127,12 @@ amlt_kwargs = {
 submit_utils.run_args_list(
     args_list,
     script_name=script_name,
-    unique_seeds=True,
-    # amlt_kwargs=amlt_kwargs,
+    unique_seeds='seed_stories',
+    amlt_kwargs=amlt_kwargs,
     # n_cpus=9,
     # n_cpus=4,
     # gpu_ids=[0, 1],
-    gpu_ids=[3],
-    # gpu_ids=[0, 1, 2, 3],
+    gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1], [2, 3]],
     # gpu_ids=[[0, 1, 2, 3]],
     # actually_run=False,

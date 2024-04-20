@@ -19,6 +19,8 @@ class QuestionEmbedder:
         self.questions = questions
         if 'mistral' in checkpoint and 'Instruct' in checkpoint:
             self.prompt = "<s>[INST]'Input text: {example}\nQuestion: {question}\nAnswer with yes or no, then give an explanation.[/INST]"
+        elif 'Meta-Llama-3' in checkpoint and 'Instruct' in checkpoint:
+            self.prompt = '<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a concise, helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nInput text: {example}\nQuestion: {question}\nAnswer with yes or no, then give an explanation.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n'
         else:
             self.prompt = 'Input: {example}\nQuestion: {question} Answer yes or no.\nAnswer:'
         # self.llm = guidance.models.Transformers("meta-llama/Llama-2-13b-hf")
@@ -42,8 +44,7 @@ class QuestionEmbedder:
             )
 
             # for i in range(len(programs)):
-            # print(answers[i], '->', programs[i].replace('\n', '_n_'))
-            # print('answers text', answers)
+            # print(i, '->', repr(answers[i][:10]))
 
             answers = list(map(lambda x: 'yes' in x.lower(), answers))
             # print('answers', np.sum(answers), answers)
@@ -67,11 +68,12 @@ if __name__ == "__main__":
     examples = ['I sliced some cucumbers',
                 'The kids were laughing', 'walking to school I was']
     # checkpoint = 'mistralai/Mistral-7B-Instruct-v0.2'
-    checkpoint = 'mistralai/Mixtral-8x7B-Instruct-v0.1'
+    # checkpoint = 'mistralai/Mixtral-8x7B-Instruct-v0.1'
     # checkpoint = "meta-llama/Llama-2-7b-hf"
     # checkpoint = "meta-llama/Llama-2-70b-hf"
     # checkpoint = "mistralai/Mixtral-8x7B-v0.1"
     # checkpoint = 'mistralai/Mistral-7B-v0.1'
+    checkpoint = "meta-llama/Meta-Llama-3-8B-Instruct"
 
     # test
     # llm = imodelsx.llm.get_llm(checkpoint)
