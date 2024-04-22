@@ -569,10 +569,7 @@ if __name__ == "__main__":
 
     # evaluate per voxel
     if args.pc_components > 0:
-        stim_test_delayed, resp_test = get_data(args, story_names_test)
-        if args.pc_components_input > 0:
-            stim_test_delayed = pca_input.transform(stim_test_delayed)
-            stim_test_delayed = scaler_input_test.transform(stim_test_delayed)
+        _, resp_test = get_data(args, story_names_test)
         r['corrs_test'] = evaluate_pc_model_on_each_voxel(
             args, stim_test_delayed, resp_test,
             model_params_to_save, pca, scaler_test)

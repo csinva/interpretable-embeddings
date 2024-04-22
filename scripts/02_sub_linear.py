@@ -23,6 +23,7 @@ params_shared_dict = {
     # 'distill_model_path': [BEST_RUN],
     'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'],
     # 'ndelays': [4, 8, 12],
+    'ndelays': [8],
 
     'pc_components': [100],
     # 'feature_selection_alpha_index': [1],
@@ -75,8 +76,8 @@ submit_utils.run_args_list(
     script_name=script_name,
     # unique_seeds='seed_stories',
     # amlt_kwargs=amlt_kwargs,
-    n_cpus=9,
-    # n_cpus=4,
+    # n_cpus=9,
+    n_cpus=2,
     # gpu_ids=[0, 1],
     # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1], [2, 3]],
