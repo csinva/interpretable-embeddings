@@ -25,7 +25,8 @@ params_shared_dict = {
     # 'ndelays': [4, 8, 12],
 
     'pc_components': [100],
-    'feature_selection_alpha_index': [1],
+    # 'feature_selection_alpha_index': [1],
+    'feature_selection_alpha_index': range(2, 10),
 
 
     # local
