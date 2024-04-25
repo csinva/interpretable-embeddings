@@ -49,9 +49,10 @@ def load_clean_results(results_dir, experiment_filename='../experiments/01_fit_e
         'mistralai/Mistral-7B-Instruct-v0.2': 'mist-7B',
         'mistralai/Mixtral-8x7B-Instruct-v0.1': 'mixt-moe',
         'meta-llama/Meta-Llama-3-8B-Instruct': 'llama3-8B',
+        'meta-llama/Meta-Llama-3-8B-Instruct-fewshot': 'llama3-8B-fewshot',
     }.get(row['qa_embedding_model'], row['qa_embedding_model']) if 'qa_emb' in row['feature_space'] else '', axis=1)
     r['qa_questions_version'] = r.apply(
-        lambda row: row['qa_questions_version'] if 'qa_emb' in row['feature_space'] else '', axis=1)
+        lambda row: row['qa_questions_version'] if 'qa_emb' in row['feature_space'] else 'eng1000', axis=1)
     mets = [c for c in r.columns if 'corrs' in c and (
         'mean' in c or 'frac' in c)]
     cols_varied = imodelsx.process_results.get_experiment_keys(

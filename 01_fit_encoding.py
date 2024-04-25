@@ -31,6 +31,7 @@ import imodelsx.cache_save_utils
 import story_names
 import qa_questions
 import random
+import time
 
 # get path to current file
 path_to_file = os.path.dirname(os.path.abspath(__file__))
@@ -76,10 +77,6 @@ def add_main_args(parser):
     parser.add_argument("--qa_embedding_model", type=str,
                         default='mistralai/Mistral-7B-Instruct-v0.2',
                         help='Model to use for QA embedding, if feature_space is qa_embedder',
-                        choices=['mistralai/Mistral-7B-Instruct-v0.2',
-                                 'mistralai/Mixtral-8x7B-Instruct-v0.1',
-                                 'meta-llama/Meta-Llama-3-8B-Instruct',
-                                 'meta-llama/Meta-Llama-3-8B-Instruct-fewshot'],
                         )
     parser.add_argument("--qa_questions_version", type=str, default='v1',
                         help='Which set of QA questions to use, if feature_space is qa_embedder')
@@ -485,6 +482,7 @@ if __name__ == "__main__":
     logging.info(f"\n\n\tsaving to " + save_dir_unique + "\n")
 
     # set seed
+    t0 = time.time()
     np.random.seed(args.seed)
     random.seed(args.seed)
     torch.manual_seed(args.seed)
@@ -536,7 +534,7 @@ if __name__ == "__main__":
         # coefs is (n_targets, n_features, n_alphas)
         alpha_range = (0, -3, 15)
         cache_file = join(config.repo_dir, 'sparse_feats',
-                          args.qa_questions_version + '_' + str(alpha_range) + '.joblib')
+                          args.qa_questions_version + '_' + args.qa_embedding_model + '_' + str(alpha_range) + '.joblib')
         if os.path.exists(cache_file):
             alphas_enet, coefs_enet = joblib.load(cache_file)
         else:
@@ -585,4 +583,4 @@ if __name__ == "__main__":
     joblib.dump(model_params_to_save, join(
         save_dir_unique, "model_params.pkl"))
     logging.info(
-        f"Succesfully completed, saved to {save_dir_unique}")
+        f"Succesfully completed in {(time.time() - t0)/60:0.1f} minutes, saved to {save_dir_unique}")

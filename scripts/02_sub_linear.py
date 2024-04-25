@@ -10,6 +10,9 @@ sys.path.append(repo_dir)
 # python /home/chansingh/fmri/01_fit_encoding.py
 MIST7B = 'mistralai/Mistral-7B-Instruct-v0.2'
 MIXTMOE = 'mistralai/Mixtral-8x7B-Instruct-v0.1'
+LLAMA8B = 'meta-llama/Meta-Llama-3-8B-Instruct'
+LLAMA8B_fewshot = 'meta-llama/Meta-Llama-3-8B-Instruct-fewshot'
+LLAMA70B_fewshot = 'meta-llama/Meta-Llama-3-70B-Instruct-fewshot2'
 # (llama2-70B_lay24-10, 4 delays)
 BEST_RUN = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7/68936a10a548e2b4ce895d14047ac49e7a56c3217e50365134f78f990036c5f7'
 
@@ -27,7 +30,8 @@ params_shared_dict = {
 
     'pc_components': [100],
     # 'feature_selection_alpha_index': [1],
-    'feature_selection_alpha_index': range(2, 10),
+    # 'feature_selection_alpha_index': range(2, 10),
+    'feature_selection_alpha_index': range(3, 11),
 
 
     # local
@@ -52,8 +56,10 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v5', MIST7B),
         # ('qa_embedder-10', 'v6', MIST7B),
         # ('qa_embedder-10', 'v3_boostbasic', MIST7B),
-        ('qa_embedder-10', 'v3_boostexamples', MIST7B),
+        # ('qa_embedder-10', 'v3_boostexamples', MIST7B),
 
+
+        ('qa_embedder-10', 'v3_boostbasic', LLAMA8B),
     ],
 }
 # Args list is a list of dictionaries

@@ -1,0 +1,103 @@
+question,avg_abs_coef_normalized
+Is the sentence emotionally neutral?,1.0
+Does the sentence include a rhetorical question?,0.916
+Does the sentence relate to personal health or bodily functions?,0.909
+Does the sentence involve the mention of a specific object or item?,0.903
+Does the sentence contain a proper noun?,0.888
+Does the sentence describe a visual experience or scene?,0.879
+Is the sentence part of a mystery or puzzle?,0.878
+Does the sentence describe an experience of learning or gaining new knowledge?,0.876
+Does the text describe a mode of communication?,0.854
+Does the sentence include technical or specialized terminology?,0.848
+Does the sentence contain a cultural reference?,0.847
+"Does the sentence convey the narrator's relationship with time, such as impatience or nostalgia?",0.843
+Does the sentence describe a relationship between people?,0.843
+Does the sentence involve mathematical reasoning?,0.841
+Does the sentence include dialogue?,0.823
+Is the sentence conveying the narrator's physical movement or action in detail?,0.811
+Does the sentence include an oxymoron?,0.801
+Does the sentence reference a specific time or date?,0.797
+Is the input related to a specific industry or profession?,0.78
+Does the sentence involve an artistic or creative activity?,0.777
+Is a form of self-improvement or personal development mentioned?,0.775
+Does the text involve a financial transaction?,0.774
+Does the sentence describe a fictional scenario?,0.771
+Is the sentence in the passive voice?,0.77
+Is the sentence in the active voice?,0.767
+Does the sentence describe a physical action?,0.763
+"Is there a reference to a myth, legend, or folklore?",0.763
+Is time mentioned in the input?,0.762
+Does the sentence include a reference to a cultural or societal norm?,0.761
+Does the sentence include dialogue or thoughts directed towards another character?,0.755
+Is the sentence abstract rather than concrete?,0.753
+Does the input involve planning or organizing?,0.749
+Does the sentence include a conditional clause?,0.749
+Does the sentence mention a family member?,0.747
+Does the sentence include a direct speech quotation?,0.743
+Does the sentence include a specific sound or auditory description?,0.74
+Does the input describe a specific texture or sensation?,0.739
+Does the sentence involve a safety or security concern?,0.737
+Is the sentence describing a moment of realization or epiphany?,0.735
+Does the text mention a piece of advice?,0.735
+Does the sentence use irony or sarcasm?,0.732
+Is the sentence describing an immediate reaction to an event or action?,0.73
+Does the input include an expression of disappointment?,0.728
+Is the sentence conveying a strategic or tactical thought by the narrator?,0.728
+Is the sentence intended to evoke nostalgia?,0.722
+Does the text mention a form of manual labor or craft?,0.72
+Does the sentence mention an event or activity involving family or friends?,0.71
+Does the sentence use alliteration or rhyme?,0.704
+Does the text describe a journey?,0.704
+Does the input describe a sensory experience?,0.703
+Does the sentence involve a description of physical environment or setting?,0.694
+Does the sentence include a number or statistic?,0.689
+Does the sentence involve planning or decision-making?,0.685
+Does the sentence describe a physical sensation?,0.685
+Is the sentence a command?,0.681
+Is the sentence grammatically complex?,0.68
+Does the story describe a shopping experience?,0.679
+Does the sentence include numerical information?,0.678
+Does the input contain humor or sarcasm?,0.676
+Does the sentence involve a description of a group activity or social gathering?,0.675
+Does the input include a philosophical or reflective thought?,0.673
+Does the sentence include a threat or warning?,0.671
+Does the sentence contain a negation?,0.67
+Does the sentence involve a personal anecdote about family or friends?,0.668
+Does the sentence involve a recount of a social or community event?,0.664
+Is the sentence intended to be motivational or inspirational?,0.664
+Does the sentence include a comparison or simile?,0.664
+Does the sentence describe a specific sensation or feeling?,0.663
+"Does the sentence describe a physical sensation (e.g., touch, taste)?",0.657
+Is the sentence conveying the narrator's admiration or respect for another character?,0.654
+Does the sentence involve a recounting of a memorable event or anecdote?,0.654
+Does the sentence contain a first-person narrative?,0.649
+Is a specific location referred to in the input?,0.649
+Does the sentence involve a discussion about personal or social values?,0.647
+Does the input involve a philosophical question or theory?,0.644
+Does the sentence express a philosophical or existential query or observation?,0.638
+Does the input mention a routine or daily activity?,0.624
+Does the input involve a debate or controversial topic?,0.623
+Does the sentence involve a description of a daily or routine task?,0.622
+Does the input discuss travel or exploration?,0.621
+Does the input contain a measurement?,0.618
+Does the sentence include a metaphor?,0.617
+Is the sentence expressing skepticism or disbelief towards something or someone?,0.616
+Does the input include dialogue between characters?,0.616
+Does the sentence involve moral reasoning?,0.614
+Is the sentence describing a craft or DIY project?,0.612
+Does the sentence include a personal anecdote or story?,0.611
+Does the sentence express hope or aspiration for the future?,0.609
+Does the sentence include a metaphor or figurative language?,0.605
+Is the input expressing a wish or desire?,0.596
+Does the sentence describe a moment of companionship or solitude?,0.595
+Does the sentence express a sense of belonging or connection to a place or community?,0.593
+Does the input discuss a moral or ethical dilemma?,0.586
+Does the text describe an act of kindness?,0.584
+Is a moment of solitude or reflection described?,0.573
+Does the sentence discuss a journey or travel experience?,0.572
+Does the sentence reference a specific location or place?,0.564
+Is the sentence describing a physical sensation experienced by the narrator?,0.561
+Does the input involve a craft or handiwork project?,0.561
+Does the sentence mention a specific location or place?,0.543
+Is a form of leisure or relaxation described?,0.538
+Does the sentence describe a routine activity?,0.511

@@ -1,0 +1,265 @@
+question,avg_abs_coef_normalized
+Does the sentence involve mathematical reasoning?,1.0
+Does the sentence contain a proper noun?,0.944
+Does the text mention a celebrity or public figure?,0.885
+"Does the sentence convey the narrator's relationship with time, such as impatience or nostalgia?",0.878
+Does the sentence include a specific sound or auditory description?,0.86
+Does the sentence describe a visual experience or scene?,0.86
+Does the sentence involve the mention of a specific object or item?,0.853
+Is a form of non-verbal communication depicted?,0.842
+Does the sentence include a rhetorical question?,0.839
+Does the sentence reference a specific time or date?,0.835
+Is the sentence a question?,0.833
+Is the sentence part of a mystery or puzzle?,0.831
+Does the sentence include a number or statistic?,0.826
+Does the sentence include a recounting of an impactful or emotional dialogue?,0.822
+Does the input describe a specific texture or sensation?,0.821
+Does the sentence include an oxymoron?,0.811
+Does the sentence describe a moment of relief or resolution of tension?,0.81
+Is the sentence autobiographical?,0.81
+Does the sentence describe an economic concept or issue?,0.808
+Does the sentence contain a cultural reference?,0.804
+Does the sentence include a direct speech quotation?,0.804
+Is the sentence emotionally neutral?,0.802
+Is the sentence in the passive voice?,0.801
+Is the sentence structured as a list?,0.797
+Does the sentence describe an indoor setting?,0.794
+"Is there a mention of a book, movie, or song?",0.793
+Does the sentence contain a pun?,0.792
+Does the sentence include a foreign word or phrase?,0.786
+Does the sentence use a unique or unusual word?,0.781
+Does the sentence describe an experience of learning or gaining new knowledge?,0.78
+Does the text involve a financial transaction?,0.778
+Is the sentence conveying the narrator's physical movement or action in detail?,0.777
+Is the sentence conveying a sense of loneliness or isolation?,0.775
+Is the sentence related to education or learning?,0.773
+Does the sentence require inferential reasoning to understand?,0.77
+Does the sentence use alliteration or rhyme?,0.77
+Does the input mention a construction or building?,0.768
+Is there a mention of a fictional character or story?,0.766
+Does the input describe a form of local or community service?,0.765
+Does the input express feelings of jealousy or envy?,0.761
+Does the sentence involve a cultural or traditional practice?,0.76
+Does the sentence reference a specific time of day?,0.76
+Is the input related to a specific industry or profession?,0.756
+Does the sentence reference a famous person or event?,0.755
+Is the sentence part of a scientific explanation?,0.755
+Is a specific scientific field or discipline mentioned?,0.753
+Is the sentence part of a poem or song?,0.752
+Is a language or linguistic detail mentioned?,0.751
+Does the sentence include technical or specialized terminology?,0.75
+Does the sentence describe a hypothetical scenario?,0.745
+Does the story describe a shopping experience?,0.744
+Is the sentence in the active voice?,0.743
+Does the input mention a specific event or festival?,0.743
+Is the input about a discovery or realization?,0.741
+Does the input describe a scenic view or panorama?,0.74
+Is a personal preference or taste described?,0.739
+Does the sentence involve a negotiation or compromise?,0.738
+Is the sentence providing an explanation or rationale?,0.738
+Does the text mention a piece of advice?,0.736
+Does the sentence involve a discussion or description of a mental health issue?,0.735
+Does the sentence include a reference to a cultural or societal norm?,0.734
+Does the sentence describe a fictional scenario?,0.734
+Is someone running in the input text?,0.733
+Does the sentence reveal a secret or confidential information?,0.731
+Is the sentence conveying a strategic or tactical thought by the narrator?,0.731
+Does the sentence include dialogue?,0.731
+Does the sentence involve spatial reasoning?,0.729
+Does the sentence involve the use of technology or digital communication?,0.728
+Does the sentence include an animal?,0.727
+Does the story talk about a friendship or relationship ending?,0.727
+Does the sentence include numerical information?,0.726
+Is the sentence a command?,0.726
+"Is there mention of a city, country, or geographic feature?",0.726
+Does the sentence include a threat or warning?,0.723
+Is the sentence expressing the narrator's aspirations for societal change or impact?,0.723
+Does the text describe a mode of communication?,0.72
+Is the sentence humorous?,0.719
+Does the input describe a specific emotion in detail?,0.717
+Is time mentioned in the input?,0.716
+Is the sentence related to environmental issues?,0.716
+Does the text describe a form of therapy or healing?,0.712
+Does the sentence discuss an interaction with an authority figure or professional?,0.711
+Does the input involve planning or organizing?,0.711
+"Does the sentence describe a physical sensation (e.g., touch, taste)?",0.71
+"Is there a reference to a myth, legend, or folklore?",0.709
+Does the sentence mention an event or activity involving family or friends?,0.708
+Does the sentence use irony or sarcasm?,0.708
+Is the sentence describing an immediate reaction to an event or action?,0.708
+Is a famous quote or saying referenced?,0.705
+Does the sentence contain a contradiction?,0.704
+Does the input involve a legal matter or law enforcement?,0.704
+Does the sentence describe a social or cultural event?,0.704
+Does the story involve a form of meditation or mindfulness?,0.704
+Does the sentence describe a moment of personal or social conflict resolution?,0.703
+Does the sentence involve a recounting of a childhood or adolescent memory?,0.703
+Does the sentence include a comparison or simile?,0.702
+Is the sentence related to politics or government?,0.701
+Does the input involve an outdoor activity or adventure?,0.701
+Does the input describe a sensory experience?,0.7
+Does the text mention a personal limit or boundary?,0.7
+Does the sentence describe an unexpected encounter or meeting?,0.699
+Does the text involve a journey by foot?,0.698
+Does the sentence mention a family member?,0.696
+Does the story include an act of bravery or courage?,0.696
+Does the input mention a friendship?,0.696
+Does the input discuss a collaboration or team effort?,0.696
+Does the text include a reference to a past era or time period?,0.695
+Does the sentence involve a description of a group activity or social gathering?,0.695
+Does the sentence convey a decision or choice made by the narrator?,0.693
+Does the sentence involve a personal anecdote about family or friends?,0.693
+Does the text involve a financial challenge or setback?,0.692
+Does the sentence describe a physical action?,0.692
+Does the sentence contain a first-person narrative?,0.691
+Does the sentence include a conditional clause?,0.69
+Is a specific season described?,0.69
+Does the input discuss educational content or learning?,0.689
+Does the sentence express the narrator's opinion or judgment about an event or character?,0.688
+Does the sentence include dialogue or thoughts directed towards another character?,0.688
+Does the input include an expression of disappointment?,0.687
+Does the sentence describe a physical sensation?,0.685
+Does the story describe a work or school setting?,0.684
+Does the sentence relate to personal health or bodily functions?,0.684
+Does the sentence involve a discussion of a familial relationship?,0.684
+Does the input discuss a fashion trend or style advice?,0.679
+Does the sentence describe an act of personal care or maintenance?,0.677
+Does the input contain a measurement?,0.677
+Does the sentence describe a dream or fantasy?,0.677
+Does the sentence describe a form of personal expression or creativity?,0.676
+Is a specific color or pattern described?,0.676
+Does the input involve a comparison of before and after?,0.675
+Is a specific tool or equipment mentioned?,0.674
+Does the sentence convey a sense of urgency or haste?,0.674
+Is the sentence related to food or eating?,0.672
+Does the sentence describe a relationship between people?,0.671
+Does the text describe a journey?,0.668
+Is the sentence abstract rather than concrete?,0.667
+Is there a mention of a gift or present?,0.665
+Is the sentence expressing the narrator's response to art or music?,0.665
+Does the sentence involve planning or decision-making?,0.663
+Is the sentence intended to evoke nostalgia?,0.661
+Does the story include a portrayal of a city or urban setting?,0.66
+Is a health condition or disease mentioned?,0.66
+Does the input discuss a medical treatment or procedure?,0.66
+Does the input include a mention of a personal idol or hero?,0.656
+Does the sentence involve moral reasoning?,0.656
+Does the input express surprise or disbelief?,0.655
+Does the input include a description of clothing?,0.655
+Does the text mention a form of manual labor or craft?,0.655
+Does the sentence involve time travel or hypothetical future scenarios?,0.654
+Is the sentence conveying the narrator's admiration or respect for another character?,0.653
+Is the sentence about a current event or recent news?,0.653
+Does the sentence include an account of a miscommunication or misunderstanding?,0.653
+Is the sentence describing a ritual or routine important to the narrator?,0.652
+Is there a mention of a scientific fact or concept?,0.65
+Does the input describe a moment of realization or epiphany?,0.649
+Does the input include a philosophical or reflective thought?,0.648
+Is a form of self-improvement or personal development mentioned?,0.647
+Does the text involve a safety or security measure?,0.647
+Does the sentence include an idiom?,0.647
+Is the sentence grammatically complex?,0.646
+Does the sentence involve a description of adapting to a new situation or environment?,0.645
+Does the sentence involve an act of creativity or artistic expression?,0.644
+Does the sentence describe an interaction with technology?,0.644
+Is there a reference to a specific individual or public figure?,0.644
+Does the input include dialogue between characters?,0.642
+Does the sentence involve a mention of an unusual or rare event?,0.642
+Is there an expression of regret or apology?,0.642
+Does the input include a comparison or metaphor?,0.64
+Does the input involve a philosophical question or theory?,0.64
+"Does the sentence express a moment of forgiveness, either giving or receiving?",0.639
+Does the sentence convey the narrator's interaction with nature or the outdoors?,0.639
+Does the sentence involve a description of physical environment or setting?,0.639
+Is the sentence related to fashion or personal style?,0.639
+Does the sentence contain a negation?,0.638
+Does the sentence involve a safety or security concern?,0.638
+Does the input describe a nighttime setting?,0.638
+Does the sentence involve a description of a physical activity or sport?,0.637
+Is the sentence designed to persuade or convince?,0.635
+Does the sentence describe a significant life decision or change?,0.635
+Does the input discuss an act of kindness or charity?,0.635
+Does the sentence describe an interaction that is significant to the narrator's development?,0.633
+Is a health or wellness practice described?,0.632
+Does the input discuss a personal achievement or milestone?,0.63
+Is there mention of a unique or unusual hobby?,0.628
+Does the sentence express a sense of belonging or connection to a place or community?,0.626
+Does the sentence describe a specific sensation or feeling?,0.626
+Does the input discuss a moral or ethical dilemma?,0.625
+Does the input involve a debate or controversial topic?,0.625
+Is a culinary experience or taste described?,0.624
+"Is there a reference to a diet, nutrition, or food choice?",0.623
+Does the text describe a hobby in detail?,0.62
+Is there mention of a personal hobby or interest?,0.62
+Is the input related to physical injury or trauma?,0.618
+Does the sentence describe a moment of companionship or solitude?,0.616
+Does the sentence involve a description of a journey or travel?,0.614
+Is the sentence related to sports or physical exercise?,0.613
+Does the input contain humor or sarcasm?,0.612
+Does the input discuss travel or exploration?,0.612
+Does the sentence include a personal anecdote or story?,0.611
+Does the sentence involve an artistic or creative activity?,0.61
+Does the sentence involve a description of a daily or routine task?,0.61
+Does the sentence include a metaphor or figurative language?,0.61
+Is there a mention of a specific food or drink?,0.61
+Does the story talk about a vacation or travel experience?,0.609
+Does the sentence describe an act of communication or interaction with others?,0.607
+Does the sentence involve a discussion about personal or social values?,0.606
+Does the input describe an encounter with a stranger?,0.605
+Does the sentence mention a past or historical event?,0.605
+Does the sentence describe a personal accomplishment or achievement?,0.601
+Does the sentence include a metaphor?,0.601
+Is there an expression of pride or self-esteem?,0.6
+Does the sentence involve an expression of personal values or beliefs?,0.599
+Does the input mention a political or social issue?,0.599
+Does the input discuss a philosophical or existential question?,0.598
+Does the sentence describe an experience of fear or danger?,0.597
+Does the story describe a building or architecture?,0.597
+Is the sentence intended to be motivational or inspirational?,0.595
+Is the sentence describing a craft or DIY project?,0.589
+Does the sentence involve a recount of a social or community event?,0.588
+Does the input mention a routine or daily activity?,0.587
+Is the sentence describing a physical sensation experienced by the narrator?,0.585
+Is there a description of a childhood toy or game?,0.584
+Does the input discuss a craft or DIY project?,0.584
+Is the input about a practical joke or prank?,0.583
+Is the sentence expressing skepticism or disbelief towards something or someone?,0.583
+Does the sentence describe a creative or artistic activity?,0.582
+Does the text describe an act of kindness?,0.582
+Does the input discuss a health issue or concern?,0.575
+Is the input about a relationship with another person?,0.574
+Does the sentence express hope or aspiration for the future?,0.574
+Does the sentence include a description of a life-altering moment?,0.573
+Does the sentence involve a recounting of a memorable event or anecdote?,0.572
+Is a moment of solitude or reflection described?,0.57
+Does the story involve a game or sport?,0.569
+Does the input contain a number?,0.568
+Does the sentence mention a specific location or place?,0.566
+Does the sentence involve a description of adapting to a new environment or situation?,0.566
+Does the sentence use future tense?,0.564
+Is a sport or physical activity mentioned in the input?,0.564
+Does the sentence involve a description of a cultural or societal change?,0.563
+Does the sentence express a philosophical or existential query or observation?,0.563
+Does the sentence reference a specific location or place?,0.561
+Does the sentence involve a personal preference or taste?,0.561
+Is a moment of comedy or humor described?,0.559
+Is a specific location described?,0.555
+Does the sentence mention a specific type of clothing?,0.552
+Does the input express a political or social opinion?,0.551
+Does the sentence describe a significant personal interaction?,0.551
+Is a personal or family recipe mentioned?,0.548
+Does the sentence involve an unexpected incident or accident?,0.547
+Does the input involve a craft or handiwork project?,0.543
+Is a specific location referred to in the input?,0.542
+Does the story mention a childhood memory?,0.541
+Does the sentence include a reflection on a change in societal or cultural conditions?,0.541
+Is the input expressing a wish or desire?,0.54
+Does the input mention a social or community issue?,0.538
+Does the sentence describe the narrator's creative process or artistic inspiration?,0.535
+Is a form of leisure or relaxation described?,0.527
+Does the sentence involve a health or wellness practice?,0.526
+Does the input discuss a societal issue or social justice topic?,0.515
+Does the input discuss a personal goal or aspiration?,0.509
+Is the sentence describing a significant change in the narrator's environment or circumstances?,0.508
+Does the sentence describe an act of personal or social reconciliation or understanding?,0.494
+Does the sentence describe a health-related topic or concern?,0.47

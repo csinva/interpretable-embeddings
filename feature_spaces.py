@@ -363,7 +363,6 @@ _FEATURE_CHECKPOINTS = {
     'llama2-13B': 'meta-llama/Llama-2-13b-hf',
     'llama2-70B': 'meta-llama/Llama-2-70b-hf',
     # 'llama3-8B': 'meta-llama/Meta-Llama-3-8B', # not instruct here
-    'llama3-8B-Instruct-fewshot': 'meta-llama/Meta-Llama-3-8B-Instruct-fewshot',
 }
 BASE_KEYS = list(_FEATURE_CHECKPOINTS.keys())
 for context_length in [2, 3, 4, 5, 10, 20, 25, 50, 75]:

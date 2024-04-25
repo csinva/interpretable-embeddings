@@ -1,0 +1,30 @@
+question,avg_abs_coef_normalized
+Is the sentence expressing skepticism or disbelief towards something or someone?,1.0
+Does the sentence include dialogue?,0.983
+Does the sentence describe a relationship between people?,0.924
+Does the sentence involve the mention of a specific object or item?,0.9
+Does the sentence include technical or specialized terminology?,0.882
+Does the sentence contain a proper noun?,0.861
+Does the input involve planning or organizing?,0.861
+Does the sentence include numerical information?,0.85
+Is time mentioned in the input?,0.844
+Is the sentence grammatically complex?,0.815
+Does the sentence include dialogue or thoughts directed towards another character?,0.811
+Does the sentence describe a physical action?,0.809
+Does the sentence include a conditional clause?,0.782
+Does the sentence describe a visual experience or scene?,0.771
+Does the input include a philosophical or reflective thought?,0.759
+Is the sentence conveying the narrator's physical movement or action in detail?,0.749
+Does the sentence describe a physical sensation?,0.744
+Does the sentence involve a discussion about personal or social values?,0.739
+Does the sentence reference a specific time or date?,0.719
+Does the sentence express a philosophical or existential query or observation?,0.705
+Does the sentence involve a description of physical environment or setting?,0.693
+Does the input describe a sensory experience?,0.688
+Does the sentence involve planning or decision-making?,0.684
+Is the sentence a command?,0.682
+Does the sentence describe a specific sensation or feeling?,0.672
+Does the sentence contain a cultural reference?,0.667
+Does the input include dialogue between characters?,0.594
+Does the sentence mention a specific location or place?,0.547
+Does the sentence reference a specific location or place?,0.545

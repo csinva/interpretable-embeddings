@@ -17,6 +17,10 @@ nltk
 fire
 dict_hash
 # imodelsx should be installed from source
+# improved parallelization
+# vllm
+# ray
+# pydantic==1.10.15
 
 # basic
 tqdm
