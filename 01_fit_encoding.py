@@ -37,10 +37,15 @@ import time
 path_to_file = os.path.dirname(os.path.abspath(__file__))
 
 
+def nancorr(x, y):
+    mask = ~np.isnan(x) & ~np.isnan(y)
+    return np.corrcoef(x[mask], y[mask])[0, 1]
+
 # python 01_fit_encoding.py --use_test_setup 1 --feature_space bert-10
 # python 01_fit_encoding.py --use_test_setup 1 --feature_space qa_embedder-10
 # python 01_fit_encoding.py --use_test_setup 1 --feature_space qa_embedder-5
 # python 01_fit_encoding.py --use_test_setup 1 --feature_space qa_embedder-5 --qa_embedding_model mistralai/Mixtral-8x7B-v0.1
+
 
 def add_main_args(parser):
     """Caching uses the non-default values from argparse to name the saving directory.
@@ -258,6 +263,11 @@ def transform_resps(args, resp_train, resp_test):
     pca = joblib.load(pca_filename)
     pca.components_ = pca.components_[
         :args.pc_components]  # (n_components, n_voxels)
+
+    # fill nans with nanmean
+    resp_train[np.isnan(resp_train)] = np.nanmean(resp_train)
+    resp_test[np.isnan(resp_test)] = np.nanmean(resp_test)
+
     resp_train = pca.transform(resp_train)
     resp_test = pca.transform(resp_test)
     print('reps_train.shape (after pca)', resp_train.shape)
@@ -358,7 +368,8 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         preds = lin.predict(stim_test_delayed)
         corrs_test = []
         for i in range(preds.shape[1]):
-            corrs_test.append(np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
+            # np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
+            corrs_test.append(nancorr(resp_test[:, i], preds[:, i]))
         corrs_test = np.array(corrs_test)
         corrs_test[np.isnan(corrs_test)] = 0
         r[corrs_key_test] = corrs_test
@@ -376,7 +387,8 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         for i in range(resp_train.shape[1]):
             rf.fit(stim_train_delayed, resp_train[:, i])
             preds = rf.predict(stim_test_delayed)
-            corrs_test.append(np.corrcoef(resp_test[:, i], preds)[0, 1])
+            # corrs_test.append(np.corrcoef(resp_test[:, i], preds)[0, 1])
+            corrs_test.append(nancorr(resp_test[:, i], preds[:, i]))
             print(i, 'rf corr', corrs_test[-1])
         corrs_test = np.array(corrs_test)
         corrs_test[np.isnan(corrs_test)] = 0
@@ -421,8 +433,9 @@ def evaluate_pc_model_on_each_voxel(
     )  # (n_trs x n_voxels)
     corrs = []
     for i in range(preds_voxels.shape[1]):
-        corrs.append(
-            np.corrcoef(preds_voxels[:, i], resp[:, i])[0, 1])
+        # corrs.append(
+        # np.corrcoef(preds_voxels[:, i], resp[:, i])[0, 1])
+        corrs.append(nancorr(preds_voxels[:, i], resp[:, i]))
     corrs = np.array(corrs)
     corrs[np.isnan(corrs)] = 0
     return corrs
@@ -431,19 +444,19 @@ def evaluate_pc_model_on_each_voxel(
 def add_summary_stats(r, verbose=True):
     for key in ['corrs_test', 'corrs_tune', 'corrs_tune_pc', 'corrs_test_pc']:
         if key in r:
-            r[key + '_mean'] = np.mean(r[key])
-            r[key + '_median'] = np.median(r[key])
-            r[key + '_frac>0'] = np.mean(r[key] > 0)
-            r[key + '_mean_top1_percentile'] = np.mean(
+            r[key + '_mean'] = np.nanmean(r[key])
+            r[key + '_median'] = np.nanmedian(r[key])
+            r[key + '_frac>0'] = np.nanmean(r[key] > 0)
+            r[key + '_mean_top1_percentile'] = np.nanmean(
                 np.sort(r[key])[-len(r[key]) // 100:])
-            r[key + '_mean_top5_percentile'] = np.mean(
+            r[key + '_mean_top5_percentile'] = np.nanmean(
                 np.sort(r[key])[-len(r[key]) // 20:])
 
             # add r2 stats
             r[key.replace('corrs', 'r2') +
-              '_mean'] = np.mean(r[key] * np.abs(r[key]))
+              '_mean'] = np.nanmean(r[key] * np.abs(r[key]))
             r[key.replace('corrs', 'r2') +
-              '_median'] = np.median(r[key] * np.abs(r[key]))
+              '_median'] = np.nanmedian(r[key] * np.abs(r[key]))
 
             if key == 'corrs_test' and verbose:
                 logging.info(f"mean {key}: {r[key + '_mean']:.4f}")

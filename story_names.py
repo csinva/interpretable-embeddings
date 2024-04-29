@@ -26,3 +26,5 @@ if __name__ == "__main__":
         print(f"Subject: {subject}")
         print(
             f'len of train stories: {len(get_story_names(subject, "train"))}')
+        print(f'num in {subject} but not in UTS03', len(
+            set(get_story_names(subject, "train")) - set(get_story_names("UTS03", "train"))))

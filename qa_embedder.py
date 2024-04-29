@@ -23,16 +23,23 @@ class QuestionEmbedder:
         elif 'Meta-Llama-3' in checkpoint and 'Instruct' in checkpoint:
             if '-refined' in checkpoint:
                 self.prompt = '<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nRead the input then answer a question about the input.\n**Input**: "{example}"\n**Question**: {question}\nAnswer with yes or no, then give an explanation.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n**Answer**:'
-                checkpoint = checkpoint.replace('-refined', '')
+                self.checkpoint = checkpoint.replace('-refined', '')
             elif '-fewshot' in checkpoint:
                 self.prompt = '<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a concise, helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nInput text: and i just kept on laughing because it was so\nQuestion: Does the input mention laughter?\nAnswer with Yes or No.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\nYes<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nInput text: what a crazy day things just kept on happening\nQuestion: Is the sentence related to food preparation?\nAnswer with Yes or No.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\nNo<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nInput text: i felt like a fly on the wall just waiting for\nQuestion: Does the text use a metaphor or figurative language?\nAnswer with Yes or No.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\nYes<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nInput text: he takes too long in there getting the pans from\nQuestion: Is there a reference to sports?\nAnswer with Yes or No.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\nNo<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nInput text: was silent and lovely and there was no sound except\nQuestion: Is the sentence expressing confusion or uncertainty?\nAnswer with Yes or No.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\nNo<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nInput text: {example}\nQuestion: {question}\nAnswer with Yes or No.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n'
-                checkpoint = checkpoint.replace('-fewshot', '')
+                self.checkpoint = checkpoint.replace('-fewshot', '')
             else:
                 self.prompt = '<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a concise, helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nInput text: {example}\nQuestion: {question}\nAnswer with yes or no, then give an explanation.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n'
+                self.checkpoint = checkpoint
             if '8B' in checkpoint:
-                self.batch_size = 64
+                if 'fewshot' in checkpoint:
+                    self.batch_size = 16
+                else:
+                    self.batch_size = 64
             elif '70B' in checkpoint:
-                self.batch_size = 256  # requires 8 GPUs
+                if 'fewshot' in checkpoint:
+                    self.batch_size = 32
+                else:
+                    self.batch_size = 128  # requires 8 GPUs
 
         else:
             self.prompt = 'Input: {example}\nQuestion: {question} Answer yes or no.\nAnswer:'
@@ -40,7 +47,7 @@ class QuestionEmbedder:
         # self.llm = guidance.models.Transformers("meta-llama/Llama-2-13b-hf")
         # print('PROMPT', self.prompt)
         self.llm = imodelsx.llm.get_llm(
-            checkpoint, CACHE_DIR=expanduser("~/cache_qa_embedder"))
+            self.checkpoint, CACHE_DIR=expanduser("~/cache_qa_embedder"))
         # self.llm = LLM(model=checkpoint,
         #    tensor_parallel_size=torch.cuda.device_count())
         # self.sampling_params = SamplingParams(temperature=0, max_tokens=1)
