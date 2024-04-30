@@ -17,7 +17,6 @@ import sys
 import joblib
 import os
 import encoding_utils
-import encoding_models
 from ridge_utils.ridge import bootstrap_ridge, gen_temporal_chunk_splits
 import imodelsx.cache_save_utils
 from sklearn.linear_model import MultiTaskElasticNetCV

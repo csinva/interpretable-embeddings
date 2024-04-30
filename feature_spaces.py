@@ -266,11 +266,11 @@ def get_llm_vectors(
 
     assert not (
         num_trs_context and num_secs_context_per_word), 'num_trs_context and num_secs_context_per_word are mutually exclusive'
-    print(f'getting wordseqs..')
+    logging.info(f'getting wordseqs..')
     wordseqs = get_story_wordseqs(allstories)
     vectors = {}
     embedding_model = None  # only initialize if needed
-    print(f'extracting {checkpoint} embs...')
+    logging.info(f'extracting {checkpoint} {qa_questions_version} {qa_embedding_model} embs...')
     for story_num, story in enumerate(allstories):
         args_cache = {'story': story, 'model': checkpoint, 'ngram_size': num_ngrams_context,
                       'qa_embedding_model': qa_embedding_model, 'qa_questions_version': qa_questions_version,
@@ -282,7 +282,8 @@ def get_llm_vectors(
             cache_embs_dir, qa_questions_version, checkpoint.replace('/', '_'), f'{cache_hash}.jl')
         loaded_from_cache = False
         if os.path.exists(cache_file) and use_cache:
-            print(f'Loading cached {story_num}/{len(allstories)}: {story}')
+            logging.info(
+                f'Loading cached {story_num}/{len(allstories)}: {story}')
             try:
                 vectors[story] = joblib.load(cache_file)
                 loaded_from_cache = True

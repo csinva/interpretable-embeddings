@@ -20,6 +20,7 @@ class QuestionEmbedder:
         self.questions = questions
         if 'mistral' in checkpoint and 'Instruct' in checkpoint:
             self.prompt = "<s>[INST]'Input text: {example}\nQuestion: {question}\nAnswer with yes or no, then give an explanation.[/INST]"
+            self.checkpoint = checkpoint
         elif 'Meta-Llama-3' in checkpoint and 'Instruct' in checkpoint:
             if '-refined' in checkpoint:
                 self.prompt = '<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nRead the input then answer a question about the input.\n**Input**: "{example}"\n**Question**: {question}\nAnswer with yes or no, then give an explanation.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n**Answer**:'
@@ -30,6 +31,8 @@ class QuestionEmbedder:
             else:
                 self.prompt = '<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a concise, helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nInput text: {example}\nQuestion: {question}\nAnswer with yes or no, then give an explanation.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n'
                 self.checkpoint = checkpoint
+
+            # set batch_size
             if '8B' in checkpoint:
                 if 'fewshot' in checkpoint:
                     self.batch_size = 16

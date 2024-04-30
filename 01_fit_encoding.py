@@ -22,7 +22,7 @@ import sklearn.decomposition
 import joblib
 import os
 import encoding_utils
-import encoding_models
+# import encoding_models
 from config import data_dir
 import config
 from ridge_utils.ridge import bootstrap_ridge, gen_temporal_chunk_splits
@@ -59,8 +59,8 @@ def add_main_args(parser):
                         # qa_embedder-10
                         # default='qa_embedder-10',
                         #
-                        choices=sorted(list(
-                            feature_spaces._FEATURE_VECTOR_FUNCTIONS.keys())),
+                        # choices=sorted(list(
+                        # feature_spaces._FEATURE_VECTOR_FUNCTIONS.keys())),
                         help='''Overloaded this argument.
                         qa_embedder-10 will run with ngram_context of 10 ngrams
                         qa_embedder-tr2 will run with tr_context of 2 TRs
@@ -81,6 +81,7 @@ def add_main_args(parser):
                         help='in range(0, 100) - larger is more regularization')
     parser.add_argument("--qa_embedding_model", type=str,
                         default='mistralai/Mistral-7B-Instruct-v0.2',
+                        # default='ensemble1',
                         help='Model to use for QA embedding, if feature_space is qa_embedder',
                         )
     parser.add_argument("--qa_questions_version", type=str, default='v1',
@@ -182,7 +183,7 @@ def get_story_names(args):
     return story_names_train, story_names_test
 
 
-def get_data(args, story_names, extract_only=False):
+def get_features_full(args, qa_embedding_model, story_names, extract_only=False):
     '''
     Params
     ------
@@ -191,40 +192,34 @@ def get_data(args, story_names, extract_only=False):
 
     Returns
     -------
-    stim_delayed: np.ndarray
+    features_delayed: np.ndarray
         n_time_points x (n_delays x n_features)
-    resp: np.ndarray
-        n_time_points x n_voxels (e.g. (27449, 95556) or (550, 95556))
     '''
+    if qa_embedding_model == 'ensemble1':
+        features_delayed_list = []
+        for qa_embedding_model in ['mistralai/Mistral-7B-Instruct-v0.2', 'meta-llama/Meta-Llama-3-8B-Instruct', 'meta-llama/Meta-Llama-3-8B-Instruct-fewshot']:
+            features_delayed = get_features_full(
+                args, qa_embedding_model, story_names)
+            features_delayed_list.append(features_delayed)
+        features_avg = np.mean(features_delayed_list, axis=0)
+        features_avg = features_avg / np.std(features_avg, axis=0)
 
     # for qa versions, we extract features multiple times and concatenate them
     # this helps with caching
     if 'qa_embedder' in args.feature_space:
         kwargs_list = qa_questions.get_kwargs_list_for_version_str(
             args.qa_questions_version)
-        # if '-' in args.qa_questions_version:
-        #     version_num = int(args.qa_questions_version.split('-')[0][1:])
-        #     suffix = '-' + args.qa_questions_version.split('-')[1]
-        # else:
-        #     version_num = int(args.qa_questions_version[1])
-        #     suffix = ''
-        # kwargs_list = [{'qa_questions_version': f'v{i + 1}{suffix}'}
-        #                for i in range(version_num)]
     else:
         kwargs_list = [{}]
 
     features_downsampled_list = []
     for kwargs in kwargs_list:
-        # Features
         features_downsampled_dict = feature_spaces.get_features(
             args.feature_space,
             allstories=story_names,
-            qa_embedding_model=args.qa_embedding_model,
+            qa_embedding_model=qa_embedding_model,
             # use_cache=False,
             **kwargs)
-        # for story_name in story_names:
-        # print('unique after get_features', story_name, np.unique(
-        # features_downsampled_dict[story_name], return_counts=True))
         # n_time_points x n_features
         features_downsampled = encoding_utils.trim_and_normalize_features(
             features_downsampled_dict, args.trim, normalize=True
@@ -236,25 +231,9 @@ def get_data(args, story_names, extract_only=False):
 
     features_downsampled_list = np.hstack(features_downsampled_list)
     # print('unique', np.unique(features_downsampled_list, return_counts=True))
-
-    # n_time_points x (n_delays x n_features)
-    stim_delayed = make_delayed(features_downsampled_list,
-                                delays=range(1, args.ndelays+1))
-    # stim_delayed = encoding_utils.add_delays(
-    # story_names, features_downsampled_dict, args.trim, args.ndelays, normalize=normalize)
-
-    # Response
-    # use cached responses
-    # if story_names_train == story_names.get_story_names(args.subject, 'train'):
-    # resp_train = joblib.load(
-    # join('/home/chansingh/cache_fmri_resps', f'{args.subject}.pkl'))
-    # else:
-    print('loading resps...')
-    resp = encoding_utils.get_response(
-        story_names, args.subject)
-    assert resp.shape[0] == stim_delayed.shape[0], 'Resps loading for all stories, make sure to align with stim'
-
-    return stim_delayed, resp
+    features_delayed = make_delayed(features_downsampled_list,
+                                    delays=range(1, args.ndelays+1))
+    return features_delayed
 
 
 def transform_resps(args, resp_train, resp_test):
@@ -279,7 +258,7 @@ def transform_resps(args, resp_train, resp_test):
 
 
 def get_resp_distilled(args, story_names):
-    print('loading distill model...')
+    logging.info('loading distill model...')
     args_distill = pd.Series(joblib.load(
         join(args.distill_model_path, 'results.pkl')))
     for k in ['subject', 'pc_components']:
@@ -288,30 +267,30 @@ def get_resp_distilled(args, story_names):
 
     model_params = joblib.load(
         join(args.distill_model_path, 'model_params.pkl'))
-    stim_delayed_distill, _ = get_data(
-        args_distill, story_names)
-    preds_distilled = stim_delayed_distill @ model_params['weights_pc']
+    features_delayed_distill = get_features_full(
+        args_distill, args_distill.qa_embedding_model, story_names)
+    preds_distilled = features_delayed_distill @ model_params['weights_pc']
     return preds_distilled
 
 
-def get_model(args):
-    if args.encoding_model == 'mlp':
-        return NeuralNetRegressor(
-            encoding_models.MLP(
-                dim_inputs=stim_train_delayed.shape[1],
-                dim_hidden=args.mlp_dim_hidden,
-                dim_outputs=resp_train.shape[1]
-            ),
-            max_epochs=3000,
-            lr=1e-5,
-            optimizer=torch.optim.Adam,
-            callbacks=[EarlyStopping(patience=30)],
-            iterator_train__shuffle=True,
-            # device='cuda',
-        )
+# def get_model(args):
+#     if args.encoding_model == 'mlp':
+#         return NeuralNetRegressor(
+#             encoding_models.MLP(
+#                 dim_inputs=stim_train_delayed.shape[1],
+#                 dim_hidden=args.mlp_dim_hidden,
+#                 dim_outputs=resp_train.shape[1]
+#             ),
+#             max_epochs=3000,
+#             lr=1e-5,
+#             optimizer=torch.optim.Adam,
+#             callbacks=[EarlyStopping(patience=30)],
+#             iterator_train__shuffle=True,
+#             # device='cuda',
+#         )
 
 
-def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, resp_test):
+def fit_regression(args, r, features_train_delayed, resp_train, features_test_delayed, resp_test):
     if args.pc_components > 0:
         if args.min_alpha > 0:
             alphas = np.logspace(np.log10(args.min_alpha), 4, 12)
@@ -331,7 +310,7 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
 
     if args.encoding_model == 'ridge':
         wt, corrs_test, alphas_best, corrs_tune, valinds = bootstrap_ridge(
-            stim_train_delayed, resp_train, stim_test_delayed, resp_test, alphas, args.nboots, args.chunklen,
+            features_train_delayed, resp_train, features_test_delayed, resp_test, alphas, args.nboots, args.chunklen,
             args.nchunks, singcutoff=args.singcutoff, single_alpha=args.single_alpha)
 
         # Save regression results
@@ -359,13 +338,13 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
         r[corrs_key_test] = corrs_test
     elif args.encoding_model == 'elasticnet':
         splits = gen_temporal_chunk_splits(
-            num_splits=args.nboots, num_examples=stim_train_delayed.shape[0],
+            num_splits=args.nboots, num_examples=features_train_delayed.shape[0],
             chunk_len=args.chunklen, num_chunks=args.nchunks)
-        print('Running elasticnet...')
+        logging.info('Running elasticnet...')
         lin = MultiTaskElasticNetCV(
             alphas=alphas, cv=splits, n_jobs=10, l1_ratio=args.l1_ratio)
-        lin.fit(stim_train_delayed, resp_train)
-        preds = lin.predict(stim_test_delayed)
+        lin.fit(features_train_delayed, resp_train)
+        preds = lin.predict(features_test_delayed)
         corrs_test = []
         for i in range(preds.shape[1]):
             # np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
@@ -385,8 +364,8 @@ def fit_regression(args, r, stim_train_delayed, resp_train, stim_test_delayed, r
             n_estimators=100, n_jobs=10)  # , max_depth=5)
         corrs_test = []
         for i in range(resp_train.shape[1]):
-            rf.fit(stim_train_delayed, resp_train[:, i])
-            preds = rf.predict(stim_test_delayed)
+            rf.fit(features_train_delayed, resp_train[:, i])
+            preds = rf.predict(features_test_delayed)
             # corrs_test.append(np.corrcoef(resp_test[:, i], preds)[0, 1])
             corrs_test.append(nancorr(resp_test[:, i], preds[:, i]))
             print(i, 'rf corr', corrs_test[-1])
@@ -509,15 +488,23 @@ if __name__ == "__main__":
     if args.use_extract_only:
         all_stories = story_names_train + story_names_test
         random.shuffle(all_stories)
-        get_data(args, all_stories, extract_only=True)
-    stim_train_delayed, resp_train = get_data(args, story_names_train)
-    print('stim_train.shape', stim_train_delayed.shape,
-          'resp_train.shape', resp_train.shape)
-    stim_test_delayed, resp_test = get_data(args, story_names_test)
-    print('stim_test.shape', stim_test_delayed.shape,
-          'resp_test.shape', resp_test.shape)
+        get_features_full(args, args.qa_embedding_model,
+                          all_stories, extract_only=True)
+    logging.info('loading features and resps...')
+    t0f = time.time()
+    stim_test_delayed = get_features_full(
+        args, args.qa_embedding_model, story_names_test)
+    resp_test = encoding_utils.get_response(
+        story_names_test, args.subject)
+    logging.info(
+        f'{stim_test_delayed.shape=}, {resp_test.shape=}, in {time.time() - t0f:0.0f} secs')
+    stim_train_delayed = get_features_full(
+        args, args.qa_embedding_model, story_names_train)
+    resp_train = encoding_utils.get_response(
+        story_names_train, args.subject)
+    logging.info(f'{stim_train_delayed.shape=}, {resp_train.shape=}')
     if args.pc_components > 0:
-        print('pc transforming resps...')
+        logging.info('pc transforming resps...')
         resp_train, resp_test, pca, scaler_train, scaler_test = transform_resps(
             args, resp_train, resp_test)
 
@@ -580,7 +567,8 @@ if __name__ == "__main__":
 
     # evaluate per voxel
     if args.pc_components > 0:
-        _, resp_test = get_data(args, story_names_test)
+        resp_test = encoding_utils.get_response(
+            story_names_test, args.subject)
         r['corrs_test'] = evaluate_pc_model_on_each_voxel(
             args, stim_test_delayed, resp_test,
             model_params_to_save, pca, scaler_test)

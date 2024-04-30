@@ -19,10 +19,11 @@ params_shared_dict = {
     'nboots': [5],
     'use_test_setup': [0],
     'encoding_model': ['ridge'],
-    # 'subject': ['UTS03'],
-    'subject': ['UTS02', 'UTS01'],
+    'subject': ['UTS03'],
+    # 'subject': ['UTS02', 'UTS01'],
     'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'],
-    'ndelays': [4, 8, 12],
+    # 'ndelays': [4, 8, 12],
+    'ndelays': [8],
 
     # cluster
     # 'seed_stories': range(20),
@@ -38,8 +39,8 @@ params_shared_dict = {
 params_coupled_dict = {
     ('feature_space', 'qa_questions_version', 'qa_embedding_model'): [
         # # baselines
-        ('bert-10', 'v1', MIST7B),
-        ('eng1000', 'v1', MIST7B),
+        # ('bert-10', 'v1', MIST7B),
+        # ('eng1000', 'v1', MIST7B),
         # ('llama2-7B_lay6-10', 'v1', MIST7B),
         # ('llama2-7B_lay12-10', 'v1', MIST7B),
         # ('llama2-7B_lay18-10', 'v1', MIST7B),
@@ -53,7 +54,7 @@ params_coupled_dict = {
         # ('llama2-13B_lay30-10', 'v1', MIST7B),
 
         # ('llama2-70B_lay12-10', 'v1', MIST7B),
-        ('llama2-70B_lay24-10', 'v1', MIST7B),  # this is best one
+        # ('llama2-70B_lay24-10', 'v1', MIST7B),  # this is best one
         # ('llama2-70B_lay36-10', 'v1', MIST7B),
         # ('llama2-70B_lay48-10', 'v1', MIST7B),
         # ('llama2-70B_lay60-10', 'v1', MIST7B),
@@ -69,6 +70,13 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v1', LLAMA8B),
 
 
+        # ensemble
+        ('qa_embedder-10', 'v1', 'ensemble1'),
+        ('qa_embedder-10', 'v2', 'ensemble1'),
+        ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
+
+
+
         # vary question versions
         # ('qa_embedder-10', 'v1', MIST7B),
         # ('qa_embedder-10', 'v2', MIST7B),
@@ -80,13 +88,11 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v3_boostexamples', MIST7B),
         # ('qa_embedder-10', 'v4_boostexamples', MIST7B),
 
-        # vary context len
-        # ('qa_embedder-25', 'v1', MIST7B),
+
 
         # # llama/mixtral
-
         # ('qa_embedder-10', 'v2', LLAMA8B),
-        ('qa_embedder-10', 'v3_boostexamples', LLAMA8B),
+        # ('qa_embedder-10', 'v3_boostexamples', LLAMA8B),
         # ('qa_embedder-10', 'v4_boostexamples', LLAMA8B),
         # ('qa_embedder-10', 'v1', LLAMA8B_fewshot),
         # ('qa_embedder-10', 'v2', LLAMA8B_fewshot),
@@ -96,10 +102,16 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v2', 'meta-llama/Meta-Llama-3-8B-Instruct-refined'),
         # ('qa_embedder-10', 'v3_boostexamples',
         #  'meta-llama/Meta-Llama-3-8B-Instruct-refined'),
+
+
+        # mixtral
         # ('qa_embedder-10', 'v1', MIXTMOE),
         # ('qa_embedder-10', 'v2', MIXTMOE),
         # ('qa_embedder-10', 'v3', MIXTMOE),
         # ('qa_embedder-10', 'v4', MIXTMOE),
+
+        # vary context len
+        # ('qa_embedder-25', 'v1', MIST7B),
 
         # -last, -end versions (try 10, 50, 75)
         # ('qa_embedder-25', 'v1-last', MIST7B),
