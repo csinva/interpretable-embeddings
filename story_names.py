@@ -14,6 +14,8 @@ def get_story_names(subject: str = "UTS01", train_or_test="train"):
         "UTS01": TRAIN_STORIES_01,
         "UTS02": TRAIN_STORIES_02,
         "UTS03": TRAIN_STORIES_03,
+        'shared': list(set(TRAIN_STORIES_01).intersection(TRAIN_STORIES_02, TRAIN_STORIES_03))
+
     }
     if train_or_test == "train":
         return story_names_train[subject]
@@ -22,7 +24,7 @@ def get_story_names(subject: str = "UTS01", train_or_test="train"):
 
 
 if __name__ == "__main__":
-    for subject in ["UTS01", "UTS02", "UTS03"]:
+    for subject in ["UTS01", "UTS02", "UTS03", "shared"]:
         print(f"Subject: {subject}")
         print(
             f'len of train stories: {len(get_story_names(subject, "train"))}')

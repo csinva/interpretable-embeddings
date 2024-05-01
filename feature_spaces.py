@@ -199,40 +199,57 @@ def get_embs_from_text_list(text_list: List[str], embedding_function) -> List[np
     return embs
 
 
-def _get_ngrams_list_from_words_list(words_list: List[str], ngram_size: int = 5) -> List[str]:
-    """Concatenate running list of words into grams with spaces in between
-    """
-    ngrams_list = []
-    for i in range(len(words_list)):
-        l = max(0, i - ngram_size)
-        ngram = ' '.join(words_list[l: i + 1])
-        ngrams_list.append(ngram.strip())
-    return ngrams_list
+def get_ngrams_list_main(ds, num_trs_context, num_secs_context_per_word, num_ngrams_context):
+    def _get_ngrams_list_from_words_list(words_list: List[str], ngram_size: int = 5) -> List[str]:
+        """Concatenate running list of words into grams with spaces in between
+        """
+        ngrams_list = []
+        for i in range(len(words_list)):
+            l = max(0, i - ngram_size)
+            ngram = ' '.join(words_list[l: i + 1])
+            ngrams_list.append(ngram.strip())
+        return ngrams_list
 
+    def _get_ngrams_list_from_chunks(chunks, num_trs=2):
+        ngrams_list = []
+        for i in range(len(chunks)):
+            # print(chunks[i - num_trs:i])
+            # sum(chunks[i - num_trs:i], [])
+            chunk_block = chunks[i - num_trs:i]
+            if len(chunk_block) == 0:
+                ngrams_list.append('')
+            else:
+                chunk_block = np.concatenate(chunk_block)
+                ngrams_list.append(' '.join(chunk_block))
+        return ngrams_list
 
-def _get_ngrams_list_from_chunks(chunks, num_trs=2):
-    ngrams_list = []
-    for i in range(len(chunks)):
-        # print(chunks[i - num_trs:i])
-        # sum(chunks[i - num_trs:i], [])
-        chunk_block = chunks[i - num_trs:i]
-        if len(chunk_block) == 0:
-            ngrams_list.append('')
-        else:
-            chunk_block = np.concatenate(chunk_block)
-            ngrams_list.append(' '.join(chunk_block))
-    return ngrams_list
+    def _get_ngrams_list_from_words_list_and_times(words_list: List[str], times_list: np.ndarray[float], sec_offset: float = 4) -> List[str]:
+        words_arr = np.array(words_list)
+        ngrams_list = []
+        for i in range(len(times_list)):
+            t = times_list[i]
+            t_off = t - sec_offset
+            idxs = np.where(np.logical_and(
+                times_list >= t_off, times_list <= t))[0]
+            ngrams_list.append(' '.join(words_arr[idxs]))
+        return ngrams_list
 
-
-def _get_ngrams_list_from_words_list_and_times(words_list: List[str], times_list: np.ndarray[float], sec_offset: float = 4) -> List[str]:
-    words_arr = np.array(words_list)
-    ngrams_list = []
-    for i in range(len(times_list)):
-        t = times_list[i]
-        t_off = t - sec_offset
-        idxs = np.where(np.logical_and(
-            times_list >= t_off, times_list <= t))[0]
-        ngrams_list.append(' '.join(words_arr[idxs]))
+    # get ngrams_list
+    if num_trs_context is not None:
+        # replace each TR with text from the current TR and the TRs immediately before it
+        ngrams_list = _get_ngrams_list_from_chunks(
+            ds.chunks(), num_trs=num_trs_context)
+        assert len(ngrams_list) == len(ds.chunks())
+    elif num_secs_context_per_word is not None:
+        # replace each word with the ngrams in a time window leading up to that word
+        ngrams_list = _get_ngrams_list_from_words_list_and_times(
+            ds.data, ds.data_times, sec_offset=num_secs_context_per_word)
+        assert len(ngrams_list) == len(ds.data)
+    else:
+        # replace each word with an ngram leading up to that word
+        ngrams_list = _get_ngrams_list_from_words_list(
+            ds.data, ngram_size=num_ngrams_context)
+        assert len(ngrams_list) == len(ds.data)
     return ngrams_list
 
 
@@ -269,8 +286,14 @@ def get_llm_vectors(
     logging.info(f'getting wordseqs..')
     wordseqs = get_story_wordseqs(allstories)
     vectors = {}
+    ngrams_list_dict = {}
     embedding_model = None  # only initialize if needed
-    logging.info(f'extracting {checkpoint} {qa_questions_version} {qa_embedding_model} embs...')
+    if 'qa_embedder' in checkpoint:
+        logging.info(
+            f'extracting {checkpoint} {qa_questions_version} {qa_embedding_model} embs...')
+    else:
+        logging.info(f'extracting {checkpoint} {qa_questions_version} embs...')
+
     for story_num, story in enumerate(allstories):
         args_cache = {'story': story, 'model': checkpoint, 'ngram_size': num_ngrams_context,
                       'qa_embedding_model': qa_embedding_model, 'qa_questions_version': qa_questions_version,
@@ -287,35 +310,22 @@ def get_llm_vectors(
             try:
                 vectors[story] = joblib.load(cache_file)
                 loaded_from_cache = True
+                if not downsample:
+                    ngrams_list_dict[story] = get_ngrams_list_main(
+                        wordseqs[story], num_trs_context, num_secs_context_per_word, num_ngrams_context)
                 # print('Loaded', story, 'vectors', vectors[story].shape,
                 #   'unique', np.unique(vectors[story], return_counts=True))
             except:
                 print('Error loading', cache_file)
 
         if not loaded_from_cache:
+            ngrams_list = get_ngrams_list_main(
+                wordseqs[story], num_trs_context, num_secs_context_per_word, num_ngrams_context)
+
+            # embed the ngrams
             if embedding_model is None:
                 embedding_model = _get_embedding_model(
                     checkpoint, qa_questions_version, qa_embedding_model)
-            ds = wordseqs[story]
-
-            # get ngrams_list
-            if num_trs_context is not None:
-                # replace each TR with text from the current TR and the TRs immediately before it
-                ngrams_list = _get_ngrams_list_from_chunks(
-                    ds.chunks(), num_trs=num_trs_context)
-                assert len(ngrams_list) == len(ds.chunks())
-            elif num_secs_context_per_word is not None:
-                # replace each word with the ngrams in a time window leading up to that word
-                ngrams_list = _get_ngrams_list_from_words_list_and_times(
-                    ds.data, ds.data_times, sec_offset=num_secs_context_per_word)
-                assert len(ngrams_list) == len(ds.data)
-            else:
-                # replace each word with an ngram leading up to that word
-                ngrams_list = _get_ngrams_list_from_words_list(
-                    ds.data, ngram_size=num_ngrams_context)
-                assert len(ngrams_list) == len(ds.data)
-
-            # embed the ngrams
             if 'qa_embedder' in checkpoint:
                 print(f'Extracting {story_num}/{len(allstories)}: {story}')
                 embs = embedding_model(ngrams_list, verbose=False)
@@ -332,6 +342,8 @@ def get_llm_vectors(
                 # embs = DataSequence(
                 # embs, ds.split_inds, ds.data_times, ds.tr_times).data
             vectors[story] = deepcopy(embs)
+            if not downsample:
+                ngrams_list_dict[story] = deepcopy(ngrams_list)
             # print(story, 'vectors', vectors[story].shape,
             #   'unique', np.unique(vectors[story], return_counts=True))
             os.makedirs(dirname(cache_file), exist_ok=True)
@@ -340,7 +352,7 @@ def get_llm_vectors(
     if num_trs_context is not None:
         return vectors
     elif not downsample:
-        return allstories, vectors, wordseqs
+        return allstories, vectors, wordseqs, ngrams_list_dict
     else:
         return downsample_word_vectors(
             allstories, vectors, wordseqs, strategy=downsample)

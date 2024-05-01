@@ -51,3 +51,4 @@ figs
 results*
 **pycache*
 **logs*
+**.pt

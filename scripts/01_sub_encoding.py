@@ -11,6 +11,7 @@ MIXTMOE = 'mistralai/Mixtral-8x7B-Instruct-v0.1'
 LLAMA8B = 'meta-llama/Meta-Llama-3-8B-Instruct'
 LLAMA8B_fewshot = 'meta-llama/Meta-Llama-3-8B-Instruct-fewshot'
 LLAMA70B_fewshot = 'meta-llama/Meta-Llama-3-70B-Instruct-fewshot'
+LLAMA70B = 'meta-llama/Meta-Llama-3-70B-Instruct'
 BEST_RUN = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7/68936a10a548e2b4ce895d14047ac49e7a56c3217e50365134f78f990036c5f7'
 
 params_shared_dict = {
@@ -22,11 +23,11 @@ params_shared_dict = {
     'subject': ['UTS03'],
     # 'subject': ['UTS02', 'UTS01'],
     'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'],
-    # 'ndelays': [4, 8, 12],
-    'ndelays': [8],
+    'ndelays': [4, 8, 12],
+    # 'ndelays': [8],
 
     # cluster
-    # 'seed_stories': range(20),
+    'seed_stories': range(9),
     'pc_components': [100],
     # 'ndelays': [4],
 
@@ -71,9 +72,9 @@ params_coupled_dict = {
 
 
         # ensemble
-        ('qa_embedder-10', 'v1', 'ensemble1'),
-        ('qa_embedder-10', 'v2', 'ensemble1'),
-        ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
+        # ('qa_embedder-10', 'v1', 'ensemble1'),
+        # ('qa_embedder-10', 'v2', 'ensemble1'),
+        # ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
 
 
 
@@ -97,6 +98,7 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v1', LLAMA8B_fewshot),
         # ('qa_embedder-10', 'v2', LLAMA8B_fewshot),
         # ('qa_embedder-10', 'v3_boostexamples', LLAMA8B_fewshot),
+        ('qa_embedder-10', 'v1', LLAMA70B),
         # ('qa_embedder-10', 'v1', LLAMA70B_fewshot),
         # ('qa_embedder-10', 'v1', 'meta-llama/Meta-Llama-3-8B-Instruct-refined'),
         # ('qa_embedder-10', 'v2', 'meta-llama/Meta-Llama-3-8B-Instruct-refined'),
@@ -155,7 +157,7 @@ submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     unique_seeds='seed_stories',
-    # amlt_kwargs=amlt_kwargs,
+    amlt_kwargs=amlt_kwargs,
     # n_cpus=9,
     n_cpus=3,
     # gpu_ids=[0, 1],

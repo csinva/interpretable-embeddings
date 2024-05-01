@@ -40,7 +40,7 @@ class QuestionEmbedder:
                     self.batch_size = 64
             elif '70B' in checkpoint:
                 if 'fewshot' in checkpoint:
-                    self.batch_size = 32
+                    self.batch_size = 64
                 else:
                     self.batch_size = 128  # requires 8 GPUs
 

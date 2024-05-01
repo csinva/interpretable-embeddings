@@ -51,7 +51,9 @@ def add_main_args(parser):
     """Caching uses the non-default values from argparse to name the saving directory.
     Changing the default arg an argument will break cache compatibility with previous runs.
     """
-    parser.add_argument("--subject", type=str, default='UTS03')
+    parser.add_argument("--subject", type=str, default='UTS03',
+                        choices=['UTS01', 'UTS02', 'UTS03'],
+                        help='top3 concatenates responses for S01-S03, useful for feature selection')
     parser.add_argument("--feature_space", type=str,
                         # default='distil-bert-tr2',
                         default='qa_embedder-10',
@@ -76,7 +78,6 @@ def add_main_args(parser):
                         # default='randomforest'
                         )
     parser.add_argument("--feature_selection_alpha_index", type=int,
-                        # default=1,
                         default=-1,
                         help='in range(0, 100) - larger is more regularization')
     parser.add_argument("--qa_embedding_model", type=str,
@@ -98,7 +99,7 @@ def add_main_args(parser):
     parser.add_argument("--mlp_dim_hidden", type=int,
                         help="hidden dim for MLP", default=512)
     parser.add_argument('--num_stories', type=int, default=-1,
-                        help='number of stories to use (-1 for all). Note: use_test_setup alters this.')
+                        help='number of stories to use (-1 for all). Note: use_test_setup alters this. Pass 0 to load shared stories (used for shared feature selection).')
 
     # linear modeling splits
     parser.add_argument("--trim", type=int, default=5)
@@ -169,6 +170,13 @@ def get_story_names(args):
         args.pc_components = 100
         # 'onapproachtopluto']  # , 'onapproachtopluto']
         # random.shuffle(story_names_test)
+    # special case where we load shared stories
+    elif args.num_stories == 0:
+        story_names_train = story_names.get_story_names(
+            'shared', 'train')
+        story_names_test = story_names.get_story_names(
+            'shared', 'test')
+
     elif args.num_stories > 0:
         story_names_train = story_names.get_story_names(
             args.subject, 'train')[:args.num_stories]
@@ -236,25 +244,51 @@ def get_features_full(args, qa_embedding_model, story_names, extract_only=False)
     return features_delayed
 
 
-def transform_resps(args, resp_train, resp_test):
-    pca_filename = join(data_dir, 'fmri_resp_norms',
-                        args.subject, 'resps_pca.pkl')
-    pca = joblib.load(pca_filename)
-    pca.components_ = pca.components_[
-        :args.pc_components]  # (n_components, n_voxels)
+def get_resps_full(
+    args, subject, story_names_train, story_names_test
+):
+    '''
+    resp_train: np.ndarray
+        n_time_points x n_voxels
+    '''
+    if subject == 'shared':
+        resp_train, _, _, _, _ = get_resps_full(
+            args, 'UTS01', story_names_train, story_names_test)
+        resp_train2, _, _, _, _ = get_resps_full(
+            args, 'UTS02', story_names_train, story_names_test)
+        resp_train3, _, _, _, _ = get_resps_full(
+            args, 'UTS03', story_names_train, story_names_test)
+        resp_train = np.hstack([resp_train, resp_train2, resp_train3])
+        return resp_train
 
-    # fill nans with nanmean
-    resp_train[np.isnan(resp_train)] = np.nanmean(resp_train)
-    resp_test[np.isnan(resp_test)] = np.nanmean(resp_test)
+    resp_test = encoding_utils.get_response(
+        story_names_test, subject)
+    resp_train = encoding_utils.get_response(
+        story_names_train, subject)
 
-    resp_train = pca.transform(resp_train)
-    resp_test = pca.transform(resp_test)
-    print('reps_train.shape (after pca)', resp_train.shape)
-    scaler_train = StandardScaler().fit(resp_train)
-    scaler_test = StandardScaler().fit(resp_test)
-    resp_train = scaler_train.transform(resp_train)
-    resp_test = scaler_test.transform(resp_test)
-    return resp_train, resp_test, pca, scaler_train, scaler_test
+    if args.pc_components <= 0:
+        return resp_train, resp_test
+    else:
+        logging.info('pc transforming resps...')
+
+        pca_filename = join(data_dir, 'fmri_resp_norms',
+                            subject, 'resps_pca.pkl')
+        pca = joblib.load(pca_filename)
+        pca.components_ = pca.components_[
+            :args.pc_components]  # (n_components, n_voxels)
+
+        # fill nans with nanmean
+        resp_train[np.isnan(resp_train)] = np.nanmean(resp_train)
+        resp_test[np.isnan(resp_test)] = np.nanmean(resp_test)
+
+        resp_train = pca.transform(resp_train)
+        resp_test = pca.transform(resp_test)
+        logging.info(f'reps_train.shape (after pca) {resp_train.shape}')
+        scaler_train = StandardScaler().fit(resp_train)
+        scaler_test = StandardScaler().fit(resp_test)
+        resp_train = scaler_train.transform(resp_train)
+        resp_test = scaler_test.transform(resp_test)
+        return resp_train, resp_test, pca, scaler_train, scaler_test
 
 
 def get_resp_distilled(args, story_names):
@@ -456,6 +490,8 @@ if __name__ == "__main__":
     parser = add_computational_args(
         deepcopy(parser_without_computational_args))
     args = parser.parse_args()
+    assert not (args.num_stories == 0 and args.feature_selection_alpha_index <
+                0), 'num_stories == 0 should only be used during feature selection!'
 
     # set up logging
     logger = logging.getLogger()
@@ -485,33 +521,16 @@ if __name__ == "__main__":
 
     # get data
     story_names_train, story_names_test = get_story_names(args)
-    if args.use_extract_only:
+    if args.use_extract_only and args.pc_components_input < 0:
         all_stories = story_names_train + story_names_test
         random.shuffle(all_stories)
         get_features_full(args, args.qa_embedding_model,
                           all_stories, extract_only=True)
-    logging.info('loading features and resps...')
-    t0f = time.time()
+    logging.info('loading features...')
     stim_test_delayed = get_features_full(
         args, args.qa_embedding_model, story_names_test)
-    resp_test = encoding_utils.get_response(
-        story_names_test, args.subject)
-    logging.info(
-        f'{stim_test_delayed.shape=}, {resp_test.shape=}, in {time.time() - t0f:0.0f} secs')
     stim_train_delayed = get_features_full(
         args, args.qa_embedding_model, story_names_train)
-    resp_train = encoding_utils.get_response(
-        story_names_train, args.subject)
-    logging.info(f'{stim_train_delayed.shape=}, {resp_train.shape=}')
-    if args.pc_components > 0:
-        logging.info('pc transforming resps...')
-        resp_train, resp_test, pca, scaler_train, scaler_test = transform_resps(
-            args, resp_train, resp_test)
-
-    # overwrite resp_train with distill model predictions
-    if args.distill_model_path is not None:
-        resp_train = get_resp_distilled(args, story_names_train)
-
     # fit pca and project with less components
     if args.pc_components_input > 0:
         print('fitting pca to inputs...', args.pc_components_input, 'components')
@@ -524,28 +543,50 @@ if __name__ == "__main__":
         scaler_input_test = StandardScaler().fit(stim_test_delayed)
         stim_test_delayed = scaler_input_test.transform(stim_test_delayed)
 
+    logging.info('loading resps...')
+    if not args.num_stories == 0:  # 0 is a special case which loads shared stories
+        if args.pc_components <= 0:
+            resp_train, resp_test = get_resps_full(
+                args, args.subject, story_names_train, story_names_test)
+        else:
+            resp_train, resp_test, pca, scaler_train, scaler_test = get_resps_full(
+                args, args.subject, story_names_train, story_names_test)
+
+        # overwrite resp_train with distill model predictions
+        if args.distill_model_path is not None:
+            resp_train = get_resp_distilled(args, story_names_train)
+
     # select features
     if args.feature_selection_alpha_index >= 0:
-        print('selecting sparse feats...')
+        logging.info('selecting sparse feats...')
         # remove delays from stim
         stim_train = stim_train_delayed[:,
                                         :stim_train_delayed.shape[1] // args.ndelays]
 
         # coefs is (n_targets, n_features, n_alphas)
-        alpha_range = (0, -3, 15)
-        cache_file = join(config.repo_dir, 'sparse_feats',
+        alpha_range = (0, -3, 20)  # original was 0, -3, 15
+        cache_file = join(config.repo_dir, 'sparse_feats_all_subj',
                           args.qa_questions_version + '_' + args.qa_embedding_model + '_' + str(alpha_range) + '.joblib')
         if os.path.exists(cache_file):
             alphas_enet, coefs_enet = joblib.load(cache_file)
         else:
+            # get special resps by concatenating across subjects
+            resp_train_shared = get_resps_full(
+                args, 'shared', story_names_train, story_names_test)
             alphas_enet, coefs_enet, _ = enet_path(
-                stim_train, resp_train,
+                stim_train,
+                resp_train_shared,
                 l1_ratio=0.9,
                 alphas=np.logspace(*alpha_range),
-                verbose=1,
+                verbose=3,
+                max_iter=5000,  # defaults to 1000
+                random_state=args.seed,
             )
             os.makedirs(join(config.repo_dir, 'sparse_feats'), exist_ok=True)
             joblib.dump((alphas_enet, coefs_enet), cache_file)
+            logging.info(
+                f"Succesfully completed feature selection {(time.time() - t0)/60:0.1f} minutes")
+            exit(0)
 
         # pick the coefs
         coef_enet = coefs_enet[:, :, args.feature_selection_alpha_index]

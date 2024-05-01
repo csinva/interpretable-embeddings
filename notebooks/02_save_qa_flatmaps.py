@@ -95,7 +95,8 @@ if __name__ == '__main__':
         args = r[(r.feature_space == 'qa_embedder-10') *
                  #  (r.pc_components == -1) *
                  (r.pc_components == 100) *
-                 (r.qa_embedding_model == 'mist-7B') *
+                 #  (r.qa_embedding_model == 'mist-7B') *
+                 (r.qa_embedding_model == 'ensemble1') *
                  (r.qa_questions_version == version) *
                  (r.ndelays == 8)
                  ]
@@ -103,7 +104,8 @@ if __name__ == '__main__':
         # ascending=False).iloc[0]
         print(args[['feature_selection_alpha_index',
               'weight_enet_mask_num_nonzero']])
-        for feature_selection_alpha_index in sorted(args.feature_selection_alpha_index.unique(), reverse=False):
+        # for feature_selection_alpha_index in sorted(args.feature_selection_alpha_index.unique(), reverse=False):
+        for feature_selection_alpha_index in [-1]:
             args0 = args[args.feature_selection_alpha_index ==
                          feature_selection_alpha_index].iloc[0]
             args_dict = {k: v for k, v in args0.to_dict().items(

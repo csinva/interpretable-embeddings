@@ -29,9 +29,10 @@ params_shared_dict = {
     'ndelays': [8],
 
     'pc_components': [100],
-    # 'feature_selection_alpha_index': [1],
+    'num_stories': [0],  # this is used to get shared stories, only u
+    'feature_selection_alpha_index': [1],
     # 'feature_selection_alpha_index': range(2, 10),
-    'feature_selection_alpha_index': range(3, 11),
+    # 'feature_selection_alpha_index': range(3, 11),
 
 
     # local
@@ -47,19 +48,11 @@ params_coupled_dict = {
         # ('eng1000', 'v1', MIST7B),
 
         # # main
+        ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
         # ('qa_embedder-10', 'v1', MIST7B),
 
         # vary question versions
-        # ('qa_embedder-10', 'v2', MIST7B),
-        # ('qa_embedder-10', 'v3', MIST7B),
-        # ('qa_embedder-10', 'v4', MIST7B),
-        # ('qa_embedder-10', 'v5', MIST7B),
-        # ('qa_embedder-10', 'v6', MIST7B),
         # ('qa_embedder-10', 'v3_boostbasic', MIST7B),
-        # ('qa_embedder-10', 'v3_boostexamples', MIST7B),
-
-
-        ('qa_embedder-10', 'v3_boostbasic', LLAMA8B),
     ],
 }
 # Args list is a list of dictionaries
@@ -83,7 +76,7 @@ submit_utils.run_args_list(
     # unique_seeds='seed_stories',
     # amlt_kwargs=amlt_kwargs,
     # n_cpus=9,
-    n_cpus=2,
+    # n_cpus=2,
     # gpu_ids=[0, 1],
     # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1], [2, 3]],
