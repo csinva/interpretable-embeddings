@@ -52,3 +52,4 @@ results*
 **pycache*
 **logs*
 **.pt
+qa_results/finetune*

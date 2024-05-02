@@ -1,6 +1,7 @@
 from collections import defaultdict
 from torch.utils.data import Dataset
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, AdamW, AutoModel
+# from peft import LoraConfig, LoraModel, get_peft_model, TaskType
 from torch.optim import AdamW
 from torch.utils.data import DataLoader
 from torch import nn
@@ -96,9 +97,12 @@ if __name__ == '__main__':
 
     # checkpoint = 'bert-base-uncased'
     checkpoint = 'roberta-base'
+    # checkpoint = 'roberta-large'
     # checkpoint = 'distilbert-base-uncased'
     # batch_size = 64 # 1 gpu
-    batch_size = 256  # 4 gpus
+    batch_size = 256  # 4 gpus bert-base-uncased
+    # batch_size = 256  # 4 gpus roberta-base
+    # batch_size = 80  # 4 gpus roberta-large
     tokenizer = AutoTokenizer.from_pretrained(
         checkpoint, return_token_type_ids=False)  # , device_map='auto')
 
@@ -107,6 +111,10 @@ if __name__ == '__main__':
     test_dset = DataFrameDataset(test_df, tokenizer)
     print('baseline tune acc', 1 - tune_df.values.mean())
     print('baseline test acc', 1 - test_df.values.mean())
+
+    # seed everything
+    torch.manual_seed(0)
+    np.random.seed(0)
 
     train_loader = DataLoader(train_dset, batch_size=batch_size, shuffle=True)
     tune_loader = DataLoader(tune_dset, batch_size=int(
@@ -121,7 +129,7 @@ if __name__ == '__main__':
     # model = model.to('cuda')
     model = torch.nn.DataParallel(model).to(device)
     torch.cuda.empty_cache()
-    optimizer = AdamW(model.parameters(), lr=3e-5)
+    optimizer = AdamW(model.parameters(), lr=5e-5)
 
     # Training loop
     acc_best = 0
@@ -150,5 +158,5 @@ if __name__ == '__main__':
         if acc_tune > acc_best:
             acc_best = acc_tune
             os.makedirs(save_dir, exist_ok=True)
-            torch.save(model.state_dict(), join(save_dir, 'model.pt'))
-            pd.DataFrame(accs).to_csv(join(save_dir, 'accs.csv'))
+            torch.save(model.state_dict(), join(save_dir, f'{checkpoint}.pt'))
+            pd.DataFrame(accs).to_csv(join(save_dir, f'{checkpoint}.csv'))

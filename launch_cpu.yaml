@@ -26,16 +26,22 @@ storage:
     container_name: cs1
     mount_dir: /mntv1 # dir on the local machine
 
-# sku: 64G2-MI200-xGMI # options [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI, 64G8-MI200-xGMI, 64G4-MI200-xGMI 64G2-MI200-xGMI]
+# sku options
+# equivalences: mem x C x numcpus
+# 10C3   E4ads_v5 # 30 GBs
+# 8C7    E8ads_v5 # 56 GBs
+# 8C15   E16ads_v5 # 120 GBs
+# 8C30   E32ads_v5 # 240 GBs
+# 8C60   E64ads_v5 # 480 GBs
 # jobs:
 # - name: run_fmri
 #   process_count_per_node: 1
-#   sku: 64G2-MI200-xGMI
+#   sku: E32ads_v5
 #   command:
 #   - echo "test"
 # - name: run_fmri2
 #   process_count_per_node: 1
-#   sku: 64G2-MI200-xGMI
+#   sku: E32ads_v5
 #   command:
 #   - echo "test2"
 

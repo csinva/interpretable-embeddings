@@ -1,22 +1,16 @@
 from collections import defaultdict
 import os.path
 import pandas as pd
-from sklearn.linear_model import MultiTaskElasticNet, MultiTaskElasticNetCV, enet_path
-from skorch import NeuralNetRegressor
-from skorch.callbacks import EarlyStopping
+from sklearn.linear_model import MultiTaskElasticNetCV, enet_path
 from copy import deepcopy
-import pickle as pkl
 import torch
 from sklearn.preprocessing import StandardScaler
 import random
 import logging
 from sklearn.ensemble import RandomForestRegressor
 from os.path import join, dirname
-import json
 import argparse
-import h5py
 import numpy as np
-import sys
 import feature_spaces
 import sklearn.decomposition
 import joblib
@@ -501,12 +495,11 @@ if __name__ == "__main__":
     already_cached, save_dir_unique = imodelsx.cache_save_utils.get_save_dir_unique(
         parser, parser_without_computational_args, args, args.save_dir
     )
-
     if args.use_cache and already_cached and not args.use_test_setup:
-        logging.info(f"cached version exists! Successfully skipping :)\n\n\n")
+        print(f"cached version exists! Successfully skipping :)\n\n\n")
         exit(0)
     for k in sorted(vars(args)):
-        logger.info("\t" + k + " " + str(vars(args)[k]))
+        print("\t" + k + " " + str(vars(args)[k]))
     logging.info(f"\n\n\tsaving to " + save_dir_unique + "\n")
 
     # set seed
@@ -526,7 +519,7 @@ if __name__ == "__main__":
         random.shuffle(all_stories)
         get_features_full(args, args.qa_embedding_model,
                           all_stories, extract_only=True)
-    logging.info('loading features...')
+    print('loading features...')
     stim_test_delayed = get_features_full(
         args, args.qa_embedding_model, story_names_test)
     stim_train_delayed = get_features_full(
@@ -543,7 +536,7 @@ if __name__ == "__main__":
         scaler_input_test = StandardScaler().fit(stim_test_delayed)
         stim_test_delayed = scaler_input_test.transform(stim_test_delayed)
 
-    logging.info('loading resps...')
+    print('loading resps...')
     if not args.num_stories == 0:  # 0 is a special case which loads shared stories
         if args.pc_components <= 0:
             resp_train, resp_test = get_resps_full(
@@ -624,5 +617,5 @@ if __name__ == "__main__":
     joblib.dump(r, join(save_dir_unique, "results.pkl"))
     joblib.dump(model_params_to_save, join(
         save_dir_unique, "model_params.pkl"))
-    logging.info(
+    print(
         f"Succesfully completed in {(time.time() - t0)/60:0.1f} minutes, saved to {save_dir_unique}")

@@ -20,14 +20,15 @@ params_shared_dict = {
     'nboots': [5],
     'use_test_setup': [0],
     'encoding_model': ['ridge'],
-    'subject': ['UTS03'],
-    # 'subject': ['UTS02', 'UTS01'],
+    # 'subject': ['UTS03'],
+    # 'subject': ['UTS02', 'UTS01'],  # , 'UTS03'],
+    'subject': ['UTS01', 'UTS02'],
     'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'],
-    'ndelays': [4, 8, 12],
-    # 'ndelays': [8],
+    # 'ndelays': [4, 8, 12],
+    'ndelays': [8],
 
     # cluster
-    'seed_stories': range(9),
+    # 'seed_stories': range(9),
     'pc_components': [100],
     # 'ndelays': [4],
 
@@ -74,7 +75,7 @@ params_coupled_dict = {
         # ensemble
         # ('qa_embedder-10', 'v1', 'ensemble1'),
         # ('qa_embedder-10', 'v2', 'ensemble1'),
-        # ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
+        ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
 
 
 
@@ -86,56 +87,23 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v5', MIST7B),
         # ('qa_embedder-10', 'v6', MIST7B),
         # ('qa_embedder-10', 'v3_boostbasic', MIST7B),
-        # ('qa_embedder-10', 'v3_boostexamples', MIST7B),
+        ('qa_embedder-10', 'v3_boostexamples', MIST7B),
         # ('qa_embedder-10', 'v4_boostexamples', MIST7B),
 
-
-
         # # llama/mixtral
-        # ('qa_embedder-10', 'v2', LLAMA8B),
-        # ('qa_embedder-10', 'v3_boostexamples', LLAMA8B),
+        ('qa_embedder-10', 'v2', LLAMA8B),
+        ('qa_embedder-10', 'v3_boostexamples', LLAMA8B),
         # ('qa_embedder-10', 'v4_boostexamples', LLAMA8B),
-        # ('qa_embedder-10', 'v1', LLAMA8B_fewshot),
-        # ('qa_embedder-10', 'v2', LLAMA8B_fewshot),
-        # ('qa_embedder-10', 'v3_boostexamples', LLAMA8B_fewshot),
-        ('qa_embedder-10', 'v1', LLAMA70B),
+        ('qa_embedder-10', 'v1', LLAMA8B_fewshot),
+        ('qa_embedder-10', 'v2', LLAMA8B_fewshot),
+        ('qa_embedder-10', 'v3_boostexamples', LLAMA8B_fewshot),
+        # ('qa_embedder-10', 'v1', LLAMA70B),
         # ('qa_embedder-10', 'v1', LLAMA70B_fewshot),
-        # ('qa_embedder-10', 'v1', 'meta-llama/Meta-Llama-3-8B-Instruct-refined'),
-        # ('qa_embedder-10', 'v2', 'meta-llama/Meta-Llama-3-8B-Instruct-refined'),
+        ('qa_embedder-10', 'v1', 'meta-llama/Meta-Llama-3-8B-Instruct-refined'),
+        ('qa_embedder-10', 'v2', 'meta-llama/Meta-Llama-3-8B`-Instruct-refined'),
         # ('qa_embedder-10', 'v3_boostexamples',
         #  'meta-llama/Meta-Llama-3-8B-Instruct-refined'),
 
-
-        # mixtral
-        # ('qa_embedder-10', 'v1', MIXTMOE),
-        # ('qa_embedder-10', 'v2', MIXTMOE),
-        # ('qa_embedder-10', 'v3', MIXTMOE),
-        # ('qa_embedder-10', 'v4', MIXTMOE),
-
-        # vary context len
-        # ('qa_embedder-25', 'v1', MIST7B),
-
-        # -last, -end versions (try 10, 50, 75)
-        # ('qa_embedder-25', 'v1-last', MIST7B),
-        # ('qa_embedder-25', 'v1-ending', MIST7B),
-        # mixtral -last, -end.....
-        # ('qa_embedder-25', 'v1-ending', MIXTMOE),
-
-        # bert sec versions
-        # ('bert-sec3', 'v1', MIST7B),
-        # ('bert-sec5', 'v1', MIST7B),
-
-        # tr versions
-        # ('bert-tr2', 'v1', MIST7B),
-        # ('bert-tr3', 'v1', MIST7B),
-
-        # qa sec versions
-        # ('qa_embedder-sec3', 'v1', MIST7B),
-        # ('qa_embedder-sec5', 'v1', MIST7B),
-
-        # qa tr versions
-        # ('qa_embedder-tr2', 'v1', MIST7B),
-        # ('qa_embedder-tr3', 'v1', MIST7B),
     ],
 }
 # Args list is a list of dictionaries
@@ -145,12 +113,19 @@ args_list = submit_utils.get_args_list(
     params_coupled_dict=params_coupled_dict,
 )
 script_name = join(repo_dir, '01_fit_encoding.py')
+# amlt_kwargs = {
+#     'amlt_file': join(repo_dir, 'launch.yaml'),  # change this to run a cpu job
+#     # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
+#     'sku': '64G8-MI200-xGMI',
+#     # 'sku': '64G4-MI200-xGMI',
+#     # 'sku': '64G2-MI200-xGMI',
+#     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
+# }
 amlt_kwargs = {
-    'amlt_file': join(repo_dir, 'launch.yaml'),  # change this to run a cpu job
-    # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
-    'sku': '64G8-MI200-xGMI',
-    # 'sku': '64G4-MI200-xGMI',
-    # 'sku': '64G2-MI200-xGMI',
+    'amlt_file': join(repo_dir, 'launch_cpu.yaml'),
+    # E4ads_v5 (30 GB), E8ads_v5 (56 GB), E16ads_v5 (120GB), E32ads_v5 (240GB), E64ads_v5 (480 GB)
+    # 'sku': 'E64ads_v5',
+    'sku': 'E32ads_v5',
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
 submit_utils.run_args_list(
@@ -159,9 +134,9 @@ submit_utils.run_args_list(
     unique_seeds='seed_stories',
     amlt_kwargs=amlt_kwargs,
     # n_cpus=9,
-    n_cpus=3,
+    # n_cpus=3,
     # gpu_ids=[0, 1],
-    # gpu_ids=[0, 1, 2, 3],
+    gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1], [2, 3]],
     # gpu_ids=[[0, 1, 2, 3]],
     # actually_run=False,
@@ -169,3 +144,36 @@ submit_utils.run_args_list(
     shuffle=True,
     cmd_python=f'export HF_TOKEN={open(expanduser("~/.HF_TOKEN"), "r").read().strip()}; python',
 )
+
+
+##################################### abandoned sweeps ##########################
+# mixtral
+# ('qa_embedder-10', 'v1', MIXTMOE),
+# ('qa_embedder-10', 'v2', MIXTMOE),
+# ('qa_embedder-10', 'v3', MIXTMOE),
+# ('qa_embedder-10', 'v4', MIXTMOE),
+
+# vary context len
+# ('qa_embedder-25', 'v1', MIST7B),
+
+# -last, -end versions (try 10, 50, 75)
+# ('qa_embedder-25', 'v1-last', MIST7B),
+# ('qa_embedder-25', 'v1-ending', MIST7B),
+# mixtral -last, -end.....
+# ('qa_embedder-25', 'v1-ending', MIXTMOE),
+
+# bert sec versions
+# ('bert-sec3', 'v1', MIST7B),
+# ('bert-sec5', 'v1', MIST7B),
+
+# tr versions
+# ('bert-tr2', 'v1', MIST7B),
+# ('bert-tr3', 'v1', MIST7B),
+
+# qa sec versions
+# ('qa_embedder-sec3', 'v1', MIST7B),
+# ('qa_embedder-sec5', 'v1', MIST7B),
+
+# qa tr versions
+# ('qa_embedder-tr2', 'v1', MIST7B),
+# ('qa_embedder-tr3', 'v1', MIST7B),
