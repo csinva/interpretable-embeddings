@@ -1,20 +1,25 @@
-from collections import defaultdict
-from torch.utils.data import Dataset
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, AdamW, AutoModel
-# from peft import LoraConfig, LoraModel, get_peft_model, TaskType
-from torch.optim import AdamW
-from torch.utils.data import DataLoader
-from torch import nn
-import torch
-from tqdm import tqdm
-import joblib
-import numpy as np
-from os.path import join
-import pandas as pd
+from qa_embedder import MutiTaskClassifier
+import qa_embedder
 import os
+import pandas as pd
+from os.path import join
+import numpy as np
+import joblib
+from tqdm import tqdm
+import torch
+from torch import nn
+from torch.utils.data import DataLoader
+from torch.optim import AdamW
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, AdamW, AutoModel
+from torch.utils.data import Dataset
+from collections import defaultdict
 import sys
+
+
+
+# from peft import LoraConfig, LoraModel, get_peft_model, TaskType
+
 path_to_file = os.path.dirname(os.path.abspath(__file__))
-sys.path.append('..')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
@@ -34,26 +39,6 @@ class DataFrameDataset(Dataset):
         return inputs.to(device), labels_onehot.to(device)
 
 
-class MutiTaskClassifier(nn.Module):
-    def __init__(self, checkpoint, num_binary_outputs):
-        super().__init__()
-        self.model = AutoModel.from_pretrained(
-            checkpoint, return_dict=True  # , output_hidden_states=True,
-        )
-        self.classifiers = nn.ModuleList(
-            [nn.Linear(self.model.config.hidden_size, 2)
-             for _ in range(num_binary_outputs)]
-        )
-
-    def forward(self, input_ids, attention_mask):
-        outputs = self.model(input_ids=input_ids,
-                             attention_mask=attention_mask)
-        logits = torch.stack([classifier(outputs.pooler_output)
-                              for classifier in self.classifiers])
-        logits = logits.permute(1, 0, 2)
-        return logits
-
-
 def eval_acc(model, loader, gt_labels):
     model.eval()
     predictions = []
@@ -70,9 +55,8 @@ def eval_acc(model, loader, gt_labels):
     return np.mean(predictions == gt_labels)
 
 
-if __name__ == '__main__':
+def get_dfs(qa_questions_version='v3_boostexamples', train_frac=0.8):
     # set up data
-    qa_questions_version = 'v3_boostexamples'
     vals = np.load(
         join(path_to_file, f'../data/{qa_questions_version}_answers_numpy.npz'))['arr_0']
     meta = joblib.load(
@@ -87,22 +71,25 @@ if __name__ == '__main__':
     test_df = pd.DataFrame(vals_test.astype(int),
                            columns=meta_test['columns'], index=meta_test['index'])
 
-    save_dir = join(path_to_file, f'../qa_results/finetune')
-    # df = df.iloc[:5000]
+    # df = df.iloc[:100]
     df = df
-    train_frac = 0.8
     idx_split = int(train_frac * len(df))
     train_df = df.iloc[:idx_split]
     tune_df = df.iloc[idx_split:]
+    return train_df, tune_df, test_df
 
+
+if __name__ == '__main__':
+    train_df, tune_df, test_df = get_dfs()
     # checkpoint = 'bert-base-uncased'
-    checkpoint = 'roberta-base'
-    # checkpoint = 'roberta-large'
+    # checkpoint = 'roberta-base'
+    checkpoint = 'roberta-large'
     # checkpoint = 'distilbert-base-uncased'
     # batch_size = 64 # 1 gpu
-    batch_size = 256  # 4 gpus bert-base-uncased
+    save_dir = join(path_to_file, f'../qa_results/finetune')
+    # batch_size = 256  # 4 gpus bert-base-uncased
     # batch_size = 256  # 4 gpus roberta-base
-    # batch_size = 80  # 4 gpus roberta-large
+    batch_size = 80  # 4 gpus roberta-large
     tokenizer = AutoTokenizer.from_pretrained(
         checkpoint, return_token_type_ids=False)  # , device_map='auto')
 
@@ -124,7 +111,7 @@ if __name__ == '__main__':
 
     # training loop
     model = MutiTaskClassifier(
-        checkpoint, num_binary_outputs=df.shape[1],
+        checkpoint, num_binary_outputs=train_df.shape[1],
     )
     # model = model.to('cuda')
     model = torch.nn.DataParallel(model).to(device)
@@ -158,5 +145,6 @@ if __name__ == '__main__':
         if acc_tune > acc_best:
             acc_best = acc_tune
             os.makedirs(save_dir, exist_ok=True)
-            torch.save(model.state_dict(), join(save_dir, f'{checkpoint}.pt'))
+            torch.save(model.module.state_dict(),
+                       join(save_dir, f'{checkpoint}.pt'), _use_new_zipfile_serialization=False)
             pd.DataFrame(accs).to_csv(join(save_dir, f'{checkpoint}.csv'))

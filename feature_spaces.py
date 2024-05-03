@@ -19,7 +19,7 @@ from ridge_utils.utils_stim import load_textgrids, load_simulated_trfiles
 from transformers import pipeline
 import logging
 import imodelsx.llm
-from qa_embedder import QuestionEmbedder
+from qa_embedder import QuestionEmbedder, FinetunedQAEmbedder
 from config import repo_dir, nlp_utils_dir, em_data_dir, data_dir, results_dir, cache_embs_dir
 
 
@@ -275,6 +275,9 @@ def get_llm_vectors(
                 version=qa_questions_version)
             return QuestionEmbedder(
                 checkpoint=qa_embedding_model, questions=questions)
+        elif checkpoint.startswith('finetune_'):
+            return FinetunedQAEmbedder(
+                checkpoint.replace('finetune_', ''), qa_questions_version=qa_questions_version)
         if not 'qa_embedder' in checkpoint:
             if 'bert' in checkpoint.lower():
                 return pipeline("feature-extraction", model=checkpoint, device=0)
@@ -329,9 +332,15 @@ def get_llm_vectors(
             if 'qa_embedder' in checkpoint:
                 print(f'Extracting {story_num}/{len(allstories)}: {story}')
                 embs = embedding_model(ngrams_list, verbose=False)
+            elif checkpoint.startswith('finetune_'):
+                embs = embedding_model.get_embs_from_text_list(ngrams_list)
+                # embs = embs.argmax(axis=-1) # get yes/no binarized`
+                embs = embs[:, :, 1]  # get logit for yes
             elif 'bert' in checkpoint:
                 embs = get_embs_from_text_list(
                     ngrams_list, embedding_function=embedding_model)
+            # elif 'finetune' in checkpoint:
+
             elif layer_idx is not None:
                 embs = embedding_model(
                     ngrams_list, layer_idx=layer_idx, batch_size=8)
@@ -367,15 +376,19 @@ _FEATURE_VECTOR_FUNCTIONS = {
     'glove': get_glove_vectors,
 }
 _FEATURE_CHECKPOINTS = {
+    'qa_embedder': 'qa_embedder',
+
+
+    # embedding models (used when not qa_embedder)
     'bert': 'bert-base-uncased',
     'distil-bert': 'distilbert-base-uncased',
     'roberta': 'roberta-large',
     'bert-sst2': 'textattack/bert-base-uncased-SST-2',
-    'qa_embedder': 'qa_embedder',
     'llama2-7B': 'meta-llama/Llama-2-7b-hf',
     'llama2-13B': 'meta-llama/Llama-2-13b-hf',
     'llama2-70B': 'meta-llama/Llama-2-70b-hf',
-    'llama3-8B': 'meta-llama/Meta-Llama-3-8B',  # not instruct here
+    'llama3-8B': 'meta-llama/Meta-Llama-3-8B',
+    'finetune_roberta-base': 'finetune_roberta-base',
 }
 BASE_KEYS = list(_FEATURE_CHECKPOINTS.keys())
 for context_length in [2, 3, 4, 5, 10, 20, 25, 50, 75]:

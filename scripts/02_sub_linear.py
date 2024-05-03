@@ -48,7 +48,7 @@ params_coupled_dict = {
         # ('eng1000', 'v1', MIST7B),
 
         # # main
-        ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
+        # ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
         # ('qa_embedder-10', 'v1', MIST7B),
 
         # vary question versions
@@ -62,19 +62,26 @@ args_list = submit_utils.get_args_list(
     params_coupled_dict=params_coupled_dict,
 )
 script_name = join(repo_dir, '01_fit_encoding.py')
+# amlt_kwargs = {
+#     # 'amlt_file': join(repo_dir, 'launch_cpu.yaml'),
+#     # 'sku': 'E4ads_v5',
+#     # 'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
+#     'amlt_file': join(repo_dir, 'launch.yaml'),  # change this to run a cpu job
+#     'sku': '64G2-MI200-xGMI',
+#     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
+# }
 amlt_kwargs = {
-    # 'amlt_file': join(repo_dir, 'launch_cpu.yaml'),
-    # 'sku': 'E4ads_v5',
-    # 'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
-    'amlt_file': join(repo_dir, 'launch.yaml'),  # change this to run a cpu job
-    'sku': '64G2-MI200-xGMI',
+    'amlt_file': join(repo_dir, 'launch_cpu.yaml'),
+    # E4ads_v5 (30 GB), E8ads_v5 (56 GB), E16ads_v5 (120GB), E32ads_v5 (240GB), E64ads_v5 (480 GB)
+    'sku': 'E64ads_v5',
+    # 'sku': 'E32ads_v5',
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
 submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     # unique_seeds='seed_stories',
-    # amlt_kwargs=amlt_kwargs,
+    amlt_kwargs=amlt_kwargs,
     # n_cpus=9,
     # n_cpus=2,
     # gpu_ids=[0, 1],

@@ -49,12 +49,11 @@ def add_main_args(parser):
                         choices=['UTS01', 'UTS02', 'UTS03'],
                         help='top3 concatenates responses for S01-S03, useful for feature selection')
     parser.add_argument("--feature_space", type=str,
-                        # default='distil-bert-tr2',
                         default='qa_embedder-10',
                         # default='distil-bert-10',
                         # qa_embedder-10
                         # default='qa_embedder-10',
-                        #
+                        # default='finetune_roberta-base-10',
                         # choices=sorted(list(
                         # feature_spaces._FEATURE_VECTOR_FUNCTIONS.keys())),
                         help='''Overloaded this argument.
@@ -79,7 +78,9 @@ def add_main_args(parser):
                         # default='ensemble1',
                         help='Model to use for QA embedding, if feature_space is qa_embedder',
                         )
-    parser.add_argument("--qa_questions_version", type=str, default='v1',
+    parser.add_argument("--qa_questions_version", type=str,
+                        default='v1',
+                        # default='v3_boostexamples',
                         help='Which set of QA questions to use, if feature_space is qa_embedder')
     parser.add_argument("--l1_ratio", type=float,
                         default=0.5, help='l1 ratio for elasticnet (ignored if encoding_model is not elasticnet)')
@@ -551,7 +552,7 @@ if __name__ == "__main__":
 
     # select features
     if args.feature_selection_alpha_index >= 0:
-        logging.info('selecting sparse feats...')
+        print('selecting sparse feats...')
         # remove delays from stim
         stim_train = stim_train_delayed[:,
                                         :stim_train_delayed.shape[1] // args.ndelays]
