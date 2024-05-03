@@ -277,7 +277,7 @@ def get_llm_vectors(
                 checkpoint=qa_embedding_model, questions=questions)
         elif checkpoint.startswith('finetune_'):
             return FinetunedQAEmbedder(
-                checkpoint.replace('finetune_', ''), qa_questions_version=qa_questions_version)
+                checkpoint.replace('finetune_', '').replace('_binary', ''), qa_questions_version=qa_questions_version)
         if not 'qa_embedder' in checkpoint:
             if 'bert' in checkpoint.lower():
                 return pipeline("feature-extraction", model=checkpoint, device=0)
@@ -334,8 +334,10 @@ def get_llm_vectors(
                 embs = embedding_model(ngrams_list, verbose=False)
             elif checkpoint.startswith('finetune_'):
                 embs = embedding_model.get_embs_from_text_list(ngrams_list)
-                # embs = embs.argmax(axis=-1) # get yes/no binarized`
-                embs = embs[:, :, 1]  # get logit for yes
+                if '_binary' in checkpoint:
+                    embs = embs.argmax(axis=-1)  # get yes/no binarized`
+                else:
+                    embs = embs[:, :, 1]  # get logit for yes
             elif 'bert' in checkpoint:
                 embs = get_embs_from_text_list(
                     ngrams_list, embedding_function=embedding_model)
@@ -389,6 +391,7 @@ _FEATURE_CHECKPOINTS = {
     'llama2-70B': 'meta-llama/Llama-2-70b-hf',
     'llama3-8B': 'meta-llama/Meta-Llama-3-8B',
     'finetune_roberta-base': 'finetune_roberta-base',
+    'finetune_roberta-base_binary': 'finetune_roberta-base_binary',
 }
 BASE_KEYS = list(_FEATURE_CHECKPOINTS.keys())
 for context_length in [2, 3, 4, 5, 10, 20, 25, 50, 75]:

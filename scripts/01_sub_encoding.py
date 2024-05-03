@@ -43,7 +43,9 @@ params_coupled_dict = {
         # # baselines
         # ('bert-10', 'v1', MIST7B),
         # ('eng1000', 'v1', MIST7B),
-        ('finetune_roberta-base-10', 'v1', MIST7B),
+        # ('finetune_roberta-base-10', 'v1', MIST7B),
+        ('finetune_roberta-base_binary-10', 'v1', MIST7B),
+
         # ('llama2-7B_lay6-10', 'v1', MIST7B),
         # ('llama2-7B_lay12-10', 'v1', MIST7B),
         # ('llama2-7B_lay18-10', 'v1', MIST7B),
@@ -133,7 +135,7 @@ submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     unique_seeds='seed_stories',
-    # amlt_kwargs=amlt_kwargs,
+    amlt_kwargs=amlt_kwargs,
     # n_cpus=9,
     # n_cpus=3,
     # gpu_ids=[0, 1],
