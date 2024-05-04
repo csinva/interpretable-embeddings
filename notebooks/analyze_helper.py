@@ -59,4 +59,7 @@ def load_clean_results(results_dir, experiment_filename='../experiments/01_fit_e
     cols_varied = imodelsx.process_results.get_experiment_keys(
         r, experiment_filename)
     print('experiment varied these params:', cols_varied)
+    r['corrs_test_mean_sem'] = r['corrs_test'].apply(
+        lambda x: np.std(x) / np.sqrt(len(x)))
+    mets.append('corrs_test_mean_sem')
     return r, cols_varied, mets

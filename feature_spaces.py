@@ -291,6 +291,8 @@ def get_llm_vectors(
     vectors = {}
     ngrams_list_dict = {}
     embedding_model = None  # only initialize if needed
+    # print('checkpoint', checkpoint, 'qa_questions_version',
+    #   qa_questions_version, 'qa_embedding_model', qa_embedding_model)
     if 'qa_embedder' in checkpoint:
         logging.info(
             f'extracting {checkpoint} {qa_questions_version} {qa_embedding_model} embs...')

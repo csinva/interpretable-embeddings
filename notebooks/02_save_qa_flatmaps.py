@@ -86,6 +86,7 @@ def save_coefs_flatmaps(weights, df, out_dir, subject='UTS03', num_flatmaps=10):
 
 if __name__ == '__main__':
     results_dir = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'
+    subject = 'UTS03'
     # r = imodelsx.process_results.get_results_df(results_dir)
     r, cols_varied, mets = analyze_helper.load_clean_results(results_dir)
 
@@ -99,6 +100,7 @@ if __name__ == '__main__':
                  (r.qa_embedding_model == 'ensemble1') *
                  (r.qa_questions_version == version) *
                  (r.ndelays == 8)
+                 (r.subject == subject)
                  ]
         # args0 = args.sort_values(by='corrs_tune_pc_mean',
         # ascending=False).iloc[0]
@@ -118,7 +120,7 @@ if __name__ == '__main__':
                 questions = np.array(questions)[args0.weight_enet_mask]
 
             # save stuff
-            out_dir = join(path_to_repo, 'qa_results', version +
+            out_dir = join(path_to_repo, 'qa_results', subject, version +
                            f'_num={len(questions)}')
             os.makedirs(out_dir, exist_ok=True)
             json.dump(args_dict, open(
@@ -129,4 +131,4 @@ if __name__ == '__main__':
                 questions=questions)
 
             save_coefs_flatmaps(weights, df, out_dir,
-                                subject='UTS03', num_flatmaps=10)
+                                subject=subject, num_flatmaps=10)
