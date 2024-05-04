@@ -1,5 +1,5 @@
-from qa_embedder import MutiTaskClassifier
-import qa_embedder
+from ridge_utils.features.qa_embedder import MutiTaskClassifier
+import ridge_utils.features.qa_embedder as qa_embedder
 import os
 import pandas as pd
 from os.path import join
@@ -14,7 +14,6 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification, Adam
 from torch.utils.data import Dataset
 from collections import defaultdict
 import sys
-
 
 
 # from peft import LoraConfig, LoraModel, get_peft_model, TaskType

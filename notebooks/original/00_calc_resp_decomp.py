@@ -1,8 +1,8 @@
 from sklearn.decomposition import PCA, NMF, FastICA, DictionaryLearning
 import numpy as np
 import pickle as pkl
-import feature_spaces
-import encoding_utils
+import ridge_utils.feature_spaces as feature_spaces
+import ridge_utils.encoding_utils as encoding_utils
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import sys

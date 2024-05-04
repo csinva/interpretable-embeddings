@@ -1,8 +1,7 @@
 import cortex
 from tqdm import tqdm
 import joblib
-import qa_questions
-import imodelsx.process_results
+import ridge_utils.features.qa_questions as qa_questions
 import numpy as np
 from os.path import join
 from matplotlib import pyplot as plt

@@ -16,11 +16,11 @@ import numpy as np
 import sys
 import joblib
 import os
-import encoding_utils
+import ridge_utils.encoding_utils as encoding_utils
 from ridge_utils.ridge import bootstrap_ridge, gen_temporal_chunk_splits
 import imodelsx.cache_save_utils
 from sklearn.linear_model import MultiTaskElasticNetCV
-import story_names
+import ridge_utils.data.story_names as story_names
 import itertools as itools
 import random
 

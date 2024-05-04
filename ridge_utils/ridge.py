@@ -1,7 +1,7 @@
 # import scipy
 import numpy as np
 import logging
-from .utils import mult_diag, counter
+from .data.utils import mult_diag, counter
 import random
 import itertools as itools
 

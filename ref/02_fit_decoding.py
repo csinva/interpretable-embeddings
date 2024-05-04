@@ -1,5 +1,4 @@
 import argparse
-import datasets
 import numpy as np
 import os
 from os.path import join
@@ -11,13 +10,11 @@ from matplotlib import pyplot as plt
 from typing import List, Tuple
 from sklearn.linear_model import RidgeCV, LogisticRegressionCV, LogisticRegression
 from sklearn.feature_extraction.text import CountVectorizer
-from config import em_data_dir, results_dir, nlp_utils_dir
-import feature_spaces
+from ridge_utils.config import em_data_dir, results_dir, nlp_utils_dir
+import ridge_utils.feature_spaces as feature_spaces
 from collections import defaultdict
 import pandas as pd
 import pickle as pkl
-from sklearn import metrics
-from copy import deepcopy
 import sys
 import data
 from tqdm import tqdm

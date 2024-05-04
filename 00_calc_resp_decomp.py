@@ -1,14 +1,14 @@
 from sklearn.decomposition import PCA, NMF, FastICA, DictionaryLearning
 import numpy as np
 import pickle as pkl
-import feature_spaces
-import encoding_utils
+import ridge_utils.features.feature_spaces as feature_spaces
+import ridge_utils.data.encoding_utils as encoding_utils
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import sys
 from os.path import join
 import os
-import story_names
+import ridge_utils.data.story_names as story_names
 import joblib
 path_to_file = os.path.dirname(os.path.abspath(__file__))
 

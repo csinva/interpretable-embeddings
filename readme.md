@@ -11,6 +11,7 @@ Code accompanying data release of natural language listening data from 5 fMRI se
 - for fitting glove need to download glove embeddings with `00_glove_prepare.py`
 
 # model fitting
+- start with `pip install -e .` to locally install the `ridge_utils` package
 - `python 01_fit_encoding.py --subject UTS03 --feature eng1000`
     - The other optional parameters that encoding.py takes such as sessions, ndelays, single_alpha allow the user to change the amount of data and regularization aspects of the linear regression used. 
     - This function will then save model performance metrics and model weights as numpy arrays. 

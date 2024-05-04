@@ -20,15 +20,16 @@ params_shared_dict = {
     'nboots': [5],
     'use_test_setup': [0],
     'encoding_model': ['ridge'],
-    'subject': ['UTS03'],
-    # 'subject': ['UTS03', 'UTS02', 'UTS01'],
+    # 'subject': ['UTS03'],
+    'subject': ['UTS03', 'UTS02', 'UTS01'],
     # 'subject': ['UTS01', 'UTS02'],
     'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'],
     # 'ndelays': [4, 8, 12],
     # 'ndelays': [4],
+    'ndelays': [12],
 
     # cluster
-    'seed_stories': range(2),
+    # 'seed_stories': range(6),
     'pc_components': [100],
     # 'ndelays': [4],
 
@@ -46,29 +47,23 @@ params_coupled_dict = {
         # ('finetune_roberta-base-10', 'v1', MIST7B),
         # ('finetune_roberta-base_binary-10', 'v1', MIST7B),
 
-        # ('llama2-7B_lay6-10', 'v1', MIST7B),
-        # ('llama2-7B_lay12-10', 'v1', MIST7B),
-        # ('llama2-7B_lay18-10', 'v1', MIST7B),
-        # ('llama2-7B_lay24-10', 'v1', MIST7B),
-        # ('llama2-7B_lay30-10', 'v1', MIST7B),
+        ('llama2-7B_lay6-10', 'v1', MIST7B),
+        ('llama2-7B_lay12-10', 'v1', MIST7B),
+        ('llama2-7B_lay18-10', 'v1', MIST7B),
+        ('llama2-7B_lay24-10', 'v1', MIST7B),
+        ('llama2-7B_lay30-10', 'v1', MIST7B),
 
-        # ('llama2-70B_lay12-10', 'v1', MIST7B),
-        # ('llama2-70B_lay24-10', 'v1', MIST7B),  # this is best one
-        # ('llama2-70B_lay36-10', 'v1', MIST7B),
-        # ('llama2-70B_lay48-10', 'v1', MIST7B),
-        # ('llama2-70B_lay60-10', 'v1', MIST7B),
+        ('llama2-70B_lay12-10', 'v1', MIST7B),
+        ('llama2-70B_lay24-10', 'v1', MIST7B),  # this is best one
+        ('llama2-70B_lay36-10', 'v1', MIST7B),
+        ('llama2-70B_lay48-10', 'v1', MIST7B),
+        ('llama2-70B_lay60-10', 'v1', MIST7B),
 
         # ('llama3-8B_lay6-10', 'v1', MIST7B),
         # ('llama3-8B_lay12-10', 'v1', MIST7B),
         # ('llama3-8B_lay18-10', 'v1', MIST7B),
         # ('llama3-8B_lay24-10', 'v1', MIST7B),
         # ('llama3-8B_lay30-10', 'v1', MIST7B),
-
-        # ('llama2-13B_lay6-10', 'v1', MIST7B),
-        # ('llama2-13B_lay12-10', 'v1', MIST7B),
-        # ('llama2-13B_lay18-10', 'v1', MIST7B),
-        # ('llama2-13B_lay24-10', 'v1', MIST7B),
-        # ('llama2-13B_lay30-10', 'v1', MIST7B),
 
         # # # main
         # ('qa_embedder-10', 'v1', LLAMA8B),
@@ -78,7 +73,7 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v1', 'ensemble1'),
         # ('qa_embedder-10', 'v2', 'ensemble1'),
         # ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
-        ('qa_embedder-10', 'v3', 'ensemble1'),
+        # ('qa_embedder-10', 'v3', 'ensemble1'),
 
 
 
@@ -105,10 +100,10 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v1', LLAMA70B_fewshot),
         # ('qa_embedder-10', 'v1', 'meta-llama/Meta-Llama-3-8B-Instruct-refined'),
         # ('qa_embedder-10', 'v2', 'meta-llama/Meta-Llama-3-8B-Instruct-refined'),
-        ('qa_embedder-10', 'v3_boostexamples',
-         'meta-llama/Meta-Llama-3-8B-Instruct-refined'),
-        ('qa_embedder-10', 'v3',
-         'meta-llama/Meta-Llama-3-8B-Instruct-refined'),
+        # ('qa_embedder-10', 'v3_boostexamples',
+        #  'meta-llama/Meta-Llama-3-8B-Instruct-refined'),
+        # ('qa_embedder-10', 'v3',
+        #  'meta-llama/Meta-Llama-3-8B-Instruct-refined'),
 
     ],
 }
@@ -119,15 +114,15 @@ args_list = submit_utils.get_args_list(
     params_coupled_dict=params_coupled_dict,
 )
 script_name = join(repo_dir, '01_fit_encoding.py')
-# amlt_kwargs = {
-#     'amlt_file': join(repo_dir, 'launch.yaml'),  # change this to run a cpu job
-#     # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
-#     'sku': '64G8-MI200-xGMI',
-#     # 'sku': '64G4-MI200-xGMI',
-#     # 'sku': '64G2-MI200-xGMI',
-#     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
-# }
 amlt_kwargs = {
+    'amlt_file': join(repo_dir, 'launch.yaml'),  # change this to run a cpu job
+    # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
+    # 'sku': '64G8-MI200-xGMI',
+    # 'sku': '64G4-MI200-xGMI',
+    'sku': '64G2-MI200-xGMI',
+    'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
+}
+amlt_kwargs_cpu = {
     'amlt_file': join(repo_dir, 'launch_cpu.yaml'),
     # E4ads_v5 (30 GB), E8ads_v5 (56 GB), E16ads_v5 (120GB), E32ads_v5 (240GB), E64ads_v5 (480 GB)
     # 'sku': 'E64ads_v5',
@@ -139,6 +134,7 @@ submit_utils.run_args_list(
     script_name=script_name,
     unique_seeds='seed_stories',
     # amlt_kwargs=amlt_kwargs,
+    amlt_kwargs=amlt_kwargs_cpu,
     # n_cpus=9,
     # n_cpus=3,
     # gpu_ids=[0, 1],

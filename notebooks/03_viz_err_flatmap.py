@@ -1,7 +1,6 @@
 import cortex
 from tqdm import tqdm
 import joblib
-import qa_questions
 import imodelsx.process_results
 import numpy as np
 from os.path import join

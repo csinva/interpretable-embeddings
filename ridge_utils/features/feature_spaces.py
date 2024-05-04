@@ -7,20 +7,20 @@ import numpy as np
 import json
 from os.path import join, dirname
 from functools import partial
-import qa_questions
-from ridge_utils.data_sequence import DataSequence
+import ridge_utils.features.qa_questions as qa_questions
+from ridge_utils.data.data_sequence import DataSequence
 from typing import Dict, List
 from tqdm import tqdm
-from ridge_utils.interp_data import lanczosinterp2D, expinterp2D, kernel_density_interp2D, nearest_neighbor_interp2D
-from ridge_utils.semantic_model import SemanticModel
+from ridge_utils.data.interp_data import lanczosinterp2D, expinterp2D, kernel_density_interp2D, nearest_neighbor_interp2D
+from ridge_utils.data.semantic_model import SemanticModel
 from transformers.pipelines.pt_utils import KeyDataset
-from ridge_utils.utils_ds import apply_model_to_words, make_word_ds, make_phoneme_ds
-from ridge_utils.utils_stim import load_textgrids, load_simulated_trfiles
+from ridge_utils.data.utils_ds import apply_model_to_words, make_word_ds, make_phoneme_ds
+from ridge_utils.data.utils_stim import load_textgrids, load_simulated_trfiles
 from transformers import pipeline
 import logging
 import imodelsx.llm
-from qa_embedder import QuestionEmbedder, FinetunedQAEmbedder
-from config import repo_dir, nlp_utils_dir, em_data_dir, data_dir, results_dir, cache_embs_dir
+from ridge_utils.features.qa_embedder import QuestionEmbedder, FinetunedQAEmbedder
+from ridge_utils.config import repo_dir, nlp_utils_dir, em_data_dir, data_dir, results_dir, cache_embs_dir
 
 
 def get_story_wordseqs(stories) -> Dict[str, DataSequence]:

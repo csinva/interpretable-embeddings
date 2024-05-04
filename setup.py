@@ -26,10 +26,10 @@ required_pypi = [
 ]
 
 setuptools.setup(
-    name="huth",
-    # name="ridge_utils",
+    # name="huth",
+    name="ridge_utils",
     version="0.01",
-    author="Huth Lab",
+    author="Huth lab modified by Chandan Singh",
     author_email="",
     description="",
     long_description=long_description,

@@ -1,8 +1,8 @@
 import re
 import json
-from questions.qa_questions_base import *
-from questions.qa_questions_data_boost import *
-from questions.qa_questions_llama_boost import *
+from ridge_utils.features.questions.qa_questions_base import *
+from ridge_utils.features.questions.qa_questions_data_boost import *
+from ridge_utils.features.questions.qa_questions_llama_boost import *
 
 
 def _split_bulleted_str(s, remove_parentheticals=False):

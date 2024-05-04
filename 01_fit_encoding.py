@@ -11,19 +11,18 @@ from sklearn.ensemble import RandomForestRegressor
 from os.path import join, dirname
 import argparse
 import numpy as np
-import feature_spaces
+import ridge_utils.features.feature_spaces as feature_spaces
 import sklearn.decomposition
 import joblib
 import os
-import encoding_utils
-# import encoding_models
-from config import data_dir
-import config
+import ridge_utils.data.encoding_utils as encoding_utils
+from ridge_utils.config import data_dir
+import ridge_utils.config as config
 from ridge_utils.ridge import bootstrap_ridge, gen_temporal_chunk_splits
-from ridge_utils.utils import make_delayed
+from ridge_utils.data.utils import make_delayed
 import imodelsx.cache_save_utils
-import story_names
-import qa_questions
+import ridge_utils.data.story_names as story_names
+import ridge_utils.features.qa_questions as qa_questions
 import random
 import time
 

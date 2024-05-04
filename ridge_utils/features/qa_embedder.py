@@ -3,12 +3,12 @@ from typing import List
 from os.path import join, expanduser
 from tqdm import tqdm
 import imodelsx.llm
-import qa_questions
+import ridge_utils.features.qa_questions as qa_questions
 import pandas as pd
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, AdamW, AutoModel
 import torch
 from torch import nn
-from config import repo_dir
+from ridge_utils.config import repo_dir
 # from vllm import LLM, SamplingParams
 # import torch
 import scipy.special
