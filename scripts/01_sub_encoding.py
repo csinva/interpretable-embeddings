@@ -24,9 +24,9 @@ params_shared_dict = {
     'subject': ['UTS03', 'UTS02', 'UTS01'],
     # 'subject': ['UTS01', 'UTS02'],
     'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'],
-    # 'ndelays': [4, 8, 12],
+    'ndelays': [4, 8, 12],
     # 'ndelays': [4],
-    'ndelays': [12],
+    # 'ndelays': [12],
 
     # cluster
     # 'seed_stories': range(6),
@@ -45,19 +45,19 @@ params_coupled_dict = {
         # ('bert-10', 'v1', MIST7B),
         # ('eng1000', 'v1', MIST7B),
         # ('finetune_roberta-base-10', 'v1', MIST7B),
-        # ('finetune_roberta-base_binary-10', 'v1', MIST7B),
+        ('finetune_roberta-base_binary-10', 'v1', MIST7B),
 
-        ('llama2-7B_lay6-10', 'v1', MIST7B),
-        ('llama2-7B_lay12-10', 'v1', MIST7B),
-        ('llama2-7B_lay18-10', 'v1', MIST7B),
-        ('llama2-7B_lay24-10', 'v1', MIST7B),
-        ('llama2-7B_lay30-10', 'v1', MIST7B),
+        # ('llama2-7B_lay6-10', 'v1', MIST7B),
+        # ('llama2-7B_lay12-10', 'v1', MIST7B),
+        # ('llama2-7B_lay18-10', 'v1', MIST7B),
+        # ('llama2-7B_lay24-10', 'v1', MIST7B),
+        # ('llama2-7B_lay30-10', 'v1', MIST7B),
 
-        ('llama2-70B_lay12-10', 'v1', MIST7B),
-        ('llama2-70B_lay24-10', 'v1', MIST7B),  # this is best one
-        ('llama2-70B_lay36-10', 'v1', MIST7B),
-        ('llama2-70B_lay48-10', 'v1', MIST7B),
-        ('llama2-70B_lay60-10', 'v1', MIST7B),
+        # ('llama2-70B_lay12-10', 'v1', MIST7B),
+        # ('llama2-70B_lay24-10', 'v1', MIST7B),  # this is best one
+        # ('llama2-70B_lay36-10', 'v1', MIST7B),
+        # ('llama2-70B_lay48-10', 'v1', MIST7B),
+        # ('llama2-70B_lay60-10', 'v1', MIST7B),
 
         # ('llama3-8B_lay6-10', 'v1', MIST7B),
         # ('llama3-8B_lay12-10', 'v1', MIST7B),
@@ -113,7 +113,7 @@ args_list = submit_utils.get_args_list(
     params_shared_dict=params_shared_dict,
     params_coupled_dict=params_coupled_dict,
 )
-script_name = join(repo_dir, '01_fit_encoding.py')
+script_name = join(repo_dir, '02_fit_encoding.py')
 amlt_kwargs = {
     'amlt_file': join(repo_dir, 'launch.yaml'),  # change this to run a cpu job
     # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
@@ -134,11 +134,11 @@ submit_utils.run_args_list(
     script_name=script_name,
     unique_seeds='seed_stories',
     # amlt_kwargs=amlt_kwargs,
-    amlt_kwargs=amlt_kwargs_cpu,
+    # amlt_kwargs=amlt_kwargs_cpu,
     # n_cpus=9,
-    # n_cpus=3,
+    n_cpus=3,
     # gpu_ids=[0, 1],
-    gpu_ids=[0, 1, 2, 3],
+    # gpu_ids=[0, 1, 2, 3],
     # gpu_ids=[[0, 1], [2, 3]],
     # gpu_ids=[[0, 1, 2, 3]],
     # actually_run=False,

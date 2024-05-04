@@ -37,7 +37,7 @@ def load_results(save_dir):
     return d
 
 
-def load_clean_results(results_dir, experiment_filename='../experiments/01_fit_encoding.py'):
+def load_clean_results(results_dir, experiment_filename='../experiments/02_fit_encoding.py'):
     # load the results in to a pandas dataframe
     r = imodelsx.process_results.get_results_df(results_dir)
     r = imodelsx.process_results.fill_missing_args_with_default(

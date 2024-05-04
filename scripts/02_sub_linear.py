@@ -61,7 +61,7 @@ args_list = submit_utils.get_args_list(
     params_shared_dict=params_shared_dict,
     params_coupled_dict=params_coupled_dict,
 )
-script_name = join(repo_dir, '01_fit_encoding.py')
+script_name = join(repo_dir, '02_fit_encoding.py')
 # amlt_kwargs = {
 #     # 'amlt_file': join(repo_dir, 'launch_cpu.yaml'),
 #     # 'sku': 'E4ads_v5',

@@ -34,11 +34,6 @@ def nancorr(x, y):
     mask = ~np.isnan(x) & ~np.isnan(y)
     return np.corrcoef(x[mask], y[mask])[0, 1]
 
-# python 01_fit_encoding.py --use_test_setup 1 --feature_space bert-10
-# python 01_fit_encoding.py --use_test_setup 1 --feature_space qa_embedder-10
-# python 01_fit_encoding.py --use_test_setup 1 --feature_space qa_embedder-5
-# python 01_fit_encoding.py --use_test_setup 1 --feature_space qa_embedder-5 --qa_embedding_model mistralai/Mixtral-8x7B-v0.1
-
 
 def add_main_args(parser):
     """Caching uses the non-default values from argparse to name the saving directory.
@@ -59,6 +54,7 @@ def add_main_args(parser):
                         qa_embedder-10 will run with ngram_context of 10 ngrams
                         qa_embedder-tr2 will run with tr_context of 2 TRs
                         qa_embedder-sec4 will run with ngram_context of 4 secs leading up to each word
+                        finetune_roberta-base-10 will run finetuned roberta model with 10 ngram_context
                         '''
                         )
     parser.add_argument("--distill_model_path", type=str,
@@ -364,29 +360,29 @@ def fit_regression(args, r, features_train_delayed, resp_train, features_test_de
         # so we average over the bootstrap samples and take the max over the alphas
         r[corrs_key_tune] = corrs_tune
         r[corrs_key_test] = corrs_test
-    elif args.encoding_model == 'elasticnet':
-        splits = gen_temporal_chunk_splits(
-            num_splits=args.nboots, num_examples=features_train_delayed.shape[0],
-            chunk_len=args.chunklen, num_chunks=args.nchunks)
-        logging.info('Running elasticnet...')
-        lin = MultiTaskElasticNetCV(
-            alphas=alphas, cv=splits, n_jobs=10, l1_ratio=args.l1_ratio)
-        lin.fit(features_train_delayed, resp_train)
-        preds = lin.predict(features_test_delayed)
-        corrs_test = []
-        for i in range(preds.shape[1]):
-            # np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
-            corrs_test.append(nancorr(resp_test[:, i], preds[:, i]))
-        corrs_test = np.array(corrs_test)
-        corrs_test[np.isnan(corrs_test)] = 0
-        r[corrs_key_test] = corrs_test
-        # r['mse_tune'] =
-        model_params_to_save = {
-            # want weights that are (n_features, n_targets)
-            weights_key: lin.coef_.T,
-            'alpha_best': lin.alpha_,
-            'num_nonzero-coefs': np.sum(np.abs(lin.coef_) > 1e-8),
-        }
+    # elif args.encoding_model == 'elasticnet':
+    #     splits = gen_temporal_chunk_splits(
+    #         num_splits=args.nboots, num_examples=features_train_delayed.shape[0],
+    #         chunk_len=args.chunklen, num_chunks=args.nchunks)
+    #     logging.info('Running elasticnet...')
+    #     lin = MultiTaskElasticNetCV(
+    #         alphas=alphas, cv=splits, n_jobs=10, l1_ratio=args.l1_ratio)
+    #     lin.fit(features_train_delayed, resp_train)
+    #     preds = lin.predict(features_test_delayed)
+    #     corrs_test = []
+    #     for i in range(preds.shape[1]):
+    #         # np.corrcoef(resp_test[:, i], preds[:, i])[0, 1])
+    #         corrs_test.append(nancorr(resp_test[:, i], preds[:, i]))
+    #     corrs_test = np.array(corrs_test)
+    #     corrs_test[np.isnan(corrs_test)] = 0
+    #     r[corrs_key_test] = corrs_test
+    #     # r['mse_tune'] =
+    #     model_params_to_save = {
+    #         # want weights that are (n_features, n_targets)
+    #         weights_key: lin.coef_.T,
+    #         'alpha_best': lin.alpha_,
+    #         'num_nonzero-coefs': np.sum(np.abs(lin.coef_) > 1e-8),
+    #     }
     elif args.encoding_model == 'randomforest':
         rf = RandomForestRegressor(
             n_estimators=100, n_jobs=10)  # , max_depth=5)
