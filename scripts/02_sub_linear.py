@@ -45,10 +45,10 @@ params_coupled_dict = {
     ('feature_space', 'qa_questions_version', 'qa_embedding_model'): [
         # # baselines
         # ('bert-10', 'v1', MIST7B),
-        # ('eng1000', 'v1', MIST7B),
+        ('eng1000', 'v1', MIST7B),
 
         # # main
-        # ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
+        ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
         # ('qa_embedder-10', 'v1', MIST7B),
 
         # vary question versions

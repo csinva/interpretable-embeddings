@@ -86,8 +86,8 @@ def add_main_args(parser):
     parser.add_argument('--pc_components_input', type=int, default=-1,
                         help='number of principal components to use to transform features (-1 doesnt use PCA at all)')
 
-    parser.add_argument("--mlp_dim_hidden", type=int,
-                        help="hidden dim for MLP", default=512)
+    # parser.add_argument("--mlp_dim_hidden", type=int,
+    # help="hidden dim for MLP", default=512)
     parser.add_argument('--num_stories', type=int, default=-1,
                         help='number of stories to use (-1 for all). Note: use_test_setup alters this. Pass 0 to load shared stories (used for shared feature selection).')
 
@@ -554,8 +554,10 @@ if __name__ == "__main__":
 
         # coefs is (n_targets, n_features, n_alphas)
         alpha_range = (0, -3, 20)  # original was 0, -3, 15
-        cache_file = join(config.repo_dir, 'sparse_feats_all_subj',
-                          args.qa_questions_version + '_' + args.qa_embedding_model + '_' + str(alpha_range) + '.joblib')
+        cache_dir = join(config.repo_dir, 'sparse_feats_all_subj')
+        os.makedirs(cache_dir, exist_ok=True)
+        cache_file = join(cache_dir, args.qa_questions_version + '_' +
+                          args.qa_embedding_model + '_' + str(alpha_range) + '.joblib')
         if os.path.exists(cache_file):
             alphas_enet, coefs_enet = joblib.load(cache_file)
         else:

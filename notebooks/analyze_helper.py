@@ -52,6 +52,7 @@ def load_clean_results(results_dir, experiment_filename='../experiments/02_fit_e
         'meta-llama/Meta-Llama-3-8B-Instruct-fewshot': 'llama3-8B-fewshot',
         'meta-llama/Meta-Llama-3-8B-Instruct-refined': 'llama3-8B-refined',
     }.get(row['qa_embedding_model'], row['qa_embedding_model']) if 'qa_emb' in row['feature_space'] else '', axis=1)
+    r['subject'] = r['subject'].str.replace('UTS', 'S')
     r['qa_questions_version'] = r.apply(
         lambda row: row['qa_questions_version'] if 'qa_emb' in row['feature_space'] else 'eng1000', axis=1)
     mets = [c for c in r.columns if 'corrs' in c and (
