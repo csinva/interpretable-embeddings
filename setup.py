@@ -20,7 +20,6 @@ required_pypi = [
     'accelerate',
     'InstructorEmbedding',  # embeddings for emb_diff_module
     'sentence-transformers',  # embeddings for emb_diff_module
-
     'datasets',  # optional, required for getting NLP datasets
     'pytest',  # optional, required for running tests
 ]

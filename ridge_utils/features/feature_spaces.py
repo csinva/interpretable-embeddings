@@ -13,7 +13,6 @@ from typing import Dict, List
 from tqdm import tqdm
 from ridge_utils.data.interp_data import lanczosinterp2D, expinterp2D, kernel_density_interp2D, nearest_neighbor_interp2D
 from ridge_utils.data.semantic_model import SemanticModel
-from transformers.pipelines.pt_utils import KeyDataset
 from ridge_utils.data.utils_ds import apply_model_to_words, make_word_ds, make_phoneme_ds
 from ridge_utils.data.utils_stim import load_textgrids, load_simulated_trfiles
 from transformers import pipeline

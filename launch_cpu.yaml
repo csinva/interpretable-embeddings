@@ -9,6 +9,7 @@ environment:
     - pip install -r requirements.txt --user
     - git clone https://github.com/csinva/imodelsX.git
     - pip install imodelsX/
+    - pip install .
 
 code:
   local_dir: $CONFIG_DIR

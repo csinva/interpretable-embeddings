@@ -15,7 +15,7 @@ import analyze_helper
 import sys
 import json
 sys.path.append('..')
-fit_encoding = __import__('01_fit_encoding')
+fit_encoding = __import__('02_fit_encoding')
 path_to_repo = dirname(dirname(os.path.abspath(__file__)))
 dvu.set_style()
 
@@ -95,18 +95,18 @@ if __name__ == '__main__':
         args = r[(r.feature_space == 'qa_embedder-10') *
                  #  (r.pc_components == -1) *
                  (r.pc_components == 100) *
-                 #  (r.qa_embedding_model == 'mist-7B') *
-                 (r.qa_embedding_model == 'ensemble1') *
+                 (r.qa_embedding_model == 'mist-7B') *
+                 #  (r.qa_embedding_model == 'ensemble1') *
                  (r.qa_questions_version == version) *
-                 (r.ndelays == 8)
+                 (r.ndelays == 8) *
                  (r.subject == subject)
                  ]
         # args0 = args.sort_values(by='corrs_tune_pc_mean',
         # ascending=False).iloc[0]
         print(args[['feature_selection_alpha_index',
               'weight_enet_mask_num_nonzero']])
-        # for feature_selection_alpha_index in sorted(args.feature_selection_alpha_index.unique(), reverse=False):
-        for feature_selection_alpha_index in [-1]:
+        for feature_selection_alpha_index in sorted(args.feature_selection_alpha_index.unique(), reverse=False):
+            # for feature_selection_alpha_index in [-1]:
             args0 = args[args.feature_selection_alpha_index ==
                          feature_selection_alpha_index].iloc[0]
             args_dict = {k: v for k, v in args0.to_dict().items(
@@ -129,5 +129,10 @@ if __name__ == '__main__':
                 version=version,
                 questions=questions)
 
+            if len(questions) < 30:
+                num_flatmaps = len(questions)
+                joblib.dump(weights, join(out_dir, 'weights.pkl'))
+            else:
+                num_flatmaps = 10
             save_coefs_flatmaps(weights, df, out_dir,
-                                subject=subject, num_flatmaps=10)
+                                subject=subject, num_flatmaps=num_flatmaps)

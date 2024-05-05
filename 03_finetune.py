@@ -57,16 +57,16 @@ def eval_acc(model, loader, gt_labels):
 def get_dfs(qa_questions_version='v3_boostexamples', train_frac=0.8):
     # set up data
     vals = np.load(
-        join(path_to_file, f'../data/{qa_questions_version}_answers_numpy.npz'))['arr_0']
+        join(path_to_file, f'data/{qa_questions_version}_answers_numpy.npz'))['arr_0']
     meta = joblib.load(
-        join(path_to_file, f'../data/{qa_questions_version}_metadata.pkl'))
+        join(path_to_file, f'data/{qa_questions_version}_metadata.pkl'))
     df = pd.DataFrame(vals.astype(int),
                       columns=meta['columns'], index=meta['index'])
 
     vals_test = np.load(
-        join(path_to_file, f'../data/{qa_questions_version}_answers_test_numpy.npz'))['arr_0']
+        join(path_to_file, f'data/{qa_questions_version}_answers_test_numpy.npz'))['arr_0']
     meta_test = joblib.load(
-        join(path_to_file, f'../data/{qa_questions_version}_test_metadata.pkl'))
+        join(path_to_file, f'data/{qa_questions_version}_test_metadata.pkl'))
     test_df = pd.DataFrame(vals_test.astype(int),
                            columns=meta_test['columns'], index=meta_test['index'])
 

@@ -3,6 +3,8 @@ import json
 from ridge_utils.features.questions.qa_questions_base import *
 from ridge_utils.features.questions.qa_questions_data_boost import *
 from ridge_utils.features.questions.qa_questions_llama_boost import *
+from os.path import join, dirname
+path_to_file = dirname(__file__)
 
 
 def _split_bulleted_str(s, remove_parentheticals=False):
@@ -161,11 +163,11 @@ if __name__ == "__main__":
         print(v, len(get_questions(v)))
 
     # write all questions to a json file
-    with open('questions/all_questions.json', 'w') as f:
+    with open(join(path_to_file, 'questions/all_questions.json'), 'w') as f:
         json.dump(get_questions('all'), f, indent=4)
-    with open('questions/base_questions.json', 'w') as f:
+    with open(join(path_to_file, 'questions/base_questions.json'), 'w') as f:
         json.dump(get_questions('base'), f, indent=4)
-    with open('questions/v3_boostexamples.json', 'w') as f:
+    with open(join(path_to_file, 'questions/v3_boostexamples.json'), 'w') as f:
         json.dump(get_questions('v3_boostexamples', full=True), f, indent=4)
 
     # for q in get_questions('v4_boostexamples'):

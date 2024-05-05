@@ -5,8 +5,9 @@
 **logs*
 **.pyc
 **pycache__
+**.pkl
+**.npz
+dist
 figs
-decomps
-batch_pipeline
-data
-
+ref
+processed

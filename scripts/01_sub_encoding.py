@@ -20,16 +20,17 @@ params_shared_dict = {
     'nboots': [5],
     'use_test_setup': [0],
     'encoding_model': ['ridge'],
-    # 'subject': ['UTS03'],
-    'subject': ['UTS03', 'UTS02', 'UTS01'],
+    'subject': ['UTS03'],
+    # 'subject': ['UTS03', 'UTS02', 'UTS01'],
     # 'subject': ['UTS01', 'UTS02'],
     'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'],
-    'ndelays': [4, 8, 12],
-    # 'ndelays': [4],
-    # 'ndelays': [12],
+    # 'ndelays': [4, 8, 12],
+    # 'ndelays': [4, 8],
+    'ndelays': [4],
+    # 'ndelays': [8],
 
     # cluster
-    # 'seed_stories': range(6),
+    'seed_stories': range(16),
     'pc_components': [100],
     # 'ndelays': [4],
 
@@ -45,7 +46,7 @@ params_coupled_dict = {
         # ('bert-10', 'v1', MIST7B),
         # ('eng1000', 'v1', MIST7B),
         # ('finetune_roberta-base-10', 'v1', MIST7B),
-        ('finetune_roberta-base_binary-10', 'v1', MIST7B),
+        # ('finetune_roberta-base_binary-10', 'v1', MIST7B),
 
         # ('llama2-7B_lay6-10', 'v1', MIST7B),
         # ('llama2-7B_lay12-10', 'v1', MIST7B),
@@ -74,8 +75,9 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v2', 'ensemble1'),
         # ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
         # ('qa_embedder-10', 'v3', 'ensemble1'),
-
-
+        # ('qa_embedder-10', 'v4_boostexamples', 'ensemble1'),
+        # ('qa_embedder-10', 'v4', 'ensemble1'),
+        ('qa_embedder-10', 'v5', 'ensemble1'),
 
 
         # vary question versions
@@ -133,7 +135,7 @@ submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     unique_seeds='seed_stories',
-    # amlt_kwargs=amlt_kwargs,
+    amlt_kwargs=amlt_kwargs,
     # amlt_kwargs=amlt_kwargs_cpu,
     # n_cpus=9,
     n_cpus=3,

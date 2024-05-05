@@ -1,6 +1,7 @@
+import scipy.special
 import numpy as np
 from typing import List
-from os.path import join, expanduser
+from os.path import join, expanduser, dirname
 from tqdm import tqdm
 import imodelsx.llm
 import ridge_utils.features.qa_questions as qa_questions
@@ -11,7 +12,6 @@ from torch import nn
 from ridge_utils.config import repo_dir
 # from vllm import LLM, SamplingParams
 # import torch
-import scipy.special
 
 
 class MutiTaskClassifier(nn.Module):
@@ -73,7 +73,8 @@ class FinetunedQAEmbedder:
                 outputs = self.model(**{k: v[i:i+batch_size]
                                         for k, v in inputs.items()})
                 answer_predictions.append(outputs.cpu().detach().numpy())
-            answer_predictions = answer_predictions[self.question_idxs[0]                                                    :self.question_idxs[1]]
+            answer_predictions = answer_predictions[self.question_idxs[0]
+                :self.question_idxs[1]]
             answer_predictions = np.vstack(answer_predictions)
             answer_predictions = scipy.special.softmax(
                 answer_predictions, axis=-1)

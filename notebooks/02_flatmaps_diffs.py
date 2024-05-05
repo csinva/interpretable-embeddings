@@ -22,6 +22,36 @@ sys.path.append('..')
 path_to_repo = dirname(dirname(os.path.abspath(__file__)))
 
 
+def _save_flatmap(vals, subject, fname_save, clab):
+    vabs = max(np.abs(vals))
+    cmap = 'RdBu'
+    # cmap = sns.diverging_palette(12, 210, as_cmap=True)
+    # cmap = sns.diverging_palette(16, 240, as_cmap=True)
+
+    vol = cortex.Volume(
+        vals, subject, xfmname=f'{subject}_auto', vmin=-vabs, vmax=vabs, cmap=cmap)
+
+    cortex.quickshow(vol,
+                     with_rois=False,
+                     with_labels=False,
+                     #  with_colorbar=True
+                     )
+    plt.savefig(fname_save)
+    plt.close()
+
+    # save cbar
+    norm = Normalize(vmin=-vabs, vmax=vabs)
+    # need to invert this to match above
+    sm = ScalarMappable(norm=norm, cmap=cmap)
+    sm.set_array([])
+    fig, ax = plt.subplots(figsize=(5, 0.35))
+    cbar = plt.colorbar(sm, cax=ax, orientation='horizontal')
+    cbar.set_label(clab, fontsize='x-large')
+    plt.savefig(fname_save.replace('flatmap.pdf',
+                'cbar.pdf'), bbox_inches='tight')
+    plt.close()
+
+
 if __name__ == '__main__':
     results_dir = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'
     out_dir = join(path_to_repo, 'qa_results', 'diffs')
@@ -52,34 +82,6 @@ if __name__ == '__main__':
             print('means', 'qa', args_qa['corrs_test'].mean(
             ), 'baseline', args_baseline['corrs_test'].mean())
 
-            def _save_flatmap(vals, subject, fname_save, clab):
-                vabs = max(np.abs(vals))
-                cmap = 'RdBu'
-                # cmap = sns.diverging_palette(12, 210, as_cmap=True)
-                # cmap = sns.diverging_palette(16, 240, as_cmap=True)
-
-                vol = cortex.Volume(
-                    vals, subject, xfmname=f'{subject}_auto', vmin=-vabs, vmax=vabs, cmap=cmap)
-
-                cortex.quickshow(vol,
-                                 with_rois=False,
-                                 with_labels=False,
-                                 with_colorbar=False)
-                plt.savefig(fname_save)
-                plt.close()
-
-                # save cbar
-                norm = Normalize(vmin=-vabs, vmax=vabs)
-                # need to invert this to match above
-                sm = ScalarMappable(norm=norm, cmap=cmap)
-                sm.set_array([])
-                fig, ax = plt.subplots(figsize=(5, 0.35))
-                cbar = plt.colorbar(sm, cax=ax, orientation='horizontal')
-                cbar.set_label(clab, fontsize='x-large')
-                plt.savefig(fname_save.replace('flatmap.pdf',
-                            'cbar.pdf'), bbox_inches='tight')
-                plt.close()
-
             # fname_save = join(out_dir, f'diff_bert-qa.png')
 
             lab_name_dict = {
@@ -89,13 +91,13 @@ if __name__ == '__main__':
             }
             clab = f'Test correlation ({lab_name_dict[feature_space]})'
             fname_save = join(
-                out_dir, f'{subject}_{feature_space}_flatmap.pdf')
+                out_dir, f'{subject}_{feature_space.replace("qa_embedder", "qa")}_flatmap.pdf')
             _save_flatmap(args_baseline['corrs_test'],
                           subject, fname_save, clab=clab)
 
             if not feature_space == 'qa_embedder':
                 fname_save = join(
-                    out_dir, f'{subject}_qa-{feature_space}_flatmap.pdf')
+                    out_dir, f'{subject}_qa-{feature_space.replace("qa_embedder", "qa")}_flatmap.pdf')
                 clab = f'Test correlation (QA-Emb - {lab_name_dict[feature_space]})'
                 _save_flatmap(
                     args_qa['corrs_test'] - args_baseline['corrs_test'], subject, fname_save, clab=clab)
