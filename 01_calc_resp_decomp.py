@@ -94,11 +94,19 @@ def viz_decomp(out_dir):
             plt.close()
 
 
+def save_mini_pca(out_dir, pc_components=100):
+    pca = joblib.load(join(out_dir, 'resps_pca.pkl'))
+    pca.components_ = pca.components_[
+        :pc_components]
+    joblib.dump(pca, join(out_dir, f'resps_pca_{pc_components}.pkl'))
+
+
 if __name__ == '__main__':
     # cache_resps()
-    for subject in ['UTS01', 'UTS02']:  # 'UTS03',
+    for subject in ['UTS01', 'UTS02', 'UTS03']:  # 'UTS03',
         print(subject)
         out_dir = join(feature_spaces.data_dir, 'fmri_resp_norms', subject)
         os.makedirs(out_dir, exist_ok=True)
-        calc_decomp(out_dir, subject, subsample_input=2)
+        # calc_decomp(out_dir, subject, subsample_input=2)
         # viz_decomp(out_dir)
+        save_mini_pca(out_dir, pc_components=100)

@@ -41,7 +41,6 @@ experiments/results
 experiments/*.txt
 **_site*
 .nfs*
-data
 results
 scratch
 .embgrams
@@ -53,3 +52,6 @@ results*
 **logs*
 **.pt
 qa_results/finetune*
+**.pkl
+**.txt
+**.npz

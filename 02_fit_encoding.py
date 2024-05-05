@@ -234,10 +234,17 @@ def get_features_full(args, qa_embedding_model, story_names, extract_only=False)
     return features_delayed
 
 
-def get_pca(subject):
-    pca_filename = join(data_dir, 'fmri_resp_norms',
-                        subject, 'resps_pca.pkl')
-    return joblib.load(pca_filename)
+def load_pca(subject, pc_components=None):
+    if pc_components == 100:
+        pca_filename = join(data_dir, 'fmri_resp_norms',
+                            subject, 'resps_pca_100.pkl')
+        return joblib.load(pca_filename)
+    else:
+        pca_filename = join(data_dir, 'fmri_resp_norms',
+                            subject, 'resps_pca.pkl')
+        pca.components_ = pca.components_[
+            :pc_components]
+        return pca
 
 
 def get_resps_full(
@@ -267,9 +274,8 @@ def get_resps_full(
     else:
         logging.info('pc transforming resps...')
 
-        pca = get_pca(subject)
-        pca.components_ = pca.components_[
-            :args.pc_components]  # (n_components, n_voxels)
+        # pca.components_ is (n_components, n_voxels)
+        pca = load_pca(subject, args.pc_components)
 
         # fill nans with nanmean
         resp_train[np.isnan(resp_train)] = np.nanmean(resp_train)
@@ -616,7 +622,7 @@ if __name__ == "__main__":
         explained_var_weight = pca.explained_variance_[:args.pc_components]
         explained_var_weight = explained_var_weight / \
             explained_var_weight.sum() * len(explained_var_weight)
-        r['corrs_tune_pc_weighted'] = np.mean(
+        r['corrs_tune_pc_weighted_mean'] = np.mean(
             explained_var_weight * r['corrs_tune_pc'])
 
     # add extra stats
