@@ -63,6 +63,8 @@ if __name__ == '__main__':
     r = r[r.distill_model_path == 'None']
     r = r[~(r.feature_space == 'qa_embedder-25')]
     r = r[r.pc_components == 100]
+    # r = r[~((r.feature_space == 'qa_embedder-10') &
+    # (r.qa_embedding_model != 'ensemble1'))]
 
     for subject in ['UTS03', 'UTS02', 'UTS01']:  # ['UTS01', 'UTS02', 'UTS03']:
         args_qa = r[

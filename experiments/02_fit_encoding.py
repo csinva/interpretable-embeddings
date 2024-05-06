@@ -24,6 +24,7 @@ import time
 from ridge_utils.encoding.eval import nancorr, evaluate_pc_model_on_each_voxel, add_summary_stats
 
 # get path to current file
+path_to_repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 path_to_file = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -105,7 +106,7 @@ def add_main_args(parser):
 def add_computational_args(parser):
     """Arguments that only affect computation and not the results (shouldnt use when checking cache)"""
     parser.add_argument('--save_dir', type=str,
-                        default=os.path.join(path_to_file, 'results'))
+                        default=os.path.join(path_to_repo, 'results'))
     parser.add_argument(
         "--use_cache",
         type=int,
@@ -312,14 +313,26 @@ if __name__ == "__main__":
                                         :stim_train_delayed.shape[1] // args.ndelays]
 
         # coefs is (n_targets, n_features, n_alphas)
-        alpha_range = (0, -3, 20)  # original was 0, -3, 15
-        cache_dir = join(config.repo_dir, 'sparse_feats_all_subj')
+        if args.num_stories == 0:
+            cache_dir = join(config.repo_dir, 'sparse_feats_all_subj')
+            alpha_range = (0, -3, 20)
+            cache_file = join(cache_dir, args.qa_questions_version + '_' +
+                              args.qa_embedding_model.replace('/', '-') + '_' + str(alpha_range) + '.joblib')
+        else:
+            # use hard-coded feature selection result from S03
+            cache_dir = join(config.repo_dir, 'sparse_feats')
+            alpha_range = (0, -3, 15)
+            cache_file = join(
+                cache_dir, 'v3_boostexamples_mistralai-Mistral-7B-Instruct-v0.2_(0, -3, 15).joblib')
+            # 'v3_boostexamples_(0, -3, 15).joblib'
+            # 'v3_boostexamples_mistralai-Mistral-7B-Instruct-v0.2_(0, -3, 15).joblib'
         os.makedirs(cache_dir, exist_ok=True)
-        cache_file = join(cache_dir, args.qa_questions_version + '_' +
-                          args.qa_embedding_model + '_' + str(alpha_range) + '.joblib')
+
         if os.path.exists(cache_file):
             alphas_enet, coefs_enet = joblib.load(cache_file)
+            print('Loaded from cache:', cache_file)
         else:
+            print('Couldn\'t find cache file:', cache_file, 'fitting now...')
             # get special resps by concatenating across subjects
             resp_train_shared = response_utils.get_resps_full(
                 args, 'shared', story_names_train, story_names_test)
@@ -332,7 +345,6 @@ if __name__ == "__main__":
                 max_iter=5000,  # defaults to 1000
                 random_state=args.seed,
             )
-            os.makedirs(join(config.repo_dir, 'sparse_feats'), exist_ok=True)
             joblib.dump((alphas_enet, coefs_enet), cache_file)
             logging.info(
                 f"Succesfully completed feature selection {(time.time() - t0)/60:0.1f} minutes")
@@ -353,6 +365,7 @@ if __name__ == "__main__":
         stim_test_delayed = stim_test_delayed[:, coef_nonzero_rep]
 
     # fit model
+    print('fitting regression...')
     r, model_params_to_save = fit_regression(
         args, r, stim_train_delayed, resp_train, stim_test_delayed, resp_test)
 

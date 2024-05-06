@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 from os.path import join
 import numpy as np
 import sys
-sys.path.append('..')
+sys.path.append('../experiments')
 dvu.set_style()
 fit_encoding = __import__('02_fit_encoding')
 

@@ -20,7 +20,6 @@ from tqdm import tqdm
 
 import ridge_utils.data.story_names
 path_to_repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-path_to_file = os.path.dirname(os.path.abspath(__file__))
 
 # initialize args
 
@@ -49,7 +48,7 @@ def add_main_args(parser):
 def add_computational_args(parser):
     """Arguments that only affect computation and not the results (shouldnt use when checking cache)"""
     parser.add_argument('--save_dir', type=str,
-                        default=os.path.join(path_to_file, 'results'))
+                        default=os.path.join(path_to_repo, 'results'))
     parser.add_argument(
         "--use_cache",
         type=int,
@@ -122,14 +121,16 @@ if __name__ == "__main__":
     corrs_test_selected = corrs_test[
         qs_selected, np.arange(corrs_test.shape[1])]
 
-    r = {
+    r = defaultdict(list)
+    r.update(vars(args))
+    r.update({
         'qs_selected': qs_selected,
         'corrs_train_selected': corrs_train_selected,
         'corrs_test_selected': corrs_test_selected,
         'corrs_train_selected_mean_abs': np.abs(corrs_train_selected).mean(),
         'corrs_test_selected_mean_abs': np.abs(corrs_test_selected).mean(),
         'corrs_test_mean_abs_baseline': np.abs(corrs_test).mean(),
-    }
+    })
     print('corrs_test_selected_mean_abs', r['corrs_test_selected_mean_abs'])
 
     # save results

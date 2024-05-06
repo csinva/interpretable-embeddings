@@ -67,7 +67,7 @@ def save_coefs_csv(weights, out_dir, version, questions):
     return df
 
 
-def save_coefs_flatmaps(weights, df, out_dir, subject='UTS03', num_flatmaps=10):
+def save_coefs_flatmaps(weights, df, out_dir, subject='S03', num_flatmaps=10):
     '''weights should be emb_size x num_voxels
     '''
     for i in tqdm(range(min(num_flatmaps, len(df)))):
@@ -77,7 +77,7 @@ def save_coefs_flatmaps(weights, df, out_dir, subject='UTS03', num_flatmaps=10):
         w = weights[emb_dim_idx]
         vabs = max(np.abs(w))
         vol = cortex.Volume(
-            w, subject, xfmname=f'{subject}_auto', vmin=-vabs, vmax=vabs)
+            w, 'UT' + subject, xfmname=f'UT{subject}_auto', vmin=-vabs, vmax=vabs)
         cortex.quickshow(vol, with_rois=True, cmap='PuBu')
         plt.savefig(fname_save)
         plt.close()
@@ -85,7 +85,7 @@ def save_coefs_flatmaps(weights, df, out_dir, subject='UTS03', num_flatmaps=10):
 
 if __name__ == '__main__':
     results_dir = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'
-    subject = 'UTS03'
+    subject = 'S03'
     # r = imodelsx.process_results.get_results_df(results_dir)
     r, cols_varied, mets = analyze_helper.load_clean_results(results_dir)
 
@@ -129,10 +129,8 @@ if __name__ == '__main__':
                 version=version,
                 questions=questions)
 
-            if len(questions) < 30:
-                num_flatmaps = len(questions)
-                joblib.dump(weights, join(out_dir, 'weights.pkl'))
-            else:
-                num_flatmaps = 10
+            # cap at 30 (weights is emb_size x num_voxels)
+            num_flatmaps = min(len(questions), 30)
+            joblib.dump(weights[:30], join(out_dir, 'weights.pkl'))
             save_coefs_flatmaps(weights, df, out_dir,
                                 subject=subject, num_flatmaps=num_flatmaps)

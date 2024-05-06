@@ -33,9 +33,9 @@ args_list = submit_utils.get_args_list(
     params_shared_dict=params_shared_dict,
     params_coupled_dict=params_coupled_dict,
 )
-script_name = join(repo_dir, '04_fit_single_question.py')
+script_name = join(repo_dir, 'experiments',  '04_fit_single_question.py')
 amlt_kwargs = {
-    'amlt_file': join(repo_dir, 'launch_cpu.yaml'),
+    'amlt_file': join(repo_dir, 'scripts', 'launch_cpu.yaml'),
     # E4ads_v5 (30 GB), E8ads_v5 (56 GB), E16ads_v5 (120GB), E32ads_v5 (240GB), E64ads_v5 (480 GB)
     # 'sku': 'E64ads_v5',
     # 'sku': 'E32ads_v5',

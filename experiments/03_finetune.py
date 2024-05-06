@@ -18,7 +18,7 @@ import sys
 
 # from peft import LoraConfig, LoraModel, get_peft_model, TaskType
 
-path_to_file = os.path.dirname(os.path.abspath(__file__))
+path_to_repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
@@ -57,16 +57,16 @@ def eval_acc(model, loader, gt_labels):
 def get_dfs(qa_questions_version='v3_boostexamples', train_frac=0.8):
     # set up data
     vals = np.load(
-        join(path_to_file, f'data/{qa_questions_version}_answers_numpy.npz'))['arr_0']
+        join(path_to_repo, f'data/{qa_questions_version}_answers_numpy.npz'))['arr_0']
     meta = joblib.load(
-        join(path_to_file, f'data/{qa_questions_version}_metadata.pkl'))
+        join(path_to_repo, f'data/{qa_questions_version}_metadata.pkl'))
     df = pd.DataFrame(vals.astype(int),
                       columns=meta['columns'], index=meta['index'])
 
     vals_test = np.load(
-        join(path_to_file, f'data/{qa_questions_version}_answers_test_numpy.npz'))['arr_0']
+        join(path_to_repo, f'data/{qa_questions_version}_answers_test_numpy.npz'))['arr_0']
     meta_test = joblib.load(
-        join(path_to_file, f'data/{qa_questions_version}_test_metadata.pkl'))
+        join(path_to_repo, f'data/{qa_questions_version}_test_metadata.pkl'))
     test_df = pd.DataFrame(vals_test.astype(int),
                            columns=meta_test['columns'], index=meta_test['index'])
 
@@ -85,7 +85,7 @@ if __name__ == '__main__':
     checkpoint = 'roberta-large'
     # checkpoint = 'distilbert-base-uncased'
     # batch_size = 64 # 1 gpu
-    save_dir = join(path_to_file, f'../qa_results/finetune')
+    save_dir = join(path_to_repo, f'../qa_results/finetune')
     # batch_size = 256  # 4 gpus bert-base-uncased
     # batch_size = 256  # 4 gpus roberta-base
     batch_size = 80  # 4 gpus roberta-large

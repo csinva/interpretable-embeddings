@@ -30,7 +30,7 @@ params_shared_dict = {
     'ndelays': [8],
 
     # cluster
-    # 'seed_stories': range(16),
+    # 'seed_stories': range(10),
     'pc_components': [100],
     # 'ndelays': [4],
 
@@ -71,9 +71,9 @@ params_coupled_dict = {
 
 
         # ensemble
-        # ('qa_embedder-10', 'v1', 'ensemble1'),
-        # ('qa_embedder-10', 'v2', 'ensemble1'),
-        # ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
+        ('qa_embedder-10', 'v1', 'ensemble1'),
+        ('qa_embedder-10', 'v2', 'ensemble1'),
+        ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
         # ('qa_embedder-10', 'v3', 'ensemble1'),
         # ('qa_embedder-10', 'v4_boostexamples', 'ensemble1'),
         # ('qa_embedder-10', 'v4', 'ensemble1'),
@@ -93,14 +93,15 @@ params_coupled_dict = {
 
         # # llama/mixtral
         # ('qa_embedder-10', 'v2', LLAMA8B),
-        ('qa_embedder-10', 'v3', LLAMA8B),
-        ('qa_embedder-10', 'v4', LLAMA8B),
+        # ('qa_embedder-10', 'v3', LLAMA8B),
+        # ('qa_embedder-10', 'v4', LLAMA8B),
         # ('qa_embedder-10', 'v3_boostexamples', LLAMA8B),
         # ('qa_embedder-10', 'v4_boostexamples', LLAMA8B),
         # ('qa_embedder-10', 'v1', LLAMA8B_fewshot),
         # ('qa_embedder-10', 'v2', LLAMA8B_fewshot),
-        ('qa_embedder-10', 'v3', LLAMA8B_fewshot),
-        ('qa_embedder-10', 'v4', LLAMA8B_fewshot),
+        # ('qa_embedder-10', 'v3', LLAMA8B_fewshot),
+        # ('qa_embedder-10', 'v4', LLAMA8B_fewshot),
+        # ('qa_embedder-10', 'v4_boostexamples', LLAMA8B_fewshot),
         # ('qa_embedder-10', 'v3_boostexamples', LLAMA8B_fewshot),
         # ('qa_embedder-10', 'v1', LLAMA70B),
         # ('qa_embedder-10', 'v1', LLAMA70B_fewshot),
@@ -119,9 +120,10 @@ args_list = submit_utils.get_args_list(
     params_shared_dict=params_shared_dict,
     params_coupled_dict=params_coupled_dict,
 )
-script_name = join(repo_dir, '02_fit_encoding.py')
+script_name = join(repo_dir, 'experiments', '02_fit_encoding.py')
 amlt_kwargs = {
-    'amlt_file': join(repo_dir, 'launch.yaml'),  # change this to run a cpu job
+    # change this to run a cpu job
+    'amlt_file': join(repo_dir, 'scripts', 'launch.yaml'),
     # [64G16-MI200-IB-xGMI, 64G16-MI200-xGMI
     # 'sku': '64G8-MI200-xGMI',
     # 'sku': '64G4-MI200-xGMI',
@@ -129,7 +131,7 @@ amlt_kwargs = {
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
 amlt_kwargs_cpu = {
-    'amlt_file': join(repo_dir, 'launch_cpu.yaml'),
+    'amlt_file': join(repo_dir, 'scripts', 'launch_cpu.yaml'),
     # E4ads_v5 (30 GB), E8ads_v5 (56 GB), E16ads_v5 (120GB), E32ads_v5 (240GB), E64ads_v5 (480 GB)
     # 'sku': 'E64ads_v5',
     'sku': 'E32ads_v5',
