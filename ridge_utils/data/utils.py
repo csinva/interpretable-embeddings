@@ -4,23 +4,23 @@ import logging
 import numpy as np
 
 
-def zscore(mat, return_unzvals=False):
-    """Z-scores the rows of [mat] by subtracting off the mean and dividing
-    by the standard deviation.
-    If [return_unzvals] is True, a matrix will be returned that can be used
-    to return the z-scored values to their original state.
-    """
-    zmat = np.empty(mat.shape, mat.dtype)
-    unzvals = np.zeros((zmat.shape[0], 2), mat.dtype)
-    for ri in range(mat.shape[0]):
-        unzvals[ri, 0] = np.std(mat[ri, :])
-        unzvals[ri, 1] = np.mean(mat[ri, :])
-        zmat[ri, :] = (mat[ri, :]-unzvals[ri, 1]) / (1e-10+unzvals[ri, 0])
+# def zscore(mat, return_unzvals=False):
+#     """Z-scores the rows of [mat] by subtracting off the mean and dividing
+#     by the standard deviation.
+#     If [return_unzvals] is True, a matrix will be returned that can be used
+#     to return the z-scored values to their original state.
+#     """
+#     zmat = np.empty(mat.shape, mat.dtype)
+#     unzvals = np.zeros((zmat.shape[0], 2), mat.dtype)
+#     for ri in range(mat.shape[0]):
+#         unzvals[ri, 0] = np.std(mat[ri, :])
+#         unzvals[ri, 1] = np.mean(mat[ri, :])
+#         zmat[ri, :] = (mat[ri, :]-unzvals[ri, 1]) / (1e-10+unzvals[ri, 0])
 
-    if return_unzvals:
-        return zmat, unzvals
+#     if return_unzvals:
+#         return zmat, unzvals
 
-    return zmat
+#     return zmat
 
 
 def center(mat, return_uncvals=False):
@@ -65,30 +65,6 @@ def gaussianize_mat(mat):
     for ri in range(mat.shape[1]):
         gmat[:, ri] = gaussianize(mat[:, ri])
     return gmat
-
-
-def make_delayed(stim, delays, circpad=False):
-    """Creates non-interpolated concatenated delayed versions of [stim] with the given [delays] 
-    (in samples).
-
-    If [circpad], instead of being padded with zeros, [stim] will be circularly shifted.
-    """
-    nt, ndim = stim.shape
-    dstims = []
-    for di, d in enumerate(delays):
-        dstim = np.zeros((nt, ndim))
-        if d < 0:  # negative delay
-            dstim[:d, :] = stim[-d:, :]
-            if circpad:
-                dstim[d:, :] = stim[:-d, :]
-        elif d > 0:
-            dstim[d:, :] = stim[:-d, :]
-            if circpad:
-                dstim[:d, :] = stim[-d:, :]
-        else:  # d==0
-            dstim = stim.copy()
-        dstims.append(dstim)
-    return np.hstack(dstims)
 
 
 def mult_diag(d, mtx, left=True):

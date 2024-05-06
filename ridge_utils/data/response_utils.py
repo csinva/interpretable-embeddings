@@ -1,6 +1,5 @@
 from ridge_utils.features.feature_spaces import repo_dir, data_dir, em_data_dir
-from ridge_utils.data.utils import make_delayed
-from ridge_utils.data.npp import zscore, mcorr
+from ridge_utils.data.npp import mcorr
 from typing import List
 import json
 from os.path import join, dirname
@@ -108,17 +107,6 @@ def get_allstories(sessions=[1, 2, 3, 4, 5]) -> List[str]:
                ) == 0, "Train - Test overlap!"
     allstories = list(set(train_stories) | set(test_stories))
     return train_stories, test_stories, allstories
-
-
-def add_delays(stim, ndelays):
-    """Get delayed stimulus matrix.
-    The stimulus matrix is delayed (typically by 2, 4, 6, 8 secs) to estimate the
-    hemodynamic response function with a Finite Impulse Response model.
-    """
-    # List of delays for Finite Impulse Response (FIR) model.
-    delays = range(1, ndelays+1)
-    delstim = make_delayed(stim, delays)
-    return delstim
 
 
 def load_response(stories, subject):

@@ -12,23 +12,14 @@ from os.path import join, dirname
 import argparse
 import numpy as np
 import ridge_utils.features.feature_spaces as feature_spaces
-import sklearn.decomposition
-import joblib
 import os
-from ridge_utils.data import response_utils
-from ridge_utils.config import data_dir
-import ridge_utils.config as config
-from ridge_utils.encoding.ridge import bootstrap_ridge, gen_temporal_chunk_splits
-from ridge_utils.data.utils import make_delayed
-import imodelsx.cache_save_utils
-import ridge_utils.data.story_names as story_names
 import ridge_utils.features.qa_questions as qa_questions
 import random
 import time
-from ridge_utils.data.utils import zscore
+from ridge_utils.data.npp import zscore
 
 
-def trim_and_normalize_features(downsampled_feat, trim, normalize=True):
+def trim_and_normalize_features(downsampled_feat, trim=5, normalize=True):
     """Trim and normalize the downsampled stimulus for train and test stories.
 
     Params
@@ -47,6 +38,40 @@ def trim_and_normalize_features(downsampled_feat, trim, normalize=True):
     return feat
 
 
+def make_delayed(stim, delays, circpad=False):
+    """Creates non-interpolated concatenated delayed versions of [stim] with the given [delays] 
+    (in samples).
+
+    If [circpad], instead of being padded with zeros, [stim] will be circularly shifted.
+    """
+    nt, ndim = stim.shape
+    dstims = []
+    for di, d in enumerate(delays):
+        dstim = np.zeros((nt, ndim))
+        if d < 0:  # negative delay
+            dstim[:d, :] = stim[-d:, :]
+            if circpad:
+                dstim[d:, :] = stim[:-d, :]
+        elif d > 0:
+            dstim[d:, :] = stim[:-d, :]
+            if circpad:
+                dstim[:d, :] = stim[-d:, :]
+        else:  # d==0
+            dstim = stim.copy()
+        dstims.append(dstim)
+    return np.hstack(dstims)
+
+# def add_delays(stim, ndelays):
+#     """Get delayed stimulus matrix.
+#     The stimulus matrix is delayed (typically by 2, 4, 6, 8 secs) to estimate the
+#     hemodynamic response function with a Finite Impulse Response model.
+#     """
+#     # List of delays for Finite Impulse Response (FIR) model.
+#     delays = range(1, ndelays+1)
+#     delstim = make_delayed(stim, delays)
+#     return delstim
+
+
 def get_features_full(args, qa_embedding_model, story_names, extract_only=False):
     '''
     Params
@@ -59,14 +84,17 @@ def get_features_full(args, qa_embedding_model, story_names, extract_only=False)
     features_delayed: np.ndarray
         n_time_points x(n_delays x n_features)
     '''
+    # for ensemble, recursively call this function and average the features
     if qa_embedding_model == 'ensemble1':
         features_delayed_list = []
         for qa_embedding_model in ['mistralai/Mistral-7B-Instruct-v0.2', 'meta-llama/Meta-Llama-3-8B-Instruct', 'meta-llama/Meta-Llama-3-8B-Instruct-fewshot']:
             features_delayed = get_features_full(
                 args, qa_embedding_model, story_names)
             features_delayed_list.append(features_delayed)
-        features_avg = np.mean(features_delayed_list, axis=0)
-        features_avg = features_avg / np.std(features_avg, axis=0)
+        features_delayed_avg = np.mean(features_delayed_list, axis=0)
+        # features_delayed_avg = features_delayed_avg / \
+        # np.std(features_delayed_avg, axis=0)
+        return features_delayed_avg
 
     # for qa versions, we extract features multiple times and concatenate them
     # this helps with caching
@@ -86,7 +114,7 @@ def get_features_full(args, qa_embedding_model, story_names, extract_only=False)
             **kwargs)
         # n_time_points x n_features
         features_downsampled = trim_and_normalize_features(
-            features_downsampled_dict, args.trim, normalize=True
+            features_downsampled_dict, normalize=True
         )
         features_downsampled_list.append(deepcopy(features_downsampled))
     torch.cuda.empty_cache()
@@ -94,7 +122,6 @@ def get_features_full(args, qa_embedding_model, story_names, extract_only=False)
         return
 
     features_downsampled_list = np.hstack(features_downsampled_list)
-    # print('unique', np.unique(features_downsampled_list, return_counts=True))
     features_delayed = make_delayed(features_downsampled_list,
                                     delays=range(1, args.ndelays+1))
     return features_delayed

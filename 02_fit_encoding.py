@@ -4,15 +4,12 @@ import pandas as pd
 from sklearn.linear_model import MultiTaskElasticNetCV, enet_path
 from copy import deepcopy
 import torch
-from sklearn.preprocessing import StandardScaler
 import random
 import logging
 from sklearn.ensemble import RandomForestRegressor
 from os.path import join, dirname
 import argparse
 import numpy as np
-import ridge_utils.features.feature_spaces as feature_spaces
-import sklearn.decomposition
 import joblib
 import os
 from ridge_utils.data import response_utils
@@ -20,10 +17,8 @@ from ridge_utils.features import feature_utils
 from ridge_utils.config import data_dir
 import ridge_utils.config as config
 from ridge_utils.encoding.ridge import bootstrap_ridge, gen_temporal_chunk_splits
-from ridge_utils.data.utils import make_delayed
 import imodelsx.cache_save_utils
 import ridge_utils.data.story_names as story_names
-import ridge_utils.features.qa_questions as qa_questions
 import random
 import time
 from ridge_utils.encoding.eval import nancorr, evaluate_pc_model_on_each_voxel, add_summary_stats
@@ -82,7 +77,7 @@ def add_main_args(parser):
                         default='ridge',
                         # default='randomforest'
                         )
-    parser.add_argument("--trim", type=int, default=5)
+
     parser.add_argument("--ndelays", type=int, default=4)
     parser.add_argument("--nboots", type=int, default=50)
     parser.add_argument("--chunklen", type=int, default=40,
@@ -90,6 +85,7 @@ def add_main_args(parser):
     parser.add_argument("--nchunks", type=int, default=125)
     parser.add_argument("--singcutoff", type=float, default=1e-10)
     parser.add_argument("-single_alpha", action="store_true")
+    # parser.add_argument("--trim", type=int, default=5) # always end up using 5
     # parser.add_argument("--l1_ratio", type=float,
     # default=0.5, help='l1 ratio for elasticnet (ignored if encoding_model is not elasticnet)')
     # parser.add_argument("--min_alpha", type=float,

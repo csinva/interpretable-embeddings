@@ -20,17 +20,17 @@ params_shared_dict = {
     'nboots': [5],
     'use_test_setup': [0],
     'encoding_model': ['ridge'],
-    'subject': ['UTS03'],
-    # 'subject': ['UTS03', 'UTS02', 'UTS01'],
+    # 'subject': ['UTS03'],
+    'subject': ['UTS03', 'UTS02', 'UTS01'],
     # 'subject': ['UTS01', 'UTS02'],
     'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'],
     # 'ndelays': [4, 8, 12],
     # 'ndelays': [4, 8],
-    'ndelays': [4],
-    # 'ndelays': [8],
+    # 'ndelays': [4],
+    'ndelays': [8],
 
     # cluster
-    'seed_stories': range(16),
+    # 'seed_stories': range(16),
     'pc_components': [100],
     # 'ndelays': [4],
 
@@ -77,7 +77,7 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v3', 'ensemble1'),
         # ('qa_embedder-10', 'v4_boostexamples', 'ensemble1'),
         # ('qa_embedder-10', 'v4', 'ensemble1'),
-        ('qa_embedder-10', 'v5', 'ensemble1'),
+        # ('qa_embedder-10', 'v5', 'ensemble1'),
 
 
         # vary question versions
@@ -93,10 +93,14 @@ params_coupled_dict = {
 
         # # llama/mixtral
         # ('qa_embedder-10', 'v2', LLAMA8B),
+        ('qa_embedder-10', 'v3', LLAMA8B),
+        ('qa_embedder-10', 'v4', LLAMA8B),
         # ('qa_embedder-10', 'v3_boostexamples', LLAMA8B),
         # ('qa_embedder-10', 'v4_boostexamples', LLAMA8B),
         # ('qa_embedder-10', 'v1', LLAMA8B_fewshot),
         # ('qa_embedder-10', 'v2', LLAMA8B_fewshot),
+        ('qa_embedder-10', 'v3', LLAMA8B_fewshot),
+        ('qa_embedder-10', 'v4', LLAMA8B_fewshot),
         # ('qa_embedder-10', 'v3_boostexamples', LLAMA8B_fewshot),
         # ('qa_embedder-10', 'v1', LLAMA70B),
         # ('qa_embedder-10', 'v1', LLAMA70B_fewshot),
@@ -136,11 +140,11 @@ submit_utils.run_args_list(
     script_name=script_name,
     unique_seeds='seed_stories',
     # amlt_kwargs=amlt_kwargs,
-    # amlt_kwargs=amlt_kwargs_cpu,
+    amlt_kwargs=amlt_kwargs_cpu,
     # n_cpus=9,
     # n_cpus=3,
     # gpu_ids=[0, 1],
-    gpu_ids=[1, 2, 3],
+    # gpu_ids=[1, 2, 3],
     # gpu_ids=[[0, 1], [2, 3]],
     # gpu_ids=[[0, 1, 2, 3]],
     # actually_run=False,
