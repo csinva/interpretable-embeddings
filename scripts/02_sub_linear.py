@@ -47,11 +47,11 @@ params_coupled_dict = {
     ('feature_space', 'qa_questions_version', 'qa_embedding_model'): [
         # new
         # ('bert-10', 'v1', MIST7B),
-        # ('eng1000', 'v1', MIST7B),
+        # ('eng1000', 'v1', MIST7B), # need to rerun sparsity for this...
         # ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
 
         # old
-        ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
+        # ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
     ],
 }
 # Args list is a list of dictionaries
@@ -80,7 +80,7 @@ submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     # unique_seeds='seed_stories',
-    # amlt_kwargs=amlt_kwargs,
+    amlt_kwargs=amlt_kwargs,
     n_cpus=9,
     # n_cpus=2,
     # gpu_ids=[0, 1],

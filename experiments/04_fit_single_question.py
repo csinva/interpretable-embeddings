@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
     # select best question for each voxel
     qs_selected = np.abs(corrs_train).argmax(axis=0)
-    corrs_train_selected = corrs_test[
+    corrs_train_selected = corrs_train[
         qs_selected, np.arange(corrs_train.shape[1])]
     corrs_test_selected = corrs_test[
         qs_selected, np.arange(corrs_test.shape[1])]

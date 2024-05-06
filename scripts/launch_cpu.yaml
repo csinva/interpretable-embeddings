@@ -12,7 +12,7 @@ environment:
     - pip install .
 
 code:
-  local_dir: $CONFIG_DIR
+  local_dir: $CONFIG_DIR/..
 
 
 target:

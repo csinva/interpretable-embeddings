@@ -29,7 +29,7 @@ def _save_flatmap(vals, subject, fname_save, clab):
     # cmap = sns.diverging_palette(16, 240, as_cmap=True)
 
     vol = cortex.Volume(
-        vals, subject, xfmname=f'{subject}_auto', vmin=-vabs, vmax=vabs, cmap=cmap)
+        vals, 'UT' + subject, xfmname=f'UT{subject}_auto', vmin=-vabs, vmax=vabs, cmap=cmap)
 
     cortex.quickshow(vol,
                      with_rois=False,
@@ -60,18 +60,18 @@ if __name__ == '__main__':
     # load the results in to a pandas dataframe
     r, cols_varied, mets = analyze_helper.load_clean_results(results_dir)
     r = r[r.feature_selection_alpha_index < 0]
-    r = r[r.distill_model_path == 'None']
+    r = r[r.distill_model_path.isna()]
     r = r[~(r.feature_space == 'qa_embedder-25')]
     r = r[r.pc_components == 100]
-    # r = r[~((r.feature_space == 'qa_embedder-10') &
-    # (r.qa_embedding_model != 'ensemble1'))]
+    r = r[~((r.feature_space == 'qa_embedder-10') &
+            (r.qa_embedding_model != 'ensemble1'))]
 
-    for subject in ['UTS03', 'UTS02', 'UTS01']:  # ['UTS01', 'UTS02', 'UTS03']:
+    for subject in ['S03', 'S02', 'S01']:
         args_qa = r[
             (r.subject == subject) *
             (r.feature_space.str.contains('qa_embedder'))
         ].sort_values(by='corrs_tune_mean', ascending=False).iloc[0]
-        for feature_space in ['qa_embedder', 'bert', 'llama']:
+        for feature_space in ['qa_embedder', 'bert']:  # , 'llama']:
             corrs = []
 
             args_baseline = r[
