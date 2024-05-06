@@ -16,8 +16,7 @@ import numpy as np
 import sys
 import joblib
 import os
-import ridge_utils.encoding_utils as encoding_utils
-from ridge_utils.ridge import bootstrap_ridge, gen_temporal_chunk_splits
+from ridge_utils.encoding.ridge import bootstrap_ridge, gen_temporal_chunk_splits
 import imodelsx.cache_save_utils
 from sklearn.linear_model import MultiTaskElasticNetCV
 import ridge_utils.data.story_names as story_names
