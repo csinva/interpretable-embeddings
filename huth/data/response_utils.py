@@ -1,4 +1,4 @@
-from ridge_utils.data.npp import mcorr
+from huth.data.npp import mcorr
 from typing import List
 import json
 from os.path import join, dirname
@@ -14,8 +14,8 @@ import logging
 import numpy as np
 import joblib
 import os
-import ridge_utils.features
-import ridge_utils.config as config
+import huth.features
+import huth.config as config
 import random
 
 
@@ -87,7 +87,7 @@ def get_resp_distilled(args, story_names):
 
     model_params = joblib.load(
         join(args.distill_model_path, 'model_params.pkl'))
-    features_delayed_distill = ridge_utils.features.get_features_full(
+    features_delayed_distill = huth.features.get_features_full(
         args_distill, args_distill.qa_embedding_model, story_names)
     preds_distilled = features_delayed_distill @ model_params['weights_pc']
     return preds_distilled

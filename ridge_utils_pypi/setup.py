@@ -3,35 +3,22 @@ from os import path
 import setuptools
 
 path_to_repo = path.abspath(path.dirname(__file__))
-with open(path.join(path_to_repo, 'readme.md'), encoding='utf-8') as f:
-    long_description = f.read()
 
 required_pypi = [
     'numpy',
     'scikit-learn',
     'pandas',
-    'tqdm',
-    'dict_hash',  # required for caching
-    'transformers',
-    'torch',
-    'imodelsx',
-    'langchain',
-    'openai',
-    'accelerate',
-    'InstructorEmbedding',  # embeddings for emb_diff_module
-    'sentence-transformers',  # embeddings for emb_diff_module
-    'datasets',  # optional, required for getting NLP datasets
-    'pytest',  # optional, required for running tests
+    'scipy',
 ]
 
 setuptools.setup(
     # name="huth",
-    name="huth",
+    name="ridge_utils",
     version="0.01",
     author="Huth lab modified by Chandan Singh",
     author_email="",
     description="",
-    long_description=long_description,
+    long_description='Installs ridge_utils used in the scaling laws paper by Huth lab: https://utexas.app.box.com/v/EncodingModelScalingLaws/folder/230420528915. This allows for loading the stored data files from there.',
     long_description_content_type="text/markdown",
     url="https://github.com/csinva/fmri",
     packages=setuptools.find_packages(

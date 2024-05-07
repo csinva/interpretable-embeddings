@@ -4,12 +4,12 @@ from typing import List
 from os.path import join, expanduser, dirname
 from tqdm import tqdm
 import imodelsx.llm
-import ridge_utils.features.qa_questions as qa_questions
+import huth.features.qa_questions as qa_questions
 import pandas as pd
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, AdamW, AutoModel
 import torch
 from torch import nn
-from ridge_utils.config import root_dir
+from huth.config import root_dir
 # from vllm import LLM, SamplingParams
 # import torch
 

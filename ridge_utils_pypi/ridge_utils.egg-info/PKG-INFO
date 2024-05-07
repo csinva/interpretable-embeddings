@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: ridge-utils
+Version: 0.1
+Home-page: https://github.com/csinva/fmri
+Author: Huth lab modified by Chandan Singh
+Author-email: 
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+Installs ridge_utils used in the scaling laws paper by Huth lab: https://utexas.app.box.com/v/EncodingModelScalingLaws/folder/230420528915. This allows for loading the stored data files from there.

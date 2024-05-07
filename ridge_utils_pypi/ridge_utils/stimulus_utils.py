@@ -1,28 +1,34 @@
-import numpy as np
-import ridge_utils.config as config
-from ridge_utils.data.textgrid import TextGrid
-from ridge_utils.data.data_sequence import DataSequence
-from ridge_utils.data.utils_ds import make_word_ds
-import json
-from typing import Dict, List
+from ridge_utils.textgrid import TextGrid
 import os
-from os.path import join, dirname
+import numpy as np
+from collections import defaultdict
 
 
-def load_story_wordseqs(stories) -> Dict[str, DataSequence]:
-    # load textgrids
-    base = join(config.root_dir, "ds003020/derivative/TextGrids")
-    grids = {}
+def load_grid(story, grid_dir):
+    """Loads the TextGrid for the given [story] from the directory [grid_dir].
+    The first file that starts with [story] will be loaded, so if there are
+    multiple versions of a grid for a story, beward.
+    """
+    gridfile = [os.path.join(grid_dir, gf) for gf in os.listdir(
+        grid_dir) if gf.startswith(story)][0]
+    return TextGrid(open(gridfile).read())
+
+
+def load_grids_for_stories(stories, grid_dir):
+    """Loads grids for the given [stories], puts them in a dictionary.
+    """
+    return dict([(st, load_grid(st, grid_dir)) for st in stories])
+
+
+def load_5tier_grids_for_stories(stories, rootdir):
+    grids = dict()
     for story in stories:
-        grid_path = os.path.join(base, f"{story}.TextGrid")
-        grids[story] = TextGrid(open(grid_path).read())
-
-    # make into wordseqs
-    with open(join(config.root_dir, "ds003020/derivative/respdict.json"), "r") as f:
-        respdict = json.load(f)
-    trfiles = load_simulated_trfiles(respdict)
-    wordseqs = make_word_ds(grids, trfiles)
-    return wordseqs
+        storydir = os.path.join(
+            rootdir, [sd for sd in os.listdir(rootdir) if sd.startswith(story)][0])
+        storyfile = os.path.join(
+            storydir, [sf for sf in os.listdir(storydir) if sf.endswith("TextGrid")][0])
+        grids[story] = TextGrid(open(storyfile).read())
+    return grids
 
 
 class TRFile(object):
@@ -47,13 +53,13 @@ class TRFile(object):
             label = " ".join(ll.split()[1:])
             time = float(timestr)
 
-            if label in ("init-trigger", "trigger"):
+            if label in ("init-trigger", "trigger") or label.startswith("first"):
                 self.trtimes.append(time)
 
-            elif label == "sound-start":
+            elif label == "sound-start" or label.startswith("start") or label.startswith("START"):
                 self.soundstarttime = time
 
-            elif label == "sound-stop":
+            elif label == "sound-stop" or label.startswith("END"):
                 self.soundstoptime = time
 
             else:
@@ -88,11 +94,17 @@ class TRFile(object):
         return np.diff(self.trtimes).mean()
 
 
-def load_simulated_trfiles(respdict, tr=2.0, start_time=10.0, pad=5):
+def load_generic_trfiles(stories, root):
+    """Loads a dictionary of generic TRFiles (i.e. not specifically from the session
+    in which the data was collected.. this should be fine) for the given stories.
+    """
     trdict = dict()
-    for story, resps in respdict.items():
-        trf = TRFile(None, tr)
-        trf.soundstarttime = start_time
-        trf.simulate(resps - pad)
-        trdict[story] = [trf]
+
+    for story in stories:
+        try:
+            trf = TRFile(os.path.join(root, "%s.report" % story))
+            trdict[story] = [trf]
+        except Exception as e:
+            print(e)
+
     return trdict

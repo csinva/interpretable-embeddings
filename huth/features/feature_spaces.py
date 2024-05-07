@@ -7,20 +7,20 @@ import numpy as np
 import json
 from os.path import join, dirname
 from functools import partial
-import ridge_utils.features.qa_questions as qa_questions
-from ridge_utils.data.data_sequence import DataSequence
+import huth.features.qa_questions as qa_questions
+from huth.data.data_sequence import DataSequence
 from typing import Dict, List
 from tqdm import tqdm
-from ridge_utils.data.interp_data import lanczosinterp2D, expinterp2D
-from ridge_utils.data.semantic_model import SemanticModel
-from ridge_utils.data.utils_ds import apply_model_to_words
+from huth.data.interp_data import lanczosinterp2D, expinterp2D
+from huth.data.semantic_model import SemanticModel
+from huth.data.utils_ds import apply_model_to_words
 
 from transformers import pipeline
 import logging
 import imodelsx.llm
-from ridge_utils.features.qa_embedder import QuestionEmbedder, FinetunedQAEmbedder
-import ridge_utils.config as config
-from ridge_utils.features.stim_utils import load_story_wordseqs
+from huth.features.qa_embedder import QuestionEmbedder, FinetunedQAEmbedder
+import huth.config as config
+from huth.features.stim_utils import load_story_wordseqs
 
 
 def downsample_word_vectors(stories, word_vectors, wordseqs, strategy='lanczos'):

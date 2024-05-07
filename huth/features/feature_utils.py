@@ -1,10 +1,10 @@
 from copy import deepcopy
 import torch
 import numpy as np
-import ridge_utils.features.feature_spaces as feature_spaces
+import huth.features.feature_spaces as feature_spaces
 import os
-import ridge_utils.features.qa_questions as qa_questions
-from ridge_utils.data.npp import zscore
+import huth.features.qa_questions as qa_questions
+from huth.data.npp import zscore
 
 
 def trim_and_normalize_features(downsampled_feat, trim=5, normalize=True):
