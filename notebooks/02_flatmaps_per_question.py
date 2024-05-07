@@ -84,7 +84,7 @@ def save_coefs_flatmaps(weights, df, out_dir, subject='S03', num_flatmaps=10):
 
 
 if __name__ == '__main__':
-    results_dir = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'
+    results_dir = analyze_helper.best_results_dir
     for subject in ['S03', 'S02', 'S01']:
         # r = imodelsx.process_results.get_results_df(results_dir)
         r, cols_varied, mets = analyze_helper.load_clean_results(results_dir)

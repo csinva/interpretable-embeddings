@@ -105,7 +105,7 @@ if __name__ == '__main__':
     # cache_resps()
     for subject in ['UTS01', 'UTS02', 'UTS03']:  # 'UTS03',
         print(subject)
-        out_dir = join(feature_spaces.data_dir, 'fmri_resp_norms', subject)
+        out_dir = join(feature_spaces.resp_processing_dir, subject)
         os.makedirs(out_dir, exist_ok=True)
         # calc_decomp(out_dir, subject, subsample_input=2)
         # viz_decomp(out_dir)

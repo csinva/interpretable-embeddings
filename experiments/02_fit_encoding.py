@@ -312,13 +312,13 @@ if __name__ == "__main__":
 
         # coefs is (n_targets, n_features, n_alphas)
         if args.num_stories == 0:
-            cache_dir = join(config.root_dir, 'sparse_feats_all_subj')
+            cache_dir = join(config.root_dir, 'qa', 'sparse_feats_all_subj')
             alpha_range = (0, -3, 20)
             cache_file = join(cache_dir, args.qa_questions_version + '_' +
                               args.qa_embedding_model.replace('/', '-') + '_' + str(alpha_range) + '.joblib')
         else:
             # use hard-coded feature selection result from S03
-            cache_dir = join(config.root_dir, 'sparse_feats')
+            cache_dir = join(config.root_dir, 'qa', 'sparse_feats')
             alpha_range = (0, -3, 15)
             cache_file = join(
                 cache_dir, 'v3_boostexamples_mistralai-Mistral-7B-Instruct-v0.2_(0, -3, 15).joblib')

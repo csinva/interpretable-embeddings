@@ -7,6 +7,7 @@ environment:
   image: amlt-sing/acpt-2.2.1-py3.10-cuda12.1
   setup:
     - pip install -r requirements.txt --user
+    - pip install -e ridge_utils_frozen/
     - git clone https://github.com/csinva/imodelsX.git
     - pip install imodelsX/
     - pip install .

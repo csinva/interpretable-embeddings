@@ -53,7 +53,7 @@ def _save_flatmap(vals, subject, fname_save, clab):
 
 
 if __name__ == '__main__':
-    results_dir = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'
+    results_dir = analyze_helper.best_results_dir
     out_dir = join(path_to_repo, 'qa_results', 'diffs')
     os.makedirs(out_dir, exist_ok=True)
 

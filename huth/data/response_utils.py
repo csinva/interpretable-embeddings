@@ -1,11 +1,11 @@
-from huth.data.npp import mcorr
-from typing import List
-import json
+# from huth.data.npp import mcorr
+# from typing import List
+# import json
 from os.path import join, dirname
-from multiprocessing.pool import ThreadPool
+# from multiprocessing.pool import ThreadPool
 import h5py
 import pathlib
-import time
+# import time
 import os.path
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -16,16 +16,31 @@ import joblib
 import os
 import huth.features
 import huth.config as config
-import random
+# import random
+
+
+def load_response(stories, subject):
+    """Get the subject"s fMRI response for stories."""
+    main_path = pathlib.Path(__file__).parent.parent.resolve()
+    subject_dir = join(
+        config.root_dir, 'data', f"ds003020/derivative/preprocessed_data/{subject}")
+    base = os.path.join(main_path, subject_dir)
+    resp = []
+    for story in stories:
+        resp_path = os.path.join(base, f"{story}.hf5")
+        hf = h5py.File(resp_path, "r")
+        resp.extend(hf["data"][:])
+        hf.close()
+    return np.array(resp)
 
 
 def load_pca(subject, pc_components=None):
     if pc_components == 100:
-        pca_filename = join(config.root_dir, 'fmri_resp_norms',
+        pca_filename = join(config.resp_processing_dir,
                             subject, 'resps_pca_100.pkl')
         return joblib.load(pca_filename)
     else:
-        pca_filename = join(config.root_dir, 'fmri_resp_norms',
+        pca_filename = join(config.resp_processing_dir,
                             subject, 'resps_pca.pkl')
         pca = joblib.load(pca_filename)
         pca.components_ = pca.components_[
@@ -93,44 +108,29 @@ def get_resp_distilled(args, story_names):
     return preds_distilled
 
 
-def load_response(stories, subject):
-    """Get the subject"s fMRI response for stories."""
-    main_path = pathlib.Path(__file__).parent.parent.resolve()
-    subject_dir = join(
-        config.root_dir, f"ds003020/derivative/preprocessed_data/{subject}")
-    base = os.path.join(main_path, subject_dir)
-    resp = []
-    for story in stories:
-        resp_path = os.path.join(base, f"{story}.hf5")
-        hf = h5py.File(resp_path, "r")
-        resp.extend(hf["data"][:])
-        hf.close()
-    return np.array(resp)
+# def get_permuted_corrs(true, pred, blocklen):
+#     nblocks = int(true.shape[0] / blocklen)
+#     true = true[:blocklen*nblocks]
+#     block_index = np.random.choice(range(nblocks), nblocks)
+#     index = []
+#     for i in block_index:
+#         start, end = i*blocklen, (i+1)*blocklen
+#         index.extend(range(start, end))
+#     pred_perm = pred[index]
+#     nvox = true.shape[1]
+#     corrs = np.nan_to_num(mcorr(true, pred_perm))
+#     return corrs
 
 
-def get_permuted_corrs(true, pred, blocklen):
-    nblocks = int(true.shape[0] / blocklen)
-    true = true[:blocklen*nblocks]
-    block_index = np.random.choice(range(nblocks), nblocks)
-    index = []
-    for i in block_index:
-        start, end = i*blocklen, (i+1)*blocklen
-        index.extend(range(start, end))
-    pred_perm = pred[index]
-    nvox = true.shape[1]
-    corrs = np.nan_to_num(mcorr(true, pred_perm))
-    return corrs
-
-
-def permutation_test(true, pred, blocklen, nperms):
-    start_time = time.time()
-    pool = ThreadPool(processes=10)
-    perm_rsqs = pool.map(
-        lambda perm: get_permuted_corrs(true, pred, blocklen), range(nperms))
-    pool.close()
-    end_time = time.time()
-    print((end_time - start_time) / 60)
-    perm_rsqs = np.array(perm_rsqs).astype(np.float32)
-    real_rsqs = np.nan_to_num(mcorr(true, pred))
-    pvals = (real_rsqs <= perm_rsqs).mean(0)
-    return np.array(pvals), perm_rsqs, real_rsqs
+# def permutation_test(true, pred, blocklen, nperms):
+#     start_time = time.time()
+#     pool = ThreadPool(processes=10)
+#     perm_rsqs = pool.map(
+#         lambda perm: get_permuted_corrs(true, pred, blocklen), range(nperms))
+#     pool.close()
+#     end_time = time.time()
+#     print((end_time - start_time) / 60)
+#     perm_rsqs = np.array(perm_rsqs).astype(np.float32)
+#     real_rsqs = np.nan_to_num(mcorr(true, pred))
+#     pvals = (real_rsqs <= perm_rsqs).mean(0)
+#     return np.array(pvals), perm_rsqs, real_rsqs

@@ -14,6 +14,7 @@ import sys
 sys.path.append('../experiments')
 dvu.set_style()
 fit_encoding = __import__('02_fit_encoding')
+best_results_dir = '/home/chansingh/mntv1/deep-fMRI/qa/results/results_apr7'
 
 
 def load_results(save_dir):

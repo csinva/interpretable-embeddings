@@ -10,6 +10,7 @@ environment:
   # registry: docker.io
   setup:
     - pip install -r requirements.txt --user
+    - pip install -e ridge_utils_frozen/
     - git clone https://github.com/csinva/imodelsX.git
     - pip install imodelsX/
     - pip install .
