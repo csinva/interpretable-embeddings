@@ -34,7 +34,7 @@ def _save_flatmap(vals, subject, fname_save, clab):
     cortex.quickshow(vol,
                      with_rois=False,
                      with_labels=False,
-                     #  with_colorbar=True
+                     with_colorbar=False
                      )
     plt.savefig(fname_save)
     plt.close()

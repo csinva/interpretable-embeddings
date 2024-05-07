@@ -23,7 +23,7 @@ params_shared_dict = {
     'feature_space': ['qa_embedder-10'],
     'qa_embedding_model': ['ensemble1'],  # [MIST7B, LLAMA8B, 'ensemble1'],
     'qa_questions_version': ['v3_boostexamples'],  # 'v1', 'v2'
-    'ndelays': [1, 2, 3, 4, 6, 8],
+    # 'ndelays': [1, 2, 4, 8],
 }
 
 params_coupled_dict = {}
@@ -46,8 +46,8 @@ submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     # unique_seeds='seed_stories',
-    # amlt_kwargs=amlt_kwargs,
-    n_cpus=9,
+    amlt_kwargs=amlt_kwargs,
+    # n_cpus=9,
     # n_cpus=2,
     # actually_run=False,
     repeat_failed_jobs=True,

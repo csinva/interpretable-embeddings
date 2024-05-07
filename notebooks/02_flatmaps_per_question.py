@@ -85,52 +85,57 @@ def save_coefs_flatmaps(weights, df, out_dir, subject='S03', num_flatmaps=10):
 
 if __name__ == '__main__':
     results_dir = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'
-    subject = 'S03'
-    # r = imodelsx.process_results.get_results_df(results_dir)
-    r, cols_varied, mets = analyze_helper.load_clean_results(results_dir)
+    for subject in ['S03', 'S02', 'S01']:
+        # r = imodelsx.process_results.get_results_df(results_dir)
+        r, cols_varied, mets = analyze_helper.load_clean_results(results_dir)
+        r = r[r.distill_model_path.isna()]
+        r = r[~(r.feature_space == 'qa_embedder-25')]
+        r = r[r.pc_components == 100]
+        r = r[~((r.feature_space == 'qa_embedder-10') &
+                (r.qa_embedding_model != 'ensemble1'))]
 
-    # for version in ['v1', 'v2', 'v3', 'v4']:
-    for version in ['v3_boostexamples']:
-        print('Version', version)
-        args = r[(r.feature_space == 'qa_embedder-10') *
-                 #  (r.pc_components == -1) *
-                 (r.pc_components == 100) *
-                 (r.qa_embedding_model == 'mist-7B') *
-                 #  (r.qa_embedding_model == 'ensemble1') *
-                 (r.qa_questions_version == version) *
-                 (r.ndelays == 8) *
-                 (r.subject == subject)
-                 ]
-        # args0 = args.sort_values(by='corrs_tune_pc_mean',
-        # ascending=False).iloc[0]
-        print(args[['feature_selection_alpha_index',
-              'weight_enet_mask_num_nonzero']])
-        for feature_selection_alpha_index in sorted(args.feature_selection_alpha_index.unique(), reverse=False):
-            # for feature_selection_alpha_index in [-1]:
-            args0 = args[args.feature_selection_alpha_index ==
-                         feature_selection_alpha_index].iloc[0]
-            args_dict = {k: v for k, v in args0.to_dict().items(
-            ) if not isinstance(v, np.ndarray)}
+        # for version in ['v1', 'v2', 'v3', 'v4']:
+        for version in ['v3_boostexamples']:
+            print('Version', version)
+            args = r[(r.feature_space == 'qa_embedder-10') *
+                     #  (r.pc_components == -1) *
+                     (r.pc_components == 100) *
+                     #  (r.qa_embedding_model == 'mist-7B') *
+                     (r.qa_embedding_model == 'ensemble1') *
+                     (r.qa_questions_version == version) *
+                     (r.ndelays == 8) *
+                     (r.subject == subject)
+                     ]
+            # args0 = args.sort_values(by='corrs_tune_pc_mean',
+            # ascending=False).iloc[0]
+            print(args[['feature_selection_alpha_index',
+                        'weight_enet_mask_num_nonzero']])
+            for feature_selection_alpha_index in sorted(args.feature_selection_alpha_index.unique(), reverse=False):
+                # for feature_selection_alpha_index in [-1]:
+                args0 = args[args.feature_selection_alpha_index ==
+                             feature_selection_alpha_index].iloc[0]
+                args_dict = {k: v for k, v in args0.to_dict().items(
+                ) if not isinstance(v, np.ndarray)}
 
-            weights, weights_pc = get_weights_top(args0)
-            # emb_size x num_voxels
-            questions = qa_questions.get_questions(version, full=True)
-            if isinstance(args0.weight_enet_mask, np.ndarray):
-                questions = np.array(questions)[args0.weight_enet_mask]
+                weights, weights_pc = get_weights_top(args0)
+                # emb_size x num_voxels
+                questions = qa_questions.get_questions(version, full=True)
+                if isinstance(args0.weight_enet_mask, np.ndarray):
+                    questions = np.array(questions)[args0.weight_enet_mask]
 
-            # save stuff
-            out_dir = join(path_to_repo, 'qa_results', subject, version +
-                           f'_num={len(questions)}')
-            os.makedirs(out_dir, exist_ok=True)
-            json.dump(args_dict, open(
-                join(out_dir, 'meta.json'), 'w'), indent=2)
-            df = save_coefs_csv(
-                weights_pc, out_dir,
-                version=version,
-                questions=questions)
+                # save stuff
+                out_dir = join(path_to_repo, 'qa_results', subject, version +
+                               f'_num={len(questions)}')
+                os.makedirs(out_dir, exist_ok=True)
+                json.dump(args_dict, open(
+                    join(out_dir, 'meta.json'), 'w'), indent=2)
+                df = save_coefs_csv(
+                    weights_pc, out_dir,
+                    version=version,
+                    questions=questions)
 
-            # cap at 30 (weights is emb_size x num_voxels)
-            num_flatmaps = min(len(questions), 30)
-            joblib.dump(weights[:30], join(out_dir, 'weights.pkl'))
-            save_coefs_flatmaps(weights, df, out_dir,
-                                subject=subject, num_flatmaps=num_flatmaps)
+                # cap at 30 (weights is emb_size x num_voxels)
+                num_flatmaps = min(len(questions), 40)
+                joblib.dump(weights, join(out_dir, 'weights.pkl'))
+                save_coefs_flatmaps(weights[:40], df, out_dir,
+                                    subject=subject, num_flatmaps=num_flatmaps)

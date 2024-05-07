@@ -100,6 +100,11 @@ if __name__ == "__main__":
         args, args.qa_embedding_model, story_names=story_names_test)
     stim_train_delayed = _normalize_columns_for_corr(stim_train_delayed)
     stim_test_delayed = _normalize_columns_for_corr(stim_test_delayed)
+    # duplicate simulus with negative sign and concatenate
+    stim_train_delayed = np.concatenate(
+        [stim_train_delayed, -stim_train_delayed], axis=1)
+    stim_test_delayed = np.concatenate(
+        [stim_test_delayed, -stim_test_delayed], axis=1)
     print('num_trs_train',
           stim_train_delayed.shape[0], 'num_trs_test', stim_test_delayed.shape[0])
 
@@ -115,7 +120,7 @@ if __name__ == "__main__":
     corrs_train = stim_train_delayed.T @ resp_train
 
     # select best question for each voxel
-    qs_selected = np.abs(corrs_train).argmax(axis=0)
+    qs_selected = corrs_train.argmax(axis=0)
     corrs_train_selected = corrs_train[
         qs_selected, np.arange(corrs_train.shape[1])]
     corrs_test_selected = corrs_test[
@@ -127,11 +132,11 @@ if __name__ == "__main__":
         'qs_selected': qs_selected,
         'corrs_train_selected': corrs_train_selected,
         'corrs_test_selected': corrs_test_selected,
-        'corrs_train_selected_mean_abs': np.abs(corrs_train_selected).mean(),
-        'corrs_test_selected_mean_abs': np.abs(corrs_test_selected).mean(),
-        'corrs_test_mean_abs_baseline': np.abs(corrs_test).mean(),
+        'corrs_train_selected_mean': corrs_train_selected.mean(),
+        'corrs_test_selected_mean': corrs_test_selected.mean(),
+        'corrs_test_mean_baseline': corrs_test.mean(),
     })
-    print('corrs_test_selected_mean_abs', r['corrs_test_selected_mean_abs'])
+    print('corrs_test_selected_mean', r['corrs_test_selected_mean'])
 
     # save results
     os.makedirs(save_dir_unique, exist_ok=True)
