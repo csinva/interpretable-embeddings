@@ -11,33 +11,16 @@ import ridge_utils.features.qa_questions as qa_questions
 from ridge_utils.data.data_sequence import DataSequence
 from typing import Dict, List
 from tqdm import tqdm
-from ridge_utils.data.interp_data import lanczosinterp2D, expinterp2D, kernel_density_interp2D, nearest_neighbor_interp2D
+from ridge_utils.data.interp_data import lanczosinterp2D, expinterp2D
 from ridge_utils.data.semantic_model import SemanticModel
-from ridge_utils.data.utils_ds import apply_model_to_words, make_word_ds, make_phoneme_ds
-from ridge_utils.data.utils_stim import load_textgrids, load_simulated_trfiles
+from ridge_utils.data.utils_ds import apply_model_to_words
+
 from transformers import pipeline
 import logging
 import imodelsx.llm
 from ridge_utils.features.qa_embedder import QuestionEmbedder, FinetunedQAEmbedder
-from ridge_utils.config import repo_dir, nlp_utils_dir, em_data_dir, data_dir, results_dir, cache_embs_dir
-
-
-def get_story_wordseqs(stories) -> Dict[str, DataSequence]:
-    grids = load_textgrids(stories, data_dir)
-    with open(join(data_dir, "ds003020/derivative/respdict.json"), "r") as f:
-        respdict = json.load(f)
-    trfiles = load_simulated_trfiles(respdict)
-    wordseqs = make_word_ds(grids, trfiles)
-    return wordseqs
-
-
-def get_story_phonseqs(stories):
-    grids = load_textgrids(stories, data_dir)
-    with open(join(data_dir, "ds003020/derivative/respdict.json"), "r") as f:
-        respdict = json.load(f)
-    trfiles = load_simulated_trfiles(respdict)
-    wordseqs = make_phoneme_ds(grids, trfiles)
-    return wordseqs
+import ridge_utils.config as config
+from ridge_utils.features.stim_utils import load_story_wordseqs
 
 
 def downsample_word_vectors(stories, word_vectors, wordseqs, strategy='lanczos'):
@@ -66,46 +49,22 @@ def downsample_word_vectors(stories, word_vectors, wordseqs, strategy='lanczos')
                 newtime=wordseqs[story].tr_times,  # timing of the new data
                 theta=1
             )
-            # downsampled_semanticseqs[story] = kernel_density_interp2D(
-            #     word_vectors[story],
-            #     oldtime=wordseqs[story].data_times,  # timing of the old data
-            #     newtime=wordseqs[story].tr_times,  # timing of the new data
-            #     bandwidth=0.1
-            # )
-            # downsampled_semanticseqs[story] = nearest_neighbor_interp2D(
-            #     word_vectors[story],
-            #     oldtime=wordseqs[story].data_times,  # timing of the old data
-            #     newtime=wordseqs[story].tr_times,  # timing of the new data
-            # )
         else:
             raise ValueError(f"Strategy {strategy} not recognized")
     return downsampled_semanticseqs
 
 
-def ph_to_articulate(ds, ph_2_art):
-    """ Following make_phoneme_ds converts the phoneme DataSequence object to an
-    articulate Datasequence for each grid.
-    """
-    articulate_ds = []
-    for ph in ds:
-        try:
-            articulate_ds.append(ph_2_art[ph])
-        except:
-            articulate_ds.append([""])
-    return articulate_ds
-
-
 def get_wordrate_vectors(allstories, downsample=True, **kwargs):
     """Get wordrate vectors for specified stories.
+    Params
+    ------
+    allstories: List of stories to obtain vectors for.
 
-    Args:
-            allstories: List of stories to obtain vectors for.
-
-    Returns:
-            Dictionary of {story: downsampled vectors}
+    Returns
+    -------
+    Dictionary of {story: downsampled vectors}
     """
-    eng1000 = SemanticModel.load(join(em_data_dir, "english1000sm.hf5"))
-    wordseqs = get_story_wordseqs(allstories)
+    wordseqs = load_story_wordseqs(allstories)
     vectors = {}
     for story in allstories:
         nwords = len(wordseqs[story].data)
@@ -125,8 +84,8 @@ def get_eng1000_vectors(allstories, downsample='lanczos', **kwargs):
     Returns:
             Dictionary of {story: downsampled vectors}
     """
-    eng1000 = SemanticModel.load(join(em_data_dir, "english1000sm.hf5"))
-    wordseqs = get_story_wordseqs(allstories)
+    eng1000 = SemanticModel.load(join(config.em_data_dir, "english1000sm.hf5"))
+    wordseqs = load_story_wordseqs(allstories)
     vectors = {}
     for story in allstories:
         sm = apply_model_to_words(wordseqs[story], eng1000, 985)
@@ -137,22 +96,22 @@ def get_eng1000_vectors(allstories, downsample='lanczos', **kwargs):
         return allstories, vectors, wordseqs
 
 
-def get_glove_vectors(allstories, **kwargs):
-    """Get glove vectors (300-d) for specified stories.
+# def get_glove_vectors(allstories, **kwargs):
+#     """Get glove vectors (300-d) for specified stories.
 
-    Args:
-            allstories: List of stories to obtain vectors for.
+#     Args:
+#             allstories: List of stories to obtain vectors for.
 
-    Returns:
-            Dictionary of {story: downsampled vectors}
-    """
-    glove = SemanticModel.load_np(join(nlp_utils_dir, 'glove'))
-    wordseqs = get_story_wordseqs(allstories)
-    vectors = {}
-    for story in allstories:
-        sm = apply_model_to_words(wordseqs[story], glove, 300)
-        vectors[story] = sm.data
-    return downsample_word_vectors(allstories, vectors, wordseqs)
+#     Returns:
+#             Dictionary of {story: downsampled vectors}
+#     """
+#     glove = SemanticModel.load_np(join(nlp_utils_dir, 'glove'))
+#     wordseqs = get_story_wordseqs(allstories)
+#     vectors = {}
+#     for story in allstories:
+#         sm = apply_model_to_words(wordseqs[story], glove, 300)
+#         vectors[story] = sm.data
+#     return downsample_word_vectors(allstories, vectors, wordseqs)
 
 
 def get_embs_from_text_list(text_list: List[str], embedding_function) -> List[np.ndarray]:
@@ -286,7 +245,7 @@ def get_llm_vectors(
     assert not (
         num_trs_context and num_secs_context_per_word), 'num_trs_context and num_secs_context_per_word are mutually exclusive'
     logging.info(f'getting wordseqs..')
-    wordseqs = get_story_wordseqs(allstories)
+    wordseqs = load_story_wordseqs(allstories)
     vectors = {}
     ngrams_list_dict = {}
     embedding_model = None  # only initialize if needed
@@ -306,7 +265,7 @@ def get_llm_vectors(
             args_cache['layer_idx'] = layer_idx
         cache_hash = sha256(args_cache)
         cache_file = join(
-            cache_embs_dir, qa_questions_version, checkpoint.replace('/', '_'), f'{cache_hash}.jl')
+            config.cache_embs_dir, qa_questions_version, checkpoint.replace('/', '_'), f'{cache_hash}.jl')
         loaded_from_cache = False
         if os.path.exists(cache_file) and use_cache:
             logging.info(
@@ -376,7 +335,7 @@ def get_llm_vectors(
 _FEATURE_VECTOR_FUNCTIONS = {
     "wordrate": get_wordrate_vectors,
     "eng1000": get_eng1000_vectors,
-    'glove': get_glove_vectors,
+    # 'glove': get_glove_vectors,
 }
 _FEATURE_CHECKPOINTS = {
     'qa_embedder': 'qa_embedder',

@@ -1,7 +1,6 @@
 from collections import defaultdict
 import os.path
-import pandas as pd
-from sklearn.linear_model import MultiTaskElasticNetCV, enet_path
+from sklearn.linear_model import enet_path
 from copy import deepcopy
 import torch
 import random
@@ -14,7 +13,6 @@ import joblib
 import os
 from ridge_utils.data import response_utils
 from ridge_utils.features import feature_utils
-from ridge_utils.config import data_dir
 import ridge_utils.config as config
 from ridge_utils.encoding.ridge import bootstrap_ridge, gen_temporal_chunk_splits
 import imodelsx.cache_save_utils
@@ -314,13 +312,13 @@ if __name__ == "__main__":
 
         # coefs is (n_targets, n_features, n_alphas)
         if args.num_stories == 0:
-            cache_dir = join(config.repo_dir, 'sparse_feats_all_subj')
+            cache_dir = join(config.root_dir, 'sparse_feats_all_subj')
             alpha_range = (0, -3, 20)
             cache_file = join(cache_dir, args.qa_questions_version + '_' +
                               args.qa_embedding_model.replace('/', '-') + '_' + str(alpha_range) + '.joblib')
         else:
             # use hard-coded feature selection result from S03
-            cache_dir = join(config.repo_dir, 'sparse_feats')
+            cache_dir = join(config.root_dir, 'sparse_feats')
             alpha_range = (0, -3, 15)
             cache_file = join(
                 cache_dir, 'v3_boostexamples_mistralai-Mistral-7B-Instruct-v0.2_(0, -3, 15).joblib')

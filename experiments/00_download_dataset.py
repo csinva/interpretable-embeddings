@@ -7,18 +7,18 @@ import pathlib
 import argparse
 
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser()
-	args = parser.parse_args()
+    parser = argparse.ArgumentParser()
+    args = parser.parse_args()
 
-	current_path = pathlib.Path(__file__).parent.resolve()
-	main_dir = pathlib.Path(__file__).parent.parent.resolve()
-	data_dir = os.path.join(main_dir, "data")
+    current_path = pathlib.Path(__file__).parent.resolve()
+    main_dir = pathlib.Path(__file__).parent.parent.resolve()
+    data_dir = os.path.join(main_dir, "data")
 
-	os.chdir(main_dir)
-	if not os.path.isdir(data_dir):               
-		os.system("mkdir data")
-		data_dir = os.path.join(main_dir, "data")
-	os.chdir(data_dir)
-	os.system("datalad clone https://github.com/OpenNeuroDatasets/ds003020")
-	os.chdir("ds003020")
-	os.system("datalad get derivative")
+    os.chdir(main_dir)
+    if not os.path.isdir(data_dir):
+        os.system("mkdir data")
+        data_dir = os.path.join(main_dir, "data")
+    os.chdir(data_dir)
+    os.system("datalad clone https://github.com/OpenNeuroDatasets/ds003020")
+    os.chdir("ds003020")
+    os.system("datalad get derivative")

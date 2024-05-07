@@ -2,7 +2,7 @@ from sklearn.decomposition import PCA, NMF, FastICA, DictionaryLearning
 import numpy as np
 import pickle as pkl
 import ridge_utils.features.feature_spaces as feature_spaces
-import ridge_utils.data.encoding_utils as encoding_utils
+from ridge_utils.data import response_utils
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import sys
@@ -25,7 +25,7 @@ path_to_file = os.path.dirname(os.path.abspath(__file__))
 def calc_decomp(out_dir, subject, subsample_input=None):
     print('loading responses...')
     train_stories = story_names.get_story_names(subject, 'train')
-    zRresp = encoding_utils.get_response(
+    zRresp = response_utils.get_response(
         train_stories, subject)  # shape (27449, 95556)
     print('num nans', np.sum(np.isnan(zRresp)))
     # fill nan with mean
@@ -97,7 +97,7 @@ def viz_decomp(out_dir):
 def save_mini_pca(out_dir, pc_components=100):
     pca = joblib.load(join(out_dir, 'resps_pca.pkl'))
     pca.components_ = pca.components_[
-        :pc_components]
+        : pc_components]
     joblib.dump(pca, join(out_dir, f'resps_pca_{pc_components}.pkl'))
 
 

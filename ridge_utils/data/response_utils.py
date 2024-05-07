@@ -1,4 +1,3 @@
-from ridge_utils.features.feature_spaces import repo_dir, data_dir, em_data_dir
 from ridge_utils.data.npp import mcorr
 from typing import List
 import json
@@ -15,17 +14,18 @@ import logging
 import numpy as np
 import joblib
 import os
-from ridge_utils.config import data_dir
+import ridge_utils.features
+import ridge_utils.config as config
 import random
 
 
 def load_pca(subject, pc_components=None):
     if pc_components == 100:
-        pca_filename = join(data_dir, 'fmri_resp_norms',
+        pca_filename = join(config.root_dir, 'fmri_resp_norms',
                             subject, 'resps_pca_100.pkl')
         return joblib.load(pca_filename)
     else:
-        pca_filename = join(data_dir, 'fmri_resp_norms',
+        pca_filename = join(config.root_dir, 'fmri_resp_norms',
                             subject, 'resps_pca.pkl')
         pca = joblib.load(pca_filename)
         pca.components_ = pca.components_[
@@ -87,37 +87,21 @@ def get_resp_distilled(args, story_names):
 
     model_params = joblib.load(
         join(args.distill_model_path, 'model_params.pkl'))
-    features_delayed_distill = get_features_full(
+    features_delayed_distill = ridge_utils.features.get_features_full(
         args_distill, args_distill.qa_embedding_model, story_names)
     preds_distilled = features_delayed_distill @ model_params['weights_pc']
     return preds_distilled
-
-
-def get_allstories(sessions=[1, 2, 3, 4, 5]) -> List[str]:
-    sessions = list(map(str, sessions))
-    with open(join(em_data_dir, "sess_to_story.json"), "r") as f:
-        sess_to_story = json.load(f)
-    train_stories, test_stories = [], []
-    for sess in sessions:
-        stories, tstory = sess_to_story[sess][0], sess_to_story[sess][1]
-        train_stories.extend(stories)
-        if tstory not in test_stories:
-            test_stories.append(tstory)
-    assert len(set(train_stories) & set(test_stories)
-               ) == 0, "Train - Test overlap!"
-    allstories = list(set(train_stories) | set(test_stories))
-    return train_stories, test_stories, allstories
 
 
 def load_response(stories, subject):
     """Get the subject"s fMRI response for stories."""
     main_path = pathlib.Path(__file__).parent.parent.resolve()
     subject_dir = join(
-        data_dir, "ds003020/derivative/preprocessed_data/%s" % subject)
+        config.root_dir, f"ds003020/derivative/preprocessed_data/{subject}")
     base = os.path.join(main_path, subject_dir)
     resp = []
     for story in stories:
-        resp_path = os.path.join(base, "%s.hf5" % story)
+        resp_path = os.path.join(base, f"{story}.hf5")
         hf = h5py.File(resp_path, "r")
         resp.extend(hf["data"][:])
         hf.close()

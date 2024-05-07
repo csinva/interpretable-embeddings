@@ -1,18 +1,28 @@
-import os
 import numpy as np
+import ridge_utils.config as config
+from ridge_utils.data.textgrid import TextGrid
+from ridge_utils.data.data_sequence import DataSequence
+from ridge_utils.data.utils_ds import make_word_ds
+import json
+from typing import Dict, List
+import os
 from os.path import join, dirname
 
-from ridge_utils.data.textgrid import TextGrid
 
-
-def load_textgrids(stories, data_dir: str):
-    """ TODO (shailee): Add description."""
-    base = join(data_dir, "ds003020/derivative/TextGrids")
+def load_story_wordseqs(stories) -> Dict[str, DataSequence]:
+    # load textgrids
+    base = join(config.root_dir, "ds003020/derivative/TextGrids")
     grids = {}
     for story in stories:
-        grid_path = os.path.join(base, "%s.TextGrid" % story)
+        grid_path = os.path.join(base, f"{story}.TextGrid")
         grids[story] = TextGrid(open(grid_path).read())
-    return grids
+
+    # make into wordseqs
+    with open(join(config.root_dir, "ds003020/derivative/respdict.json"), "r") as f:
+        respdict = json.load(f)
+    trfiles = load_simulated_trfiles(respdict)
+    wordseqs = make_word_ds(grids, trfiles)
+    return wordseqs
 
 
 class TRFile(object):

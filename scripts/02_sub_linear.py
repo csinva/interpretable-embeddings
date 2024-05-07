@@ -22,9 +22,9 @@ params_shared_dict = {
     'nboots': [5],
     'use_test_setup': [0],
     'encoding_model': ['ridge'],
-    # 'subject': ['UTS03'],
+    'subject': ['UTS03'],
     # 'subject': ['UTS02'],
-    'subject': ['UTS01', 'UTS02', 'UTS03'],
+    # 'subject': ['UTS01', 'UTS02', 'UTS03'],
     # 'distill_model_path': [BEST_RUN],
     'save_dir': ['/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7'],
     # 'ndelays': [4, 8, 12],
@@ -32,9 +32,9 @@ params_shared_dict = {
     'pc_components': [100],
 
     # feature selection...
-    # 'num_stories': [0],  # this is used to get shared stories, only u
-    # 'feature_selection_alpha_index': [1],
-    'feature_selection_alpha_index': range(2, 10),
+    'num_stories': [0],  # this is used to get shared stories, only u
+    'feature_selection_alpha_index': [1],
+    # 'feature_selection_alpha_index': range(2, 10),
     # 'feature_selection_alpha_index': range(3, 11),
 
     # local
@@ -46,12 +46,10 @@ params_shared_dict = {
 params_coupled_dict = {
     ('feature_space', 'qa_questions_version', 'qa_embedding_model'): [
         # new
-        # ('bert-10', 'v1', MIST7B),
-        # ('eng1000', 'v1', MIST7B), # need to rerun sparsity for this...
-        # ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
-
-        # old
-        # ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
+        ('bert-10', 'v1', MIST7B),
+        ('eng1000', 'v1', MIST7B),  # need to rerun sparsity for this...
+        # run this with num_stories not 0 for old
+        ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
     ],
 }
 # Args list is a list of dictionaries
@@ -72,8 +70,8 @@ script_name = join(repo_dir, 'experiments', '02_fit_encoding.py')
 amlt_kwargs = {
     'amlt_file': join(repo_dir, 'scripts', 'launch_cpu.yaml'),
     # E4ads_v5 (30 GB), E8ads_v5 (56 GB), E16ads_v5 (120GB), E32ads_v5 (240GB), E64ads_v5 (480 GB)
-    # 'sku': 'E64ads_v5',
-    'sku': 'E32ads_v5',
+    'sku': 'E64ads_v5',
+    # 'sku': 'E32ads_v5',
     'mnt_rename': ('/home/chansingh/mntv1', '/mntv1'),
 }
 submit_utils.run_args_list(
@@ -81,7 +79,7 @@ submit_utils.run_args_list(
     script_name=script_name,
     # unique_seeds='seed_stories',
     amlt_kwargs=amlt_kwargs,
-    n_cpus=9,
+    # n_cpus=9,
     # n_cpus=2,
     # gpu_ids=[0, 1],
     # gpu_ids=[0, 1, 2, 3],

@@ -9,7 +9,7 @@ import pandas as pd
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, AdamW, AutoModel
 import torch
 from torch import nn
-from ridge_utils.config import repo_dir
+from ridge_utils.config import root_dir
 # from vllm import LLM, SamplingParams
 # import torch
 
@@ -54,7 +54,7 @@ class FinetunedQAEmbedder:
         }
         self.question_idxs = question_idxs[qa_questions_version]
 
-        state_dict = torch.load(join(repo_dir, 'finetune', f'{checkpoint}.pt'))
+        state_dict = torch.load(join(root_dir, 'finetune', f'{checkpoint}.pt'))
         self.model.load_state_dict(state_dict)
         self.model = torch.nn.DataParallel(self.model).to('cuda')
 

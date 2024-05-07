@@ -1,5 +1,4 @@
 from ridge_utils.features.qa_embedder import MutiTaskClassifier
-import ridge_utils.features.qa_embedder as qa_embedder
 import os
 import pandas as pd
 from os.path import join
@@ -10,7 +9,7 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader
 from torch.optim import AdamW
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, AdamW, AutoModel
+from transformers import AutoTokenizer, AdamW
 from torch.utils.data import Dataset
 from collections import defaultdict
 import sys
