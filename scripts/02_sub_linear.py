@@ -14,7 +14,6 @@ LLAMA8B = 'meta-llama/Meta-Llama-3-8B-Instruct'
 LLAMA8B_fewshot = 'meta-llama/Meta-Llama-3-8B-Instruct-fewshot'
 LLAMA70B_fewshot = 'meta-llama/Meta-Llama-3-70B-Instruct-fewshot2'
 # (llama2-70B_lay24-10, 4 delays)
-BEST_RUN = '/home/chansingh/mntv1/deep-fMRI/encoding/results_apr7/68936a10a548e2b4ce895d14047ac49e7a56c3217e50365134f78f990036c5f7'
 
 params_shared_dict = {
     # things to average over

@@ -10,7 +10,6 @@ required_pypi = [
     'numpy',
     'scikit-learn',
     'pandas',
-    # 'ridge_utils',  # for data loading
     'tqdm',
     'dict_hash',  # required for caching
     'transformers',
@@ -26,15 +25,13 @@ required_pypi = [
 ]
 
 setuptools.setup(
-    # name="huth",
-    name="huth",
+    name="src",
     version="0.01",
-    author="Huth lab modified by Chandan Singh",
+    author="",
     author_email="",
     description="",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/csinva/fmri",
     packages=setuptools.find_packages(
         exclude=['tests', 'tests.*', '*.test.*']
     ),

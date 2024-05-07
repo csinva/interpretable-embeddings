@@ -14,15 +14,6 @@
 
 # Code install
 - from the repo directory, start with `pip install -e .` to locally install the `huth` package
-  - follow with `pip install -e ridge_utils_frozen to install `ridge_utils` from the 
 - `python 01_fit_encoding.py --subject UTS03 --feature eng1000`
     - The other optional parameters that encoding.py takes such as sessions, ndelays, single_alpha allow the user to change the amount of data and regularization aspects of the linear regression used. 
     - This function will then save model performance metrics and model weights as numpy arrays. 
-
-# deep-fMRI-dataset
-Code accompanying data release of natural language listening data from 5 fMRI sessions for each of 8 subjects (LeBel et al.) that can be found at [openneuro](https://openneuro.org/datasets/ds003020).
-
-# Reference
-- builds off https://github.com/HuthLab/deep-fMRI-dataset. See that wonderful repo for up-to-date code!
-- This repo copies a lot of code from[encoding-model-scaling-laws](https://github.com/HuthLab/encoding-model-scaling-laws/tree/main), which is the repo for the paper "Scaling laws for language encoding models in fMRI" ([antonello, vaidya, & huth, 2023](https://github.com/HuthLab/encoding-model-scaling-laws/tree/main?tab=readme-ov-file)). See the cool results there!
-- It also copies a lot of code from the repo for [SASC](https://github.com/microsoft/automated-explanations/tree/main).
