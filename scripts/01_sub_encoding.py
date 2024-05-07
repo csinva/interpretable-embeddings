@@ -30,7 +30,7 @@ params_shared_dict = {
     'ndelays': [8],
 
     # cluster
-    # 'seed_stories': range(10),
+    'seed_stories': range(10),
     'pc_components': [100],
     # 'ndelays': [4],
 
@@ -71,9 +71,9 @@ params_coupled_dict = {
 
 
         # ensemble
-        ('qa_embedder-10', 'v1', 'ensemble1'),
-        ('qa_embedder-10', 'v2', 'ensemble1'),
-        ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
+        # ('qa_embedder-10', 'v1', 'ensemble1'),
+        # ('qa_embedder-10', 'v2', 'ensemble1'),
+        # ('qa_embedder-10', 'v3_boostexamples', 'ensemble1'),
         # ('qa_embedder-10', 'v3', 'ensemble1'),
         # ('qa_embedder-10', 'v4_boostexamples', 'ensemble1'),
         # ('qa_embedder-10', 'v4', 'ensemble1'),
@@ -100,7 +100,7 @@ params_coupled_dict = {
         # ('qa_embedder-10', 'v1', LLAMA8B_fewshot),
         # ('qa_embedder-10', 'v2', LLAMA8B_fewshot),
         # ('qa_embedder-10', 'v3', LLAMA8B_fewshot),
-        # ('qa_embedder-10', 'v4', LLAMA8B_fewshot),
+        ('qa_embedder-10', 'v4', LLAMA8B_fewshot),
         # ('qa_embedder-10', 'v4_boostexamples', LLAMA8B_fewshot),
         # ('qa_embedder-10', 'v3_boostexamples', LLAMA8B_fewshot),
         # ('qa_embedder-10', 'v1', LLAMA70B),
@@ -141,8 +141,8 @@ submit_utils.run_args_list(
     args_list,
     script_name=script_name,
     unique_seeds='seed_stories',
-    # amlt_kwargs=amlt_kwargs,
-    amlt_kwargs=amlt_kwargs_cpu,
+    amlt_kwargs=amlt_kwargs,
+    # amlt_kwargs=amlt_kwargs_cpu,
     # n_cpus=9,
     # n_cpus=3,
     # gpu_ids=[0, 1],

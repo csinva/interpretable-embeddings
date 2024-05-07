@@ -1,4 +1,4 @@
-from ridge_utils.data.response_utils import load_pca
+from huth.data.response_utils import load_pca
 import imodelsx.process_results
 import viz
 import dvu
@@ -70,7 +70,8 @@ def load_clean_results(results_dir, experiment_filename='../experiments/02_fit_e
 
 
 def add_corrs_tune_pc_weighted(r):
-    r['corrs_tune_pc_weighted_mean'] = np.nan
+    if not 'corrs_tune_pc_weighted_mean' in r.columns:
+        r['corrs_tune_pc_weighted_mean'] = np.nan
     for subject in ['S01', 'S02', 'S03']:
         pca = load_pca('UT' + subject, pc_components=100)
         explained_var_weight = pca.explained_variance_[:100]
