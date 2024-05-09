@@ -1,10 +1,10 @@
 from copy import deepcopy
 import torch
 import numpy as np
-import huth.features.feature_spaces as feature_spaces
+import neuro1.features.feature_spaces as feature_spaces
 import os
-import huth.features.qa_questions as qa_questions
-from huth.data.npp import zscore
+import neuro1.features.qa_questions as qa_questions
+from neuro1.data.npp import zscore
 
 
 def trim_and_normalize_features(downsampled_feat, trim=5, normalize=True):

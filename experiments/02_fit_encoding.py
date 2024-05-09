@@ -11,15 +11,15 @@ import argparse
 import numpy as np
 import joblib
 import os
-from huth.data import response_utils
-from huth.features import feature_utils
-import huth.config as config
-from huth.encoding.ridge import bootstrap_ridge, gen_temporal_chunk_splits
+from neuro1.data import response_utils
+from neuro1.features import feature_utils
+import neuro1.config as config
+from neuro1.encoding.ridge import bootstrap_ridge, gen_temporal_chunk_splits
 import imodelsx.cache_save_utils
-import huth.data.story_names as story_names
+import neuro1.data.story_names as story_names
 import random
 import time
-from huth.encoding.eval import nancorr, evaluate_pc_model_on_each_voxel, add_summary_stats
+from neuro1.encoding.eval import nancorr, evaluate_pc_model_on_each_voxel, add_summary_stats
 
 # get path to current file
 path_to_repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

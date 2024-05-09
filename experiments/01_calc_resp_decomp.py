@@ -1,14 +1,14 @@
 from sklearn.decomposition import PCA, NMF, FastICA, DictionaryLearning
 import numpy as np
 import pickle as pkl
-import huth.features.feature_spaces as feature_spaces
-from huth.data import response_utils
+import neuro1.features.feature_spaces as feature_spaces
+from neuro1.data import response_utils
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import sys
 from os.path import join
 import os
-import huth.data.story_names as story_names
+import neuro1.data.story_names as story_names
 import joblib
 path_to_file = os.path.dirname(os.path.abspath(__file__))
 

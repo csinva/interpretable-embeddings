@@ -1,8 +1,8 @@
 import re
 import json
-from huth.features.questions.qa_questions_base import *
-from huth.features.questions.qa_questions_data_boost import *
-from huth.features.questions.qa_questions_llama_boost import *
+from neuro1.features.questions.qa_questions_base import *
+from neuro1.features.questions.qa_questions_data_boost import *
+from neuro1.features.questions.qa_questions_llama_boost import *
 from os.path import join, dirname
 path_to_file = dirname(__file__)
 

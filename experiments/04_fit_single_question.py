@@ -7,13 +7,13 @@ import numpy as np
 import joblib
 import os.path
 import imodelsx.cache_save_utils
-import huth.features.qa_questions
+import neuro1.features.qa_questions
 import joblib
-from huth.features import feature_utils
-from huth.data.response_utils import get_resps_full
+from neuro1.features import feature_utils
+from neuro1.data.response_utils import get_resps_full
 from tqdm import tqdm
 
-import huth.data.story_names
+import neuro1.data.story_names
 path_to_repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # initialize args
@@ -78,9 +78,9 @@ if __name__ == "__main__":
         logger.info("\t" + k + " " + str(vars(args)[k]))
     logging.info(f"\n\n\tsaving to " + save_dir_unique + "\n")
 
-    story_names_train = huth.data.story_names.get_story_names(
+    story_names_train = neuro1.data.story_names.get_story_names(
         args.subject, train_or_test='train')
-    story_names_test = huth.data.story_names.get_story_names(
+    story_names_test = neuro1.data.story_names.get_story_names(
         args.subject, train_or_test='test')
 
     def _normalize_columns_for_corr(mat):

@@ -4,12 +4,12 @@ from typing import List
 from os.path import join, expanduser, dirname
 from tqdm import tqdm
 import imodelsx.llm
-import huth.features.qa_questions as qa_questions
+import neuro1.features.qa_questions as qa_questions
 import pandas as pd
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, AdamW, AutoModel
 import torch
 from torch import nn
-from huth.config import root_dir
+from neuro1.config import root_dir
 # from vllm import LLM, SamplingParams
 # import torch
 

@@ -1,8 +1,8 @@
 import numpy as np
-import huth.config as config
-from huth.data.textgrid import TextGrid
-from huth.data.data_sequence import DataSequence
-from huth.data.utils_ds import make_word_ds
+import neuro1.config as config
+from neuro1.data.textgrid import TextGrid
+from neuro1.data.data_sequence import DataSequence
+from neuro1.data.utils_ds import make_word_ds
 import json
 from typing import Dict, List
 import os

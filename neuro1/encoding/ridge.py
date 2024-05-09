@@ -1,6 +1,6 @@
 import numpy as np
 import logging
-from huth.data.utils import mult_diag, counter
+from neuro1.data.utils import mult_diag, counter
 import random
 import itertools as itools
 

@@ -1,6 +1,6 @@
 import numpy as np
 import itertools as itools
-from huth.data.interp_data import sincinterp2D, gabor_xfm2D, lanczosinterp2D
+from neuro1.data.interp_data import sincinterp2D, gabor_xfm2D, lanczosinterp2D
 
 
 class DataSequence(object):

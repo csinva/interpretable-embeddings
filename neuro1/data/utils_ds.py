@@ -1,5 +1,5 @@
 import numpy as np
-from huth.data.data_sequence import DataSequence
+from neuro1.data.data_sequence import DataSequence
 
 DEFAULT_BAD_WORDS = frozenset(
     ["sentence_start", "sentence_end", "br", "lg", "ls", "ns", "sp"])

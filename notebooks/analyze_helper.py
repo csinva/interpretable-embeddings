@@ -1,4 +1,4 @@
-from huth.data.response_utils import load_pca
+from neuro1.data.response_utils import load_pca
 import imodelsx.process_results
 import viz
 import dvu

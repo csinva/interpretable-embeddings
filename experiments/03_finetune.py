@@ -1,4 +1,4 @@
-from huth.features.qa_embedder import MutiTaskClassifier
+from neuro1.features.qa_embedder import MutiTaskClassifier
 import os
 import pandas as pd
 from os.path import join

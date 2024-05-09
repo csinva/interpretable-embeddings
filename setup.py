@@ -25,7 +25,7 @@ required_pypi = [
 ]
 
 setuptools.setup(
-    name="src",
+    name="neuro1",
     version="0.01",
     author="",
     author_email="",
