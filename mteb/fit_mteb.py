@@ -37,7 +37,12 @@ def hash_data(data):
     return hashlib.md5(json.dumps(data, sort_keys=True).encode('utf-8')).hexdigest()
 
 
-def process_queries(queries, queries_data, X, tsv_file, vectorizer,  lr=None, append_coeff=None, indices=None, embeddings=None, use_only_query_embeddings=False):
+def process_queries(
+        queries, queries_data, corpus_embeddings, tsv_file, vectorizer,
+        lr=None, append_coeff=None, indices=None, embeddings=None, use_only_query_embeddings=False):
+    '''Compute cosine similarity
+
+    '''
     correct_matches = 0
     query_results = {}
     for i, query in enumerate(queries):
@@ -64,7 +69,7 @@ def process_queries(queries, queries_data, X, tsv_file, vectorizer,  lr=None, ap
                 query_vec = sparse.hstack(
                     [query_vec, sparse.csr_matrix(embedding)], format="csr")
 
-        scores = cosine_similarity(X, query_vec)
+        scores = cosine_similarity(corpus_embeddings, query_vec)
         sorted_scores_indices = np.argsort(scores, axis=0)[::-1]
         top_10_scores_indices = sorted_scores_indices[:10]
         # Flatten the list
@@ -223,6 +228,10 @@ if __name__ == "__main__":
 
     # Load embeddings for corpus and queries
     print('loading queries and corpus embeddings...')
+
+    # these are both lists (len 6980 and 7433)
+    # each element of list is dict with two keys, e.g. {'corpus_id': 3863, 'embedding': [0, 1, ..., 0, 1]}
+    # embedding is list of length 333
     queries_embeddings = load_json_file(query_embedding_filename)
     corpus_embeddings = load_json_file(corpus_embedding_filename)
 
@@ -245,7 +254,6 @@ if __name__ == "__main__":
 
     # Transform the corpus using the fitted vectorizer
     corpus_vectors = vectorizer.transform(corpus)
-
     embeddings_dict = {item["corpus_id"]: np.array(
         item["embedding"]) for item in corpus_embeddings}
 
