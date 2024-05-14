@@ -37,7 +37,7 @@ def hash_data(data):
     return hashlib.md5(json.dumps(data, sort_keys=True).encode('utf-8')).hexdigest()
 
 
-def compute_query_embeddings(queries, vectorizer, lr=None, append_coeff=None, indices=None, embeddings=None, use_only_query_embeddings=False):
+def compute_query_embeddings(queries, queries_data, vectorizer, lr=None, append_coeff=None, indices=None, embeddings=None, use_only_query_embeddings=False):
     query_ids = [qd["query_id"] for qd in queries_data]
 
     if use_only_query_embeddings and embeddings is not None:
@@ -152,7 +152,7 @@ def greedy_search(queries, queries_embeddings, queries_data_train, tsv_file, cor
             embeddings_sparse_matrix = sparse.vstack(sparse_embeddings)
             X = sparse.hstack(
                 [corpus_vectors, embeddings_sparse_matrix], format="csr")
-            query_vectors = compute_query_embeddings(queries, vectorizer, lr=lr, append_coeff=append_coeff, indices=indices_append, embeddings=queries_embeddings_train, use_only_query_embeddings=False)
+            query_vectors = compute_query_embeddings(queries, queries_data_train, vectorizer, lr=lr, append_coeff=append_coeff, indices=indices_append, embeddings=queries_embeddings_train, use_only_query_embeddings=False)
             correct_matches_with_embeddings, query_results_with_embeddings = compute_score(query_vectors, queries_data_train, X, tsv_file)
             correct_matches_percentage_with_embeddings = calculate_percentage(
                 correct_matches_with_embeddings, len(queries))
@@ -177,7 +177,7 @@ def greedy_search(queries, queries_embeddings, queries_data_train, tsv_file, cor
                 embeddings_sparse_matrix = sparse.vstack(sparse_embeddings)
                 X = sparse.hstack(
                     [corpus_vectors, embeddings_sparse_matrix], format="csr")
-                query_vectors = compute_query_embeddings(queries, vectorizer, lr=lr, append_coeff=append_coeff, indices=indices_append, embeddings=queries_embeddings_train, use_only_query_embeddings=False)
+                query_vectors = compute_query_embeddings(queries, queries_data_train, vectorizer, lr=lr, append_coeff=append_coeff, indices=indices_append, embeddings=queries_embeddings_train, use_only_query_embeddings=False)
                 correct_matches_with_embeddings, query_results_with_embeddings = compute_score(query_vectors, queries_data_train, X, tsv_file)
                 correct_matches_percentage_with_embeddings = calculate_percentage(
                     correct_matches_with_embeddings, len(queries))
@@ -248,9 +248,9 @@ if __name__ == "__main__":
 
     percentage_results = {}
 
-    query_vectors = compute_query_embeddings(queries, vectorizer, use_only_query_embeddings=False)
 
     print("Without Embeddings:")
+    query_vectors = compute_query_embeddings(queries, queries_data, vectorizer, use_only_query_embeddings=False)
     correct_matches_without_embeddings, query_results_without_embeddings = compute_score(query_vectors, queries_data, corpus_vectors, tsv_file)
     correct_matches_percentage_without_embeddings = calculate_percentage(
         correct_matches_without_embeddings, len(queries))
