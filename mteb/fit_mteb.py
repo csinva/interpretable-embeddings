@@ -12,7 +12,7 @@ import os
 import os.path
 from os.path import join, expanduser
 
-REPO_PATH = expanduser("~/mnt_qa/instructor")
+REPO_PATH = expanduser("~/Desktop/instructor")
 BASE_PATH = join(REPO_PATH, 'scripts', 'encode')
 
 
@@ -37,70 +37,54 @@ def hash_data(data):
     return hashlib.md5(json.dumps(data, sort_keys=True).encode('utf-8')).hexdigest()
 
 
-def process_queries(
-        queries, queries_data, corpus_embeddings, tsv_file, vectorizer,
-        lr=None, append_coeff=None, indices=None, embeddings=None, use_only_query_embeddings=False):
+def compute_query_embeddings(queries, vectorizer, lr=None, append_coeff=None, indices=None, embeddings=None, use_only_query_embeddings=False):
+    query_ids = [qd["query_id"] for qd in queries_data]
+
+    if use_only_query_embeddings and embeddings is not None:
+        embeddings_dict = {emb["query_id"]: emb["embedding"] for emb in embeddings}
+        embeddings_matrix = [embeddings_dict[qid] for qid in query_ids]
+        if indices is not None:
+            embeddings_matrix = [[emb[i] for i in indices] for emb in embeddings_matrix]
+        query_embeddings = sparse.csr_matrix(embeddings_matrix).astype(np.float64)
+        query_embeddings = normalize(query_embeddings, axis=1)
+    else:
+        query_embeddings = vectorizer.transform(queries)
+        if embeddings is not None:
+            embeddings_dict = {emb["query_id"]: emb["embedding"] for emb in embeddings}
+            embeddings_matrix = [embeddings_dict[qid] for qid in query_ids]
+            if indices is not None:
+                embeddings_matrix = [[emb[i] * append_coeff[i] * lr for i in indices] for emb in embeddings_matrix]
+            embeddings_matrix = sparse.csr_matrix(embeddings_matrix).astype(np.float64)
+            query_embeddings = sparse.hstack([query_embeddings, embeddings_matrix], format="csr")
+    
+    return query_embeddings
+
+
+def compute_score(query_embeddings, queries_data, corpus_embeddings, tsv_file):
     '''Compute cosine similarity
 
     '''
+    scores = cosine_similarity(corpus_embeddings, query_embeddings)
+    sorted_scores_indices = np.argsort(-scores, axis=0)
+    top_10_scores_indices = sorted_scores_indices[:10, :]
+    top_10_scores = scores[top_10_scores_indices, np.arange(scores.shape[1])]
+    top_10_corpus_ids = np.array([corpus_data[idx]["corpus_id"] for idx in top_10_scores_indices.flatten()]).reshape(top_10_scores_indices.shape)
+
+    max_score_indices = np.argmax(scores, axis=0)
+    max_score_corpus_ids = [corpus_data[idx]["corpus_id"] for idx in max_score_indices]
+
     correct_matches = 0
     query_results = {}
-    for i, query in enumerate(queries):
-        if use_only_query_embeddings and embeddings is not None:
-            query_id = queries_data[i]["query_id"]
-            embedding = next(
-                item for item in embeddings if item["query_id"] == query_id
-            )["embedding"]
-            if indices is not None:
-                embedding = [embedding[i] for i in indices]
-            query_vec = sparse.csr_matrix(embedding).astype(np.float64)
-            query_vec = normalize(query_vec, axis=1)
-        else:
-            query_vec = vectorizer.transform([query])
-            if embeddings is not None:
-                query_id = queries_data[i]["query_id"]
-                embedding = next(
-                    item for item in embeddings if item["query_id"] == query_id
-                )["embedding"]
-                if indices is not None:
-                    embedding = [embedding[i] *
-                                 append_coeff[i]*lr for i in indices]
-                embedding = np.array(embedding).astype(np.float64)
-                query_vec = sparse.hstack(
-                    [query_vec, sparse.csr_matrix(embedding)], format="csr")
-
-        scores = cosine_similarity(corpus_embeddings, query_vec)
-        sorted_scores_indices = np.argsort(scores, axis=0)[::-1]
-        top_10_scores_indices = sorted_scores_indices[:10]
-        # Flatten the list
-        top_10_scores = [score[0][0]
-                         for score in scores[top_10_scores_indices].tolist()]
-        top_10_corpus_ids = [corpus_data[idx]["corpus_id"]
-                             for idx in top_10_scores_indices.flatten()]
-        max_score_index = np.argmax(scores)
-        max_score_corpus_id = corpus_data[max_score_index]["corpus_id"]
-        query_id = queries_data[i]["query_id"]
-        correct_corpus_ids = tsv_file[
-            (tsv_file["query-id"] == query_id)
-        ]["corpus-id"].tolist()
-        if max_score_corpus_id not in correct_corpus_ids:
-            correct_ids_str = ", ".join(map(str, correct_corpus_ids))
-            correct_scores = []
-            for cid in correct_corpus_ids:
-                for item in corpus_data:
-                    if item["corpus_id"] == cid:
-                        idx = next((i for i, item in enumerate(
-                            corpus_data) if item["corpus_id"] == cid), None)
-                        correct_scores.append(scores[idx])
-                        break
-            correct_scores_str = ", ".join(map(str, correct_scores))
-        else:
+    for i, query_data in enumerate(queries_data):
+        query_id = query_data["query_id"]
+        correct_corpus_ids = tsv_file[tsv_file["query-id"] == query_id]["corpus-id"].tolist()
+        if i < len(max_score_corpus_ids) and max_score_corpus_ids[i] in correct_corpus_ids:
             correct_matches += 1
         query_results[query_id] = {
-            "top_10_scores": top_10_scores,
-            "top_10_corpus_ids": top_10_corpus_ids,
-            "max_score": scores[max_score_index][0],
-            "correct": max_score_corpus_id in correct_corpus_ids
+            "top_10_scores": top_10_scores[:, i].tolist() if i < top_10_scores.shape[1] else [],
+            "top_10_corpus_ids": top_10_corpus_ids[:, i].tolist() if i < top_10_corpus_ids.shape[1] else [],
+            "max_score": scores[max_score_indices[i], i] if i < len(max_score_indices) else None,
+            "correct": max_score_corpus_ids[i] in correct_corpus_ids if i < len(max_score_corpus_ids) else False
         }
     return correct_matches, query_results
 
@@ -147,7 +131,7 @@ def fit_vectorizer(fit_option, data_to_fit,
     return vectorizer, current_data_hash
 
 
-def greedy_search(queries_embeddings, queries_data_train, tsv_file, vectorizer, corpus_vectors, base_score):
+def greedy_search(queries, queries_embeddings, queries_data_train, tsv_file, corpus_vectors, base_score, vectorizer):
     embedding_len = len(queries_embeddings[0]["embedding"])
     candidate_indices = list(range(embedding_len))
     greedy_embeddings = []
@@ -168,8 +152,8 @@ def greedy_search(queries_embeddings, queries_data_train, tsv_file, vectorizer, 
             embeddings_sparse_matrix = sparse.vstack(sparse_embeddings)
             X = sparse.hstack(
                 [corpus_vectors, embeddings_sparse_matrix], format="csr")
-            correct_matches_with_embeddings, query_results_with_embeddings = process_queries(
-                queries, queries_data_train, X, tsv_file, vectorizer, lr=lr, append_coeff=append_coeff, indices=indices_append, embeddings=queries_embeddings_train, use_only_query_embeddings=False)
+            query_vectors = compute_query_embeddings(queries, vectorizer, lr=lr, append_coeff=append_coeff, indices=indices_append, embeddings=queries_embeddings_train, use_only_query_embeddings=False)
+            correct_matches_with_embeddings, query_results_with_embeddings = compute_score(query_vectors, queries_data_train, X, tsv_file)
             correct_matches_percentage_with_embeddings = calculate_percentage(
                 correct_matches_with_embeddings, len(queries))
             if correct_matches_percentage_with_embeddings > base_score:
@@ -193,8 +177,8 @@ def greedy_search(queries_embeddings, queries_data_train, tsv_file, vectorizer, 
                 embeddings_sparse_matrix = sparse.vstack(sparse_embeddings)
                 X = sparse.hstack(
                     [corpus_vectors, embeddings_sparse_matrix], format="csr")
-                correct_matches_with_embeddings, query_results_with_embeddings = process_queries(
-                    queries, queries_data_train, X, tsv_file, vectorizer, lr=lr, append_coeff=append_coeff, indices=indices_append, embeddings=queries_embeddings_train, use_only_query_embeddings=False)
+                query_vectors = compute_query_embeddings(queries, vectorizer, lr=lr, append_coeff=append_coeff, indices=indices_append, embeddings=queries_embeddings_train, use_only_query_embeddings=False)
+                correct_matches_with_embeddings, query_results_with_embeddings = compute_score(query_vectors, queries_data_train, X, tsv_file)
                 correct_matches_percentage_with_embeddings = calculate_percentage(
                     correct_matches_with_embeddings, len(queries))
                 if correct_matches_percentage_with_embeddings > base_score:
@@ -214,7 +198,7 @@ if __name__ == "__main__":
     corpus_embedding_filename = join(
         BASE_PATH, "filtered_embeddings_dev_out_corpus.json")
     query_filename = join(
-        BASE_PATH, "runs/mixtral-dev-all/sample_dev_queries_all_beir.json")
+        BASE_PATH, "./runs/mixtral-dev-all/sample_dev_queries_all_beir.json")
     corpus_filename = join(
         BASE_PATH, "./runs/mixtral-dev-all/sample_dev_corpus_all_beir.json")
     tsv_filename = join(
@@ -235,18 +219,19 @@ if __name__ == "__main__":
     queries_embeddings = load_json_file(query_embedding_filename)
     corpus_embeddings = load_json_file(corpus_embedding_filename)
 
+    queries_data = load_json_file(query_filename, limit_query)
+    corpus_data = load_json_file(corpus_filename, limit_corpus)
+
     # Split the query embeddings into train and test sets
     queries_embeddings_train, queries_embeddings_test = train_test_split(
         queries_embeddings, test_size=0.2)
 
-    # Load queries from json file
-    queries_data = load_json_file(query_filename, limit_query)
+    # Split the query embeddings into train and test sets
     queries_data_train, queries_data_test = train_test_split(
         queries_data, test_size=0.2)
+    
     queries = [item["query"] for item in queries_data_train]
 
-    # Load corpus from json file
-    corpus_data = load_json_file(corpus_filename, limit_corpus)
     corpus = [item["corpus"] for item in corpus_data]
 
     data_to_fit = prepare_data_to_fit(fit_option, corpus, queries)
@@ -257,15 +242,16 @@ if __name__ == "__main__":
     embeddings_dict = {item["corpus_id"]: np.array(
         item["embedding"]) for item in corpus_embeddings}
 
+    # Load the TSV file into a DataFrame and remove the last column (score). The header of the file is: query-id corpus-id   score
     tsv_file = pd.read_csv(tsv_filename, sep="\t", header=0)
     tsv_file = tsv_file.drop(tsv_file.columns[-1], axis=1)
 
     percentage_results = {}
 
+    query_vectors = compute_query_embeddings(queries, vectorizer, use_only_query_embeddings=False)
+
     print("Without Embeddings:")
-    X = corpus_vectors
-    correct_matches_without_embeddings, query_results_without_embeddings = process_queries(
-        queries, queries_data, X, tsv_file, vectorizer, use_only_query_embeddings=False)
+    correct_matches_without_embeddings, query_results_without_embeddings = compute_score(query_vectors, queries_data, corpus_vectors, tsv_file)
     correct_matches_percentage_without_embeddings = calculate_percentage(
         correct_matches_without_embeddings, len(queries))
     print(
@@ -275,6 +261,6 @@ if __name__ == "__main__":
     print("With Greedy Embeddings:")
     base_score = correct_matches_percentage_without_embeddings
     greedy_embeddings, base_score = greedy_search(
-        queries_embeddings, queries_data_train, tsv_file, vectorizer, corpus_vectors, base_score)
+        queries, queries_embeddings, queries_data_train, tsv_file, corpus_vectors, base_score, vectorizer)
     percentage_results["With Greedy Embeddings"] = base_score
     print(greedy_embeddings, base_score)
