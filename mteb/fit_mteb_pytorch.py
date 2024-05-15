@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.metrics.pairwise import cosine_similarity, euclidean_distances
 from sklearn.preprocessing import normalize
 from sklearn.model_selection import train_test_split
 import json
@@ -28,6 +28,7 @@ def evaluate_retrieval(embs_queries, embs_corpus, labels, corpus_ids):
     embs: nsamples x nfeatures
     '''
     similarities = cosine_similarity(embs_queries, embs_corpus)
+    # similarities = -1 * euclidean_distances(embs_queries, embs_corpus)
     ranks_list = []
     for row, label in zip(similarities, labels):
         idxs_sorted = np.isin(corpus_ids[np.argsort(row)[::-1]], label)
@@ -107,42 +108,3 @@ class MiniMarcoDataset(Dataset):
 
     def __getitem__(self, query_id: str):
         return self.embs_qa_queries_df.loc[query_id].values, self.embs_tfidf_queries_df.loc[query_id].values, self.labels_df.loc[query_id].values
-
-
-class LinearMapping(nn.Module):
-    def __init__(self, in_features, out_features):
-        super(LinearMapping, self).__init__()
-        self.linear = nn.Linear(in_features, out_features)
-        self.linear.weight.data = torch.eye(in_features, out_features)
-        # intialize to very small
-        # self.linear.weight.data = 0.01 * torch.randn(in_features, out_features)
-
-    def forward(self, x):
-        return self.linear(x)
-
-
-if __name__ == "__main__":
-
-    batch_size = 10
-
-    # Load embeddings for corpus and queries
-    dset = MiniMarcoDataset()
-    query_ids_train, query_ids_test = train_test_split(
-        dset.query_ids, random_state=1, test_size=0.2)
-
-    for i in range(0, len(query_ids_train), batch_size):
-        # all embs should be nsamples x nfeatures
-        embs_qa, embs_tfidf, labels = dset[query_ids_train[i:i+batch_size]]
-
-        # compute cosine similarity between query and corpus embeddings
-        print('shapes', embs_tfidf.shape, dset.embs_tfidf_corpus_df.values.shape)
-        similarities = cosine_similarity(
-            embs_tfidf, dset.embs_tfidf_corpus_df.values)
-
-        # check rank of correct labels
-        # first argsort each row of similarities
-        # then, for each row, find the rank of the correct labels
-        # finally, average over all rows
-        ranks = np.array([np.where(np.argsort(row) == label)
-                          for row, label in zip(similarities, labels)])
-        print(ranks)
