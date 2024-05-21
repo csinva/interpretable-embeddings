@@ -422,3 +422,4 @@ if __name__ == '__main__':
     print(df['label'].head())
     for i in range(10):
         print(df[df['label'] == 1][['input', 'label']].iloc[i]['input'])
+    breakpoint()

@@ -1,0 +1,16 @@
+,0
+0,task
+1,idx
+2,true_label
+3,pred_label
+4,answer
+5,model
+6,"['d3_5_evacuate', 1707, 1, 1, 'yes', 'meta']"
+7,"['d3_5_evacuate', 1707, 1, 1, 'yes', 'openai']"
+8,"['d3_5_evacuate', 1707, 1, 1, 'yes', 'mistral']"
+9,"['d3_5_evacuate', 66, 1, 1, 'yes', 'openai']"
+10,"['d3_5_evacuate', 66, 1, 1, 'yes', 'meta']"
+11,"['d3_5_evacuate', 66, 1, 1, 'yes', 'mistral']"
+12,"['d3_5_evacuate', 734, 1, 1, 'yes', 'mistral']"
+13,"['d3_5_evacuate', 734, 1, 1, 'yes', 'meta']"
+14,"['d3_5_evacuate', 734, 1, 1, 'yes', 'openai']"
