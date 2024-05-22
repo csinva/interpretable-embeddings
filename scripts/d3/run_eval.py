@@ -5,9 +5,32 @@ import random
 import requests
 import time
 
+from openai import OpenAI
 import pandas as pd
 
 from d3 import TASKS_D3
+
+
+def ask_gpt4(s: str) -> str:
+    api_key = os.getenv("OPENAI_API_KEY")  # need to fill this in
+    client = OpenAI(
+        api_key=api_key
+    )
+
+    response = client.chat.completions.create(  # replace this value with the deployment name you chose when you deployed the associated model.
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": s}
+        ],
+        temperature=0,
+        max_tokens=1,
+        top_p=0.95,
+        frequency_penalty=0,
+        presence_penalty=0,
+        stop=None
+    )
+    return response.choices[0].message.content
 
 
 def ask_llms(s: str) -> str:
@@ -54,12 +77,22 @@ def main(args):
     print(args.task)
     print(df['label'].value_counts())
     
-    question_template = (
+    raw_question_template = (
         'Question: ' + 
         task_data['template'] + 
         task_data['target_token'] + 
         '. Yes or No? Answer:'
     )
+
+    few_shot_datapoints = [
+        ex for _, ex in df.sample(n=args.n_few_shot).iterrows()
+    ]
+    few_shot_examples = [
+        raw_question_template.format(input=ex['input'])
+        + { 1: ' Yes', 0: ' No' }[ex['label']]
+        for ex in few_shot_datapoints
+    ]
+    question_template = '\n'.join(few_shot_examples + [raw_question_template])
 
     idxs = random.choices(range(len(df)), k=args.n)
     for idx in idxs:
@@ -67,16 +100,17 @@ def main(args):
         print(idx, ex['label'])
         text_input = ex['input'].strip()
         question = question_template.format(input=text_input)
-        try:
-            answers_raw = ask_llms(question)
-            for model, answer_raw in answers_raw.items():
-                answer = answer_raw.strip().replace(',','').replace('.','').lower()
-                true_label = ex['label']
-                pred_label = { 'yes': 1, 'no': 0 }.get(answer, 0)
-                data.append([args.task, idx, true_label, pred_label, answer, model])
-        except Exception as e:
-            print("Exception =>", e)
-            continue
+        # try:
+        answers_raw = ask_llms(question)
+        answers_raw['gpt4'] = ask_gpt4(question)
+        for model, answer_raw in answers_raw.items():
+            answer = answer_raw.strip().replace(',','').replace('.','').lower()
+            true_label = ex['label']
+            pred_label = { 'yes': 1, 'no': 0 }.get(answer, 0)
+            data.append([args.task, idx, true_label, pred_label, answer, model])
+        # except Exception as e:
+        #     print("Exception =>", e)
+        #     continue
 
     df = pd.DataFrame(data)
     df.to_csv(csv_path)
@@ -91,7 +125,12 @@ def parse_args() -> argparse.ArgumentParser:
     parser.add_argument(
         '--n',
         type=int,
-        default=100,
+        default=20,
+    )
+    parser.add_argument(
+        '--n_few_shot',
+        type=int,
+        default=5,
     )
     # parser.add_argument(
     #     '--model',
