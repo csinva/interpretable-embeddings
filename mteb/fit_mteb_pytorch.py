@@ -13,8 +13,9 @@ from torch.utils.data import Dataset
 
 
 # REPO_PATH = expanduser("~/Desktop/instructor")
-REPO_PATH = expanduser("~/mnt_qa/instructor")
-BASE_PATH = join(REPO_PATH, 'scripts', 'encode')
+# REPO_PATH = expanduser("~/mnt_qa/instructor")
+# BASE_PATH = join(REPO_PATH, 'scripts', 'encode')
+BASE_PATH = expanduser('~/interpretable-embeddings/data')
 
 
 def _load_json_file(file_path):
@@ -33,6 +34,10 @@ def evaluate_retrieval(embs_queries, embs_corpus, labels, corpus_ids):
     for row, label in zip(similarities, labels):
         idxs_sorted = np.isin(corpus_ids[np.argsort(row)[::-1]], label)
         ranks = np.arange(len(idxs_sorted))[idxs_sorted]
+
+        # if len(ranks) == 0:
+        #     ranks_list.append(len(corpus_ids))
+        # else:
         ranks_list.append(1 + min(ranks))
     ranks_list = np.array(ranks_list)
     mrr = np.mean(1 / ranks_list)
@@ -42,16 +47,26 @@ def evaluate_retrieval(embs_queries, embs_corpus, labels, corpus_ids):
 
 class MiniMarcoDataset(Dataset):
     def __init__(self):
+        # query_embedding_filename = join(
+        #     BASE_PATH, "filtered_embeddings_dev_out_queries.json")
+        # corpus_embedding_filename = join(
+        #     BASE_PATH, "filtered_embeddings_dev_out_corpus.json")
+        # query_filename = join(
+        #     BASE_PATH, "runs/mixtral-dev-all/sample_dev_queries_all_beir.json")
+        # corpus_filename = join(
+        #     BASE_PATH, "runs/mixtral-dev-all/sample_dev_corpus_all_beir.json")
+        # labels_filename = join(
+        #     REPO_PATH, "questions/msmarco/msmarco-dataset/qrels/dev.tsv")
         query_embedding_filename = join(
-            BASE_PATH, "filtered_embeddings_dev_out_queries.json")
+            BASE_PATH, "queries_embeddings.json")
         corpus_embedding_filename = join(
-            BASE_PATH, "filtered_embeddings_dev_out_corpus.json")
+            BASE_PATH, "corpus_embeddings.json")
         query_filename = join(
-            BASE_PATH, "runs/mixtral-dev-all/sample_dev_queries_all_beir.json")
+            BASE_PATH, "filtered_queries.json")
         corpus_filename = join(
-            BASE_PATH, "runs/mixtral-dev-all/sample_dev_corpus_all_beir.json")
+            BASE_PATH, "filtered_corpus.json")
         labels_filename = join(
-            REPO_PATH, "questions/msmarco/msmarco-dataset/qrels/dev.tsv")
+            BASE_PATH, "dev.tsv")
 
         # queries_df: 6980 rows, each value is an embedding, index is query_id
         # corpus_df: 7433 rows, each value is an embeddingm index is corpus_id
@@ -91,11 +106,20 @@ class MiniMarcoDataset(Dataset):
         # check if all query_ids match
         self.query_ids = self.embs_qa_queries_df.index.unique()
         self.corpus_ids = self.embs_qa_corpus_df.index.unique()
-        assert set(self.query_ids) == set(self.labels_df.index)
-        assert set(self.query_ids) == set(self.embs_tfidf_queries_df.index)
-        assert set(self.corpus_ids) == set(self.embs_tfidf_corpus_df.index)
-        assert set(self.corpus_ids) == set(
-            np.concatenate(self.labels_df.values))
+
+        # remove anything where there isn't a valid corpus id
+        self.labels_df = self.labels_df.apply(
+            lambda l: [x for x in l if x in self.corpus_ids])
+        self.query_ids = [k for k in self.query_ids if len(
+            self.labels_df.loc[k]) > 0]
+
+        for k in set(self.query_ids):
+            assert k in self.labels_df.index
+
+        # assert set(self.query_ids) == set(self.embs_tfidf_queries_df.index)
+        # assert set(self.corpus_ids) == set(self.embs_tfidf_corpus_df.index)
+        # assert set(self.corpus_ids) == set(
+        #     np.concatenate(self.labels_df.values))
 
     def __len__(self):
         return len(self.df)
