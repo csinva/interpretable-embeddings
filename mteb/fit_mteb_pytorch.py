@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity, euclidean_distances
 from sklearn.preprocessing import normalize
 from sklearn.model_selection import train_test_split
@@ -42,7 +42,14 @@ def evaluate_retrieval(embs_queries, embs_corpus, labels, corpus_ids):
     ranks_list = np.array(ranks_list)
     mrr = np.mean(1 / ranks_list)
     top1_frac = np.mean(ranks_list == 1)
-    return mrr, top1_frac
+    top3_frac = np.mean(ranks_list <= 3)
+
+    # stds
+    mrr_sem = np.std(1 / ranks_list) / np.sqrt(len(ranks_list))
+    top1_frac_sem = np.std(ranks_list == 1) / np.sqrt(len(ranks_list))
+    top3_frac_sem = np.std(ranks_list <= 3) / np.sqrt(len(ranks_list))
+
+    return mrr, top1_frac, top3_frac, mrr_sem, top1_frac_sem, top3_frac_sem
 
 
 class MiniMarcoDataset(Dataset):
@@ -90,6 +97,7 @@ class MiniMarcoDataset(Dataset):
         texts_full = queries_text_df['query'].tolist(
         ) + corpus_text_df['corpus'].tolist()
         vectorizer = TfidfVectorizer().fit(texts_full)
+        # vectorizer = CountVectorizer(ngram_range=(1, 3)).fit(texts_full)
         self.embs_tfidf_queries_df = pd.DataFrame(
             vectorizer.transform(queries_text_df['query']).toarray(),
             index=queries_text_df['query_id'])
@@ -122,7 +130,7 @@ class MiniMarcoDataset(Dataset):
         #     np.concatenate(self.labels_df.values))
 
     def __len__(self):
-        return len(self.df)
+        return len(self.query_ids)
 
     def get_random_neg_corpus_id(self, query_id: str):
         corpus_id_random = np.random.choice(self.corpus_ids)
