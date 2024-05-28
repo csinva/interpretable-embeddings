@@ -1,5 +1,5 @@
 <h1 align="center"> ❓ Question-Answering Embeddings ❓ </h1>
-<p align="center"> Crafting Interpretable Embeddings by Asking LLMs Questions, code for the <a href="">QA-Emb paper</a> (coming soon). 
+<p align="center"> Crafting Interpretable Embeddings by Asking LLMs Questions, code for the <a href="https://arxiv.org/abs/2405.16714">QA-Emb paper</a>. 
 </p>
 
 <p align="center">
@@ -75,4 +75,16 @@ Directions for installing the code here as a package for full development.
 - from the repo directory, start with `pip install -e .` to locally install the `neuro1` package
 - `python 01_fit_encoding.py --subject UTS03 --feature eng1000`
     - The other optional parameters that encoding.py takes such as sessions, ndelays, single_alpha allow the user to change the amount of data and regularization aspects of the linear regression used. 
-    - This function will then save model performance metrics and model weights as numpy arrays. 
+    - This function will then save model performance metrics and model weights as numpy arrays.
+
+ # Citation
+```r
+@misc{benara2024crafting,
+      title={Crafting Interpretable Embeddings by Asking LLMs Questions}, 
+      author={Vinamra Benara and Chandan Singh and John X. Morris and Richard Antonello and Ion Stoica and Alexander G. Huth and Jianfeng Gao},
+      year={2024},
+      eprint={2405.16714},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+```
